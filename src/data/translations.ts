@@ -1,660 +1,727 @@
-export const translations = {
-  en: {
+export interface Translations {
+  nav: {
+    about: string;
+    curriculum: string;
+    features: string;
+    verbs: string;
+    exam: string;
+    testimonials: string;
+    faq: string;
+    startLearning: string;
+    switchLang: string;
+  };
+  hero: {
+    badge: string;
+    headlineStart: string;
+    headlineGradient: string;
+    headlineEnd: string;
+    subheadline: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    stats: {
+      units: string;
+      unitsLabel: string;
+      questions: string;
+      questionsLabel: string;
+      verbs: string;
+      verbsLabel: string;
+      guarantee: string;
+      guaranteeLabel: string;
+    };
+  };
+  problem: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    items: {
+      title: string;
+      desc: string;
+      tag: string;
+    }[];
+  };
+  solution: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    pillars: {
+      title: string;
+      desc: string;
+      highlight: string;
+    }[];
+  };
+  curriculum: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    stages: {
+      stage: number;
+      name: string;
+      range: string;
+      desc: string;
+      unitsSample: string[];
+    }[];
+  };
+  verbStudio: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    flashcardTitle: string;
+    flipHint: string;
+    listenPronunciation: string;
+    nextVerb: string;
+    prevVerb: string;
+    quizTitle: string;
+  };
+  examEngine: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    features: {
+      title: string;
+      desc: string;
+    }[];
+  };
+  workflow: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    steps: {
+      number: string;
+      title: string;
+      desc: string;
+    }[];
+  };
+  testimonials: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    items: {
+      quote: string;
+      author: string;
+      role: string;
+      result: string;
+    }[];
+  };
+  faq: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    items: {
+      question: string;
+      answer: string;
+    }[];
+  };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    button: string;
+    guarantee: string;
+  };
+  footer: {
+    brandDesc: string;
+    linksTitle: string;
+    curriculumTitle: string;
+    contactTitle: string;
+    copyright: string;
+  };
+}
+
+export const translations: Record<"vi" | "en", Translations> = {
+  vi: {
     nav: {
-      about: "About",
-      services: "Services",
-      tool: "SMOB Add-in",
-      dynamo: "Dynamo",
-      portfolio: "Portfolio",
-      reviews: "Reviews",
-      workflow: "Workflow",
-      faq: "FAQ",
-      contact: "Contact",
-      cta: "Book a Free BIM Audit",
+      about: "Phương Pháp",
+      curriculum: "Lộ Trình 48 Ngày",
+      features: "Tính Năng",
+      verbs: "Động Từ Bất Quy Tắc",
+      exam: "Bộ Đề Thi",
+      testimonials: "Học Viên",
+      faq: "Hỏi Đáp",
+      startLearning: "Vào Phòng Học Ngay",
+      switchLang: "English",
     },
     hero: {
-      headline: "Automate Revit\nDeliver BIM Work Faster",
+      badge: "KHÓA HỌC 48 NGÀY LẤY LẠI GỐC TIẾNG ANH TOÀN DIỆN",
+      headlineStart: "Bứt Phá Tiếng Anh Trong",
+      headlineGradient: "48 Ngày Thực Chiến",
+      headlineEnd: "Chuẩn Quốc Tế",
       subheadline:
-        "SMOB helps BIM teams, architects, engineers, and contractors reduce repetitive Revit work by 70%–90% with practical automation tools, Dynamo workflows, and custom Revit API solutions.",
-      ctaPrimary: "Book a Free BIM Audit",
-      ctaSecondary: "View Portfolio",
-      badges: [
-        "Revit Automation",
-        "Dynamo Scripts",
-        "Revit API Tools",
-        "BIM Modeling",
-        "Parametric Families",
-      ],
-      quickProof: "Trusted by AEC Professionals & BIM Teams",
+        "Nền tảng học trực tuyến tự động hóa thông minh: 48 Video bài giảng, Lý thuyết phân tích cấu trúc, 2.000+ câu trắc nghiệm có giải thích chi tiết từng đáp án và Flashcards 398+ động từ bất quy tắc kèm Audio phát âm bản xứ.",
+      ctaPrimary: "Bắt Đầu Học Ngay (Miễn Phí)",
+      ctaSecondary: "Khám Phá Lộ Trình 48 Units",
+      stats: {
+        units: "48",
+        unitsLabel: "Units Bài Học Từng Ngày",
+        questions: "2.000+",
+        questionsLabel: "Câu Trắc Nghiệm Có Giải Thích",
+        verbs: "398+",
+        verbsLabel: "Động Từ Bất Quy Tắc Kèm Audio",
+        guarantee: "100%",
+        guaranteeLabel: "Lấy Lại Nền Tảng Vững Chắc",
+      },
     },
     problem: {
-      tag: "THE REPETITIVE BOTTLENECK",
-      headline: "How Many Hours Did Your BIM Team Lose to Repetitive Revit Clicks This Week?",
-      subheadline:
-        "Most AEC firms spend up to 40% of their project budget on manual tasks that could be executed in seconds with proper automation.",
-      painPoints: [
+      badge: "RÀO CẢN THƯỜNG GẶP",
+      title: "Tại Sao Bạn Học Mãi Vẫn Chưa Nắm Vững Tiếng Anh?",
+      subtitle:
+        "Hầu hết người mất gốc tiếng Anh đều gặp phải những vòng lặp bế tắc sau đây:",
+      items: [
         {
-          title: "Manual Renumbering & Renaming",
-          desc: "Manually pressing F2 or editing thousands of sheets, views, rooms, and elements one by one. Prone to typos, duplicates, and costly revision cycles.",
+          title: "Mất Gốc Không Biết Bắt Đầu Từ Đâu",
+          desc: "Kiến thức ngữ pháp rời rạc, không có lộ trình chia nhỏ theo từng ngày cụ thể khiến bạn dễ choáng ngợp.",
+          tag: "Thiếu Lộ Trình",
         },
         {
-          title: "Overlapping Geometry & Takeoff Errors",
-          desc: "Beams intersecting columns, floor slabs clashing with shear walls. Un-joined elements create inaccurate concrete and formwork takeoffs.",
+          title: "Học Vẹt Ngữ Pháp Không Ứng Dụng Được",
+          desc: "Chỉ đọc lý thuyết xuông mà không được làm bài tập trắc nghiệm phản xạ ngay lập tức.",
+          tag: "Học Thụ Động",
         },
         {
-          title: "Tedious View Filter & Sheet Setup",
-          desc: "Re-applying view filters across dozens of working drawings manually. Setting up duplicate views and matching viewport alignments.",
+          title: "Làm Sai Nhưng Không Biết Vì Sao Sai",
+          desc: "Đa số tài liệu chỉ cho đáp án A/B/C/D mà không có phần phân tích nguyên nhân ngữ pháp vì sao đúng/sai.",
+          tag: "Không Có Giải Thích",
         },
         {
-          title: "Scattered & Bloated Family Libraries",
-          desc: "Extracting reusable families from legacy models requires opening each .rfa individually, taking hours of repetitive clicking.",
+          title: "Hay Quên Động Từ Bất Quy Tắc Khi Chia Thì",
+          desc: "Gặp khó khăn khi tra cứu V1, V2, V3 và không biết phát âm chuẩn xác từng từ.",
+          tag: "Quên Động Từ",
         },
         {
-          title: "Manual Reference Dimensioning",
-          desc: "Placing thousands of elevation marks, column grid dimensions, and room tags across multiple sheets by hand.",
+          title: "Thiếu Công Cụ Tự Đánh Giá Tiến Độ",
+          desc: "Không biết mình đã nắm được bao nhiêu %, điểm yếu ở Unit nào để ôn luyện lại kịp thời.",
+          tag: "Mất Kiểm Soát",
         },
         {
-          title: "Broken 2-Way Spreadsheet Sync",
-          desc: "Copy-pasting schedule parameters back and forth between Excel calculations and Revit parameters with constant sync errors.",
-        },
-      ],
-    },
-    about: {
-      tag: "WHO WE ARE & OUR MISSION",
-      headline: "Engineering Practical BIM Workflows That Actually Work on Live Projects",
-      lead: "SMOB bridges the gap between hands-on BIM production and computational software engineering to eliminate project bottlenecks.",
-      p1: "We are not theoretical consultants. We are experienced BIM practitioners and software developers who have built complex structural models, coordinated multi-discipline high-rise towers, and written hundreds of production automation tools.",
-      p2: "Every Dynamo script, data algorithm, and Revit Add-in module from SMOB is tested directly against heavy enterprise files. Our mission is simple: transform multi-hour repetitive manual tasks into instantaneous, reliable 1-click actions.",
-      bullets: [
-        "100% Geometry Auto-Join with priority logic",
-        "Coordinate-based automated renumbering",
-        "Batch rename with real-time live preview",
-        "Clean 1-Click Family library archiving",
-      ],
-      badgeTitle: "SMOB Automation Engine",
-      badgeDesc: "Revit API C# Native Kernel",
-      stat1Number: "70%–90%",
-      stat1Label: "Time Saved on Repetitive Modeling Tasks",
-      stat2Number: "100%",
-      stat2Label: "Model Consistency & BEP Parameter Compliance",
-      stat3Number: "< 3 Sec",
-      stat3Label: "Batch Execution Speed Across Elements",
-    },
-    trust: {
-      tag: "MEASURABLE PRODUCTION IMPACT",
-      headline: "Proven Results Across Real Engineering Teams",
-      metrics: [
-        {
-          value: "70%",
-          label: "Modeling Time Reduced",
-          detail: "Automated geometry joining & grid generation directly from CAD",
-        },
-        {
-          value: "100%",
-          label: "Annotation Accuracy",
-          detail: "Eliminated manual numbering & coordinate errors across sheets",
-        },
-        {
-          value: "40+ Hrs",
-          label: "Saved per Project Submission",
-          detail: "Batch family archiving & view filter syncing across sheets",
-        },
-        {
-          value: "< 3s",
-          label: "Instant 1-Click Execution",
-          detail: "High-performance native C# / Revit API tools",
+          title: "Nản Chí Bỏ Cuộc Giữa Chừng",
+          desc: "Không có hệ thống quản lý học tập khoa học nhắc nhở mục tiêu hoàn thành mỗi ngày.",
+          tag: "Thiếu Động Lực",
         },
       ],
     },
-    roi: {
-      tag: "AUTOMATION VALUE ESTIMATOR",
-      headline: "Calculate Your BIM Team's Monthly Savings",
-      subheadline:
-        "See how much time and budget your studio reclaims by automating repetitive Revit modeling routines.",
-      teamSizeLabel: "Number of BIM Modelers / Engineers",
-      hourlyRateLabel: "Average Hourly Labor Cost ($)",
-      hoursPerWeekLabel: "Hours Spent on Manual Clicks / Week per Person",
-      resultsTitle: "Your Estimated Monthly Reclaimed Value",
-      hoursSavedLabel: "Hours Saved / Month",
-      costSavedLabel: "Monthly Cost Savings",
-      annualizedLabel: "Annualized Productivity Gain",
-      cta: "Claim Your Productivity Gains Today",
+    solution: {
+      badge: "PHƯƠNG PHÁP SMOB ENGLISH LAB",
+      title: "Hệ Thống 4 Trụ Cột Đột Phá Giúp Bạn Làm Chủ Trong 48 Ngày",
+      subtitle:
+        "Phương pháp học tập khoa học được tích hợp hoàn chỉnh trong một nền tảng duy nhất:",
+      pillars: [
+        {
+          title: "1. Video Bài Giảng Trực Quan",
+          desc: "Mỗi Unit bắt đầu bằng video bài giảng súc tích, giải thích cốt lõi bản chất ngữ pháp dễ hiểu chỉ trong 15-20 phút.",
+          highlight: "Học Nhanh - Nhớ Lâu",
+        },
+        {
+          title: "2. Bản Đồ Lý Thuyết & Cấu Trúc Ngữ Pháp",
+          desc: "Bảng tóm tắt công thức chuẩn mực, ví dụ song ngữ Anh - Việt thực tế và các lưu ý tránh bẫy ngữ pháp.",
+          highlight: "Cấu Trúc Chuẩn Hóa",
+        },
+        {
+          title: "3. Bộ Máy Thi Trắc Nghiệm & Giải Thích Chi Tiết",
+          desc: "Luyện tập 20-50 câu trắc nghiệm mỗi Unit, tự động chấm điểm tức thì và hiển thị lời giải chi tiết từng phương án.",
+          highlight: "Chấm Điểm & Phân Tích",
+        },
+        {
+          title: "4. Flashcards 398+ Động Từ Kèm Audio TTS",
+          desc: "Luyện nhớ V1, V2, V3 với hiệu ứng lật thẻ 3D, âm thanh giọng đọc chuẩn bản xứ và chế độ kiểm tra Quizlet phản xạ.",
+          highlight: "Audio Bản Xứ Chuẩn",
+        },
+      ],
     },
-    services: {
-      tag: "CORE CAPABILITIES",
-      headline: "BIM Production & Computational Engineering Services",
-      subheadline:
-        "From full-scope architectural & structural modeling to bespoke Revit API add-ins and custom Dynamo scripts.",
-      viewDetails: "Explore Scope & Deliverables",
+    curriculum: {
+      badge: "LỘ TRÌNH 48 NGÀY TOÀN DIỆN",
+      title: "Hành Trình 48 Units Được Thiết Kế Khoa Học",
+      subtitle:
+        "Từ người mất gốc đến người tự tin sử dụng ngữ pháp và cấu trúc câu thành thạo:",
+      stages: [
+        {
+          stage: 1,
+          name: "Giai Đoạn 1: Nền Tảng Cốt Lõi (Unit 1 - 10)",
+          range: "Ngày 01 - 10",
+          desc: "Làm chủ động từ To Be, đại từ nhân xưng, tính từ sở hữu, câu hỏi Who/What/Where và cấu trúc câu cơ bản.",
+          unitsSample: [
+            "Unit 1: Thể khẳng định & phủ định với To Be",
+            "Unit 2: Thể nghi vấn của động từ To Be",
+            "Unit 3: Câu hỏi Who và What",
+            "Unit 4: Đại từ chỉ định This/That/These/Those",
+            "Unit 5: Danh từ số ít & Danh từ số nhiều",
+          ],
+        },
+        {
+          stage: 2,
+          name: "Giai Đoạn 2: Các Thì Cốt Lõi & Từ Loại (Unit 11 - 20)",
+          range: "Ngày 11 - 20",
+          desc: "Thì hiện tại đơn, hiện tại tiếp diễn, quá khứ đơn, tương lai đơn, giới từ chỉ thời gian & nơi chốn.",
+          unitsSample: [
+            "Unit 11: Thì hiện tại đơn với Động từ thường",
+            "Unit 12: Thể phủ định & nghi vấn thì hiện tại đơn",
+            "Unit 13: Thì hiện tại tiếp diễn",
+            "Unit 14: Phân biệt Hiện tại đơn vs Hiện tại tiếp diễn",
+            "Unit 15: Quá khứ đơn với To Be (Was/Were)",
+          ],
+        },
+        {
+          stage: 3,
+          name: "Giai Đoạn 3: Ngữ Pháp Chuyên Sâu & Mệnh Đề (Unit 21 - 35)",
+          range: "Ngày 21 - 35",
+          desc: "So sánh hơn & so sánh nhất, động từ khuyết thiếu (Can, Must, Should), câu điều kiện If, câu bị động cơ bản.",
+          unitsSample: [
+            "Unit 21: Tính từ và Trạng từ",
+            "Unit 22: So sánh hơn của Tính từ ngắn & dài",
+            "Unit 23: So sánh nhất & Cấu trúc đặc biệt",
+            "Unit 24: Động từ khuyết thiếu Can / Could / May",
+            "Unit 25: Câu điều kiện If loại 1 và loại 2",
+          ],
+        },
+        {
+          stage: 4,
+          name: "Giai Đoạn 4: Đột Phá Phản Xạ & Luyện Đề (Unit 36 - 48)",
+          range: "Ngày 36 - 48",
+          desc: "Câu bị động nâng cao, câu gián tiếp, mệnh đề quan hệ, bài thi tổng hợp đánh giá năng lực toàn diện.",
+          unitsSample: [
+            "Unit 36: Câu bị động các thì nâng cao",
+            "Unit 38: Mệnh đề quan hệ Who / Whom / Which / That",
+            "Unit 40: Câu tường thuật gián tiếp",
+            "Unit 45: Bài kiểm tra tổng hợp Comprehensive Mock Test",
+            "Unit 48: Tổng kết & Đột phá phản xạ giao tiếp",
+          ],
+        },
+      ],
     },
-    tool: {
-      tag: "PRODUCT SHOWCASE & PRICING",
-      headline: "SMOB Add-in: Revit Productivity Tools for a Lifetime Price",
-      subheadline:
-        "A suite of powerful automation tools engineered to eliminate everyday Revit pain points. One-time payment, lifetime access, zero monthly subscriptions.",
-      priceVnd: "149.000 VNĐ",
-      priceUsd: "$9 USD",
-      priceOriginalVnd: "499.000 VNĐ",
-      priceOriginalUsd: "$39 USD",
-      priceDiscount: "-77%",
-      priceTag: "Early-Bird Lifetime Access · Limited 50 Slots · Free Updates",
-      cta: "Get SMOB Add-in",
-      ctaSub: "Instant download · Compatible with Autodesk Revit",
-      modulesTitle: "Revit Productivity Tool Suite",
-      videoShowcase: {
-        tag: "LIVE WORKFLOW DEMOS",
-        headline: "Watch SMOB In Action: 1-Click Revit Automation",
-        subheadline:
-          "See real-world workflows in action. Watch how thousands of elements are joined, filtered, and documented in seconds without freezing.",
-        playlistTitle: "Official YouTube Playlist",
-        playlistBtn: "Watch Full Playlist on YouTube",
-        nowPlaying: "Now Playing",
-        clickToPlay: "Click to Play Demo",
-        episodesCount: "5 Video Episodes",
-        channelTitle: "SMOB BIM Automation Channel",
-        scheduledBadge: "Scheduled Premiere",
-        scheduledTitle: "Coming Soon on YouTube",
-        scheduledNotice: "This workflow demo is scheduled to premiere soon on YouTube. Subscribe or follow the playlist to be notified instantly when it goes live!",
-        subscribeBtn: "Follow on YouTube",
-      },
-      downloadTag: "AUTODESK REVIT® EXTENSION HUB",
-      downloadTitle: "Download SMOB Suite & Release Matrix",
-      downloadSub:
-        "Official enterprise build with direct zip archive installer, bundled uninstaller, and full compatibility across Revit 2020–2026.",
-      downloadZipBtn: "Download SMOB_Setup.zip",
-      downloadPackageNote: "All-in-One Package: Contains SMOB_Setup.exe & SMOB_Uninstall.exe",
-      zipSpecsNote: "Direct ZIP Archive · Extract & Run Setup",
-      revitSupportNote: "Ready for Revit 2020–2026",
-      quickInstallTitle: "Quick Installation & Browser Trust Guide",
-      quickInstallSub: "Autodesk Revit® 2020 – 2026 · Safe & Verified Setup",
-      cleanSafeBadge: "Clean & Safe",
-      step1Title: "Step 1 - Download & Extract:",
-      step1Desc1: "Download",
-      step1Desc2: "and extract it to your folder (includes SMOB_Setup.exe & SMOB_Uninstall.exe).",
-      step2Title: "Step 2 - SmartScreen Tip:",
-      step2Desc: "If your browser or Windows SmartScreen shows a \"Not commonly downloaded\" warning, simply click:",
-      step2MoreOptions: "... (More Options)",
-      step2Keep: "Keep",
-      step2KeepAnyway: "Keep anyway",
-      step2Or: "or",
-      step2MoreInfo: "More info",
-      step2RunAnyway: "Run anyway",
-      step3Title: "Step 3 - Run & Enjoy:",
-      step3Desc1: "Run",
-      step3Desc2: ", select your Autodesk Revit® versions (",
-      step3Desc3: "), and start automating.",
-      versionHistoryTitle: "Release Notes & Version Matrix",
-      sysReqTitle: "System Requirements & Specifications",
-      sysReqOs: "Operating System:",
-      sysReqRevit: "Autodesk Revit:",
-      sysReqRuntime: "Runtime:",
-      sysReqStorage: "Storage Footprint:",
+    verbStudio: {
+      badge: "BỘ CÔNG CỤ FLASHCARD ĐỘNG TỪ",
+      title: "Trải Nghiệm Luyện 398+ Động Từ Bất Quy Tắc Ngay Tại Đây",
+      subtitle:
+        "Bấm vào thẻ để lật xem V2/V3 và bấm biểu tượng loa để nghe phát âm tiếng Anh chuẩn:",
+      flashcardTitle: "Thẻ Học Động Từ Tương Tác",
+      flipHint: "Chạm hoặc click vào thẻ để lật mặt sau",
+      listenPronunciation: "Nghe Phát Âm Chuẩn",
+      nextVerb: "Động Từ Tiếp Theo",
+      prevVerb: "Động Từ Trước",
+      quizTitle: "Kiểm Tra Nhanh Phản Xạ",
     },
-    portfolio: {
-      tag: "SELECTED DELIVERABLES",
-      headline: "Real Production Projects & Real Deliverables",
-      subheadline:
-        "Every project below was delivered end-to-end from raw 2D drawings or custom engineering specifications with clean geometry and coordinated data.",
-      filterAll: "All Projects",
-      filterModeling: "BIM Modeling",
-      filterDocumentation: "Documentation Sets",
-      filterFamilies: "Parametric Families",
-      filterAutomation: "Dynamo & Automation",
-      viewProject: "View Project Details",
-      modalClose: "Close",
-      briefLabel: "The Brief",
-      deliverablesLabel: "What We Delivered",
-      keyResultsLabel: "Key Outcomes",
-      toolsLabel: "Software & Platforms",
-      servicesLabel: "Disciplines",
-    },
-    testimonials: {
-      tag: "CLIENT VOICES & TRUST",
-      headline: "Client Feedback",
-      subheadline:
-        "See what our clients say about us! We take pride in building strong professional relationships and providing reliable services.",
-      moreButton: "More",
-      lessButton: "Less",
+    examEngine: {
+      badge: "BỘ MÁY THI TRẮC NGHIỆM THÔNG MINH",
+      title: "Làm Đề Thi Thật — Có Đồng Hồ Bấm Giờ & Lời Giải Chi Tiết",
+      subtitle:
+        "Mỗi bài kiểm tra được thiết kế sát theo cấu trúc đề chuẩn quốc tế giúp bạn làm quen áp lực phòng thi:",
+      features: [
+        {
+          title: "Đồng Hồ Đếm Ngược Chuẩn Xác",
+          desc: "Tùy chọn thời gian 15, 30 hoặc 45 phút giúp rèn luyện tốc độ làm bài tối ưu.",
+        },
+        {
+          title: "Chấm Điểm Tự Động & Thống Kê Ngay",
+          desc: "Xem ngay số câu đúng/sai, % hoàn thành và bảng điểm tổng kết sau khi nộp bài.",
+        },
+        {
+          title: "Giải Thích Từng Phương Án",
+          desc: "Hệ thống hiển thị phân tích ngữ pháp vì sao phương án đó đúng, các phương án còn lại sai ở điểm nào.",
+        },
+        {
+          title: "Lưu Lịch Sử & Bookmark Câu Khó",
+          desc: "Đánh dấu các câu làm sai để ôn tập lại riêng biệt mà không mất thời gian tìm kiếm.",
+        },
+      ],
     },
     workflow: {
-      tag: "METHODOLOGY",
-      headline: "Structured 4-Step Delivery Process",
-      subheadline:
-        "How we take your raw drawings, complex parameters, or manual workflow challenges to high-precision completion.",
+      badge: "QUY TRÌNH HỌC TẬP MỖI NGÀY",
+      title: "Chỉ Cần 30-45 Phút Mỗi Ngày Theo 4 Bước Đơn Giản",
+      subtitle:
+        "Duy trì thói quen học tập đều đặn để đạt hiệu quả bứt phá sau 48 ngày:",
       steps: [
         {
-          num: "01",
-          title: "BIM Workflow Audit",
-          desc: "We analyze your current modeling bottlenecks, team conventions, project BEP standards, and target deliverables.",
-          outcome: "Clear automation scope & delivery roadmap",
+          number: "01",
+          title: "Xem Video Bài Giảng (15p)",
+          desc: "Mở Unit trong ngày, xem video bài giảng để nắm bắt ngữ cảnh và tư duy ngữ pháp.",
         },
         {
-          num: "02",
-          title: "Model & Data Review",
-          desc: "Rigorous review of input 2D drawings (PDF/DWG), parameter requirements, level datum, and coordination grids.",
-          outcome: "Risk-free alignment and zero geometric ambiguity",
+          number: "02",
+          title: "Đọc Bảng Tổng Hợp Lý Thuyết (10p)",
+          desc: "Đọc cấu trúc công thức, ghi nhớ các lưu ý quan trọng và ví dụ mẫu.",
         },
         {
-          num: "03",
-          title: "Production & Automation Coding",
-          desc: "Execution of 3D BIM modeling or programming of Dynamo scripts / C# Revit add-ins with built-in QA/QC safeguards.",
-          outcome: "High-performance code & clean models",
+          number: "03",
+          title: "Làm Trắc Nghiệm & Đọc Giải Thích (15p)",
+          desc: "Làm bài tập trắc nghiệm của Unit, nộp bài để xem điểm và phân tích đáp án.",
         },
         {
-          num: "04",
-          title: "QA/QC, Delivery & Handover",
-          desc: "Complete clash verification, schedule audit, thorough documentation, and hands-on operational training for your team.",
-          outcome: "Production-ready files & self-sufficient team",
+          number: "04",
+          title: "Ôn Flashcard & Luyện Nghe Audio (5p)",
+          desc: "Luyện 5-10 động từ bất quy tắc, bấm nghe phát âm để chuẩn hóa ngữ âm.",
+        },
+      ],
+    },
+    testimonials: {
+      badge: "KẾT QUẢ THỰC TẾ",
+      title: "Học Viên Đã Bứt Phá Như Thế Nào?",
+      subtitle: "Hàng ngàn học viên đã lấy lại gốc tiếng Anh tự tin sau 48 ngày:",
+      items: [
+        {
+          quote:
+            "Trước đây mình rất sợ ngữ pháp vì học đâu quên đó. Học theo lộ trình 48 ngày của SMOB English Lab, mỗi ngày 1 Unit rõ ràng và có bài tập giải thích cực kỳ chi tiết, mình đã tự tin vượt qua kỳ thi B1 dễ dàng!",
+          author: "Nguyễn Minh Tuấn",
+          role: "Sinh viên ĐH Bách Khoa",
+          result: "Đạt 650+ TOEIC từ mất gốc",
+        },
+        {
+          quote:
+            "Tính năng Flashcard 398+ động từ có audio phát âm và bài thi bấm giờ cực kỳ hữu ích. Mình làm trắc nghiệm mỗi tối trên điện thoại, giao diện tối mượt mà như Apple vậy!",
+          author: "Lê Hoàng Yến",
+          role: "Chuyên viên Marketing",
+          result: "Tự tin giao tiếp & viết Email",
+        },
+        {
+          quote:
+            "Giải thích đáp án là tính năng đắt giá nhất. Mình làm sai câu nào là biết ngay lý do tại sao, không còn phải mò mẫm hay tra cứu lung tung nữa.",
+          author: "Trần Đức Anh",
+          role: "Kỹ sư Xây dựng",
+          result: "Nắm vững toàn bộ 12 thì",
         },
       ],
     },
     faq: {
-      tag: "COMMON QUESTIONS",
-      headline: "Frequently Asked Questions",
-      subheadline:
-        "Everything you need to know about our BIM services, custom automation tools, and the SMOB Add-in.",
-    },
-    ctaBanner: {
-      headline: "Ready to remove repetitive Revit work from your BIM team?",
-      subheadline:
-        "Let's discuss your project requirements or book a free 30-minute BIM audit to discover your top automation opportunities.",
-      ctaButton: "Book a Free BIM Audit",
-      secondaryButton: "Get SMOB Add-in ($9 USD · Early Bird)",
-    },
-    contact: {
-      tag: "GET IN TOUCH",
-      headline: "Let's Accelerate Your BIM Workflows",
-      subheadline:
-        "Whether you need full-scope BIM modeling, custom Dynamo/API scripts, or support with the SMOB Add-in, reach out today.",
-      form: {
-        name: "Full Name",
-        namePlaceholder: "e.g. Alex Johnson",
-        company: "Company / Organization",
-        companyPlaceholder: "e.g. Skyline Architecture Studio",
-        email: "Work Email",
-        emailPlaceholder: "alex@skyline-arch.com",
-        phone: "Phone / WhatsApp",
-        phonePlaceholder: "+84 90 123 4567",
-        service: "Primary Service Needed",
-        serviceOptions: [
-          "BIM Modeling (Architectural / Structural)",
-          "Construction Documentation & Sheet Sets",
-          "Custom Dynamo Automation Workflows",
-          "Dedicated Revit API Add-in Development",
-          "Parametric Revit Family Creation",
-          "SMOB Add-in Purchase & Setup ($9 USD · Early Bird)",
-        ],
-        message: "Project Details / Requirements",
-        messagePlaceholder:
-          "Tell us about your project scope, timeline, current Revit pain points, or specific automation requirements...",
-        submit: "Request BIM Audit & Consultation",
-        submitting: "Submitting Request...",
-        successTitle: "Thank you for reaching out!",
-        successDesc:
-          "We have received your message and will respond within 24 hours with actionable next steps.",
-      },
-      directChannels: "Direct Communication Channels",
-      channels: [
+      badge: "HỎI & ĐÁP",
+      title: "Câu Hỏi Thường Gặp Về Khóa Học 48 Ngày",
+      subtitle:
+        "Tất cả những điều bạn cần biết trước khi bắt đầu hành trình học tập:",
+      items: [
         {
-          name: "Email",
-          value: "smob.bim@gmail.com",
-          link: "mailto:smob.bim@gmail.com",
+          question: "Người hoàn toàn mất gốc có theo học được không?",
+          answer:
+            "Hoàn toàn được! Giáo trình 48 ngày được thiết kế từ con số 0 (Unit 1 bắt đầu từ động từ To Be và cấu trúc khẳng định/phủ định cơ bản nhất), có dịch song ngữ và giải thích cặn kẽ.",
         },
         {
-          name: "LinkedIn",
-          value: "linkedin.com/in/smobim",
-          link: "https://www.linkedin.com/in/smobim",
+          question: "Tôi có thể học trên điện thoại hoặc máy tính bảng không?",
+          answer:
+            "Có. Toàn bộ nền tảng SMOB English Lab được tối ưu hóa responsive 100% trên điện thoại (iOS, Android), máy tính bảng và máy tính để bàn.",
         },
         {
-          name: "YouTube",
-          value: "youtube.com/@smobim",
-          link: "https://www.youtube.com/@smobim",
+          question: "Khóa học này có mất phí không?",
+          answer:
+            "Nền tảng được cung cấp học trực tuyến hoàn toàn mở cho cộng đồng học viên lấy gốc tiếng Anh nhanh chóng và hiệu quả.",
         },
         {
-          name: "Facebook",
-          value: "facebook.com/smobim",
-          link: "https://www.facebook.com/share/152gYtXgKzp/?mibextid=wwXIfr",
+          question: "Mỗi ngày tôi cần dành bao nhiêu thời gian để học?",
+          answer:
+            "Chỉ cần 30 - 45 phút mỗi ngày theo đúng 4 bước (Video -> Lý thuyết -> Trắc nghiệm -> Flashcard) là bạn sẽ hoàn thành xuất sắc lộ trình 48 ngày.",
+        },
+        {
+          question: "Làm thế nào để vào phòng học trực tuyến ngay bây giờ?",
+          answer:
+            "Bạn chỉ cần bấm nút 'Vào Phòng Học Ngay' hoặc 'Bắt Đầu Học Ngay' ở đầu trang để truy cập ngay vào hệ thống 48 bài học tương tác.",
         },
       ],
     },
+    finalCta: {
+      title: "Sẵn Sàng Làm Chủ Tiếng Anh Sau 48 Ngày?",
+      subtitle:
+        "Bắt đầu ngay hôm nay từ Unit 1. Không cần đăng ký rườm rà, bấm vào phòng học là bắt đầu ngay!",
+      button: "Vào Phòng Học Trực Tuyến Ngay →",
+      guarantee: "✓ 48 Units đầy đủ • ✓ 2.000+ Trắc nghiệm • ✓ Miễn phí 100%",
+    },
     footer: {
-      tagline:
-        "High-performance BIM modeling, computational Revit automation, and productivity add-ins for modern AEC teams.",
-      quickLinks: "Quick Navigation",
-      servicesTitle: "Core Capabilities",
-      legal: "© 2026 SMOB. All rights reserved. Engineering Excellence & Precision Automation.",
+      brandDesc:
+        "SMOB English Lab — Nền tảng học 48 Ngày Lấy Gốc Tiếng Anh Toàn Diện, kết hợp video bài giảng, lý thuyết chuẩn mực, trắc nghiệm thông minh và flashcard audio.",
+      linksTitle: "Học Tập",
+      curriculumTitle: "Lộ Trình",
+      contactTitle: "Liên Hệ & Mã Nguồn",
+      copyright: "© 2026 SMOB English Lab. Toàn bộ quyền được bảo lưu.",
     },
   },
-  vn: {
+  en: {
     nav: {
-      about: "Giới thiệu",
-      services: "Dịch vụ",
-      tool: "SMOB Add-in",
-      dynamo: "Dynamo",
-      portfolio: "Dự án",
-      reviews: "Đánh giá",
-      workflow: "Quy trình",
-      faq: "Hỏi đáp",
-      contact: "Liên hệ",
-      cta: "Đặt lịch tư vấn BIM miễn phí",
+      about: "Methodology",
+      curriculum: "48-Day Roadmap",
+      features: "Features",
+      verbs: "Irregular Verbs",
+      exam: "Mock Exams",
+      testimonials: "Reviews",
+      faq: "FAQ",
+      startLearning: "Enter Classroom Now",
+      switchLang: "Tiếng Việt",
     },
     hero: {
-      headline: "Tự Động Hóa Revit\nTăng Tốc Triển Khai BIM",
+      badge: "48-DAY COMPREHENSIVE ENGLISH FOUNDATION COURSE",
+      headlineStart: "Master English in",
+      headlineGradient: "48 Practical Days",
+      headlineEnd: "With Precision",
       subheadline:
-        "SMOB giúp đội ngũ BIM, kiến trúc sư, kỹ sư và nhà thầu giảm 70%–90% thời gian thao tác Revit lặp lại bằng công cụ tự động hóa, Dynamo workflow và Revit API chuyên sâu.",
-      ctaPrimary: "Đặt lịch tư vấn BIM miễn phí",
-      ctaSecondary: "Xem Dự Án Đã Bàn Giao",
-      badges: [
-        "Tự Động Hóa Revit",
-        "Kịch Bản Dynamo",
-        "Revit API Chuyên Sâu",
-        "Dựng Hình BIM",
-        "Parametric Family",
-      ],
-      quickProof: "Được tin tưởng bởi các kỹ sư và đội ngũ BIM",
+        "An intelligent automated online learning platform: 48 Video lessons, In-depth grammar theory, 2,000+ quiz questions with detailed explanations, and 398+ Irregular Verb Flashcards with native audio pronunciation.",
+      ctaPrimary: "Start Learning Now (Free)",
+      ctaSecondary: "Explore 48 Units Curriculum",
+      stats: {
+        units: "48",
+        unitsLabel: "Daily Structured Units",
+        questions: "2,000+",
+        questionsLabel: "Quizzes with Explanations",
+        verbs: "398+",
+        verbsLabel: "Irregular Verbs with Audio",
+        guarantee: "100%",
+        guaranteeLabel: "Solid Foundation Guaranteed",
+      },
     },
     problem: {
-      tag: "ĐIỂM NGHẼN THỦ CÔNG",
-      headline: "Đội Ngũ BIM Của Bạn Mất Bao Nhiêu Giờ Mỗi Tuần Cho Các Thao Tác Nhấp Chuột Lặp Lại?",
-      subheadline:
-        "Hầu hết các công ty thiết kế và nhà thầu đang tiêu tốn đến 40% chi phí nhân sự cho những tác vụ hoàn toàn có thể tự động hóa chỉ trong vài giây.",
-      painPoints: [
+      badge: "COMMON STRUGGLES",
+      title: "Why Do Most English Learners Get Stuck?",
+      subtitle:
+        "Most beginners face these repetitive bottlenecks when trying to build their foundation:",
+      items: [
         {
-          num: "01",
-          title: "Đổi tên & Đánh số cấu kiện thủ công",
-          desc: "Phải ấn F2 sửa từng Sheet, View, Room hay đánh số hàng nghìn cây cọc, cột, cửa một cách thủ công. Dễ nhầm lẫn, trùng lặp và mất hàng giờ khi có thay đổi.",
+          title: "Lost Without a Clear Roadmap",
+          desc: "Fragmented grammar rules without day-by-day structured micro-goals lead to overwhelm.",
+          tag: "No Clear Path",
         },
         {
-          num: "02",
-          title: "Lỗi giao cắt hình học & Sai lệch khối lượng",
-          desc: "Dầm đâm qua cột, sàn cắt qua vách bê tông chưa được Join. Việc Join thủ công từng vị trí dễ bỏ sót, dẫn đến khối lượng bóc tách bị sai lệch đáng kể.",
+          title: "Passive Rote Learning",
+          desc: "Reading rules without instant active recall and interactive quiz practice.",
+          tag: "Passive Study",
         },
         {
-          num: "03",
-          title: "Cài đặt View Filters & Bố cục Sheet tốn thời gian",
-          desc: "Bật/tắt và sao chép thủ công hàng chục bộ lọc hiển thị (View Filters) trên từng View. Nhân bản Sheet mà phải kéo thả lại từng Viewport một cách cực nhọc.",
+          title: "No Answer Explanations",
+          desc: "Standard tests only show A/B/C/D without breaking down WHY an answer is correct or incorrect.",
+          tag: "Zero Analysis",
         },
         {
-          num: "04",
-          title: "Thư viện Family phân tán & Nặng file",
-          desc: "Trích xuất từng Family từ model cũ phải mở từng file thủ công, tốn nhiều giờ và dễ lẫn các Family rác vào dự án mới.",
+          title: "Forgetting Irregular Verbs",
+          desc: "Struggling to remember V1, V2, V3 forms and lacking correct native pronunciation.",
+          tag: "Verb Amnesia",
         },
         {
-          num: "05",
-          title: "Ghi chú & Dim kích thước thủ công",
-          desc: "Phải đo và kéo hàng nghìn đường dim kích thước cột, lưới trục, cao độ tầng trên từng mặt bằng một cách lặp đi lặp lại.",
+          title: "Lack of Progress Tracking",
+          desc: "Unable to see your completion percentage or pinpoint which unit needs review.",
+          tag: "No Analytics",
         },
         {
-          num: "06",
-          title: "Lỗi đồng bộ tham số với bảng tính Excel",
-          desc: "Copy-paste dữ liệu thủ công giữa bảng tính kết cấu Excel và Schedule trong Revit dễ sai sót và mất thời gian đối soát.",
-        },
-      ],
-    },
-    about: {
-      tag: "VỀ CHÚNG TÔI & SỨ MỆNH",
-      headline: "Tạo Dựng Những Quy Trình BIM Thực Chiến Chạy Mượt Mà Trên Dự Án Thực Tế",
-      lead: "SMOB kết hợp kinh nghiệm triển khai BIM thực tế với tư duy automation engineering để tạo ra các workflow Revit thực dụng, chạy được trong môi trường dự án thật.",
-      p1: "Chúng tôi không đưa ra những lý thuyết xa rời thực tế. Xuất phát điểm từ những người trực tiếp dựng hình, quản lý mô hình và chịu áp lực nộp hồ sơ bản vẽ thi công, chúng tôi thấu hiểu từng sự ức chế khi Revit bị chậm hay phải làm những việc lặp đi lặp lại hàng trăm lần.",
-      p2: "Mọi Dynamo script, thuật toán xử lý dữ liệu và Revit Add-in của SMOB đều được kiểm thử kỹ lưỡng trên các file dự án thực tế. Mục tiêu cao nhất là mang lại giải pháp 1-click trực quan, dễ dùng cho toàn bộ thành viên trong nhóm.",
-      bullets: [
-        "Tự động Join hình học dầm-sàn-cột theo ma trận ưu tiên",
-        "Đánh số tự động theo tọa độ (cọc, cột, cửa, phòng, MEP)",
-        "Đổi tên hàng loạt nhanh chóng với Live Preview",
-        "Trích xuất trọn bộ thư viện Family sạch chỉ với 1-Click",
-      ],
-      badgeTitle: "SMOB Automation Engine",
-      badgeDesc: "Revit API C# Native Kernel",
-      stat1Number: "70%–90%",
-      stat1Label: "Thời Gian Tiết Kiệm Cho Tác Vụ Lặp Lại",
-      stat2Number: "100%",
-      stat2Label: "Độ Chuẩn Xác Thông Số & Quy Chuẩn BEP",
-      stat3Number: "< 3 Giây",
-      stat3Label: "Tốc Độ Xử Lý Hàng Loạt Cấu Kiện",
-    },
-    trust: {
-      tag: "HIỆU QUẢ ĐO LƯỜNG THỰC TẾ",
-      headline: "Kết Quả Thực Chứng Trên Các Dự Án Triển Khai",
-      metrics: [
-        {
-          value: "70%",
-          label: "Rút ngắn thời gian dựng hình",
-          detail: "Tự động hóa Join hình học & tạo lưới trục từ CAD trực tiếp",
-        },
-        {
-          value: "100%",
-          label: "Chuẩn xác thông số & ghi chú",
-          detail: "Loại bỏ hoàn toàn lỗi đánh số trùng & sai tọa độ trên bản vẽ",
-        },
-        {
-          value: "40+ Giờ",
-          label: "Tiết kiệm mỗi kỳ nộp hồ sơ",
-          detail: "Trích xuất thư viện sạch & đồng bộ bộ lọc view hàng loạt",
-        },
-        {
-          value: "< 3s",
-          label: "Thao tác 1-click tức thì",
-          detail: "Bộ công cụ lập trình C# / Revit API tối ưu tốc độ",
+          title: "Giving Up Halfway",
+          desc: "Without an engaging, seamless daily learning routine, motivation quickly fades.",
+          tag: "Burnout",
         },
       ],
     },
-    roi: {
-      tag: "CÔNG CỤ TÍNH HIỆU QUẢ ĐẦU TƯ",
-      headline: "Ước Tính Chi Phí Doanh Nghiệp Bạn Tiết Kiệm Được Mỗi Tháng",
-      subheadline:
-        "Xem nhanh số giờ làm việc và ngân sách mà công ty bạn sẽ thu hồi được khi tự động hóa các thao tác thủ công trên Revit.",
-      teamSizeLabel: "Số lượng kỹ sư / Modeler trong đội ngũ",
-      hourlyRateLabel: "Chi phí nhân công trung bình ($ / giờ)",
-      hoursPerWeekLabel: "Số giờ thao tác thủ công lặp lại / tuần / người",
-      resultsTitle: "Hiệu Quả Doanh Nghiệp Thu Về Mỗi Tháng",
-      hoursSavedLabel: "Số Giờ Tiết Kiệm / Tháng",
-      costSavedLabel: "Chi Phí Tiết Kiệm Được / Tháng",
-      annualizedLabel: "Hiệu Quả Tăng Thêm Hàng Năm",
-      cta: "Tối Ưu Hiệu Suất Đội Ngũ Của Bạn Ngay Hôm Nay",
+    solution: {
+      badge: "SMOB LAB METHODOLOGY",
+      title: "The 4-Pillar System to Master English in 48 Days",
+      subtitle:
+        "A proven, science-backed learning ecosystem integrated into a single unified platform:",
+      pillars: [
+        {
+          title: "1. Visual Video Lectures",
+          desc: "Each unit starts with a concise, crystal-clear video explaining grammar principles in 15-20 minutes.",
+          highlight: "Fast Comprehension",
+        },
+        {
+          title: "2. Theory & Grammar Maps",
+          desc: "Structured formula tables, real bilingual examples, and practical rule-of-thumb tips.",
+          highlight: "Standardized Rules",
+        },
+        {
+          title: "3. Smart Quiz Engine with Explanations",
+          desc: "Practice 20-50 questions per unit with instant auto-grading and deep answer explanations.",
+          highlight: "Instant Feedback",
+        },
+        {
+          title: "4. 398+ Verb Flashcards with Audio",
+          desc: "Master V1, V2, V3 with 3D flip effects, native TTS pronunciation, and Quizlet-style reflex drills.",
+          highlight: "Native Audio Drills",
+        },
+      ],
     },
-    services: {
-      tag: "DỊCH VỤ CỦA CHÚNG TÔI",
-      headline: "Dịch vụ BIM & Tự động hóa Chuyên sâu",
-      subheadline:
-        "Từ triển khai mô hình kiến trúc, kết cấu đến phát triển công cụ Revit Add-in và Dynamo tùy biến theo yêu cầu.",
-      viewDetails: "Xem chi tiết năng lực",
+    curriculum: {
+      badge: "48-DAY CURRICULUM",
+      title: "Scientifically Structured 48 Units",
+      subtitle:
+        "From complete beginner to confident grammar mastery and active sentence construction:",
+      stages: [
+        {
+          stage: 1,
+          name: "Stage 1: Core Foundation (Units 1 - 10)",
+          range: "Day 01 - 10",
+          desc: "Master To Be, personal pronouns, possessive adjectives, Who/What questions, and base sentence structures.",
+          unitsSample: [
+            "Unit 1: Affirmative & Negative with To Be",
+            "Unit 2: Interrogative forms of To Be",
+            "Unit 3: Who and What Questions",
+            "Unit 4: Demonstrative Pronouns (This/That/These/Those)",
+            "Unit 5: Singular & Plural Nouns",
+          ],
+        },
+        {
+          stage: 2,
+          name: "Stage 2: Core Tenses & Parts of Speech (Units 11 - 20)",
+          range: "Day 11 - 20",
+          desc: "Present Simple, Present Continuous, Past Simple, Future Simple, and prepositions.",
+          unitsSample: [
+            "Unit 11: Present Simple with Action Verbs",
+            "Unit 12: Negative & Questions in Present Simple",
+            "Unit 13: Present Continuous Tense",
+            "Unit 14: Present Simple vs. Present Continuous",
+            "Unit 15: Past Simple with To Be (Was/Were)",
+          ],
+        },
+        {
+          stage: 3,
+          name: "Stage 3: Advanced Grammar & Clauses (Units 21 - 35)",
+          range: "Day 21 - 35",
+          desc: "Comparative/Superlative adjectives, modal verbs (Can, Must, Should), If conditionals, and passive voice.",
+          unitsSample: [
+            "Unit 21: Adjectives and Adverbs",
+            "Unit 22: Comparative of Short & Long Adjectives",
+            "Unit 23: Superlatives & Special Structures",
+            "Unit 24: Modal Verbs (Can / Could / May)",
+            "Unit 25: Conditional Sentences (Types 1 & 2)",
+          ],
+        },
+        {
+          stage: 4,
+          name: "Stage 4: Fluency Mastery & Mock Exams (Units 36 - 48)",
+          range: "Day 36 - 48",
+          desc: "Advanced passive forms, indirect speech, relative clauses, and comprehensive mock assessments.",
+          unitsSample: [
+            "Unit 36: Advanced Passive Voice across Tenses",
+            "Unit 38: Relative Clauses (Who / Whom / Which / That)",
+            "Unit 40: Reported Speech",
+            "Unit 45: Comprehensive Mock Test",
+            "Unit 48: Final Review & Speaking Reflex Mastery",
+          ],
+        },
+      ],
     },
-    tool: {
-      tag: "CÔNG CỤ NỔI BẬT & CHI PHÍ",
-      headline: "SMOB Add-in: Bộ công cụ tăng năng suất Revit dùng vĩnh viễn",
-      subheadline:
-        "Tập hợp các module tự động hóa mạnh mẽ giải quyết triệt để các tác vụ thủ công lặp lại. Thanh toán một lần, sở hữu vĩnh viễn, không phí duy trì hàng tháng.",
-      priceVnd: "149.000 VNĐ",
-      priceUsd: "9 USD",
-      priceOriginalVnd: "499.000 VNĐ",
-      priceOriginalUsd: "39 USD",
-      priceDiscount: "-70%",
-      priceTag: "Bản quyền vĩnh viễn · Ưu đãi 50 suất đầu · Miễn phí cập nhật",
-      cta: "Mua SMOB Add-in",
-      ctaSub: "Tải về sử dụng ngay · Tương thích mượt mà với Autodesk Revit",
-      modulesTitle: "Bộ Tính Năng Tăng Năng Suất Revit",
-      videoShowcase: {
-        tag: "VIDEO THỰC TẾ & DEMO TÍNH NĂNG",
-        headline: "Xem Thực Tế SMOB Tự Động Hóa Revit Trong Vài Giây",
-        subheadline:
-          "Theo dõi quy trình xử lý trực tiếp trên file dự án thật. Hàng nghìn cấu kiện được xử lý giao cắt, lọc và đánh số trong tích tắc không đơ giật.",
-        playlistTitle: "Danh Sách Phát Chính Thức",
-        playlistBtn: "Xem Trọn Bộ Playlist Trên YouTube",
-        nowPlaying: "Đang Phát",
-        clickToPlay: "Bấm Để Xem Video Demo",
-        episodesCount: "5 Video Thực Chiến",
-        channelTitle: "Kênh SMOB BIM Automation",
-        scheduledBadge: "Đặt Lịch Công Chiếu",
-        scheduledTitle: "Sắp Công Chiếu Trên YouTube",
-        scheduledNotice: "Video thực chiến này đang được đặt lịch công chiếu trên kênh YouTube. Hãy đăng ký kênh hoặc theo dõi danh sách phát để đón xem ngay khi phát hành!",
-        subscribeBtn: "Đón Xem Trên YouTube",
-      },
-      downloadTag: "TRUNG TÂM TẢI & CẬP NHẬT PHẦN MỀM",
-      downloadTitle: "Tải SMOB Suite Pro & Lịch Sử Phiên Bản",
-      downloadSub:
-        "Bản phát hành chính thức chuẩn Autodesk, tải file nén SMOB_Setup.zip an toàn tích hợp sẵn file gỡ cài đặt sạch và tương thích toàn diện từ Revit 2020 đến Revit 2026.",
-      downloadZipBtn: "Tải SMOB_Setup.zip",
-      downloadPackageNote: "Gói All-in-One: Tích hợp sẵn SMOB_Setup.exe & SMOB_Uninstall.exe",
-      zipSpecsNote: "Gói .ZIP An Toàn · Giải nén & Cài đặt",
-      revitSupportNote: "Hỗ trợ Revit 2020–2026",
-      quickInstallTitle: "Hướng Dẫn Cài Đặt Nhanh & Vượt Cảnh Báo",
-      quickInstallSub: "Dành cho Autodesk Revit® 2020 – 2026 · Bộ cài an toàn & sạch sẽ",
-      cleanSafeBadge: "An Toàn & Xác Thực",
-      step1Title: "Bước 1 - Tải về & Giải nén:",
-      step1Desc1: "Tải file",
-      step1Desc2: "và giải nén vào thư mục của bạn (đã đóng gói sẵn cả file cài đặt & gỡ cài đặt).",
-      step2Title: "Bước 2 - Vượt cảnh báo SmartScreen:",
-      step2Desc: "Nếu trình duyệt hoặc Windows SmartScreen hiện cảnh báo tệp mới tải, chỉ cần bấm:",
-      step2MoreOptions: "... (Tùy chọn)",
-      step2Keep: "Keep",
-      step2KeepAnyway: "Keep anyway",
-      step2Or: "hoặc",
-      step2MoreInfo: "More info",
-      step2RunAnyway: "Run anyway",
-      step3Title: "Bước 3 - Khởi chạy & Tự động hóa:",
-      step3Desc1: "Chạy file",
-      step3Desc2: ", tích chọn phiên bản Autodesk Revit® (",
-      step3Desc3: ") bạn đang dùng và bắt đầu tự động hóa.",
-      versionHistoryTitle: "Lịch Sử Phiên Bản & Điểm Mới Cập Nhật",
-      sysReqTitle: "Yêu Cầu Hệ Thống & Cấu Hình Khuyến Nghị",
-      sysReqOs: "Hệ điều hành:",
-      sysReqRevit: "Phiên bản Revit:",
-      sysReqRuntime: "Môi trường chạy:",
-      sysReqStorage: "Dung lượng ổ cứng:",
+    verbStudio: {
+      badge: "VERB FLASHCARD SUITE",
+      title: "Practice 398+ Irregular Verbs Right Here",
+      subtitle:
+        "Click the card to flip for V2/V3 and press the speaker icon to listen to native audio:",
+      flashcardTitle: "Interactive Verb Card",
+      flipHint: "Touch or click card to flip to back",
+      listenPronunciation: "Play Native Audio",
+      nextVerb: "Next Verb",
+      prevVerb: "Previous Verb",
+      quizTitle: "Quick Reflex Quiz",
     },
-    portfolio: {
-      tag: "DỰ ÁN TIÊU BIỂU",
-      headline: "Dự Án Thực Tế & Sản Phẩm Đã Bàn Giao",
-      subheadline:
-        "Toàn bộ các dự án dưới đây được chúng tôi triển khai hoàn chỉnh từ bản vẽ 2D hoặc phát triển theo yêu cầu kỹ thuật đặc thù, đảm bảo hình học chuẩn xác và dữ liệu sạch.",
-      filterAll: "Tất cả dự án",
-      filterModeling: "Mô hình BIM",
-      filterDocumentation: "Bộ hồ sơ bản vẽ",
-      filterFamilies: "Parametric Families",
-      filterAutomation: "Dynamo & Automation",
-      viewProject: "Xem dự án",
-      modalClose: "Đóng",
-      briefLabel: "Yêu cầu dự án",
-      deliverablesLabel: "Sản phẩm bàn giao",
-      keyResultsLabel: "Kết quả đạt được",
-      toolsLabel: "Phần mềm & Nền tảng",
-      servicesLabel: "Phạm vi thực hiện",
-    },
-    testimonials: {
-      tag: "ĐÁNH GIÁ THỰC TẾ TỪ KHÁCH HÀNG",
-      headline: "Đánh Giá Của Khách Hàng",
-      subheadline:
-        "Khách hàng nói gì về chúng tôi! Chúng tôi tự hào xây dựng mối quan hệ hợp tác tin cậy và cung cấp dịch vụ BIM & Tự động hóa chất lượng cao.",
-      moreButton: "Xem thêm",
-      lessButton: "Thu gọn",
+    examEngine: {
+      badge: "INTELLIGENT QUIZ ENGINE",
+      title: "Real Exam Mode — Timed Countdown & Deep Analysis",
+      subtitle:
+        "Every test mirrors real-world test conditions to prepare you for test day:",
+      features: [
+        {
+          title: "Accurate Countdown Timer",
+          desc: "Choose 15, 30, or 45-minute sessions to train optimal pacing and focus.",
+        },
+        {
+          title: "Instant Auto-Grading & Scores",
+          desc: "Get immediate score reports, correct/incorrect counts, and percentage breakdowns.",
+        },
+        {
+          title: "Comprehensive Explanations",
+          desc: "Deep grammatical breakdowns explaining why the correct choice works and why other choices fail.",
+        },
+        {
+          title: "History & Difficult Questions Bookmarking",
+          desc: "Flag difficult questions to review them later in dedicated review sessions.",
+        },
+      ],
     },
     workflow: {
-      tag: "QUY TRÌNH 4 BƯỚC",
-      headline: "Quy Trình Triển Khai Chuyên Nghiệp",
-      subheadline:
-        "Cách thức chúng tôi tiếp nhận bản vẽ, phân tích điểm nghẽn và bàn giao giải pháp BIM & Automation hoàn chỉnh cho bạn.",
+      badge: "DAILY LEARNING WORKFLOW",
+      title: "Just 30-45 Minutes a Day in 4 Simple Steps",
+      subtitle:
+        "Build a consistent study habit for guaranteed progress over 48 days:",
       steps: [
         {
-          num: "01",
-          title: "Khảo sát quy trình BIM",
-          desc: "Phân tích quy trình làm việc hiện tại, xác định điểm nghẽn thủ công, tiêu chuẩn BEP và mục tiêu đầu ra của khách hàng.",
-          outcome: "Xác định rõ phạm vi & kế hoạch thực hiện",
+          number: "01",
+          title: "Watch Video Lesson (15m)",
+          desc: "Open the daily unit, watch the video to grasp concepts and context.",
         },
         {
-          num: "02",
-          title: "Kiểm tra model / Dữ liệu / Bản vẽ",
-          desc: "Kiểm tra kỹ lưỡng file 2D CAD/PDF, hệ trục tọa độ, cao độ tầng và danh sách quy chuẩn tham số yêu cầu.",
-          outcome: "Đảm bảo dữ liệu đầu vào chuẩn xác, không mâu thuẫn",
+          number: "02",
+          title: "Review Grammar Map (10m)",
+          desc: "Read core formulas, common pitfalls, and bilingual examples.",
         },
         {
-          num: "03",
-          title: "Triển khai BIM hoặc Phát triển Automation",
-          desc: "Dựng hình mô hình 3D hoặc lập trình Dynamo script / Revit Add-in với thuật toán xử lý dữ liệu ngầm tối ưu.",
-          outcome: "Mô hình sạch và công cụ tự động hóa 1-click",
+          number: "03",
+          title: "Take Quiz & Check Explanations (15m)",
+          desc: "Complete the unit quiz, submit for instant scoring and explanations.",
         },
         {
-          num: "04",
-          title: "Bàn giao, QA/QC & Hướng dẫn sử dụng",
-          desc: "Kiểm tra xung đột, đối soát khối lượng, bàn giao file và tài liệu hướng dẫn vận hành chi tiết cho đội ngũ của bạn.",
-          outcome: "Sản phẩm sẵn sàng vận hành & team tự chủ công nghệ",
+          number: "04",
+          title: "Drill Flashcards & Audio (5m)",
+          desc: "Review 5-10 irregular verbs with audio pronunciation drills.",
+        },
+      ],
+    },
+    testimonials: {
+      badge: "REAL RESULTS",
+      title: "How Students Transformed Their English",
+      subtitle: "Thousands of learners rebuilt their confidence after 48 days:",
+      items: [
+        {
+          quote:
+            "I used to dread grammar because I forgot everything quickly. With SMOB English Lab's 48-day plan and detailed quiz explanations, I passed my B1 exam with flying colors!",
+          author: "Minh Tuan Nguyen",
+          role: "Engineering Student",
+          result: "Scored 650+ TOEIC from zero",
+        },
+        {
+          quote:
+            "The 398+ irregular verbs flashcard with audio pronunciation is a lifesaver. I practice on my phone every evening, the dark UI feels just like an Apple app!",
+          author: "Hoang Yen Le",
+          role: "Marketing Specialist",
+          result: "Fluent in emails and meetings",
+        },
+        {
+          quote:
+            "The answer explanation feature is priceless. When I get a question wrong, I know immediately why, no more guessing or searching blindly.",
+          author: "Duc Anh Tran",
+          role: "Civil Engineer",
+          result: "Mastered all 12 tenses",
         },
       ],
     },
     faq: {
-      tag: "GIẢI ĐÁP THẮC MẮC",
-      headline: "Câu Hỏi Thường Gặp",
-      subheadline:
-        "Tất cả những thông tin bạn cần biết về dịch vụ dựng hình BIM, lập trình tự động hóa và công cụ SMOB Add-in.",
-    },
-    ctaBanner: {
-      headline: "Sẵn sàng loại bỏ thao tác Revit lặp lại khỏi đội ngũ BIM?",
-      subheadline:
-        "Hãy liên hệ ngay để trao đổi về dự án của bạn hoặc đặt lịch khảo sát quy trình BIM miễn phí để tìm ra các cơ hội tự động hóa tối ưu nhất.",
-      ctaButton: "Đặt lịch tư vấn BIM miễn phí",
-      secondaryButton: "Mua SMOB Add-in (Ưu đãi 149.000 VNĐ / 9 USD)",
-    },
-    contact: {
-      tag: "KẾT NỐI NGAY",
-      headline: "Tăng Tốc Quy Trình BIM Của Bạn Ngay Hôm Nay",
-      subheadline:
-        "Dù bạn cần dựng hình BIM trọn gói, viết script tự động hóa theo yêu cầu hay trải nghiệm SMOB Add-in, chúng tôi luôn sẵn sàng hỗ trợ.",
-      form: {
-        name: "Họ và tên",
-        namePlaceholder: "VD: Nguyễn Văn Hùng",
-        company: "Công ty / Đơn vị",
-        companyPlaceholder: "VD: Công ty Thiết kế & Xây dựng ABC",
-        email: "Email công việc",
-        emailPlaceholder: "hung.nguyen@abc-arch.com",
-        phone: "Số điện thoại / WhatsApp",
-        phonePlaceholder: "0912 345 678",
-        service: "Dịch vụ bạn đang quan tâm",
-        serviceOptions: [
-          "Dựng hình mô hình BIM (Kiến trúc / Kết cấu)",
-          "Triển khai hồ sơ bản vẽ (Kiến trúc / Kết cấu)",
-          "Lập trình Dynamo Automation theo yêu cầu",
-          "Phát triển công cụ Revit Add-in riêng",
-          "Tạo thư viện Parametric Revit Family",
-          "Mua & Tư vấn công cụ SMOB Add-in (Ưu đãi 149.000 VNĐ)",
-        ],
-        message: "Mô tả dự án hoặc yêu cầu cụ thể",
-        messagePlaceholder:
-          "Hãy chia sẻ về quy mô công trình, tiến độ mong muốn hoặc các tác vụ Revit bạn đang muốn tự động hóa...",
-        submit: "Gửi Yêu Cầu Tư Vấn Ngay",
-        submitting: "Đang gửi yêu cầu...",
-        successTitle: "Gửi yêu cầu thành công!",
-        successDesc:
-          "Cảm ơn bạn đã liên hệ. Đội ngũ SMOB sẽ phản hồi lại trong vòng 24 giờ với phương án phù hợp nhất.",
-      },
-      directChannels: "Kênh Liên Hệ Trực Tiếp",
-      channels: [
+      badge: "FREQUENTLY ASKED QUESTIONS",
+      title: "Common Questions About the 48-Day Course",
+      subtitle: "Everything you need to know before starting your journey:",
+      items: [
         {
-          name: "Email",
-          value: "smob.bim@gmail.com",
-          link: "mailto:smob.bim@gmail.com",
+          question: "Is this suitable for absolute beginners?",
+          answer:
+            "Absolutely! The curriculum starts from ground zero (Unit 1 covers basic To Be affirmative and negative forms) with bilingual explanations.",
         },
         {
-          name: "LinkedIn",
-          value: "linkedin.com/in/smobim",
-          link: "https://www.linkedin.com/in/smobim",
+          question: "Can I learn on mobile and tablet?",
+          answer:
+            "Yes. The entire SMOB English Lab platform is 100% responsive across mobile (iOS/Android), tablets, and desktop computers.",
         },
         {
-          name: "YouTube",
-          value: "youtube.com/@smobim",
-          link: "https://www.youtube.com/@smobim",
+          question: "Is there any cost for this platform?",
+          answer:
+            "The platform is freely available online to help learners build their English foundation effectively.",
         },
         {
-          name: "Facebook",
-          value: "facebook.com/smobim",
-          link: "https://www.facebook.com/share/152gYtXgKzp/?mibextid=wwXIfr",
+          question: "How much time is required each day?",
+          answer:
+            "Just 30-45 minutes per day following our 4-step system (Video -> Theory -> Quiz -> Flashcard).",
+        },
+        {
+          question: "How do I start learning right now?",
+          answer:
+            "Simply click 'Enter Classroom Now' or 'Start Learning Now' at the top to access all 48 interactive units immediately.",
         },
       ],
     },
+    finalCta: {
+      title: "Ready to Master English in 48 Days?",
+      subtitle:
+        "Start today with Unit 1. No tedious registration required — click and start studying immediately!",
+      button: "Enter Online Classroom Now →",
+      guarantee: "✓ Full 48 Units • ✓ 2,000+ Quizzes • ✓ 100% Free",
+    },
     footer: {
-      tagline:
-        "Dịch vụ dựng hình BIM chất lượng cao, lập trình tự động hóa Revit chuyên sâu và bộ công cụ tăng năng suất cho ngành AEC.",
-      quickLinks: "Liên kết nhanh",
-      servicesTitle: "Dịch vụ chính",
-      legal: "© 2026 SMOB. Bản quyền thuộc về SMOB. Tối ưu năng suất & Tự động hóa chuẩn xác.",
+      brandDesc:
+        "SMOB English Lab — 48-Day English Foundation Platform combining video lessons, standardized theory, smart quizzes, and audio flashcards.",
+      linksTitle: "Learning",
+      curriculumTitle: "Curriculum",
+      contactTitle: "Contact & Source Code",
+      copyright: "© 2026 SMOB English Lab. All rights reserved.",
     },
   },
 };

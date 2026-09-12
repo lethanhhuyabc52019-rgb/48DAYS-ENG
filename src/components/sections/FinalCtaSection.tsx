@@ -1,48 +1,46 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
-import { ArrowRight } from "lucide-react";
+import { PlayCircle, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export function FinalCtaSection() {
-  const { lang } = useLanguage();
-  const t = translations[lang].ctaBanner;
+export const FinalCtaSection: React.FC = () => {
+  const { t } = useLanguage();
 
   return (
-    <section className="py-24 lg:py-32 bg-black relative overflow-hidden border-t border-white/10">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <div className="apple-glass p-10 sm:p-14 lg:p-16 rounded-3xl space-y-6 shadow-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#FF9F0A] inline-block">
-            {lang === "en" ? "TRANSFORM YOUR WORKFLOW" : "TỐI ƯU HÓA QUY TRÌNH"}
-          </span>
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+      {/* Background Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-blue-600/20 via-cyan-500/20 to-emerald-500/20 rounded-full blur-[140px] pointer-events-none" />
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.08] max-w-3xl mx-auto">
-            {t.headline}
-          </h2>
-
-          <p className="text-base sm:text-lg text-[#A1A1A6] max-w-xl mx-auto leading-relaxed">
-            {t.subheadline}
-          </p>
-
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <a
-              href="#contact"
-              className="apple-pill-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold text-black bg-white hover:bg-[#E8E8ED] shadow-xl transition-all"
-            >
-              <span>{t.ctaButton}</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-
-            <a
-              href="#smob-tool"
-              className="apple-pill-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md transition-all"
-            >
-              <span>{t.secondaryButton}</span>
-            </a>
-          </div>
+      <div className="max-w-5xl mx-auto text-center relative z-10 bg-white/[0.03] border border-white/15 rounded-3xl p-10 sm:p-16 backdrop-blur-2xl shadow-2xl">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Bắt Đầu Ngay Hôm Nay</span>
         </div>
+
+        <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
+          {t.finalCta.title}
+        </h2>
+
+        <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-300 mb-8">
+          {t.finalCta.subtitle}
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+          <Link
+            href="/app"
+            className="w-full sm:w-auto px-10 py-5 rounded-full font-bold text-lg bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 text-black shadow-2xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+          >
+            <PlayCircle className="w-6 h-6 fill-black" />
+            <span>{t.finalCta.button}</span>
+          </Link>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-400 font-medium">
+          {t.finalCta.guarantee}
+        </p>
       </div>
     </section>
   );
-}
+};

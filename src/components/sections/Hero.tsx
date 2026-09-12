@@ -1,157 +1,101 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
-import { ArrowRight, Sparkles, CheckCircle2, Clock, Cpu } from "lucide-react";
+import { PlayCircle, Sparkles, BookOpen, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
 
-export function Hero() {
-  const { lang } = useLanguage();
-  const t = translations[lang].hero;
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Defer 14MB video stream slightly so initial HTML/CSS renders in under 50ms
-    const timer = setTimeout(() => {
-      setVideoSrc("/videos/intro-smob.mp4");
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (videoRef.current && videoSrc) {
-      videoRef.current.playbackRate = 0.95;
-      videoRef.current.play().catch(() => {});
-    }
-  }, [videoSrc]);
+export const Hero: React.FC = () => {
+  const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 bg-black">
-      {/* Background Fullscreen Video - High Clarity & Cinematic Vivid Look */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
-        {videoSrc && (
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover opacity-85 scale-[1.01] filter contrast-105 brightness-95"
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
-        )}
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* Subtle Cinematic Overlays for Perfect Readability */}
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/65" />
-      </div>
-
-      {/* Hero Content Container */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Apple Minimalist Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 sm:mb-8">
-          {t.badges.map((badge) => (
-            <span
-              key={badge}
-              className="px-3.5 py-1 rounded-full text-xs font-medium tracking-wide bg-white/5 border border-white/10 text-[#E5E5EA] backdrop-blur-md"
-            >
-              {badge}
-            </span>
-          ))}
+      <div className="relative max-w-5xl mx-auto text-center z-10 flex flex-col items-center">
+        {/* Course Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:border-white/20 transition-all">
+          <Sparkles className="w-4 h-4 text-cyan-400" />
+          <span className="text-xs sm:text-sm font-semibold tracking-wide text-slate-300">
+            {t.hero.badge}
+          </span>
         </div>
 
-        {/* Main Apple Display Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-[1.12] max-w-4xl mb-6 drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
-          {lang === "en" ? (
-            <>
-              <span className="block">Automate Revit</span>
-              <span className="block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F5F5F7] to-[#D1D1D6]">
-                Deliver BIM Work Faster
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="block">Tự động hóa Revit</span>
-              <span className="block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F5F5F7] to-[#D1D1D6]">
-                Tăng tốc triển khai BIM
-              </span>
-            </>
-          )}
+        {/* Hero Main Headline */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+          {t.hero.headlineStart}{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">
+            {t.hero.headlineGradient}
+          </span>{" "}
+          {t.hero.headlineEnd}
         </h1>
 
         {/* Subheadline */}
-        <p className="text-base sm:text-lg md:text-xl text-[#D1D1D6] max-w-2xl leading-relaxed mb-10 font-normal drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)]">
-          {t.subheadline}
+        <p className="max-w-3xl text-base sm:text-lg md:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+          {t.hero.subheadline}
         </p>
 
-        {/* Apple Pill Button Group */}
-        <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mb-14 sm:mb-16">
-          <a
-            href="#contact"
-            className="apple-pill-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold text-black bg-white hover:bg-[#E8E8ED] shadow-xl transition-all"
+        {/* Action CTAs */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
+          <Link
+            href="/app"
+            className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 text-black shadow-xl shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
           >
-            <span>{t.ctaPrimary}</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+            <PlayCircle className="w-5 h-5 fill-black text-cyan-400" />
+            <span>{t.hero.ctaPrimary}</span>
+            <ArrowRight className="w-4 h-4 text-black" />
+          </Link>
 
           <a
-            href="#portfolio"
-            className="apple-pill-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md transition-all"
+            href="#curriculum"
+            className="w-full sm:w-auto px-8 py-4 rounded-full font-semibold text-base bg-white/5 border border-white/15 text-white hover:bg-white/10 hover:border-white/30 transition-all flex items-center justify-center gap-2"
           >
-            <span>{t.ctaSecondary}</span>
+            <BookOpen className="w-5 h-5 text-slate-300" />
+            <span>{t.hero.ctaSecondary}</span>
           </a>
         </div>
 
-        {/* Minimalist Apple Stats Strip */}
-        <div className="w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-left">
-          <div className="p-4 sm:p-5 rounded-2xl apple-glass-card border border-white/15 backdrop-blur-xl flex flex-col justify-between shadow-2xl">
-            <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1 tabular-nums">
-              70%–90%
+        {/* 4 Bento Trust Metric Tiles */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md text-left hover:border-blue-500/40 transition-colors">
+            <div className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-1">
+              {t.hero.stats.units}
             </div>
-            <div className="text-xs text-[#A1A1A6]">
-              {lang === "en" ? "Repetitive task reduction" : "Tiết kiệm thời gian lặp lại"}
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-5 rounded-2xl apple-glass-card border border-white/15 backdrop-blur-xl flex flex-col justify-between shadow-2xl">
-            <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1 tabular-nums">
-              100%
-            </div>
-            <div className="text-xs text-[#A1A1A6]">
-              {lang === "en" ? "Zero data typing errors" : "Triệt tiêu lỗi nhập số hiệu"}
+            <div className="text-xs sm:text-sm text-slate-400 font-medium">
+              {t.hero.stats.unitsLabel}
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl apple-glass-card border border-white/15 backdrop-blur-xl flex flex-col justify-between shadow-2xl">
-            <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1 tabular-nums">
-              &lt; 3s
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md text-left hover:border-cyan-400/40 transition-colors">
+            <div className="text-3xl sm:text-4xl font-black text-cyan-400 tracking-tight mb-1">
+              {t.hero.stats.questions}
             </div>
-            <div className="text-xs text-[#A1A1A6]">
-              {lang === "en" ? "Batch element execution" : "Xử lý hàng nghìn cấu kiện"}
+            <div className="text-xs sm:text-sm text-slate-400 font-medium">
+              {t.hero.stats.questionsLabel}
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl apple-glass-card border border-[#FF9F0A]/40 backdrop-blur-xl flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-            <div className="flex items-center justify-between gap-1 mb-1">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/40">
-                {lang === "en" ? "Early Bird" : "Ưu Đãi"}
-              </span>
-              <span className="text-xs text-[#86868B] line-through tabular-nums">
-                {lang === "en" ? "$39" : "499k"}
-              </span>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md text-left hover:border-emerald-400/40 transition-colors">
+            <div className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight mb-1">
+              {t.hero.stats.verbs}
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#FF9F0A] tracking-tight mb-1 tabular-nums">
-              {lang === "en" ? "$9 USD" : "149.000đ"}
+            <div className="text-xs sm:text-sm text-slate-400 font-medium">
+              {t.hero.stats.verbsLabel}
             </div>
-            <div className="text-xs text-[#A1A1A6]">
-              {lang === "en" ? "Lifetime · 50 slots only" : "Sở hữu trọn đời · 50 suất đầu"}
+          </div>
+
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md text-left hover:border-orange-400/40 transition-colors">
+            <div className="text-3xl sm:text-4xl font-black text-orange-400 tracking-tight mb-1">
+              {t.hero.stats.guarantee}
+            </div>
+            <div className="text-xs sm:text-sm text-slate-400 font-medium">
+              {t.hero.stats.guaranteeLabel}
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};

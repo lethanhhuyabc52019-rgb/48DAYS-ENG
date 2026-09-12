@@ -2,63 +2,61 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
+import { Clock, Play, BookOpen, CheckSquare, Sparkles, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-export function WorkflowSection() {
-  const { lang } = useLanguage();
-  const t = translations[lang].workflow;
+export const WorkflowSection: React.FC = () => {
+  const { t } = useLanguage();
 
   return (
-    <section id="workflow" className="py-24 lg:py-32 bg-black relative overflow-hidden border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Title */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#2997FF] mb-3 inline-block">
-            {t.tag}
-          </span>
-
-          <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight leading-[1.12] mb-4">
-            {t.headline}
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <Clock className="w-3.5 h-3.5" />
+            <span>{t.workflow.badge}</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            {t.workflow.title}
           </h2>
-
-          <p className="text-base sm:text-lg text-[#A1A1A6]">
-            {t.subheadline}
+          <p className="text-base sm:text-lg text-slate-400">
+            {t.workflow.subtitle}
           </p>
         </div>
 
-        {/* 4 Step Process Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {t.steps.map((step) => (
+        {/* 4 Steps Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {t.workflow.steps.map((step, idx) => (
             <div
-              key={step.num}
-              className="apple-glass-card p-8 rounded-3xl flex flex-col justify-between text-left transition-all duration-300"
+              key={idx}
+              className="bg-white/[0.03] border border-white/10 rounded-3xl p-6 backdrop-blur-xl hover:bg-white/[0.06] hover:border-cyan-400/30 transition-all flex flex-col justify-between group"
             >
               <div>
-                <span className="text-3xl sm:text-4xl font-extrabold text-white/25 block mb-5 tabular-nums">
-                  {step.num}
-                </span>
-
-                <h3 className="text-lg font-bold text-white mb-3 tracking-tight">
+                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-mono mb-4">
+                  {step.number}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
                   {step.title}
                 </h3>
-
-                <p className="text-xs sm:text-sm text-[#A1A1A6] leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                   {step.desc}
                 </p>
-              </div>
-
-              <div className="pt-4 border-t border-white/5 text-xs">
-                <div className="text-[#86868B] text-[11px] uppercase font-semibold tracking-wider mb-1">
-                  {lang === "en" ? "Outcome" : "Kết quả"}:
-                </div>
-                <div className="text-[#30D158] font-medium leading-snug">
-                  ✓ {step.outcome}
-                </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className="text-center">
+          <Link
+            href="/app"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-base bg-gradient-to-r from-blue-500 to-cyan-400 text-black shadow-xl shadow-cyan-500/20 hover:scale-105 transition-all"
+          >
+            <span>Bắt Đầu Ngày 01 Ngay Bây Giờ</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );
-}
+};

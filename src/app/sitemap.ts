@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://smobim.online";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://48smobeng.vercel.app";
   const lastModified = new Date();
 
   return [
@@ -18,16 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
-      url: `${baseUrl}/onboarding`,
+      url: `${baseUrl}/app`,
       lastModified,
-      changeFrequency: "monthly",
-      priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/onboarding?lang=en`,
-          vi: `${baseUrl}/onboarding?lang=vn`,
-        },
-      },
+      changeFrequency: "daily",
+      priority: 0.9,
     },
   ];
 }

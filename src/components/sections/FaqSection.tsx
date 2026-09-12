@@ -2,66 +2,58 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
-import { faqData } from "@/data/toolFeaturesData";
-import { Plus, Minus, HelpCircle } from "lucide-react";
+import { HelpCircle, ChevronDown, Sparkles } from "lucide-react";
 
-export function FaqSection() {
-  const { lang } = useLanguage();
-  const t = translations[lang].faq;
-  const [openIndices, setOpenIndices] = useState<number[]>([0, 3]);
+export const FaqSection: React.FC = () => {
+  const { t } = useLanguage();
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleIndex = (index: number) => {
-    setOpenIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+  const toggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-16 lg:py-24 bg-black relative overflow-hidden border-t border-white/10">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-[#2997FF] bg-[#2997FF]/10 border border-[#2997FF]/20 mb-2.5 backdrop-blur-md">
+    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <HelpCircle className="w-3.5 h-3.5" />
-            <span>{t.tag}</span>
+            <span>{t.faq.badge}</span>
           </div>
-
-          <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight leading-tight mb-2.5">
-            {t.headline}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            {t.faq.title}
           </h2>
-
-          <p className="text-xs sm:text-sm text-[#A1A1A6] max-w-xl mx-auto">
-            {t.subheadline}
+          <p className="text-base sm:text-lg text-slate-400">
+            {t.faq.subtitle}
           </p>
         </div>
 
-        {/* Compact Minimalist Accordion List */}
-        <div className="space-y-2.5">
-          {faqData.map((item, idx) => {
-            const isOpen = openIndices.includes(idx);
+        {/* Accordions */}
+        <div className="space-y-4">
+          {t.faq.items.map((item, idx) => {
+            const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className={`apple-glass-card rounded-2xl overflow-hidden transition-all duration-200 border ${
-                  isOpen ? "border-white/20 bg-white/[0.04]" : "border-white/10 hover:border-white/15"
-                }`}
+                className="bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden transition-all"
               >
                 <button
-                  onClick={() => toggleIndex(idx)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 transition-colors cursor-pointer"
+                  onClick={() => toggle(idx)}
+                  className="w-full p-6 text-left flex items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors"
                 >
-                  <span className="text-xs sm:text-sm md:text-[15px] font-semibold text-white leading-snug">
-                    {item.question[lang]}
+                  <span className="font-bold text-white text-base sm:text-lg">
+                    {item.question}
                   </span>
-                  <div className="shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[#A1A1A6]">
-                    {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-cyan-400 shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
-
                 {isOpen && (
-                  <div className="px-4 sm:px-5 pb-4.5 pt-0 text-xs sm:text-[13px] text-[#A1A1A6] leading-relaxed border-t border-white/5 animate-fadeIn">
-                    {item.answer[lang]}
+                  <div className="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-300 border-t border-white/5 leading-relaxed">
+                    {item.answer}
                   </div>
                 )}
               </div>
@@ -71,4 +63,4 @@ export function FaqSection() {
       </div>
     </section>
   );
-}
+};

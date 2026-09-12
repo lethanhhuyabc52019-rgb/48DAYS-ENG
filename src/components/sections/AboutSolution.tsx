@@ -1,122 +1,80 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
-import { Check, ArrowUpRight, Cpu } from "lucide-react";
+import { Sparkles, Video, BookMarked, CheckCircle2, Volume2, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-export function AboutSolution() {
-  const { lang } = useLanguage();
-  const t = translations[lang].about;
+export const AboutSolution: React.FC = () => {
+  const { t } = useLanguage();
+
+  const getPillarIcon = (index: number) => {
+    switch (index) {
+      case 0:
+        return <Video className="w-6 h-6 text-blue-400" />;
+      case 1:
+        return <BookMarked className="w-6 h-6 text-cyan-400" />;
+      case 2:
+        return <CheckCircle2 className="w-6 h-6 text-emerald-400" />;
+      default:
+        return <Volume2 className="w-6 h-6 text-orange-400" />;
+    }
+  };
 
   return (
-    <section id="about" className="py-24 lg:py-32 bg-black relative overflow-hidden border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Story & Principles */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#2997FF]">
-              {t.tag}
-            </span>
-
-            <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight leading-[1.12]">
-              {t.headline}
-            </h2>
-
-            <p className="text-lg sm:text-xl text-[#E5E5EA] font-normal leading-relaxed">
-              {t.lead}
-            </p>
-
-            <div className="space-y-4 text-sm sm:text-base text-[#A1A1A6] leading-relaxed">
-              <p>{t.p1}</p>
-              <p>{t.p2}</p>
-            </div>
-
-            {/* Apple Check Bullet Points */}
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {t.bullets.map((bullet) => (
-                <div key={bullet} className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5">
-                    <Check className="w-3 h-3 text-[#30D158]" />
-                  </div>
-                  <span className="text-xs sm:text-sm text-[#E5E5EA]">{bullet}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-4 flex items-center gap-4">
-              <a
-                href="#services"
-                className="apple-pill-btn inline-flex items-center gap-1.5 px-6 py-3 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-all"
-              >
-                <span>{lang === "en" ? "Explore Services" : "Xem Các Dịch Vụ"}</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
+    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>{t.solution.badge}</span>
           </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            {t.solution.title}
+          </h2>
+          <p className="text-base sm:text-lg text-slate-400">
+            {t.solution.subtitle}
+          </p>
+        </div>
 
-          {/* Right Column: Apple Obsidian Showcase Card */}
-          <div className="lg:col-span-5">
-            <div className="apple-glass p-7 sm:p-8 rounded-3xl space-y-6 shadow-2xl">
-              {/* Header Badge */}
-              <div className="flex items-center justify-between pb-5 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white">
-                    <Cpu className="w-5 h-5 text-[#2997FF]" />
+        {/* 4 Pillars Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {t.solution.pillars.map((pillar, index) => (
+            <div
+              key={index}
+              className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 backdrop-blur-xl hover:bg-white/[0.06] hover:border-blue-500/30 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    {getPillarIcon(index)}
                   </div>
-                  <div className="text-left">
-                    <h4 className="text-sm font-semibold text-white tracking-tight">
-                      {t.badgeTitle}
-                    </h4>
-                    <p className="text-[11px] text-[#86868B]">{t.badgeDesc}</p>
-                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    {pillar.highlight}
+                  </span>
                 </div>
-              </div>
-
-              {/* Quick Metrics Summary */}
-              <div className="grid grid-cols-2 gap-3 text-left">
-                <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/5">
-                  <div className="text-xl font-bold text-white font-mono">70%–90%</div>
-                  <div className="text-[11px] text-[#86868B] mt-0.5">
-                    {lang === "en" ? "Time saved on clicks" : "Tiết kiệm thao tác lặp lại"}
-                  </div>
-                </div>
-                <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/5">
-                  <div className="text-xl font-bold text-[#30D158] font-mono">&lt; 3 Giây</div>
-                  <div className="text-[11px] text-[#86868B] mt-0.5">
-                    {lang === "en" ? "Batch execution speed" : "Tốc độ xử lý hàng loạt"}
-                  </div>
-                </div>
-              </div>
-
-              {/* Real Tool UI Thumbnail */}
-              <div className="rounded-2xl overflow-hidden border border-white/15 bg-[#16161e] p-2.5 shadow-inner">
-                <div className="text-[10px] font-mono text-[#6E6E73] flex items-center justify-between pb-1.5 border-b border-white/5 mb-1.5">
-                  <span className="text-[#A1A1A6]">Revit Ribbon Add-in</span>
-                  <span className="text-[#30D158] font-bold">1-Click Tools</span>
-                </div>
-                <Image
-                  src="/images/tools/Tool.webp"
-                  alt="SMOB Tool UI - Giao diện thanh công cụ tự động hóa Revit Add-in"
-                  width={600}
-                  height={120}
-                  className="w-full h-auto object-contain rounded-lg filter contrast-105"
-                />
-              </div>
-
-              {/* Status Pill */}
-              <div className="pt-2 flex items-center justify-between text-xs text-[#86868B]">
-                <span className="text-[#30D158] font-medium flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" />
-                  Production Tested
-                </span>
-                <span>Revit 2020 – 2026</span>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                  {pillar.title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  {pillar.desc}
+                </p>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/app"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:border-white/40 transition-all"
+          >
+            <span>Trải nghiệm 4 trụ cột trong phòng học</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>
   );
-}
+};

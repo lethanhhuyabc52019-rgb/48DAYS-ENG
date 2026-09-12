@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/data/translations";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { BookOpen, Sparkles, Globe, Menu, X, PlayCircle } from "lucide-react";
 
-export function Header() {
-  const { lang, setLang } = useLanguage();
-  const t = translations[lang].nav;
+export const Header: React.FC = () => {
+  const { t, language, toggleLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,152 +18,142 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#about", label: t.about },
-    { href: "#services", label: t.services },
-    { href: "#smob-tool", label: t.tool },
-    { href: "#dynamo", label: t.dynamo },
-    { href: "#portfolio", label: t.portfolio },
-    { href: "#reviews", label: t.reviews },
-    { href: "#faq", label: t.faq },
-    { href: "#contact", label: t.contact },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 sm:px-6 py-3 sm:py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-4 transition-all duration-300">
       <div
-        className={`max-w-6xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between ${
+        className={`w-full max-w-7xl rounded-full transition-all duration-300 border flex items-center justify-between px-5 py-3 ${
           isScrolled
-            ? "apple-glass shadow-2xl"
-            : "bg-black/40 backdrop-blur-xl border border-white/10"
+            ? "bg-black/80 backdrop-blur-2xl border-white/15 shadow-2xl"
+            : "bg-black/40 backdrop-blur-md border-white/10"
         }`}
       >
         {/* Brand Logo */}
-        <Link href="#" className="flex items-center gap-2.5 group">
-          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden border border-white/15 group-hover:border-white/30 transition-all shadow-md">
-            <Image
-              src="/images/logo.webp"
-              alt="SMOB"
-              fill
-              className="object-cover"
-              priority
-            />
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            S
           </div>
-          <div className="flex flex-col text-left">
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-white">
-              SMOB
-            </span>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-white tracking-tight text-base sm:text-lg">
+                SMOB English Lab
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                48 Days
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400 font-medium hidden sm:block">
+              48-Day Foundation Course
+            </p>
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[13px] font-medium text-[#A1A1A6] hover:text-white transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <a href="#about" className="hover:text-white transition-colors">
+            {t.nav.about}
+          </a>
+          <a href="#curriculum" className="hover:text-white transition-colors">
+            {t.nav.curriculum}
+          </a>
+          <a href="#verbs" className="hover:text-white transition-colors">
+            {t.nav.verbs}
+          </a>
+          <a href="#exam" className="hover:text-white transition-colors">
+            {t.nav.exam}
+          </a>
+          <a href="#reviews" className="hover:text-white transition-colors">
+            {t.nav.testimonials}
+          </a>
+          <a href="#faq" className="hover:text-white transition-colors">
+            {t.nav.faq}
+          </a>
         </nav>
 
-        {/* Right Controls: Apple Segmented Language Switcher & Pill CTA */}
-        <div className="hidden sm:flex items-center gap-3.5">
-          {/* Apple Segmented Switcher */}
-          <div className="flex items-center bg-[#1c1c1e]/80 border border-white/10 rounded-full p-0.5 shadow-inner">
-            <button
-              onClick={() => setLang("en")}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-all duration-200 ${
-                lang === "en"
-                  ? "bg-white text-black shadow-sm font-bold"
-                  : "text-[#86868B] hover:text-white"
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("vn")}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-all duration-200 ${
-                lang === "vn"
-                  ? "bg-white text-black shadow-sm font-bold"
-                  : "text-[#86868B] hover:text-white"
-              }`}
-            >
-              VN
-            </button>
-          </div>
-
-          {/* Apple Pill Primary CTA */}
-          <a
-            href="#contact"
-            className="apple-pill-btn inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-black bg-white hover:bg-[#E8E8ED] transition-all shadow-md"
+        {/* Actions & CTA */}
+        <div className="flex items-center gap-3">
+          {/* Language Switcher */}
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+            title="Switch Language"
           >
-            <span>{t.cta}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
-        </div>
+            <Globe className="w-3.5 h-3.5 text-blue-400" />
+            <span>{language === "vi" ? "EN" : "VN"}</span>
+          </button>
 
-        {/* Mobile Controls */}
-        <div className="flex md:hidden items-center gap-2">
-          {/* Mobile Language Switcher */}
-          <div className="flex items-center bg-[#1c1c1e] border border-white/10 rounded-full p-0.5 text-xs">
-            <button
-              onClick={() => setLang("en")}
-              className={`px-2 py-0.5 rounded-full font-medium ${
-                lang === "en" ? "bg-white text-black font-bold" : "text-[#86868B]"
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("vn")}
-              className={`px-2 py-0.5 rounded-full font-medium ${
-                lang === "vn" ? "bg-white text-black font-bold" : "text-[#86868B]"
-              }`}
-            >
-              VN
-            </button>
-          </div>
+          {/* Primary CTA - Go to Classroom Web App */}
+          <Link
+            href="/app"
+            className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-blue-500 to-cyan-400 text-black hover:opacity-95 hover:shadow-lg hover:shadow-cyan-500/20 transition-all transform active:scale-95"
+          >
+            <PlayCircle className="w-4 h-4 fill-black text-blue-500" />
+            <span>{t.nav.startLearning}</span>
+          </Link>
 
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            aria-label="Toggle navigation"
+            className="lg:hidden p-2 text-slate-400 hover:text-white"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="md:hidden max-w-6xl mx-auto mt-2 rounded-3xl apple-glass p-6 space-y-4 animate-fadeIn border border-white/10">
-          <nav className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-2.5 rounded-2xl text-sm font-medium text-[#E5E5EA] hover:bg-white/10 hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="pt-2 border-t border-white/10">
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold text-black bg-white hover:bg-slate-200 transition-all"
-            >
-              <span>{t.cta}</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+        <div className="lg:hidden fixed top-20 left-4 right-4 bg-black/95 backdrop-blur-2xl border border-white/15 rounded-3xl p-6 shadow-2xl z-50 flex flex-col gap-4 animate-fadeIn">
+          <a
+            href="#about"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.about}
+          </a>
+          <a
+            href="#curriculum"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.curriculum}
+          </a>
+          <a
+            href="#verbs"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.verbs}
+          </a>
+          <a
+            href="#exam"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.exam}
+          </a>
+          <a
+            href="#reviews"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.testimonials}
+          </a>
+          <a
+            href="#faq"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-base font-semibold text-slate-200 hover:text-blue-400 py-2 border-b border-white/10"
+          >
+            {t.nav.faq}
+          </a>
+          <Link
+            href="/app"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full py-3 rounded-full text-center font-bold bg-gradient-to-r from-blue-500 to-cyan-400 text-black shadow-lg shadow-cyan-500/20 mt-2"
+          >
+            {t.nav.startLearning}
+          </Link>
         </div>
       )}
     </header>
   );
-}
+};
