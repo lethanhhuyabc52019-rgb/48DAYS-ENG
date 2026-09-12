@@ -1,0 +1,635 @@
+[
+  {
+    "unit_id": 1,
+    "unit_number": 1,
+    "title": "Thể khẳng định và phủ định với to be",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 2,
+    "unit_number": 2,
+    "title": "Thể nghi vấn của động từ to be",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 3,
+    "unit_number": 3,
+    "title": "Câu hỏi Who và What",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 4,
+    "unit_number": 4,
+    "title": "Câu hỏi Where và When",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 5,
+    "unit_number": 5,
+    "title": "Động từ thường ở hiện tại",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 6,
+    "unit_number": 6,
+    "title": "Thể phủ định của động từ thường",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 7,
+    "unit_number": 7,
+    "title": "Thể nghi vấn của động từ thường",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 8,
+    "unit_number": 8,
+    "title": "Thì hiện tại đơn",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 9,
+    "unit_number": 9,
+    "title": "Từ loại",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 10,
+    "unit_number": 10,
+    "title": "Thì hiện tại tiếp diễn",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 11,
+    "unit_number": 11,
+    "title": "Phân biệt HTĐ và HTTD",
+    "stage": 1,
+    "stage_name": "Giai đoạn 1: Nền tảng cốt lõi",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 12,
+    "unit_number": 12,
+    "title": "Thì quá khứ đơn thể khẳng định",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": false,
+    "video_status": "MISSING",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 13,
+    "unit_number": 13,
+    "title": "Thì quá khứ đơn thể phủ định & nghi vấn",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": false,
+    "video_status": "MISSING",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 14,
+    "unit_number": 14,
+    "title": "Thì quá khứ tiếp diễn",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 15,
+    "unit_number": 15,
+    "title": "Thì hiện tại hoàn thành",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 16,
+    "unit_number": 16,
+    "title": "Thì tương lai đơn",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 17,
+    "unit_number": 17,
+    "title": "Thì tương lai hoàn thành",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 18,
+    "unit_number": 18,
+    "title": "Ngữ âm (Nguyên âm & Phụ âm)",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 19,
+    "unit_number": 19,
+    "title": "Trọng âm từ 2-3 âm tiết",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 20,
+    "unit_number": 20,
+    "title": "Các từ để hỏi khác (Why, How...)",
+    "stage": 2,
+    "stage_name": "Giai đoạn 2: Khung thì & Động từ",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 21,
+    "unit_number": 21,
+    "title": "Luyện nghe số và tên",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 6,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3",
+      "5.mp3",
+      "6.mp3"
+    ]
+  },
+  {
+    "unit_id": 22,
+    "unit_number": 22,
+    "title": "Động từ khuyết thiếu",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 23,
+    "unit_number": 23,
+    "title": "Liên từ and, but, or, so, because",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 24,
+    "unit_number": 24,
+    "title": "Liên từ chỉ thời gian",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 25,
+    "unit_number": 25,
+    "title": "Liên từ chỉ sự đối lập",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 26,
+    "unit_number": 26,
+    "title": "Câu điều kiện loại 1",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 27,
+    "unit_number": 27,
+    "title": "Câu điều kiện loại 2",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 28,
+    "unit_number": 28,
+    "title": "Câu điều kiện loại 3",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 29,
+    "unit_number": 29,
+    "title": "Luyện nghe điền từ",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 6,
+    "audio_files": [
+      "mp31.mp3",
+      "mp32.mp3",
+      "mp33.mp3",
+      "mp34.mp3",
+      "mp35.mp3",
+      "mp36.mp3"
+    ]
+  },
+  {
+    "unit_id": 30,
+    "unit_number": 30,
+    "title": "Luyện nghe chép chính tả",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 6,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3",
+      "5.mp3",
+      "6.mp3"
+    ]
+  },
+  {
+    "unit_id": 31,
+    "unit_number": 31,
+    "title": "Luyện nghe về giờ",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 5,
+    "audio_files": [
+      "mp31.mp3",
+      "mp32.mp3",
+      "mp33.mp3",
+      "mp34.mp3",
+      "mp35.mp3"
+    ]
+  },
+  {
+    "unit_id": 32,
+    "unit_number": 32,
+    "title": "Luyện nghe ngày tháng",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "mp31.mp3",
+      "mp32.mp3",
+      "mp33.mp3",
+      "mp34.mp3"
+    ]
+  },
+  {
+    "unit_id": 33,
+    "unit_number": 33,
+    "title": "Luyện nghe địa điểm",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "mp31.mp3",
+      "mp32.mp3",
+      "mp33.mp3",
+      "mp34.mp3"
+    ]
+  },
+  {
+    "unit_id": 34,
+    "unit_number": 34,
+    "title": "Luyện nghe về tiền bạc",
+    "stage": 3,
+    "stage_name": "Giai đoạn 3: Cấu trúc & Luyện nghe",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 5,
+    "audio_files": [
+      "mp31.mp3",
+      "mp32.mp3",
+      "mp33.mp3",
+      "mp34.mp3",
+      "mp35.mp3"
+    ]
+  },
+  {
+    "unit_id": 35,
+    "unit_number": 35,
+    "title": "Đại từ phản thân",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 36,
+    "unit_number": 36,
+    "title": "Sự hoà hợp về thì",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 37,
+    "unit_number": 37,
+    "title": "Tiếng Anh giao tiếp 1",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 38,
+    "unit_number": 38,
+    "title": "Liên từ tương hỗ",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 39,
+    "unit_number": 39,
+    "title": "Luyện nghe quốc gia & châu lục",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 5,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3",
+      "5.mp3"
+    ]
+  },
+  {
+    "unit_id": 40,
+    "unit_number": 40,
+    "title": "Luyện nghe về sở thích",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 41,
+    "unit_number": 41,
+    "title": "Luyện nghe phương tiện giao thông",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 42,
+    "unit_number": 42,
+    "title": "Luyện nghe thể thao",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 2,
+    "audio_files": [
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 43,
+    "unit_number": 43,
+    "title": "Luyện nghe nghề nghiệp",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 44,
+    "unit_number": 44,
+    "title": "Luyện nghe công nghệ",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 4,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3",
+      "4.mp3"
+    ]
+  },
+  {
+    "unit_id": 45,
+    "unit_number": 45,
+    "title": "Tiếng Anh giao tiếp 2",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": false,
+    "audio_count": 0
+  },
+  {
+    "unit_id": 46,
+    "unit_number": 46,
+    "title": "Kỹ năng Note-taking",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 3,
+    "audio_files": [
+      "1-4.mp3",
+      "5-8.mp3",
+      "9-13.mp3"
+    ]
+  },
+  {
+    "unit_id": 47,
+    "unit_number": 47,
+    "title": "Kỹ năng Paraphrasing",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 3,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3",
+      "3.mp3"
+    ]
+  },
+  {
+    "unit_id": 48,
+    "unit_number": 48,
+    "title": "Tự tin giới thiệu bản thân & thuyết trình",
+    "stage": 4,
+    "stage_name": "Giai đoạn 4: Giao tiếp & Ứng dụng",
+    "has_video": true,
+    "video_status": "AVAILABLE",
+    "has_audio": true,
+    "audio_count": 2,
+    "audio_files": [
+      "1.mp3",
+      "2.mp3"
+    ]
+  }
+]

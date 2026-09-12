@@ -1,0 +1,317 @@
+BIM PORTFOLIO DOCUMENTATION
+BIM PORTFOLIO
+Architectural & Structural BIM Modeling  ·  Parametric Families  ·  Dynamo Automation  ·  Custom Revit API Tools
+BIM Specialist & Automation Engineer
+ABOUT THIS PORTFOLIO
+Real deliverables, production-ready quality
+This portfolio brings together completed BIM projects spanning architectural & structural modeling, construction documentation, and parametric Revit family creation. Every project shown here was delivered end-to-end — from raw 2D drawings.
+The goal on every engagement is the same: accurate geometry, clean data, and models that hold up under real coordination workflows — not just pretty renders.
+Core Tools & Platforms
+MODELING
+Autodesk Revit 2024
+COORDINATION
+Navisworks Manage
+REFERENCE DATA
+AutoCAD (DWG/DXF)
+AUTOMATION
+Dynamo
+01
+Architectural & Structural BIM Modeling
+Scan to BIM · Structural & Architectural Modeling · Quantity Take-Off · Clash Detection
+Riverside Tower B4-2 — Structural BIM Modeling
+CLASSIFICATION
+BIM Modeling
+TOOLS USED
+Revit 2024, Navisworks Manage
+Services: Structural Engineering, BIM Coordination, Quantity Take-Off
+OVERVIEW
+Comprehensive LOD 350 structural BIM model for a high-rise residential tower in Da Nang, capturing the complete reinforced concrete frame system across multiple floors with full coordination and material quantification.
+The Brief
+Develop a fully coordinated LOD 350 structural Revit model from 2D structural drawings, with precise representation of all RC elements — foundations, columns, beams, slabs, shear walls, and stairs — for clash detection and automated quantity take-off, supporting downstream cost estimation.
+What We Delivered
+•  Full structural BIM modeling from 2D PDF/DWG drawings — foundations, columns, transfer beams, slabs, core walls, and cast-in-place stairs
+•  Structural grids & levels aligned with the architectural reference model
+•  Revit Structural Model (.rvt) at LOD 300
+Visual Documentation
+International School — Structural BIM Modeling
+CLASSIFICATION
+BIM Modeling
+TOOLS USED
+Revit 2024
+Services: Structural Engineering, Multi-Building BIM Coordination
+OVERVIEW
+Structural BIM modeling for a multi-building international school campus — classrooms, auditorium, administration, and sports facilities — coordinated in a single federated model.
+The Brief
+Create LOD 300+ structural Revit models from 2D structural drawings for a school campus spanning multiple building blocks, enabling structural coordination, rebar scheduling, and constructability review across all buildings.
+What We Delivered
+•  Structural modeling of 5 building blocks from 2D documentation
+•  RC frame systems, post-tensioned slabs, and steel connections for long-span areas (auditorium, gymnasium)
+•  Pile foundations and grade beams
+•  Structural schedule generation for quantity-surveyor coordination
+•  Revit Structural Model (.rvt) — LOD 300, federated
+•  
+Key Results
+Visual Documentation
+Cedar Rest Hotel — Architectural & Structural BIM
+CLASSIFICATION
+BIM Modeling
+TOOLS USED
+Revit 2024, Navisworks Manage
+Services: Architecture, Structural Engineering, Multi-Discipline Coordination
+OVERVIEW
+Dual-discipline BIM modeling for a boutique hotel — architectural envelope and structural RC frame, both at LOD 300, developed in parallel linked Revit models for full cross-discipline clash coordination.
+The Brief
+Develop coordinated LOD 300 architectural and structural Revit models from 2D design drawings, supporting design review workshops, automated clash detection between disciplines, and construction documentation for local permit submission.
+What We Delivered
+•  Architectural modeling: exterior walls, interior partitions, floor finishes, roofing, curtain wall facades, doors, windows, ceiling grids, and room definitions with area schedules
+•  Structural modeling: RC foundations, columns, beams, floor & roof slabs, staircases, and retaining walls
+•  Cross-discipline model linking with shared coordinates and clash coordination
+•  2 Revit models (.rvt) — Architectural + Structural, both LOD 300
+•  
+Visual Documentation
+Mira Residence — Architectural & Structural BIM
+CLASSIFICATION
+BIM Modeling
+TOOLS USED
+Revit 2024
+Services: Architecture, Structural Engineering, Visualization
+OVERVIEW
+Integrated BIM modeling for a modern residential project — architectural design intent and structural engineering captured in a single coordinated Revit model for design visualization and construction planning.
+The Brief
+Create a comprehensive Revit model capturing both architectural and structural design from 2D drawings at LOD 300, supporting interior design visualization, room/area scheduling, and material quantification for construction budgeting.
+What We Delivered
+•  Full architectural modeling with interior detailing: walls with finish layers, floor types, ceilings, doors, windows, balcony railings, and roof system
+•  Structural RC frame modeling: foundations, columns, beams, slabs, and stairs
+•  Auto-populated room schedules, area calculations, and material take-off schedules
+•  Combined Revit model (.rvt) — ARC + STR, LOD 300
+Key Results
+Visual Documentation
+Oak Residence — Architectural & Structural BIM
+CLASSIFICATION
+BIM Modeling
+TOOLS USED
+Revit 2024
+Services: Architecture, Structural Engineering, Construction Documentation
+OVERVIEW
+Complete BIM development for a residential villa — architectural design and structural framework modeled in an integrated workflow for holistic visualization and construction-ready documentation.
+The Brief
+Deliver an integrated LOD 300 Revit model covering the architectural facade, interior layout, and complete RC structural frame from 2D construction drawings — construction-ready and able to support direct sheet production.
+What We Delivered
+•  Architectural modeling: exterior envelope with cladding details, complex roof system, interior walls, door/window schedules, and finish specifications
+•  Structural modeling: RC columns, beams, slabs, staircase, and foundation system
+•  Full model coordination, conflict resolution, and 3D visualization for client presentation
+•  Integrated Revit model (.rvt) — ARC + STR, LOD 300
+Visual Documentation
+02
+Layout Drawings & Documentation
+Complete Construction Sheet Sets · Professional Documentation · Print-Ready Exports
+Ranch House — Complete Sheet Set & Layout Drawings
+CLASSIFICATION
+BIM Modeling — Construction Documentation
+TOOLS USED
+Revit 2024
+Services: Architecture, Construction Documentation, Sheet Production
+OVERVIEW
+Full architectural documentation package for a ranch-style residential house — 13 professionally formatted construction sheets including floor plans, elevations, sections, and site plan, all produced from a coordinated Revit model.
+The Brief
+Produce a complete set of construction documents from a Revit architectural model: plans (basement, first floor, second floor, roof), all four elevations, cross and longitudinal sections, dormer details, site plan, and a perspective view — all formatted to professional standards with title blocks, dimensions, annotations, and proper drawing numbering.
+What We Delivered
+•  13 construction sheets (A-1 to A-13): perspective view, basement/first/second floor plans, roof plan, 4 elevations, cross & longitudinal sections, dormer section & 3D details, and site plan
+•  Full dimensioning with chains and spot elevations, room tags, door/window tags, wall section references, detail callouts, north arrows, and scale bars
+•  13 layout sheets exported as high-resolution PNG
+•  Revit model (.rvt) with organized view/sheet structure
+•  Print-ready documentation at standard architectural scales (1:50, 1:100, 1:200)
+Visual Documentation
+03
+Parametric Family Creation
+Revit Families (.rfa) · Furniture & Fixtures · Doors & Windows · Type Catalogs
+Accent Chair Teak — Parametric Furniture Family
+CLASSIFICATION
+Revit Family Content
+TOOLS USED
+Revit 2024, Family Editor
+Services: Parametric Family Creation, Interior Design Support
+OVERVIEW
+Custom parametric Revit family for a teak accent chair, built with accurate manufacturer-spec geometry, realistic teak wood material, and complete shop drawing documentation for fabrication reference.
+The Brief
+Develop a parametric Revit family (.rfa) for a teak accent chair matching manufacturer specifications precisely, with adjustable seat height, width, and depth, realistic teak wood material for rendering, and a shop drawing PDF export for manufacturing coordination.
+What We Delivered
+•  3D parametric family modeled from manufacturer shop drawings
+•  Dimensional constraints for seat height, width, depth, and arm height
+•  Teak hardwood material with UV-mapped textures for photorealistic rendering
+•  Type catalog with standard S/M/L sizes
+•  Revit Family (.rfa), shop drawing PDF, and type catalog (.txt)
+Visual Documentation
+ADA Vanity @ Retail Public Toilet — Plumbing Fixture Family
+CLASSIFICATION
+Revit Family Content
+TOOLS USED
+Revit 2024, Family Editor, AutoCAD
+Services: Parametric Family Creation, ADA Compliance, MEP Coordination
+OVERVIEW
+ADA-compliant vanity unit family for retail public restrooms, precision-modeled to meet accessibility clearance standards, with detailed DWG shop drawings and plumbing connection point documentation.
+The Brief
+Create an ADA-compliant vanity Revit family for retail public toilet rooms, with accurate knee/toe clearance zones per ADA/ABA guidelines, plumbing rough-in connection points, and construction documentation exported in DWG for MEP coordination.
+What We Delivered
+•  Plumbing connector placement for hot/cold water supply and waste connections
+•  DWG detail export with clearance-zone annotations
+•  PDF shop drawing for fabrication review
+•  Parameter setup per project BIM standards— family code DR-INT-40012
+Visual Documentation
+Door Families — PD & WPD Single Open
+CLASSIFICATION
+Revit Family Content
+TOOLS USED
+Revit 2024, Family Editor
+Services: Parametric Family Creation, Architectural Detailing
+OVERVIEW
+Two parametric door families — Panel Door (PD) and Wall Panel Door (WPD) in single-open configuration — with fully adjustable width, height, and frame depth, and accurate 2D/3D representation including swing-arc symbology.
+The Brief
+Develop parametric single-open door families for both PD and WPD types, with configurable opening width (700–1200 mm), height (2100–2400 mm), frame depth, swing direction, and accurate plan-view swing-arc representation per architectural drawing conventions.
+What We Delivered
+•  Two separate .rfa host families for wall-hosted door instances
+•  Parametric controls: width, height, frame depth, threshold height
+•  2D plan representation with 90° swing arc, door leaf line, and frame profile
+•  3D geometry: door leaf, frame, hardware, and glazing panel (WPD variant)
+•  Material assignments per component: wood leaf, metal frame, glass panel
+Visual Documentation
+GM Shelving Unit @ Office — Parametric Furniture Family
+CLASSIFICATION
+Revit Family Content
+TOOLS USED
+Revit 2024, Family Editor, AutoCAD
+Services: Parametric Family Creation, Interior Design Coordination
+OVERVIEW
+Custom office shelving unit family built from DWG shop drawings, with parametric shelf count and spacing, multiple type configurations, and complete fabrication documentation.
+The Brief
+Create a parametric Revit family for an office shelving unit based on provided DWG shop drawings, with an adjustable number of shelves (3–6), overall width/height/depth, and material options for interior design coordination and procurement scheduling.
+What We Delivered
+•  Parametric family built from DWG reference geometry
+•  Adjustable shelf count and shelf spacing (calculated from overall height)
+•  Material assignments: laminated MDF shelves, steel frame supports
+•  DWG detail drawing and PDF shop drawing for fabrication coordination
+•  Family code: DR-INT-40003
+Visual Documentation
+Window Families — Fixed & Sliding
+CLASSIFICATION
+Revit Family Content
+TOOLS USED
+Revit 2024, Family Editor
+Services: Parametric Family Creation, Facade Design Support
+OVERVIEW
+Two parametric window families — a Fixed Window with system-window integration and a Sliding Single Window — with configurable frame, glazing, and sill parameters for facade design and energy-analysis workflows.
+The Brief
+Create parametric window families for both fixed and sliding types, with adjustable frame width/height, glazing thickness, sill height, and mullion profiles. The fixed window must integrate with Revit's system curtain wall panels; the sliding window must include a track mechanism and operable leaf.
+What We Delivered
+•  Fixed Window family — compatible with system curtain wall panel replacement
+•  Sliding Single Window family — with horizontal track and operable leaf
+•  Parametric controls: frame width/depth, glazing thickness, sill height, head height, mullion profile
+•  2D elevation symbolic representation with glass hatch
+•  3D detailed geometry for architectural visualization
+Visual Documentation
+DYNAMO NODE:
+ Dynamo Automation Services | Workflow Optimization & Data Processing
+Biến các tác vụ lặp lại hàng trăm giờ trên Revit thành quy trình tự động hóa chỉ với một lần nhấp chuột, đảm bảo độ chính xác dữ liệu tuyệt đối cho toàn bộ dự án.
+Client Request: Giải phóng kỹ sư khỏi các tác vụ thủ công kéo dài (đánh số cấu kiện, quản lý thông số, tạo hình học phức tạp, trích xuất dữ liệu hàng loạt) nhằm cắt giảm chi phí nhân sự và hạn chế tối đa rủi ro sai sót do con người.
+Scope of Work: Phân tích quy trình làm việc hiện tại của khách hàng, thiết lập thuật toán xử lý dữ liệu ngầm, kết nối thông số hai chiều (Revit  Excel), đóng gói luồng công việc thành giải pháp 1-Click trực quan, dễ sử dụng cho mọi thành viên trong nhóm.
+Input Data: File mô hình Revit dự án (.rvt), danh sách quy chuẩn dữ liệu, bảng tính Excel hoặc yêu cầu thông số kỹ thuật từ khách hàng.
+Deliverables: Bộ script Dynamo (.dyn) hoàn chỉnh, quy chuẩn hướng dẫn vận hành trực quan và bộ tham số đồng bộ chuẩn hóa trên mô hình.
+Stages of the project:
+Result of the project:
+1. Khảo sát điểm nghẽn quy trình và yêu cầu đầu ra
+Cắt giảm 80% – 90% thời gian xử lý thủ công
+2. Thiết lập logic xử lý dữ liệu và thuật toán tự động
+Triệt tiêu 100% lỗi nhập liệu thủ công
+3. Chạy thử nghiệm và kiểm soát lỗi trên mô hình thực tế
+Chuẩn hóa quy trình vận hành đồng bộ cho cả dự án
+4. Bàn giao giải pháp và chuyển giao tài liệu vận hành
+Tốc độ xử lý hàng nghìn phần tử chỉ trong vài giây
+Bạn có muốn bổ sung cụ thể các tác vụ tự động hóa thế mạnh của bạn (chẳng hạn như gán tham số sheet, renumber cửa/cọc, hay bóc tách khối lượng) vào phần mô tả này không?
+‘
+SMO-BIM tool
+TỔNG HỢP CÁC TÍNH NĂNG TỰ ĐỘNG HÓA SMO-BIM ADD-IN
+SMO-BIM: Giải Pháp Tối Ưu Năng Suất & Tự Động Hóa Toàn Diện Cho Autodesk Revit
+Bộ công cụ được phát triển chuyên sâu nhằm giải quyết triệt để các tác vụ thủ công lặp đi lặp lại, giúp kỹ sư và chuyên viên BIM tiết kiệm từ 70% – 90% thời gian trong công tác dựng hình, chuẩn hóa dữ liệu và kiểm soát chất lượng mô hình (QA/QC).
+CHI TIẾT CÁC TÍNH NĂNG CỐT LÕI
+1. 📦 SAVE FAMILY – Trích Xuất & Phân Loại Thư Viện Hàng Loạt
+Vấn đề thực tế: Khi cần lấy toàn bộ Family từ một file dự án lớn, việc mở từng Family rồi lưu thủ công tốn hàng giờ đồng hồ.
+Giải pháp SMO-BIM:
+Xuất toàn bộ Loadable Family (.rfa) trong dự án ra ổ cứng chỉ với 1 click.
+Tự động tạo cây thư mục và gom nhóm theo đúng danh mục (Category: Doors, Windows, Columns, Framing, Furniture...).
+Chuẩn hóa tên file, dễ dàng tạo kho thư viện chuẩn (Template/Library) cho công ty.
+2. ⚡ VIEW FILTERS – Quản Lý Bộ Lọc Hiển Thị Đa View
+Tính năng:
+Bật/tắt, quản lý và áp dụng bộ lọc (View Filters) đồng loạt cho nhiều View/Sheet cùng lúc.
+Sao chép nhanh cài đặt Filter từ View này sang hàng loạt View khác mà không cần can thiệp thủ công vào từng bảng Visibility/Graphic Overrides (VG) phức tạp.
+Giá trị mang lại: Đồng bộ màu sắc hiển thị và chuẩn đồ họa bản vẽ cho toàn dự án chỉ trong vài giây.
+3. 📑 DUPLICATE – Nhân Bản View & Sheet Chuyên Sâu
+Tính năng:
+Nhân bản hàng loạt View theo nhiều chế độ: Duplicate thường, With Detailing (kèm chi tiết 2D) hoặc As Dependent.
+Tự động thêm tiền tố (Prefix) / hậu tố (Suffix) theo giai đoạn thiết kế (VD: -SD, -DD, -CD, -FOR APPROVAL).
+Hỗ trợ nhân bản cả Sheet (Sheet Duplication) giữ nguyên khung tên và bố cục sắp xếp Viewport.
+Giá trị mang lại: Chuẩn bị hồ sơ và dàn trang bản vẽ nhanh gấp 10 lần so với thao tác thủ công.
+4. 🔄 RESET VIEW – Khôi Phục Hiển Thị View Tức Thì
+Tính năng:
+1 Click khôi phục ngay lập tức trạng thái ẩn/hiện tạm thời (Temporary Hide/Isolate - Kính mát).
+Đưa Crop Region, Graphic Overrides về trạng thái chuẩn của View làm việc.
+Giá trị mang lại: Tránh lỗi quên tắt chế độ ẩn tạm thời dẫn đến in sót cấu kiện hoặc sai lệch hồ sơ phát hành.
+5. 🔗 JOIN CONTROL – Khóa / Mở Nút Giao Cấu Kiện (Disallow / Allow Join)
+Vấn đề thực tế: Revit tự động giật đầu dầm/tường làm vát mép hoặc lệch tim trục ngoài ý muốn, gây sai hình học thiết kế.
+Giải pháp SMO-BIM:
+Quét chọn hàng loạt Tường (Walls) hoặc Dầm kết cấu (Framing) và chuyển đổi đồng loạt trạng thái Disallow Join hoặc Allow Join ở 2 đầu cấu kiện.
+Giá trị mang lại: Khóa cứng vị trí hình học chuẩn xác, kiểm soát nút giao cấu kiện tuyệt đối.
+6. 🔢 AUTO NUMBERING – Đánh Số & Ký Hiệu Cấu Kiện Tự Động
+Tính năng:
+Đánh số tự động cho mọi Category: Cọc (Piles), Cột, Dầm, Cửa (Doors/Windows), Phòng (Rooms), Chỗ đỗ xe, Thiết bị MEP...
+Đa dạng quy luật sắp xếp: Trái sang Phải, Trên xuống Dưới, Zigzag, hoặc Theo thứ tự Pick chọn.
+Cấu hình linh hoạt: Thêm Tiền tố/Hậu tố, định dạng số đếm 001, 002..., bước nhảy, tự động kết hợp tên Tầng/Phòng (Level-Room-Number).
+Tùy chọn phạm vi đánh số: Active View, Selection hoặc Toàn bộ công trình.
+Giá trị mang lại: Đánh số hàng nghìn cấu kiện trong vài giây, loại bỏ hoàn toàn lỗi trùng lặp số hiệu khi bóc tách khối lượng.
+7. 🏷️ BATCH RENAME – Bộ Công Cụ Đổi Tên Hàng Loạt Chuyên Nghiệp
+Tính năng:
+Đổi tên hàng loạt cho: Views, Sheets, Families, Types, Levels, Grids, Materials, Rooms.
+Hỗ trợ đầy đủ công cụ: Tìm & Thay thế (Find & Replace), Thêm Prefix/Suffix, Đổi chữ HOA/thường/Title Case, Xử lý chuỗi nâng cao (Regex).
+Bảng Live Preview (Xem trước thời gian thực): So sánh trực quan Tên hiện tại vs Tên mới trước khi bấm áp dụng, đảm bảo chính xác 100%.
+Giá trị mang lại: Chuẩn hóa toàn bộ tên đối tượng theo tiêu chuẩn BIM (ISO 19650) hoặc BEP của dự án chỉ trong 1 phút.
+8. 🧩 JOIN / UNJOIN – Tự Động Xử Lý Giao Cắt Hình Học Thông Minh
+Vấn đề thực tế: Xung đột thể tích giữa Sàn, Cột, Dầm, Tường, Móng khiến bảng khối lượng bê tông bị sai lệch và nét cắt bản vẽ bị rối.
+Giải pháp SMO-BIM:
+Auto Join: Tự động nhận diện va chạm và Join hình học theo Ma trận thứ tự ưu tiên (Priority Rules) tùy chỉnh (Sàn cắt Cột, Cột cắt Dầm, Dầm cắt Tường, Móng...).
+Batch Unjoin: Tách rời liên kết hình học hàng loạt khi cần sửa đổi mô hình.
+Tối ưu tốc độ cao: Tích hợp bộ lọc va chạm Bounding Box và cơ chế khử cảnh báo âm thầm (Failures Preprocessor), xử lý mô hình lớn cực nhanh, không đơ máy, không hiện popup cảnh báo làm gián đoạn.
+Giá trị mang lại: Tiết kiệm hàng chục giờ thao tác Join thủ công, đảm bảo khối lượng bóc tách chính xác tuyệt đối.
+9. 📐 FLOOR ELEVATION CHECK – Kiểm Tra Cao Độ Sàn & Đáy Sàn Tự Động
+Vấn đề thực tế: Sàn, đài móng, dầm bị đặt lệch cốt, sai Offset hoặc gán nhầm Reference Level rất khó phát hiện bằng mắt thường.
+Giải pháp SMO-BIM:
+Tự động quét toàn bộ mô hình và kiểm tra cao độ Top/Bottom của Sàn, Móng, Dầm so với Level chuẩn.
+Phát hiện tức thì các vị trí lệch cao độ hoặc âm/dương bất thường để xử lý trước khi ra hồ sơ.
+Giá trị mang lại: Công cụ kiểm tra chất lượng mô hình (QA/QC) đắc lực, ngăn ngừa 100% rủi ro sai sót cao độ ngoài công trường.
+TỔNG KẾT HIỆU QUẢ ỨNG DỤNG
+Công việc thực tế
+Làm thủ công trên Revit
+Sử dụng SMO-BIM
+Hiệu quả cải thiện
+Join hình học (Auto Join)
+Click từng cấu kiện (mất nhiều ngày)
+Tự động Join theo luật (vài chục giây)
+Nhanh hơn 90%
+Đổi tên hàng loạt (Batch Rename)
+F2 đổi tên từng đối tượng
+Xử lý hàng trăm đối tượng trong 1 click
+Nhanh hơn 95%
+Đánh số cấu kiện (Auto Numbering)
+Nhập tay từng số, dễ trùng/sót
+Đánh số tự động theo tọa độ/hướng
+Chính xác 100%
+Trích xuất Family (Save Family)
+Mở từng file -> Save As
+1 Click xuất sạch kho thư viện chuẩn
+Tiết kiệm 8+ giờ
+Kiểm tra cao độ (Elevation Check)
+Cắt mặt cắt đo từng vị trí
+Quét tự động toàn bộ tầng
+Ngăn ngừa lỗi thi công
+LỘ TRÌNH NÂNG CẤP TIẾP THEO (ROADMAP)
+Phiên bản hiện tại là nền tảng vững chắc để tối ưu thao tác dựng hình và chuẩn hóa dữ liệu. SMO-BIM sẽ liên tục được cập nhật thêm các tính năng tự động hóa chuyên sâu trong các bản tiếp theo:
+.
+🚀 SMO-BIM – Đầu tư một lần, tối ưu năng suất làm việc dài lâu!

@@ -1,0 +1,387 @@
+import os
+import json
+
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+target_dir = os.path.join(base_dir, 'data')
+os.makedirs(target_dir, exist_ok=True)
+
+unit_1_data = {
+    'unit_id': 1,
+    'unit_number': 1,
+    'title': 'THỂ KHẲNG ĐỊNH VÀ PHỦ ĐỊNH VỚI TO BE',
+    'stage': 1,
+    'stage_name': 'Giai đoạn 1: Nền tảng cốt lõi',
+    'source_trace': {
+        'theory_file': 'Thể khẳng định và phủ định của động từ to be.pdf',
+        'exercise_file': 'Bài thi online Thể khẳng định và phủ định của động từ to be.pdf',
+        'answer_file': 'đáp án NGÀY 1. THỂ KHẲNG ĐỊNH VÀ PHỦ ĐỊNH CỦA ĐỘNG TỪ TO BE        .pdf',
+        'video_file': 'NGÀY 1. THỂ KHẲNG ĐỊNH VÀ PHỦ ĐỊNH VỚI TO BE.f398.mp4',
+        'audio_track': 'NGÀY 1. THỂ KHẲNG ĐỊNH VÀ PHỦ ĐỊNH VỚI TO BE.f251.webm'
+    },
+    'vocabulary': [
+        {'id': 'u01_v01', 'word': 'I', 'ipa': '/aɪ/', 'pos': 'đại từ', 'meaning': 'tôi', 'example': 'I am a student.', 'translation': 'Tôi là học sinh.', 'source_page': 1},
+        {'id': 'u01_v02', 'word': 'you', 'ipa': '/ju/', 'pos': 'đại từ', 'meaning': 'bạn, các bạn', 'example': 'You are my friend.', 'translation': 'Bạn là bạn của tôi.', 'source_page': 1},
+        {'id': 'u01_v03', 'word': 'we', 'ipa': '/wi/', 'pos': 'đại từ', 'meaning': 'chúng tôi', 'example': 'We are happy.', 'translation': 'Chúng tôi rất vui.', 'source_page': 1},
+        {'id': 'u01_v04', 'word': 'they', 'ipa': '/ðeɪ/', 'pos': 'đại từ', 'meaning': 'họ, chúng', 'example': 'They are students.', 'translation': 'Họ là học sinh.', 'source_page': 1},
+        {'id': 'u01_v05', 'word': 'she', 'ipa': '/ʃi/', 'pos': 'đại từ', 'meaning': 'cô ấy', 'example': 'She is tall.', 'translation': 'Cô ấy cao.', 'source_page': 1},
+        {'id': 'u01_v06', 'word': 'he', 'ipa': '/hi/', 'pos': 'đại từ', 'meaning': 'anh ấy', 'example': 'He is a teacher.', 'translation': 'Anh ấy là giáo viên.', 'source_page': 1},
+        {'id': 'u01_v07', 'word': 'it', 'ipa': '/ɪt/', 'pos': 'đại từ', 'meaning': 'nó', 'example': 'It is a car.', 'translation': 'Nó là chiếc xe ô tô.', 'source_page': 1},
+        {'id': 'u01_v08', 'word': 'my', 'ipa': '/maɪ/', 'pos': 'tính từ sở hữu', 'meaning': 'của tôi', 'example': 'It is my book.', 'translation': 'Đó là cuốn sách của tôi.', 'source_page': 1},
+        {'id': 'u01_v09', 'word': 'your', 'ipa': '/jɔːr/', 'pos': 'tính từ sở hữu', 'meaning': 'của bạn, của các bạn', 'example': 'This is your dog.', 'translation': 'Đây là con chó của bạn.', 'source_page': 1},
+        {'id': 'u01_v10', 'word': 'our', 'ipa': '/aʊər/', 'pos': 'tính từ sở hữu', 'meaning': 'của chúng tôi', 'example': 'Our house is big.', 'translation': 'Nhà của chúng tôi to.', 'source_page': 1},
+        {'id': 'u01_v11', 'word': 'their', 'ipa': '/ðeər/', 'pos': 'tính từ sở hữu', 'meaning': 'của họ, của chúng', 'example': 'Their car is small.', 'translation': 'Xe của họ nhỏ.', 'source_page': 1},
+        {'id': 'u01_v12', 'word': 'her', 'ipa': '/hɜːr/', 'pos': 'tính từ sở hữu', 'meaning': 'của cô ấy', 'example': 'He is her brother.', 'translation': 'Anh ấy là anh trai của cô ấy.', 'source_page': 1},
+        {'id': 'u01_v13', 'word': 'his', 'ipa': '/hɪz/', 'pos': 'tính từ sở hữu', 'meaning': 'của anh ấy', 'example': 'It is his car.', 'translation': 'Đó là xe ô tô của anh ấy.', 'source_page': 1},
+        {'id': 'u01_v14', 'word': 'its', 'ipa': '/ɪts/', 'pos': 'tính từ sở hữu', 'meaning': 'của nó', 'example': 'Its color is black.', 'translation': 'Màu của nó là màu đen.', 'source_page': 1},
+        {'id': 'u01_v15', 'word': 'student', 'ipa': '/ˈstjuːdənt/', 'pos': 'danh từ', 'meaning': 'học sinh', 'example': 'I am a student.', 'translation': 'Tôi là học sinh.', 'source_page': 2},
+        {'id': 'u01_v16', 'word': 'teacher', 'ipa': '/ˈtiːtʃər/', 'pos': 'danh từ', 'meaning': 'giáo viên', 'example': 'He is a teacher.', 'translation': 'Anh ấy là giáo viên.', 'source_page': 2},
+        {'id': 'u01_v17', 'word': 'brother', 'ipa': '/ˈbrʌðər/', 'pos': 'danh từ', 'meaning': 'anh trai / em trai', 'example': 'He is my brother.', 'translation': 'Anh ấy là anh trai tôi.', 'source_page': 2},
+        {'id': 'u01_v18', 'word': 'baby', 'ipa': '/ˈbeɪbi/', 'pos': 'danh từ', 'meaning': 'đứa bé', 'example': 'She has a baby.', 'translation': 'Cô ấy có một đứa bé.', 'source_page': 2},
+        {'id': 'u01_v19', 'word': 'car', 'ipa': '/kɑːr/', 'pos': 'danh từ', 'meaning': 'xe ô tô', 'example': 'It is a big car.', 'translation': 'Nó là chiếc xe ô tô lớn.', 'source_page': 2},
+        {'id': 'u01_v20', 'word': 'book', 'ipa': '/bʊk/', 'pos': 'danh từ', 'meaning': 'sách, cuốn sách', 'example': 'This is my book.', 'translation': 'Đây là cuốn sách của tôi.', 'source_page': 2},
+        {'id': 'u01_v21', 'word': 'orange', 'ipa': '/ˈɒrɪndʒ/', 'pos': 'danh từ', 'meaning': 'quả cam', 'example': 'I eat an orange.', 'translation': 'Tôi ăn một quả cam.', 'source_page': 2},
+        {'id': 'u01_v22', 'word': 'apple', 'ipa': '/ˈæpl/', 'pos': 'danh từ', 'meaning': 'quả táo', 'example': 'They are small apples.', 'translation': 'Chúng là những quả táo nhỏ.', 'source_page': 2},
+        {'id': 'u01_v23', 'word': 'tall', 'ipa': '/tɔːl/', 'pos': 'tính từ', 'meaning': 'cao', 'example': 'He is tall.', 'translation': 'Anh ấy cao.', 'source_page': 3},
+        {'id': 'u01_v24', 'word': 'short', 'ipa': '/ʃɔːt/', 'pos': 'tính từ', 'meaning': 'thấp, lùn', 'example': 'He is short.', 'translation': 'Anh ấy thấp.', 'source_page': 3},
+        {'id': 'u01_v25', 'word': 'big', 'ipa': '/bɪɡ/', 'pos': 'tính từ', 'meaning': 'lớn, to', 'example': 'It is a big book.', 'translation': 'Nó là cuốn sách to.', 'source_page': 3},
+        {'id': 'u01_v26', 'word': 'small', 'ipa': '/smɔːl/', 'pos': 'tính từ', 'meaning': 'nhỏ, bé', 'example': 'It is a small car.', 'translation': 'Nó là chiếc xe ô tô nhỏ.', 'source_page': 3},
+        {'id': 'u01_v27', 'word': 'happy', 'ipa': '/ˈhæpi/', 'pos': 'tính từ', 'meaning': 'hạnh phúc, vui vẻ', 'example': 'They are happy.', 'translation': 'Họ rất vui.', 'source_page': 3},
+        {'id': 'u01_v28', 'word': 'sad', 'ipa': '/sæd/', 'pos': 'tính từ', 'meaning': 'buồn bã', 'example': 'He is not sad.', 'translation': 'Anh ấy không buồn.', 'source_page': 3}
+    ],
+    'grammar': {
+        'title': 'Thể Khẳng Định Và Phủ Định Của Động Từ To Be',
+        'sections': [
+            {
+                'id': 'g1_mạo_từ',
+                'title': '1. Mạo từ "a / an"',
+                'formula': 'a + danh từ bắt đầu bằng phụ âm | an + danh từ bắt đầu bằng nguyên âm (u, e, o, a, i)',
+                'rules': [
+                    'Mạo từ "a/an" chỉ đứng trước danh từ đếm được số ít.',
+                    'Dùng "a" khi từ đứng liền sau bắt đầu bằng một phụ âm (Ví dụ: a baby, a woman, a car).',
+                    'Dùng "an" khi từ đứng liền sau bắt đầu bằng một nguyên âm (Ví dụ: an orange, an apple, an engineer).'
+                ],
+                'examples': [
+                    {'en': 'a baby', 'vi': 'một đứa bé'},
+                    {'en': 'an orange', 'vi': 'một quả cam'},
+                    {'en': 'a student', 'vi': 'một học sinh'}
+                ],
+                'source_page': 4
+            },
+            {
+                'id': 'g2_tính_từ_sở_hữu',
+                'title': '2. Vị trí của tính từ sở hữu',
+                'formula': 'Tính từ sở hữu + Danh từ',
+                'rules': [
+                    'Tính từ sở hữu luôn đứng trước danh từ mà nó bổ nghĩa.',
+                    'Không bao giờ dùng "a/an" hoặc "the" ngay trước tính từ sở hữu.'
+                ],
+                'examples': [
+                    {'en': 'my book', 'vi': 'cuốn sách của tôi'},
+                    {'en': 'her brother', 'vi': 'anh trai của cô ấy'},
+                    {'en': 'their car', 'vi': 'xe ô tô của họ'}
+                ],
+                'source_page': 3
+            },
+            {
+                'id': 'g3_to_be_khẳng_định',
+                'title': '3. To be ở hiện tại - Thể khẳng định',
+                'formula': 'I + am | You / We / They + are | She / He / It + is',
+                'rules': [
+                    'To be + danh từ: mang nghĩa là "là" (He is a teacher.)',
+                    'To be + tính từ: để mô tả tính chất, đặc điểm (He is tall.)',
+                    'To be + cụm trạng ngữ: chỉ nơi chốn, thời gian (He is in the car.)'
+                ],
+                'examples': [
+                    {'en': 'I am a student.', 'vi': 'Tôi là học sinh.'},
+                    {'en': 'He is a teacher.', 'vi': 'Anh ấy là giáo viên.'},
+                    {'en': 'They are happy.', 'vi': 'Họ rất vui.'}
+                ],
+                'source_page': 5
+            },
+            {
+                'id': 'g4_to_be_phủ_định',
+                'title': '4. To be ở hiện tại - Thể phủ định & Dạng viết tắt',
+                'formula': 'S + to be + not + N/Adj/Prep',
+                'rules': [
+                    'I am not (viết tắt: I’m not - KHÔNG có dạng amn’t).',
+                    'You / We / They are not (viết tắt: You’re not / You aren’t, We aren’t, They aren’t).',
+                    'She / He / It is not (viết tắt: She’s not / She isn’t, He isn’t, It isn’t).'
+                ],
+                'examples': [
+                    {'en': 'I am not a student.', 'vi': 'Tôi không phải học sinh.'},
+                    {'en': 'They are not happy.', 'vi': 'Họ không vui.'},
+                    {'en': 'She is not my sister. = She isn’t my sister.', 'vi': 'Cô ấy không phải chị tôi.'}
+                ],
+                'source_page': 5
+            }
+        ]
+    },
+    'unit_test': [
+        {
+            'id': 'u01_q01',
+            'part': 1,
+            'part_title': 'Part 1: Nối mạo từ "a/an" phù hợp với danh từ',
+            'type': 'MATCHING',
+            'instruction': 'Nối các ô để chỉ ra mạo từ ‘a/an’ phù hợp với danh từ.',
+            'stem': '........ baby',
+            'options': ['a', 'an'],
+            'correct_answer': 'a',
+            'acceptable_variants': ['a', 'A'],
+            'explanation': 'Mạo từ: baby: đây là từ bắt đầu bằng phụ âm /b/, do vậy ta dùng "a".',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q02',
+            'part': 1,
+            'part_title': 'Part 1: Nối mạo từ "a/an" phù hợp với danh từ',
+            'type': 'MATCHING',
+            'instruction': 'Nối các ô để chỉ ra mạo từ ‘a/an’ phù hợp với danh từ.',
+            'stem': '........ orange',
+            'options': ['a', 'an'],
+            'correct_answer': 'an',
+            'acceptable_variants': ['an', 'AN', 'An'],
+            'explanation': 'Mạo từ: orange: đây là từ bắt đầu bằng nguyên âm /ɒ/, do vậy ta dùng "an".',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q03',
+            'part': 1,
+            'part_title': 'Part 1: Nối mạo từ "a/an" phù hợp với danh từ',
+            'type': 'MATCHING',
+            'instruction': 'Nối các ô để chỉ ra mạo từ ‘a/an’ phù hợp với danh từ.',
+            'stem': '........ woman',
+            'options': ['a', 'an'],
+            'correct_answer': 'a',
+            'acceptable_variants': ['a', 'A'],
+            'explanation': 'Mạo từ: woman: đây là từ bắt đầu bằng phụ âm /w/, do vậy ta dùng "a".',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q04',
+            'part': 1,
+            'part_title': 'Part 1: Nối mạo từ "a/an" phù hợp với danh từ',
+            'type': 'MATCHING',
+            'instruction': 'Nối các ô để chỉ ra mạo từ ‘a/an’ phù hợp với danh từ.',
+            'stem': '........ car',
+            'options': ['a', 'an'],
+            'correct_answer': 'a',
+            'acceptable_variants': ['a', 'A'],
+            'explanation': 'Mạo từ: car: đây là từ bắt đầu bằng phụ âm /k/, do vậy ta dùng "a".',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q05',
+            'part': 1,
+            'part_title': 'Part 1: Nối mạo từ "a/an" phù hợp với danh từ',
+            'type': 'MATCHING',
+            'instruction': 'Nối các ô để chỉ ra mạo từ ‘a/an’ phù hợp với danh từ.',
+            'stem': '........ apple',
+            'options': ['a', 'an'],
+            'correct_answer': 'an',
+            'acceptable_variants': ['an', 'AN', 'An'],
+            'explanation': 'Mạo từ: apple: đây là từ bắt đầu bằng nguyên âm /æ/, do vậy ta dùng "an".',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q06',
+            'part': 2,
+            'part_title': 'Part 2: Điền dạng phù hợp của to be (am / is / are)',
+            'type': 'FILL_BLANK_CONJUGATION',
+            'instruction': 'Điền dạng phù hợp của động từ ‘to be’ (‘am/ is/ are’) vào chỗ trống.',
+            'stem': 'Question 1. We _______ happy.',
+            'options': ['am', 'is', 'are'],
+            'correct_answer': 'are',
+            'acceptable_variants': ['are', 'ARE', 'Are'],
+            'explanation': 'To be: Chủ ngữ là "we", to be tương ứng là "are". Tạm dịch: Chúng tôi rất vui.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q07',
+            'part': 2,
+            'part_title': 'Part 2: Điền dạng phù hợp của to be (am / is / are)',
+            'type': 'FILL_BLANK_CONJUGATION',
+            'instruction': 'Điền dạng phù hợp của động từ ‘to be’ (‘am/ is/ are’) vào chỗ trống.',
+            'stem': 'Question 2. It _______ my book.',
+            'options': ['am', 'is', 'are'],
+            'correct_answer': 'is',
+            'acceptable_variants': ['is', 'IS', 'Is'],
+            'explanation': 'To be: Chủ ngữ là "It", to be tương ứng là "is". Tạm dịch: Nó là cuốn sách của tôi.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q08',
+            'part': 2,
+            'part_title': 'Part 2: Điền dạng phù hợp của to be (am / is / are)',
+            'type': 'FILL_BLANK_CONJUGATION',
+            'instruction': 'Điền dạng phù hợp của động từ ‘to be’ (‘am/ is/ are’) vào chỗ trống.',
+            'stem': 'Question 3. They _______ her dogs.',
+            'options': ['am', 'is', 'are'],
+            'correct_answer': 'are',
+            'acceptable_variants': ['are', 'ARE', 'Are'],
+            'explanation': 'To be: Chủ ngữ là "They", to be tương ứng là "are". Tạm dịch: Chúng là những chú chó của cô ấy.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q09',
+            'part': 2,
+            'part_title': 'Part 2: Điền dạng phù hợp của to be (am / is / are)',
+            'type': 'FILL_BLANK_CONJUGATION',
+            'instruction': 'Điền dạng phù hợp của động từ ‘to be’ (‘am/ is/ are’) vào chỗ trống.',
+            'stem': 'Question 4. I _______ a student.',
+            'options': ['am', 'is', 'are'],
+            'correct_answer': 'am',
+            'acceptable_variants': ['am', 'AM', 'Am'],
+            'explanation': 'To be: Chủ ngữ là "I", to be tương ứng là "am". Tạm dịch: Tôi là học sinh.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q10',
+            'part': 2,
+            'part_title': 'Part 2: Điền dạng phù hợp của to be (am / is / are)',
+            'type': 'FILL_BLANK_CONJUGATION',
+            'instruction': 'Điền dạng phù hợp của động từ ‘to be’ (‘am/ is/ are’) vào chỗ trống.',
+            'stem': 'Question 5. He _______ her brother.',
+            'options': ['am', 'is', 'are'],
+            'correct_answer': 'is',
+            'acceptable_variants': ['is', 'IS', 'Is'],
+            'explanation': 'To be: Chủ ngữ là "He", to be tương ứng là "is". Tạm dịch: Anh ấy là anh trai cô ấy.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q11',
+            'part': 3,
+            'part_title': 'Part 3: Viết lại câu sử dụng dạng viết tắt của to be',
+            'type': 'SENTENCE_REWRITE',
+            'instruction': 'Viết lại những câu sau, sử dụng dạng viết tắt của động từ ‘to be’.',
+            'stem': 'Question 1. It is a big book.',
+            'options': None,
+            'correct_answer': "It's a big book.",
+            'acceptable_variants': ["It's a big book.", "It's a big book", "It’s a big book.", "It’s a big book"],
+            'explanation': 'Dạng viết tắt của "It is" là "It’s". Tạm dịch: Nó là một cuốn sách to.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q12',
+            'part': 3,
+            'part_title': 'Part 3: Viết lại câu sử dụng dạng viết tắt của to be',
+            'type': 'SENTENCE_REWRITE',
+            'instruction': 'Viết lại những câu sau, sử dụng dạng viết tắt của động từ ‘to be’.',
+            'stem': 'Question 2. We are not teachers.',
+            'options': None,
+            'correct_answer': "We aren't teachers.",
+            'acceptable_variants': ["We aren't teachers.", "We aren't teachers", "We aren’t teachers.", "We aren’t teachers", "We're not teachers.", "We're not teachers", "We’re not teachers.", "We’re not teachers"],
+            'explanation': 'Dạng viết tắt của "We are not" là "We aren’t" hoặc "We’re not". Tạm dịch: Chúng tôi không phải là giáo viên.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q13',
+            'part': 3,
+            'part_title': 'Part 3: Viết lại câu sử dụng dạng viết tắt của to be',
+            'type': 'SENTENCE_REWRITE',
+            'instruction': 'Viết lại những câu sau, sử dụng dạng viết tắt của động từ ‘to be’.',
+            'stem': 'Question 3. They are small apples.',
+            'options': None,
+            'correct_answer': "They're small apples.",
+            'acceptable_variants': ["They're small apples.", "They're small apples", "They’re small apples.", "They’re small apples"],
+            'explanation': 'Dạng viết tắt của "They are" là "They’re". Tạm dịch: Chúng là những quả táo nhỏ.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q14',
+            'part': 3,
+            'part_title': 'Part 3: Viết lại câu sử dụng dạng viết tắt của to be',
+            'type': 'SENTENCE_REWRITE',
+            'instruction': 'Viết lại những câu sau, sử dụng dạng viết tắt của động từ ‘to be’.',
+            'stem': 'Question 4. He is short.',
+            'options': None,
+            'correct_answer': "He's short.",
+            'acceptable_variants': ["He's short.", "He's short", "He’s short.", "He’s short"],
+            'explanation': 'Dạng viết tắt của "He is" là "He’s". Tạm dịch: Anh ấy thấp.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q15',
+            'part': 3,
+            'part_title': 'Part 3: Viết lại câu sử dụng dạng viết tắt của to be',
+            'type': 'SENTENCE_REWRITE',
+            'instruction': 'Viết lại những câu sau, sử dụng dạng viết tắt của động từ ‘to be’.',
+            'stem': 'Question 5. She is in the car.',
+            'options': None,
+            'correct_answer': "She's in the car.",
+            'acceptable_variants': ["She's in the car.", "She's in the car", "She’s in the car.", "She’s in the car"],
+            'explanation': 'Dạng viết tắt của "She is" là "She’s". Tạm dịch: Cô ấy đang ở trong xe ô tô.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q16',
+            'part': 4,
+            'part_title': 'Part 4: Chọn đáp án phù hợp',
+            'type': 'MULTIPLE_CHOICE',
+            'instruction': 'Chọn đáp án phù hợp.',
+            'stem': 'Question 1. She _______ short; she is tall.',
+            'options': ['are', 'am', 'isn’t'],
+            'correct_answer': 'isn’t',
+            'acceptable_variants': ['isn’t', "isn't", 'is not', 'C'],
+            'explanation': 'To be: Chủ ngữ là "She", nên to be ta dùng "is". Vì đây là dạng phủ định, nên ta dùng "isn’t". Tạm dịch: Cô ấy không thấp; cô ấy cao. -> Chọn C.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q17',
+            'part': 4,
+            'part_title': 'Part 4: Chọn đáp án phù hợp',
+            'type': 'MULTIPLE_CHOICE',
+            'instruction': 'Chọn đáp án phù hợp.',
+            'stem': 'Question 2. I _______ a teacher. I am a student.',
+            'options': ['is not', 'am not', 'aren’t'],
+            'correct_answer': 'am not',
+            'acceptable_variants': ['am not', 'B'],
+            'explanation': 'To be: Chủ ngữ là "I", nên to be dùng "am". Vì đây là dạng phủ định, nên ta dùng "am not". * Chú ý: "am not" không được viết tắt. Tạm dịch: Tôi không phải giáo viên. Tôi là học sinh. -> Chọn B.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q18',
+            'part': 4,
+            'part_title': 'Part 4: Chọn đáp án phù hợp',
+            'type': 'MULTIPLE_CHOICE',
+            'instruction': 'Chọn đáp án phù hợp.',
+            'stem': 'Question 3. My brother is happy. He _______ sad.',
+            'options': ['isn’t', 'are', 'am not'],
+            'correct_answer': 'isn’t',
+            'acceptable_variants': ['isn’t', "isn't", 'is not', 'A'],
+            'explanation': 'To be: Chủ ngữ là "He", nên to be ta dùng "is". Vì đây là dạng phủ định, nên ta dùng "isn’t". Tạm dịch: Anh trai tôi rất vui. Anh ấy không buồn. -> Chọn A.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q19',
+            'part': 4,
+            'part_title': 'Part 4: Chọn đáp án phù hợp',
+            'type': 'MULTIPLE_CHOICE',
+            'instruction': 'Chọn đáp án phù hợp.',
+            'stem': 'Question 4. They are not her books; they _______ my books.',
+            'options': ['is', 'are', 'am'],
+            'correct_answer': 'are',
+            'acceptable_variants': ['are', 'B'],
+            'explanation': 'To be: Chủ ngữ là "They", nên to be ta dùng "are". Tạm dịch: Chúng không phải sách của cô ấy; chúng là sách của tôi. -> Chọn B.',
+            'source_page': 1
+        },
+        {
+            'id': 'u01_q20',
+            'part': 4,
+            'part_title': 'Part 4: Chọn đáp án phù hợp',
+            'type': 'MULTIPLE_CHOICE',
+            'instruction': 'Chọn đáp án phù hợp.',
+            'stem': 'Question 5. It _______ a big car. It’s a small car.',
+            'options': ['aren’t', 'am not', 'is not'],
+            'correct_answer': 'is not',
+            'acceptable_variants': ['is not', 'isn’t', "isn't", 'C'],
+            'explanation': 'To be: Chủ ngữ là "It", nên to be ta dùng "is". Vì đây là dạng phủ định, nên ta dùng "is not". Tạm dịch: Nó không phải là chiếc ô tô lớn. Nó là chiếc ô tô nhỏ. -> Chọn C.',
+            'source_page': 1
+        }
+    ]
+}
+
+out_file = os.path.join(target_dir, 'unit_01_content.json')
+with open(out_file, 'w', encoding='utf-8') as f:
+    json.dump(unit_1_data, f, ensure_ascii=False, indent=2)
+
+print('Successfully created:', out_file)
