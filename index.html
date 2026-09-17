@@ -13,7 +13,15 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="SMOB English Lab — 48-Day Foundation Course">
   <meta property="og:description" content="Nền tảng học tiếng Anh offline hoàn chỉnh: 48 Units bài giảng, video, audio luyện nghe và thi thử trực tiếp.">
-  <meta property="og:site_name" content="SMOB English Lab">
+  <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="shortcut icon" href="assets/icon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="msapplication-TileColor" content="#1e3a8a">
+  <meta property="og:image" content="assets/icon.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="assets/icon.png">
 
   <link rel="stylesheet" href="./css/app.css">
 </head>
@@ -46,6 +54,14 @@
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
         Dashboard
+      </div>
+      <div class="nav-link" data-view="outcomes">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="6"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+        </svg>
+        🎯 Chuẩn Đầu Ra (Target)
       </div>
       <div class="nav-link" data-view="units">
         <svg viewBox="0 0 24 24">
@@ -116,6 +132,14 @@
           <line x1="9" y1="9" x2="15" y2="15"></line>
         </svg>
         Sổ Tay Câu Sai
+      </div>
+      <div class="nav-link" data-view="analytics">
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        📊 Hiệu Suất & Lịch Sử
       </div>
 
       <div class="nav-category">Hệ Thống</div>
@@ -197,9 +221,227 @@
           </div>
         </div>
 
-        <div style="font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.3px;">Lộ Trình Cốt Lõi (4
-          Giai Đoạn)</div>
+        <!-- TARGET OUTCOMES MOTIVATIONAL BANNER -->
+        <div class="apple-card outcomes-dash-banner" style="margin-bottom: 24px; background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; padding: 24px 28px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.25); position: relative; overflow: hidden;">
+          <div style="position: absolute; right: -20px; top: -20px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(0,113,227,0.35) 0%, rgba(0,0,0,0) 70%); pointer-events: none;"></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; position: relative; z-index: 2;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 980px; font-size: 12.5px; font-weight: 700; color: #38bdf8; margin-bottom: 10px;">
+                <span>🎯</span> MỤC TIÊU CAM KẾT ĐẦU RA 48 NGÀY
+              </div>
+              <h2 style="font-size: 22px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.4px; color: #ffffff;">
+                Bứt Phá Từ Mất Gốc Lên TOEIC 550 - 700+ & CEFR B1/B2
+              </h2>
+              <p style="font-size: 13.5px; color: #94a3b8; margin: 0; max-width: 650px; line-height: 1.5;">
+                Nắm vững 44 âm IPA, làm chủ 12 thì & 398+ động từ, phản xạ nghe 15 chủ đề thực tế, tự tin viết email công sở, Note-taking và thuyết trình trôi chảy.
+              </p>
+            </div>
+            <button class="apple-btn btn-primary" onclick="window.smobApp.navigate('outcomes')"
+              style="padding: 10px 22px; font-size: 13.5px; font-weight: 700; border-radius: 980px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.4);">
+              <span>🎯</span> <strong>Xem Chuẩn Đầu Ra Chi Tiết →</strong>
+            </button>
+          </div>
+          <div class="outcomes-dash-pills" style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; position: relative; z-index: 2;">
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 6px;">
+              <span>🗣️</span> Chuẩn 44 Âm IPA & Bật Âm Đuôi
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 6px;">
+              <span>📘</span> 12 Thì & 398+ Động Từ Bất Quy Tắc
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 6px;">
+              <span>🎧</span> Bắt Từ Khóa Nghe 15 Chủ Đề
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 6px;">
+              <span>💼</span> Note-Taking & Paraphrasing Công Sở
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.3px;">Lộ Trình Cốt Lõi (4 Giai Đoạn)</div>
         <div class="curriculum-grid" id="dash-suggested-grid"></div>
+      </section>
+
+      <!-- VIEW: CHUẨN ĐẦU RA & LỘ TRÌNH ĐỘT PHÁ 48 NGÀY -->
+      <section class="tab-view" id="view-outcomes">
+        <!-- Hero Header -->
+        <div class="apple-card" style="margin-bottom: 24px; background: linear-gradient(135deg, #0b192c, #1e3e62); color: #ffffff; padding: 32px 30px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 12px 36px rgba(0,0,0,0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+            <div style="max-width: 780px;">
+              <span class="unit-chip" style="background: #0071e3; color: #ffffff; margin-bottom: 12px;">MỤC TIÊU KHÓA HỌC</span>
+              <h1 style="font-size: 28px; font-weight: 800; margin: 10px 0 8px; letter-spacing: -0.6px; line-height: 1.3;">
+                Chuẩn Đầu Ra & Mục Tiêu Đột Phá Sau 48 Ngày Học
+              </h1>
+              <p style="font-size: 15px; color: #cbd5e1; line-height: 1.6; margin-bottom: 18px;">
+                Khóa học được thiết kế đặc biệt theo giáo trình của <strong>Cô Vũ Thị Mai Phương</strong> nhằm giúp người học xóa bỏ hoàn toàn nỗi sợ tiếng Anh, chuyển đổi tư duy ngôn ngữ từ mất gốc lên mức tự chủ, đạt chuẩn <strong>TOEIC 550 - 700+</strong> và <strong>CEFR B1/B2</strong>.
+              </p>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <div style="background: rgba(22, 163, 74, 0.2); border: 1px solid #86efac; color: #86efac; padding: 6px 14px; border-radius: 980px; font-weight: 700; font-size: 13px;">
+                  🏆 Cột mốc: TOEIC 550 - 700+
+                </div>
+                <div style="background: rgba(56, 189, 248, 0.2); border: 1px solid #7dd3fc; color: #7dd3fc; padding: 6px 14px; border-radius: 980px; font-weight: 700; font-size: 13px;">
+                  🌍 Khung Châu Âu: CEFR B1/B2
+                </div>
+                <div style="background: rgba(245, 158, 11, 0.2); border: 1px solid #fde68a; color: #fde68a; padding: 6px 14px; border-radius: 980px; font-weight: 700; font-size: 13px;">
+                  ⚡ Thời lượng: 48 Ngày (30-45 phút/ngày)
+                </div>
+              </div>
+            </div>
+            <button class="apple-btn btn-primary" id="btn-outcomes-continue" onclick="window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1)"
+              style="padding: 12px 26px; font-size: 14px; font-weight: 800; border-radius: 980px; box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4); white-space: nowrap;">
+              🚀 Tiếp Tục Học Ngay
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Core Pillars Grid -->
+        <div style="font-size: 20px; font-weight: 800; margin: 0 0 16px; letter-spacing: -0.4px;">
+          4 Trụ Cột Kỹ Năng Đột Phá Bạn Sẽ Sở Hữu
+        </div>
+        <div class="outcomes-pillars-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;">
+          <!-- Pillar 1 -->
+          <div class="apple-card outcome-pillar-card pillar-accent-blue" style="padding: 22px; border-top: 4px solid #0071e3;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🗣️</div>
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px; color: var(--text-primary);">1. Ngữ Âm & Phát Âm Chuẩn Quốc Tế</h3>
+            <ul style="margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <li><strong>Làm chủ 44 âm IPA</strong>: Phân biệt rõ nguyên âm đơn, nguyên âm đôi và 24 phụ âm.</li>
+              <li><strong>Bật rõ phụ âm cuối</strong>: Trị dứt điểm tật nuốt âm đuôi (/s/, /z/, /t/, /d/, /tʃ/, /dʒ/).</li>
+              <li><strong>Tự đọc chuẩn mọi từ mới</strong>: Nhìn phiên âm từ điển là đọc đúng 100% ngữ điệu và trọng âm.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="apple-card outcome-pillar-card pillar-accent-green" style="padding: 22px; border-top: 4px solid #16a34a;">
+            <div style="font-size: 32px; margin-bottom: 10px;">📘</div>
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px; color: var(--text-primary);">2. Ngữ Pháp & Tư Duy Câu Chuẩn Xác</h3>
+            <ul style="margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <li><strong>Làm chủ 12 thì trọng tâm</strong>: Hiểu sâu bản chất, không cần học vẹt công thức.</li>
+              <li><strong>398+ Động từ bất quy tắc</strong>: Thuộc làu 3 cột V1, V2, V3 để tự tin làm bài thi và viết lách.</li>
+              <li><strong>Không dịch Word-by-Word</strong>: Viết câu tự nhiên, nắm chắc trật tự từ và liên từ phức tạp.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="apple-card outcome-pillar-card pillar-accent-amber" style="padding: 22px; border-top: 4px solid #d97706;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🎧</div>
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px; color: var(--text-primary);">3. Nghe Hiểu Phản Xạ Đời Sống & TOEIC</h3>
+            <ul style="margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <li><strong>15 Chủ đề nghe thực tế</strong>: Giờ giấc, Giá cả, Địa điểm, Nghề nghiệp, Phương tiện...</li>
+              <li><strong>Kỹ năng bắt từ khóa (Keywords)</strong>: Lọc trọn vẹn ý chính mà không bị ngợp hay ù tai.</li>
+              <li><strong>Nhận diện bẫy phát âm</strong>: Quen thuộc với cách nuốt âm và nối âm của người bản xứ.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="apple-card outcome-pillar-card pillar-accent-purple" style="padding: 22px; border-top: 4px solid #9333ea;">
+            <div style="font-size: 32px; margin-bottom: 10px;">💼</div>
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px; color: var(--text-primary);">4. Kỹ Năng Học Thuật & Công Sở Đỉnh Cao</h3>
+            <ul style="margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <li><strong>Unit 46: Note-Taking</strong>: Nghe cuộc họp/bài giảng và ghi tóm tắt súc tích, chuyên nghiệp.</li>
+              <li><strong>Unit 47: Paraphrasing</strong>: Diễn đạt lại câu cùng nghĩa nhưng đổi từ vựng, viết email ấn tượng.</li>
+              <li><strong>Unit 48: Presentation</strong>: Tự tin đứng trước người nước ngoài giới thiệu bản thân và thuyết trình.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Before vs After Transformation Matrix -->
+        <div style="font-size: 20px; font-weight: 800; margin: 0 0 16px; letter-spacing: -0.4px;">
+          Thước Đo Chuyển Đổi: Trước vs Sau 48 Ngày
+        </div>
+        <div class="apple-card" style="padding: 24px; margin-bottom: 28px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="outcomes-comparison-grid">
+            <!-- Before -->
+            <div class="outcome-comp-card outcome-comp-before">
+              <div class="comp-header">
+                <span class="comp-icon">❌</span>
+                <span class="comp-title">Trước Khi Học Khóa 48 Ngày:</span>
+              </div>
+              <ul class="comp-list">
+                <li>Sợ hãi khi phải đọc hoặc nói tiếng Anh vì sợ phát âm sai.</li>
+                <li>Nghe người nước ngoài nói thì bị "ù tai", không bắt kịp tốc độ.</li>
+                <li>Viết câu lủng củng, dịch từng từ tiếng Việt sang tiếng Anh.</li>
+                <li>Không phân biệt được các thì và hay chia sai động từ bất quy tắc.</li>
+                <li>Lúng túng, bế tắc khi cần tự giới thiệu bản thân bằng tiếng Anh.</li>
+              </ul>
+            </div>
+
+            <!-- After -->
+            <div class="outcome-comp-card outcome-comp-after">
+              <div class="comp-header">
+                <span class="comp-icon">✅</span>
+                <span class="comp-title">Sau Khi Hoàn Thành 48 Ngày:</span>
+              </div>
+              <ul class="comp-list">
+                <li>Tự tin nhìn vào phiên âm IPA trong từ điển để đọc đúng 100%.</li>
+                <li>Bắt từ khóa nhạy bén, nghe hiểu rõ ràng các chủ đề thông dụng.</li>
+                <li>Làm chủ trật tự câu, viết email công việc mạch lạc, tự nhiên.</li>
+                <li>Nhớ chắc 398+ động từ bất quy tắc và công thức 12 thì cốt lõi.</li>
+                <li>Tự tin thuyết trình, giới thiệu bản thân và tiến tới mục tiêu TOEIC 700+.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Stage Roadmap Milestones -->
+        <div style="font-size: 20px; font-weight: 800; margin: 0 0 16px; letter-spacing: -0.4px;">
+          Lộ Trình 4 Chặng Chinh Phục Cụ Thể
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px;">
+          <div class="apple-card" style="padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="unit-chip">CHẶNG 1 (UNIT 1-11)</span>
+              <span style="font-size: 12px; font-weight: 700; color: #0071e3;">Nền Móng Vững Chắc</span>
+            </div>
+            <h4 style="margin: 0 0 6px; font-size: 15px; font-weight: 700;">To Be, Từ Loại & HTĐ / HTTD</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Xóa tan gốc rễ sai lầm về câu cơ bản và các từ để hỏi Who, What, Where, When.</p>
+          </div>
+
+          <div class="apple-card" style="padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="unit-chip">CHẶNG 2 (UNIT 12-20)</span>
+              <span style="font-size: 12px; font-weight: 700; color: #16a34a;">Bứt Phá Thì & Ngữ Âm</span>
+            </div>
+            <h4 style="margin: 0 0 6px; font-size: 15px; font-weight: 700;">Quá Khứ, Tương Lai & 44 Âm IPA</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Chinh phục bảng ngữ âm quốc tế tại Unit 18 và chuỗi thì hoàn thành.</p>
+          </div>
+
+          <div class="apple-card" style="padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="unit-chip">CHẶNG 3 (UNIT 21-34)</span>
+              <span style="font-size: 12px; font-weight: 700; color: #d97706;">Cấu Trúc & Phản Xạ Nghe</span>
+            </div>
+            <h4 style="margin: 0 0 6px; font-size: 15px; font-weight: 700;">Câu Điều Kiện, Liên Từ & Nghe Thực Tế</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Luyện tai nghe số liệu, giờ giấc, tiền bạc và các tình huống đời sống.</p>
+          </div>
+
+          <div class="apple-card" style="padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="unit-chip">CHẶNG 4 (UNIT 35-48)</span>
+              <span style="font-size: 12px; font-weight: 700; color: #9333ea;">Giao Tiếp & Học Thuật</span>
+            </div>
+            <h4 style="margin: 0 0 6px; font-size: 15px; font-weight: 700;">Note-Taking, Paraphrase & Thuyết Trình</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Hoàn thiện bộ kỹ năng công sở đỉnh cao, tự tin bước vào luyện thi TOEIC.</p>
+          </div>
+        </div>
+
+        <!-- Motivational Action Callout -->
+        <div class="apple-card outcomes-cta-card" style="padding: 26px 30px; margin-bottom: 24px; background: linear-gradient(135deg, rgba(0,113,227,0.08), rgba(0,113,227,0.02)); border: 1.5px solid rgba(0,113,227,0.25); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div style="font-size: 17px; font-weight: 800; margin-bottom: 6px; color: var(--text-primary);">
+              🔥 "Mỗi ngày 30 phút kiên trì — 48 ngày sau bạn sẽ tự hào về chính mình!"
+            </div>
+            <div style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
+              Hệ thống đã chuẩn bị sẵn đầy đủ 48 bài giảng video, audio luyện nghe, lý thuyết ngữ pháp và bài thi online kèm AI luyện phát âm.
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="apple-btn btn-secondary" onclick="window.smobApp.navigate('units')" style="padding: 9px 18px; font-weight: 700;">
+              📚 Xem Mục Lục 48 Units
+            </button>
+            <button class="apple-btn btn-primary" onclick="window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1)" style="padding: 9px 20px; font-weight: 800;">
+              🚀 Vào Học Ngay
+            </button>
+          </div>
+        </div>
       </section>
 
       <!-- VIEW 2: 48 UNITS CATALOG -->
@@ -265,6 +507,9 @@
               style="background: linear-gradient(135deg, #0071e3, #47a3ff); color:#fff; border-color: #0071e3;">📝 Kiểm
               Tra Chuẩn Quizlet (Test)</button>
             <button class="filter-chip" onclick="window.smobApp.pickRandomVocabWord()" title="Bốc một từ ngẫu nhiên trong Unit">🎲 Từ Ngẫu Nhiên</button>
+            <button class="filter-chip" id="btn-fc-filter-starred" onclick="window.smobApp.toggleVocabStarredFilter()" title="Lọc xem riêng các từ bạn đã đánh dấu cần ôn hoặc bấm Cần Ôn" style="display: inline-flex; align-items: center; gap: 5px;">
+              🔖 Từ Khó / Cần Ôn (<span id="fc-starred-count">0</span>)
+            </button>
           </div>
           <div id="fc-counter" style="font-size: 13.5px; color: var(--text-secondary); font-weight: 600;">Từ 1 / 28
           </div>
@@ -282,6 +527,11 @@
             <div class="flashcard-object" id="flashcard-obj">
               <!-- Front -->
               <div class="flashcard-side">
+                <button class="fc-star-btn" id="fc-star-btn" onclick="event.stopPropagation(); window.smobApp.toggleCurrentVocabStar()" title="Đánh dấu từ khó / cần ôn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
                 <div class="fc-media-box" id="fc-media-box">
                   <img id="fc-photo-img" class="fc-photo-img" src="" alt="" style="display:none;"
                     onerror="window.smobApp.onVocabImageError()" />
@@ -295,9 +545,13 @@
                   <button class="btn-ai-coach-inline"
                     onclick="event.stopPropagation(); window.smobApp.openAICoachForCurrentWord()"
                     title="Trợ lý AI chấm bạn đọc có chuẩn không">🎙️ Chấm Phát Âm AI</button>
+                  <button class="btn-ai-coach-inline" style="background: #fffbeb; color: #b45309; border-color: #fde68a;"
+                    onclick="event.stopPropagation(); window.smobApp.openVocabNoteModal()"
+                    title="Thêm ghi chú cá nhân / mẹo nhớ cho từ này">📝 Ghi Chú</button>
                 </div>
                 <div class="fc-pos" id="fc-pos">từ loại</div>
-                <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 16px;">Bấm Space hoặc Click để lật
+                <div class="fc-user-note" id="fc-user-note" style="display:none;"></div>
+                <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 14px;">Bấm Space hoặc Click để lật
                   mặt sau</div>
               </div>
               <!-- Back -->
@@ -305,6 +559,7 @@
                 <div class="fc-meaning" id="fc-meaning">nghĩa tiếng Việt</div>
                 <div class="fc-example" id="fc-example">"Example sentence."</div>
                 <div class="fc-translation" id="fc-translation">Bản dịch ví dụ tiếng Việt.</div>
+                <div class="fc-user-note" id="fc-user-note-back" style="display:none; margin: 12px auto 0;"></div>
                 <div class="source-tag" id="fc-source-tag">Nguồn: Giáo trình Unit</div>
               </div>
             </div>
@@ -526,43 +781,271 @@
         <div class="grammar-article" id="grammar-content-container" style="display: none;"></div>
       </section>
 
-      <!-- VIEW 6: IRREGULAR VERBS (398+ VERBS WITH FULL IPA & TEST MODE) -->
+      <!-- VIEW 6: IRREGULAR VERBS (398+ VERBS WITH FULL IPA & TEST ARENA) -->
       <section class="tab-view" id="view-irregular">
-        <div class="apple-card sticky-view-toolbar" style="margin-bottom: 20px; border-radius: var(--radius-md);">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="font-size: 18px; font-weight: 700;">Bảng Động Từ Bất Quy Tắc Toàn Diện</div>
-                <span class="status-pill status-avail" id="irv-total-badge">398 Động Từ Chuẩn Có IPA</span>
+        <!-- Sub-View Switch Tabs -->
+        <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+          <button class="filter-chip active" id="btn-irv-tab-table" onclick="window.smobApp.switchIrregularSubView('table', this)">
+            📖 Bảng Tra Cứu (398+ Động Từ)
+          </button>
+          <button class="filter-chip" id="btn-irv-tab-practice" onclick="window.smobApp.switchIrregularSubView('practice', this)">
+            ⚡ Phòng Luyện Tập &amp; Kiểm Tra Chuyên Sâu
+          </button>
+        </div>
+
+        <!-- SUBVIEW 1: TABLE LOOKUP -->
+        <div id="irv-table-container">
+          <div class="apple-card sticky-view-toolbar" style="margin-bottom: 20px; border-radius: var(--radius-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="font-size: 18px; font-weight: 700;">Bảng Động Từ Bất Quy Tắc Toàn Diện</div>
+                  <span class="status-pill status-avail" id="irv-total-badge">398 Động Từ Chuẩn Có IPA</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Đầy đủ dạng V1, V2, V3, phiên
+                  âm IPA chuẩn quốc tế cho cả 3 cột, nghĩa tiếng Việt và ví dụ mẫu.</div>
               </div>
-              <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Đầy đủ dạng V1, V2, V3, phiên
-                âm IPA chuẩn quốc tế cho cả 3 cột, nghĩa tiếng Việt và ví dụ mẫu.</div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="irv-search" class="search-field" placeholder="Tìm kiếm V1, V2, V3 hoặc nghĩa..."
+                  oninput="window.smobApp.filterIrregularVerbs(this.value)">
+                <button class="apple-btn btn-secondary" onclick="window.smobApp.pickRandomIrregularVerb()" style="font-size: 13px;" title="Chọn ngẫu nhiên một động từ bất quy tắc">🎲 Động Từ Ngẫu Nhiên</button>
+                <button class="apple-btn btn-primary" onclick="window.smobApp.switchIrregularSubView('practice')" style="font-size: 13px; font-weight: 700; padding: 7px 16px;" title="Chuyển sang phòng luyện tập và làm bài kiểm tra">⚡ Vào Phòng Kiểm Tra</button>
+              </div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-              <input type="text" id="irv-search" class="search-field" placeholder="Tìm kiếm V1, V2, V3 hoặc nghĩa..."
-                oninput="window.smobApp.filterIrregularVerbs(this.value)">
-              <button class="apple-btn btn-secondary" onclick="window.smobApp.pickRandomIrregularVerb()" style="font-size: 13px;" title="Chọn ngẫu nhiên một động từ bất quy tắc">🎲 Động Từ Ngẫu Nhiên</button>
-              <button class="apple-btn btn-secondary" onclick="window.smobApp.startIrregularVerbsTest()" style="font-size: 13px; font-weight: 600; padding: 7px 14px;" title="Làm bài kiểm tra đa dạng với động từ bất quy tắc">📝 Kiểm Tra (5 Dạng Bài)</button>
+
+            <!-- QUICK FILTER CHIPS (1-TOUCH CLASSIFICATION) -->
+            <div class="irv-filter-chips-row" id="irv-cat-selector" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); align-items: center;">
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; margin-right: 2px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                Lọc nhanh:
+              </span>
+              <button type="button" class="filter-chip active" data-cat="all" onclick="window.smobApp.filterIrregularCategory('all', this)">
+                Tất Cả (398 Từ)
+              </button>
+              <button type="button" class="filter-chip irv-chip-top40" data-cat="top40" onclick="window.smobApp.filterIrregularCategory('top40', this)">
+                ⭐ 40+ Từ Cốt Lõi (Unit 15)
+              </button>
+              <button type="button" class="filter-chip irv-chip-starred" data-cat="starred" onclick="window.smobApp.filterIrregularCategory('starred', this)">
+                🔖 Đã Đánh Dấu / Cần Ôn (<span id="irv-starred-count">0</span>)
+              </button>
+              <button type="button" class="filter-chip irv-chip-dual" data-cat="dual_ed" onclick="window.smobApp.filterIrregularCategory('dual_ed', this)">
+                ⚡ 2 Cách Chia (Song Hành -ed / UK-US)
+              </button>
+              <button type="button" class="filter-chip" data-cat="all_same" onclick="window.smobApp.filterIrregularCategory('all_same', this)">
+                🎯 3 Cột Giống Hệt (V1 = V2 = V3)
+              </button>
+              <button type="button" class="filter-chip" data-cat="v2_v3_same" onclick="window.smobApp.filterIrregularCategory('v2_v3_same', this)">
+                🔄 Cột V2 Giống V3 (V2 = V3)
+              </button>
+              <button type="button" class="filter-chip" data-cat="all_diff" onclick="window.smobApp.filterIrregularCategory('all_diff', this)">
+                🔀 3 Cột Khác Biệt (V1 ≠ V2 ≠ V3)
+              </button>
+              <button type="button" class="filter-chip" data-cat="v1_v3_same" onclick="window.smobApp.filterIrregularCategory('v1_v3_same', this)">
+                🔁 Cột V1 Giống V3 (V1 = V3)
+              </button>
+              <button type="button" class="filter-chip" data-cat="i_a_u" onclick="window.smobApp.filterIrregularCategory('i_a_u', this)">
+                🎵 Quy Luật Vần i ➔ a ➔ u
+              </button>
             </div>
+          </div>
+
+          <div class="apple-card" style="padding: 0; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+              <thead>
+                <tr
+                  style="background: #fafafa; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 12.5px; text-transform: uppercase;">
+                  <th style="padding: 14px 10px; width: 48px; text-align: center;">STT</th>
+                  <th style="padding: 14px 8px; width: 42px; text-align: center;" title="Đánh dấu các từ khó / cần ôn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; opacity: 0.7;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                  </th>
+                  <th style="padding: 14px 18px;">Nguyên Thể (V1) &amp; IPA</th>
+                  <th style="padding: 14px 18px;">Quá Khứ (V2) &amp; IPA</th>
+                  <th style="padding: 14px 18px;">Phân Từ (V3) &amp; IPA</th>
+                  <th style="padding: 14px 18px;">Nghĩa Tiếng Việt</th>
+                  <th style="padding: 14px 18px;">Ví Dụ Áp Dụng</th>
+                  <th style="padding: 14px 18px; text-align: center;">Phát Âm</th>
+                </tr>
+              </thead>
+              <tbody id="irv-tbody"></tbody>
+            </table>
           </div>
         </div>
 
-        <div class="apple-card" style="padding: 0; overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
-            <thead>
-              <tr
-                style="background: #fafafa; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 12.5px; text-transform: uppercase;">
-                <th style="padding: 14px 12px; width: 55px; text-align: center;">STT</th>
-                <th style="padding: 14px 18px;">Nguyên Thể (V1) & IPA</th>
-                <th style="padding: 14px 18px;">Quá Khứ (V2) & IPA</th>
-                <th style="padding: 14px 18px;">Phân Từ (V3) & IPA</th>
-                <th style="padding: 14px 18px;">Nghĩa Tiếng Việt</th>
-                <th style="padding: 14px 18px;">Ví Dụ Áp Dụng</th>
-                <th style="padding: 14px 18px; text-align: center;">Phát Âm</th>
-              </tr>
-            </thead>
-            <tbody id="irv-tbody"></tbody>
-          </table>
+        <!-- SUBVIEW 2: PRACTICE & TEST ARENA -->
+        <div id="irv-practice-container" style="display: none;">
+          <!-- 1. Test Setup Panel -->
+          <div class="apple-card" id="irv-setup-panel" style="margin-bottom: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px; margin-bottom: 20px;">
+              <div>
+                <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+                  <span>⚡</span> Cấu Hình Bài Kiểm Tra Động Từ Bất Quy Tắc
+                </h3>
+                <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">
+                  Tùy chỉnh hình thức kiểm tra (Trắc nghiệm, Điền từ, Đúng/Sai) và hướng hỏi đáp đa chiều
+                </p>
+              </div>
+              <span class="status-pill status-avail">Kho 398+ Động Từ</span>
+            </div>
+
+            <div class="irv-setup-grid">
+              <!-- Mode Selection (Quizlet-style Format Toggles) -->
+              <div class="irv-setup-group">
+                <label class="irv-setup-label">1. Định Dạng Câu Hỏi (Chọn một hoặc nhiều hình thức):</label>
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px; max-width: 520px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 10px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--border-subtle);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 18px;">🎯</span>
+                      <div>
+                        <div style="font-size: 14.5px; font-weight: 700; color: var(--text-primary);">Multiple choice (Trắc nghiệm 4 đáp án)</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Chọn nghĩa tiếng Việt hoặc bộ ba tương ứng</div>
+                      </div>
+                    </div>
+                    <label class="ios-switch">
+                      <input type="checkbox" id="irv-switch-mc" checked>
+                      <span class="ios-slider"></span>
+                    </label>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 10px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--border-subtle);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 18px;">⚖️</span>
+                      <div>
+                        <div style="font-size: 14.5px; font-weight: 700; color: var(--text-primary);">True / False (Đúng / Sai)</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Xác thực tính chính xác của dạng biến đổi hoặc nghĩa</div>
+                      </div>
+                    </div>
+                    <label class="ios-switch">
+                      <input type="checkbox" id="irv-switch-tf" checked>
+                      <span class="ios-slider"></span>
+                    </label>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 10px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--border-subtle);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 18px;">✍️</span>
+                      <div>
+                        <div style="font-size: 14.5px; font-weight: 700; color: var(--text-primary);">Written (Tự gõ dạng V1-V2-V3)</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Rèn luyện trí nhớ cơ bắp bằng cách tự gõ từ</div>
+                      </div>
+                    </div>
+                    <label class="ios-switch">
+                      <input type="checkbox" id="irv-switch-written" checked>
+                      <span class="ios-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Direction Selection -->
+              <div class="irv-setup-group">
+                <label class="irv-setup-label">2. Chiều Hỏi Đáp:</label>
+                <div class="irv-chips-row" id="irv-dir-selector">
+                  <button type="button" class="filter-chip active" data-dir="all" onclick="window.smobApp.setIrregularPracticeDir('all', this)">🔄 Đa Chiều (Tự Động Trộn)</button>
+                  <button type="button" class="filter-chip" data-dir="en_vi" onclick="window.smobApp.setIrregularPracticeDir('en_vi', this)">🇬🇧 Tiếng Anh ➔ Tiếng Việt (run-ran-run ➔ chạy)</button>
+                  <button type="button" class="filter-chip" data-dir="vi_en" onclick="window.smobApp.setIrregularPracticeDir('vi_en', this)">🇻🇳 Tiếng Việt ➔ Tiếng Anh (bắt đầu ➔ begin-began-begun)</button>
+                  <button type="button" class="filter-chip" data-dir="v1_v2v3" onclick="window.smobApp.setIrregularPracticeDir('v1_v2v3', this)">🔤 Nội Bộ Cột (V1 ➔ V2 / V3)</button>
+                </div>
+              </div>
+
+              <!-- Scope & Category Selection -->
+              <div class="irv-setup-group">
+                <label class="irv-setup-label">3. Nhóm Động Từ Luyện Tập:</label>
+                <div class="irv-chips-row" id="irv-scope-selector">
+                  <button type="button" class="filter-chip active" data-scope="all" onclick="window.smobApp.setIrregularPracticeScope('all', this)">Toàn Bộ Kho Từ (398 Từ)</button>
+                  <button type="button" class="filter-chip irv-chip-top40" data-scope="top40" onclick="window.smobApp.setIrregularPracticeScope('top40', this)">⭐ 40+ Từ Cốt Lõi (Unit 15)</button>
+                  <button type="button" class="filter-chip irv-chip-starred" data-scope="starred" onclick="window.smobApp.setIrregularPracticeScope('starred', this)">🔖 Chỉ Từ Đã Đánh Dấu / Cần Ôn (<span id="irv-scope-starred-count">0</span>)</button>
+                  <button type="button" class="filter-chip" data-scope="dual_ed" onclick="window.smobApp.setIrregularPracticeScope('dual_ed', this)">⚡ Chỉ Nhóm 2 Cách Chia (Song Hành -ed)</button>
+                  <button type="button" class="filter-chip" data-scope="all_same" onclick="window.smobApp.setIrregularPracticeScope('all_same', this)">🎯 Nhóm 3 Cột Giống Hệt (V1=V2=V3)</button>
+                  <button type="button" class="filter-chip" data-scope="v2_v3_same" onclick="window.smobApp.setIrregularPracticeScope('v2_v3_same', this)">🔄 Nhóm Cột V2 Giống V3</button>
+                  <button type="button" class="filter-chip" data-scope="all_diff" onclick="window.smobApp.setIrregularPracticeScope('all_diff', this)">🔀 Nhóm 3 Cột Khác Biệt (V1 ≠ V2 ≠ V3)</button>
+                  <button type="button" class="filter-chip" data-scope="v1_v3_same" onclick="window.smobApp.setIrregularPracticeScope('v1_v3_same', this)">🔁 Nhóm Cột V1 Giống V3</button>
+                  <button type="button" class="filter-chip" data-scope="i_a_u" onclick="window.smobApp.setIrregularPracticeScope('i_a_u', this)">🎵 Nhóm Vần Điệu i ➔ a ➔ u</button>
+                </div>
+              </div>
+
+              <!-- Scope & Count -->
+              <div class="irv-setup-group">
+                <label class="irv-setup-label">4. Số Lượng Câu Hỏi:</label>
+                <div class="irv-chips-row" id="irv-count-selector">
+                  <button type="button" class="filter-chip active" data-count="10" onclick="window.smobApp.setIrregularPracticeCount(10, this)">10 Câu Nhanh</button>
+                  <button type="button" class="filter-chip" data-count="20" onclick="window.smobApp.setIrregularPracticeCount(20, this)">20 Câu Tiêu Chuẩn</button>
+                  <button type="button" class="filter-chip" data-count="30" onclick="window.smobApp.setIrregularPracticeCount(30, this)">30 Câu Chuyên Sâu</button>
+                  <button type="button" class="filter-chip" data-count="50" onclick="window.smobApp.setIrregularPracticeCount(50, this)">50 Từ Cốt Lõi Hay Gặp Nhất</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-end; gap: 12px;">
+              <button class="apple-btn btn-secondary" onclick="window.smobApp.switchIrregularSubView('table')">Quay Lại Bảng Tra Cứu</button>
+              <button class="apple-btn btn-primary" onclick="window.smobApp.startIrregularPracticeSession()" style="font-size: 15px; font-weight: 800; padding: 10px 28px;">
+                ▶ Bắt Đầu Làm Bài
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Active Test Arena Panel -->
+          <div id="irv-active-arena" style="display: none;">
+            <div class="apple-card" style="margin-bottom: 20px; padding: 18px 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span class="status-pill status-avail" id="irv-progress-badge" style="font-weight: 800;">Câu 1 / 10</span>
+                  <span id="irv-q-type-badge" class="pdf-quiz-badge-red" style="font-size: 12px; padding: 2px 10px;">TRẮC NGHIỆM</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 13.5px; font-weight: 700; color: var(--text-secondary);" id="irv-progress-answered">Đã làm: 0/10</span>
+                  <button class="apple-btn btn-primary" onclick="window.smobApp.finishIrregularPracticeSession()" style="font-size: 12px; padding: 6px 14px; font-weight: 700;" title="Nộp bài và xem giải thích đáp án">🏁 Nộp Bài &amp; Xem Kết Quả</button>
+                  <button class="apple-btn btn-secondary" onclick="window.smobApp.exitIrregularPractice()" style="font-size: 12px; padding: 6px 12px;">Thoát</button>
+                </div>
+              </div>
+              <div style="width: 100%; height: 6px; background: var(--border-subtle); border-radius: 3px; overflow: hidden;">
+                <div id="irv-progress-bar" style="width: 10%; height: 100%; background: linear-gradient(90deg, #0071e3, #004b93); transition: width 0.3s ease;"></div>
+              </div>
+            </div>
+
+            <!-- Card wrapper with Left Arrow, Main Card, Right Arrow -->
+            <div class="irv-card-wrapper" style="margin-bottom: 24px;">
+              <button type="button" class="irv-nav-side-btn" id="irv-btn-side-prev" onclick="window.smobApp.prevIrregularPracticeQuestion()" title="Câu trước (hoặc phím mũi tên ←)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+
+              <!-- Main Question Card -->
+              <div class="apple-card irv-q-main-card" id="irv-question-card" style="padding: 32px 36px; margin-bottom: 0; flex: 1;">
+                <!-- Dynamic Content Injected by JS -->
+              </div>
+
+              <button type="button" class="irv-nav-side-btn" id="irv-btn-side-next" onclick="window.smobApp.nextIrregularPracticeQuestion()" title="Câu tiếp theo (hoặc phím mũi tên →)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Results & Review Screen -->
+          <div id="irv-results-panel" style="display: none;">
+            <div class="apple-card irv-results-hero" style="text-align: center; padding: 40px 30px; margin-bottom: 24px;">
+              <div style="font-size: 56px; margin-bottom: 12px;" id="irv-res-icon">🏆</div>
+              <h2 style="margin: 0 0 8px; font-size: 26px; font-weight: 900;" id="irv-res-title">Hoàn Thành Xuất Sắc!</h2>
+              <p style="margin: 0 0 20px; font-size: 15px; color: var(--text-secondary);" id="irv-res-subtitle">Bạn đã nắm rất vững bảng động từ bất quy tắc.</p>
+              
+              <div style="display: inline-flex; align-items: baseline; gap: 6px; background: rgba(0, 113, 227, 0.08); padding: 12px 30px; border-radius: 30px; border: 1.5px solid rgba(0, 113, 227, 0.2); margin-bottom: 24px;">
+                <span style="font-size: 36px; font-weight: 900; color: #0071e3;" id="irv-res-score">10 / 10</span>
+                <span style="font-size: 18px; font-weight: 700; color: var(--text-secondary);" id="irv-res-pct">(100%)</span>
+              </div>
+
+              <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                <button class="apple-btn btn-primary" onclick="window.smobApp.restartCurrentIrregularPractice()" style="font-weight: 700; padding: 10px 24px;">🔄 Luyện Lại Đề Này</button>
+                <button class="apple-btn btn-secondary" onclick="window.smobApp.startIrregularPracticeSession()" style="font-weight: 700; padding: 10px 24px;">🎲 Tạo Đề Mới Ngẫu Nhiên</button>
+                <button class="apple-btn btn-secondary" onclick="window.smobApp.switchIrregularSubView('table')" style="font-weight: 700; padding: 10px 24px;">📖 Xem Bảng Tra Cứu</button>
+              </div>
+            </div>
+
+            <!-- Detailed Review List -->
+            <div class="apple-card" style="padding: 24px;">
+              <h3 style="margin: 0 0 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                <span>📋</span> Chi Tiết Bài Làm &amp; Danh Sách Động Từ Ôn Tập
+              </h3>
+              <div id="irv-review-items-list" style="display: flex; flex-direction: column; gap: 14px;"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -586,9 +1069,12 @@
             </div>
           </div>
 
-          <div style="display: flex; gap: 8px;">
-            <span class="status-pill status-avail" style="font-size: 12px; font-weight: 700; padding: 6px 14px;">📄 Đề
-              Thi Online Chuẩn PDF (100% Gốc)</span>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="apple-btn btn-secondary" style="padding: 6px 12px; font-size: 12.5px; font-weight: 700;"
+              onclick="window.smobApp.openHistoryTab('exams')">🕒 Lịch Sử Bài Thi</button>
+            <button class="apple-btn btn-primary" style="padding: 6px 12px; font-size: 12.5px; font-weight: 700;"
+              onclick="window.smobApp.navigate('analytics')">📊 Báo Cáo Hiệu Suất</button>
+            <span class="status-pill status-avail" style="font-size: 12px; font-weight: 700; padding: 6px 12px;">📄 Đề Thi Chuẩn 100% PDF</span>
           </div>
         </div>
 
@@ -1072,7 +1558,7 @@
                   <button class="ctrl-btn" id="btn-vid-mute"
                     onclick="event.stopPropagation(); window.smobApp.toggleVideoMute()"
                     title="Bật/Tắt âm thanh">🔊</button>
-                  <input type="range" id="vid-vol-slider" min="0" max="1" step="0.05" value="1"
+                  <input type="range" id="vid-vol-slider" min="0" max="1" step="0.05" value="0.45"
                     style="width: 75px; accent-color: var(--accent);"
                     oninput="event.stopPropagation(); window.smobApp.setVideoVolume(this.value)">
                   <span id="vid-time-display" style="font-size: 13px; font-weight: 600; margin-left: 10px;">00:00 /
@@ -1253,6 +1739,60 @@
           </div>
         </div>
         <div id="mistakes-container"></div>
+      </section>
+
+      <!-- VIEW 10.5: LEARNING PERFORMANCE & EXAM HISTORY CENTER -->
+      <section class="tab-view" id="view-analytics">
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <div style="font-size: 22px; font-weight: 800; color: var(--text-primary);">📊 Trung Tâm Hiệu Suất Học Tập & Lịch Sử Kiểm Tra</div>
+            <div style="font-size: 13.5px; color: var(--text-secondary); margin-top: 4px;">Theo dõi tiến độ, đo lường độ chăm chỉ và xem lại nhật ký các bài thi có ghi nhận ngày giờ chi tiết.</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="apple-btn btn-primary" onclick="window.smobApp.renderAnalyticsView()">🔄 Cập Nhật Dữ Liệu</button>
+          </div>
+        </div>
+
+        <!-- Sub-tabs: 1. Đánh giá Hiệu Suất, 2. Lịch Sử Đề Thi 48 Units, 3. Lịch Sử Quiz Từ Vựng & Động Từ BQT -->
+        <div class="sticky-view-toolbar" style="margin-bottom: 20px;">
+          <div style="display: flex; gap: 10px;">
+            <button class="filter-chip active" id="tab-analytics-perf" onclick="window.smobApp.switchAnalyticsSubTab('perf', this)">🏆 Đánh Giá Hiệu Suất & Chăm Học</button>
+            <button class="filter-chip" id="tab-analytics-exams" onclick="window.smobApp.switchAnalyticsSubTab('exams', this)">🕒 Lịch Sử Đề Thi (48 Units)</button>
+            <button class="filter-chip" id="tab-analytics-vocab" onclick="window.smobApp.switchAnalyticsSubTab('vocab', this)">📚 Lịch Sử Quiz Từ Vựng & Động Từ</button>
+          </div>
+        </div>
+
+        <!-- Sub-view 1: Performance & Diligence Dashboard -->
+        <div id="subview-analytics-perf" style="display: block;">
+          <div id="analytics-perf-container"></div>
+        </div>
+
+        <!-- Sub-view 2: 48 Units Exam History List -->
+        <div id="subview-analytics-exams" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Danh Sách Các Lần Làm Bài Thi Online (Có Ngày & Giờ Chi Tiết)</div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <label style="font-size: 13px; font-weight: 600;">Lọc Unit:</label>
+              <select id="history-unit-filter" class="apple-input" style="padding: 6px 12px; font-size: 13px;" onchange="window.smobApp.filterExamHistoryByUnit(this.value)"></select>
+              <button class="apple-btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="window.smobApp.clearAllExamHistory()">Xóa Lịch Sử</button>
+            </div>
+          </div>
+          <div id="exam-history-list-container"></div>
+        </div>
+
+        <!-- Sub-view 3: Vocab & Irregular Verbs Quiz History -->
+        <div id="subview-analytics-vocab" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">🗂️ Lịch Sử Quizlet Từ Vựng</div>
+              <div id="vocab-history-list-container"></div>
+            </div>
+            <div>
+              <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">⚡ Lịch Sử Động Từ Bất Quy Tắc & Từ Hay Sai</div>
+              <div id="irregular-history-list-container"></div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- VIEW 11: SETTINGS -->
@@ -1445,6 +1985,12 @@
           </div>
           <div id="ai-coach-spoken-preview"
             style="font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; min-height: 22px;"></div>
+          <div style="margin-top: 10px;">
+            <button class="apple-btn btn-primary" id="btn-ai-auto-check" onclick="window.smobApp.runAIAutoCheck()"
+              style="font-size: 13.5px; padding: 8px 18px; border-radius: 980px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">
+              <span>🤖</span> <strong>Trợ Lý AI Tự Động Phân Tích & Chấm Điểm</strong>
+            </button>
+          </div>
         </div>
 
         <!-- AI Analysis & Pronunciation Scoring Card -->
@@ -1478,6 +2024,38 @@
       </div>
     </div>
   </div>
+
+  <!-- MODAL: TAKE NOTE (GHI CHÚ CÁ NHÂN TỪ VỰNG & ĐỘNG TỪ BẤT QUY TẮC) -->
+  <div class="modal-backdrop" id="word-note-modal" style="display: none;" onclick="if(event.target===this) window.smobApp.closeWordNoteModal()">
+    <div class="modal-card" style="max-width: 520px; border-radius: 18px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 24px;">📝</div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-secondary); font-weight: 700; text-transform: uppercase;" id="note-modal-subtitle">Ghi Chú Cá Nhân</div>
+            <h3 style="font-size: 18px; font-weight: 800; margin: 0;" id="note-modal-title">Ghi Chú Cho Từ</h3>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="window.smobApp.closeWordNoteModal()" title="Đóng (Esc)">✕</button>
+      </div>
+      <div style="padding: 20px 24px;">
+        <div style="margin-bottom: 12px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
+          Ghi lại mẹo nhớ, từ dễ nhầm lẫn hoặc câu ví dụ của riêng bạn. Ghi chú sẽ tự động lưu và hiển thị mỗi khi bạn xem từ này.
+        </div>
+        <textarea id="note-modal-textarea" class="search-field" style="width: 100%; height: 110px; padding: 12px; font-size: 14px; line-height: 1.5; resize: vertical; border-radius: 10px; box-sizing: border-box;" placeholder="Ví dụ: Hay nhầm với từ expect... Mẹo nhớ: awake -> awoke -> awoken..."></textarea>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; flex-wrap: wrap; gap: 10px;">
+          <button class="apple-btn btn-secondary" style="color: #dc2626; border-color: #fca5a5;" onclick="window.smobApp.deleteCurrentNote()">🗑️ Xóa Ghi Chú</button>
+          <div style="display: flex; gap: 10px;">
+            <button class="apple-btn btn-secondary" onclick="window.smobApp.closeWordNoteModal()">Hủy</button>
+            <button class="apple-btn btn-primary" onclick="window.smobApp.saveCurrentNote()" style="font-weight: 700;">💾 Lưu Ghi Chú</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATTEMPT REVIEW MODAL -->
+  <div id="attempt-review-modal-container"></div>
 
   <!-- Scripts -->
   <script src="./js/embedded_data.js"></script>

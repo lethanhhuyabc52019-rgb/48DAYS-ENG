@@ -5,7 +5,7 @@ import time
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-exe_path = r"D:\2.English\phan mem hoc\EnglishLearningApp.exe"
+exe_path = r"D:\2.English\phan mem hoc\SMOB English Lab.exe"
 
 print("==================================================")
 print("KIỂM THỬ THỰC TẾ FILE EXE ĐÃ ĐÓNG GÓI:")

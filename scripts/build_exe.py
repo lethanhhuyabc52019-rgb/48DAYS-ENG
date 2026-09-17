@@ -16,9 +16,29 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 final_dir = r"D:\2.English\phan mem hoc"
 os.makedirs(final_dir, exist_ok=True)
 
+# 0. Terminate running instance if open
+try:
+    subprocess.run(["taskkill", "/f", "/im", "SMOB English Lab.exe"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    import time; time.sleep(1)
+except Exception:
+    pass
+
 # 1. Clean and archive old builds in release folder
 archive_dir = os.path.join(final_dir, "archive")
 os.makedirs(archive_dir, exist_ok=True)
+
+import time
+existing_target = os.path.join(final_dir, "SMOB English Lab.exe")
+if os.path.isfile(existing_target):
+    try:
+        backup_target = os.path.join(archive_dir, f"SMOB_English_Lab_prev.exe")
+        if os.path.exists(backup_target):
+            try: os.remove(backup_target)
+            except Exception: pass
+        shutil.move(existing_target, backup_target)
+        print(f"Safely archived previous build to: archive/SMOB_English_Lab_prev.exe")
+    except Exception as e:
+        print(f"Warning moving existing exe: {e}")
 
 for item in os.listdir(final_dir):
     item_path = os.path.join(final_dir, item)
@@ -59,6 +79,7 @@ cmd = [
     "--windowed",
     "--noconsole",
     "--clean",
+    f"--icon={os.path.join(base_dir, 'assets', 'icon.ico')}",
     "--hidden-import=bottle",
     "--hidden-import=webview",
     f"--distpath={final_dir}",
@@ -73,7 +94,7 @@ process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
 
 for line in process.stdout:
     line_clean = line.strip()
-    if any(k in line_clean for k in ["Building", "Copying", "Appending", "checking", "Processing", "completed successfully", "INFO:"]):
+    if any(k in line_clean for k in ["Building", "Copying", "Appending", "checking", "Processing", "completed successfully", "INFO:", "ERROR", "Traceback", "File ", "Permission", "Exception", "failed"]):
         print(line_clean)
 
 process.wait()
@@ -108,8 +129,15 @@ print("Cleaning temporary build directories...")
 shutil.rmtree(work_dir, ignore_errors=True)
 shutil.rmtree(spec_dir, ignore_errors=True)
 
-# 7. List and verify clean output directory
+# 7. Automatically build Portable Package for office/company use
+portable_script = os.path.join(base_dir, "scripts", "create_portable_package.py")
+if os.path.isfile(portable_script):
+    print("\nCreating Portable Package for Company/Office...")
+    subprocess.run([sys.executable, portable_script], check=True)
+
+# 8. List and verify clean output directory
 final_items = [f for f in os.listdir(final_dir) if not f.startswith('.')]
 print(f"\nFinal release directory items ({final_dir}): {final_items}")
 assert f"{target_name}.exe" in final_items, "Target exe not found in release folder!"
-print(f"PASSED 100%: Single executable release verified at {exe_path}")
+print(f"PASSED 100%: Single executable & Portable release verified at {exe_path}")
+

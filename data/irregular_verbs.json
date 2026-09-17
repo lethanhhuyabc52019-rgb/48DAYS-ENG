@@ -10,7 +10,8 @@
     "meaning": "tuân theo, chịu đựng",
     "example": "They promised to abide by the rules.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 1
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_arise",
@@ -23,7 +24,8 @@
     "meaning": "xuất hiện, nảy sinh",
     "example": "Problems arose during the meeting.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 2
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_awake",
@@ -36,7 +38,8 @@
     "meaning": "thức giấc, đánh thức",
     "example": "She awoke early in the morning.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 3
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_backslide",
@@ -49,7 +52,8 @@
     "meaning": "tái phạm, thụt lùi",
     "example": "He backslid into old habits.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 4
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_be",
@@ -62,7 +66,8 @@
     "meaning": "thì, là, ở",
     "example": "I have been here before.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 5
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_bear",
@@ -75,7 +80,8 @@
     "meaning": "chịu đựng, sinh đẻ",
     "example": "She bore all the difficulties.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 6
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_beat",
@@ -88,7 +94,8 @@
     "meaning": "đánh bại, đập",
     "example": "Our team beat their rivals.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 7
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_become",
@@ -101,7 +108,8 @@
     "meaning": "trở thành, trở nên",
     "example": "She became a doctor.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 8
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_befall",
@@ -114,7 +122,8 @@
     "meaning": "xảy đến, giáng xuống",
     "example": "A tragedy befell the town.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 9
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_beget",
@@ -127,7 +136,8 @@
     "meaning": "sinh ra, gây ra",
     "example": "Violence begets violence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 10
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_begin",
@@ -140,7 +150,8 @@
     "meaning": "bắt đầu",
     "example": "The lesson began at 8 AM.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 11
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_behold",
@@ -153,7 +164,8 @@
     "meaning": "ngắm nhìn, chiêm ngưỡng",
     "example": "They beheld a wonderful sunrise.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 12
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bend",
@@ -166,7 +178,8 @@
     "meaning": "bẻ cong, uốn cong",
     "example": "He bent the wire into a circle.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 13
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bereave",
@@ -179,7 +192,8 @@
     "meaning": "cướp đi, tước đoạt",
     "example": "The accident bereaved him of his family.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 14
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_beseech",
@@ -192,7 +206,8 @@
     "meaning": "van xin, khẩn cầu",
     "example": "They besought the king for mercy.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 15
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_beset",
@@ -205,7 +220,8 @@
     "meaning": "bủa vây, đeo bám",
     "example": "The project was beset with difficulties.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 16
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bespeak",
@@ -218,7 +234,8 @@
     "meaning": "chứng tỏ, đặt trước",
     "example": "His calm voice bespoke confidence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 17
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bestride",
@@ -231,7 +248,8 @@
     "meaning": "ngồi dạng chân, cưỡi",
     "example": "He bestrode his motorbike.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 18
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bet",
@@ -244,7 +262,8 @@
     "meaning": "đánh cược, cá cược",
     "example": "I bet you ten dollars.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 19
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bid",
@@ -257,7 +276,8 @@
     "meaning": "trả giá, ra lệnh",
     "example": "She bid $500 for the painting.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 20
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bind",
@@ -270,7 +290,8 @@
     "meaning": "buộc, trói buộc",
     "example": "The contract binds both parties.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 21
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bite",
@@ -283,7 +304,8 @@
     "meaning": "cắn, ngoạm",
     "example": "The dog bit his leg.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 22
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bleed",
@@ -296,7 +318,8 @@
     "meaning": "chảy máu",
     "example": "His finger bled after the cut.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 23
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_blow",
@@ -309,7 +332,8 @@
     "meaning": "thổi",
     "example": "A cold wind blew softly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 24
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_break",
@@ -322,7 +346,8 @@
     "meaning": "làm vỡ, bẻ gãy",
     "example": "He broke the vase by accident.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 25
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_breed",
@@ -335,7 +360,8 @@
     "meaning": "nuôi dưỡng, sinh sản",
     "example": "Rabbits breed very quickly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 26
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bring",
@@ -348,7 +374,8 @@
     "meaning": "mang lại, đem đến",
     "example": "She brought some flowers.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 27
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_broadcast",
@@ -361,7 +388,8 @@
     "meaning": "phát sóng, truyền hình",
     "example": "The event was broadcast live.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 28
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_browbeat",
@@ -374,7 +402,8 @@
     "meaning": "đe dọa, nạt nộ",
     "example": "Do not let them browbeat you.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 29
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_build",
@@ -387,7 +416,8 @@
     "meaning": "xây dựng",
     "example": "They built a new house.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 30
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_burn",
@@ -400,7 +430,8 @@
     "meaning": "đốt cháy, cháy",
     "example": "The fire burnt all night.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 31
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_burst",
@@ -413,7 +444,8 @@
     "meaning": "nổ tung, vỡ òa",
     "example": "The balloon burst with a bang.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 32
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_bust",
@@ -426,7 +458,8 @@
     "meaning": "làm hỏng, phá sản",
     "example": "The watch is bust.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 33
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_buy",
@@ -439,7 +472,8 @@
     "meaning": "mua",
     "example": "He bought a new laptop yesterday.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 34
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_cast",
@@ -452,7 +486,8 @@
     "meaning": "quăng, ném, đúc",
     "example": "The fisherman cast his net.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 35
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_catch",
@@ -465,7 +500,8 @@
     "meaning": "bắt kịp, tóm lấy",
     "example": "She caught the early bus.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 36
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_chide",
@@ -478,7 +514,8 @@
     "meaning": "mắng mỏ, khiển trách",
     "example": "She chided the boy for being late.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 37
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_choose",
@@ -491,7 +528,8 @@
     "meaning": "chọn lựa",
     "example": "They chose the best option.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 38
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_clad",
@@ -504,7 +542,8 @@
     "meaning": "mặc áo, che phủ",
     "example": "The hills were clad in mist.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 39
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_clap",
@@ -517,7 +556,8 @@
     "meaning": "vỗ tay",
     "example": "The audience clapped loudly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 40
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_cleave",
@@ -530,7 +570,8 @@
     "meaning": "chẻ đôi, tách ra",
     "example": "He cleft the log with an axe.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 41
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_cling",
@@ -543,7 +584,8 @@
     "meaning": "bám chặt, dính vào",
     "example": "She clung to her mother's hand.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 42
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_clothe",
@@ -556,7 +598,8 @@
     "meaning": "mặc quần áo cho",
     "example": "She clothed the children warmly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 43
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_come",
@@ -569,7 +612,8 @@
     "meaning": "đến, tới",
     "example": "They came home late last night.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 44
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_cost",
@@ -582,7 +626,8 @@
     "meaning": "có giá là, tốn kém",
     "example": "The ticket cost fifty dollars.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 45
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_creep",
@@ -595,7 +640,8 @@
     "meaning": "bò, trườn, lén lút",
     "example": "The cat crept toward the bird.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 46
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_crow",
@@ -608,7 +654,8 @@
     "meaning": "gáy (gà), reo vui",
     "example": "The rooster crew at dawn.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 47
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_cut",
@@ -621,7 +668,8 @@
     "meaning": "cắt, chặt",
     "example": "He cut the paper into strips.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 48
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_dare",
@@ -634,7 +682,8 @@
     "meaning": "dám, thách thức",
     "example": "No one durst speak up.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 49
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_deal",
@@ -647,7 +696,8 @@
     "meaning": "giao dịch, giải quyết",
     "example": "She dealt with the customer complaint.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 50
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_dig",
@@ -660,7 +710,8 @@
     "meaning": "đào bới",
     "example": "They dug a deep hole in the garden.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 51
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_dive",
@@ -673,7 +724,8 @@
     "meaning": "lặn, nhảy lao xuống",
     "example": "He dove into the cool pool.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 52
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_do",
@@ -686,7 +738,8 @@
     "meaning": "làm, thực hiện",
     "example": "She did her homework carefully.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 53
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_draw",
@@ -699,7 +752,8 @@
     "meaning": "vẽ, kéo",
     "example": "He drew a picture of a cat.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 54
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_dream",
@@ -712,7 +766,8 @@
     "meaning": "mơ ước, chiêm bao",
     "example": "I dreamt of traveling the world.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 55
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_drink",
@@ -725,7 +780,8 @@
     "meaning": "uống",
     "example": "She drank a glass of water.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 56
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_drive",
@@ -738,7 +794,8 @@
     "meaning": "lái xe",
     "example": "He drove safely along the road.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 57
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_dwell",
@@ -751,7 +808,8 @@
     "meaning": "trú ngụ, ở",
     "example": "They dwelt in a peaceful village.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 58
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_eat",
@@ -764,7 +822,8 @@
     "meaning": "ăn",
     "example": "We ate dinner together.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 59
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_fall",
@@ -777,7 +836,8 @@
     "meaning": "ngã, rơi",
     "example": "Leaves fell from the trees.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 60
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_feed",
@@ -790,7 +850,8 @@
     "meaning": "cho ăn, nuôi dưỡng",
     "example": "He fed the cat in the morning.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 61
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_feel",
@@ -803,7 +864,8 @@
     "meaning": "cảm thấy",
     "example": "I felt very excited about the trip.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 62
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_fight",
@@ -816,7 +878,8 @@
     "meaning": "chiến đấu, đánh nhau",
     "example": "Soldiers fought bravely.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 63
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_find",
@@ -829,7 +892,8 @@
     "meaning": "tìm thấy",
     "example": "She found her missing keys.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 64
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_fit",
@@ -842,7 +906,8 @@
     "meaning": "vừa vặn, hợp",
     "example": "The coat fit him well.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 65
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_flee",
@@ -855,7 +920,8 @@
     "meaning": "chạy trốn, tẩu thoát",
     "example": "The suspect fled from the scene.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 66
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_fling",
@@ -868,7 +934,8 @@
     "meaning": "quăng, ném mạnh",
     "example": "She flung the door open.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 67
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_fly",
@@ -881,7 +948,8 @@
     "meaning": "bay",
     "example": "The birds flew south for winter.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 68
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forbear",
@@ -894,7 +962,8 @@
     "meaning": "nhịn, kiềm chế",
     "example": "He forbore to express his anger.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 69
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forbid",
@@ -907,7 +976,8 @@
     "meaning": "cấm đoán",
     "example": "Swimming was forbidden here.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 70
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forecast",
@@ -920,7 +990,8 @@
     "meaning": "dự báo thời tiết/tương lai",
     "example": "They forecast rain for tomorrow.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 71
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_foresee",
@@ -933,7 +1004,8 @@
     "meaning": "thấy trước, đoán trước",
     "example": "She foresaw the consequences.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 72
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_foretell",
@@ -946,7 +1018,8 @@
     "meaning": "nói trước, báo trước",
     "example": "The prophet foretold the victory.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 73
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forget",
@@ -959,7 +1032,8 @@
     "meaning": "quên",
     "example": "Don't forget your password.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 74
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forgive",
@@ -972,7 +1046,8 @@
     "meaning": "tha thứ",
     "example": "She forgave him for his mistake.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 75
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_forsake",
@@ -985,7 +1060,8 @@
     "meaning": "từ bỏ, ruồng bỏ",
     "example": "He never forsook his principles.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 76
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_freeze",
@@ -998,7 +1074,8 @@
     "meaning": "đóng băng, đông cứng",
     "example": "The lake froze during winter.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 77
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_get",
@@ -1011,7 +1088,8 @@
     "meaning": "nhận được, trở nên",
     "example": "He got an email from his friend.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 78
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_gild",
@@ -1024,7 +1102,8 @@
     "meaning": "mạ vàng",
     "example": "The frame was gilded in gold.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 79
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_give",
@@ -1037,7 +1116,8 @@
     "meaning": "cho, tặng",
     "example": "She gave me a nice gift.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 80
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_go",
@@ -1050,7 +1130,8 @@
     "meaning": "đi",
     "example": "They went to Paris last summer.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 81
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_grind",
@@ -1063,7 +1144,8 @@
     "meaning": "nghiền, xay",
     "example": "He ground fresh coffee beans.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 82
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_grow",
@@ -1076,7 +1158,8 @@
     "meaning": "lớn lên, trồng",
     "example": "The company grew rapidly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 83
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hamstring",
@@ -1089,7 +1172,8 @@
     "meaning": "làm què, làm tê liệt",
     "example": "The law hamstrung the police.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 84
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hang",
@@ -1102,7 +1186,8 @@
     "meaning": "treo",
     "example": "She hung the picture on the wall.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 85
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_have",
@@ -1115,7 +1200,8 @@
     "meaning": "có, sở hữu",
     "example": "We had a great conversation.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 86
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_hear",
@@ -1128,7 +1214,8 @@
     "meaning": "nghe thấy",
     "example": "Did you hear that strange noise?",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 87
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_heave",
@@ -1141,7 +1228,8 @@
     "meaning": "nâng lên, thở dốc",
     "example": "He heaved a heavy sigh.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 88
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hew",
@@ -1154,7 +1242,8 @@
     "meaning": "đẽo, chặt bằng rìu",
     "example": "They hewed wood from the forest.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 89
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hide",
@@ -1167,7 +1256,8 @@
     "meaning": "trốn, giấu giếm",
     "example": "The cat hid under the sofa.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 90
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hit",
@@ -1180,7 +1270,8 @@
     "meaning": "đánh, va trúng",
     "example": "The ball hit the window.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 91
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hold",
@@ -1193,7 +1284,8 @@
     "meaning": "cầm, nắm, tổ chức",
     "example": "They held an international meeting.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 92
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_hurt",
@@ -1206,7 +1298,8 @@
     "meaning": "làm tổn thương, đau",
     "example": "His knee hurt after running.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 93
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_inlay",
@@ -1219,7 +1312,8 @@
     "meaning": "khảm, cẩn",
     "example": "The wooden box was inlaid with silver.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 94
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_keep",
@@ -1232,7 +1326,8 @@
     "meaning": "giữ gìn, duy trì",
     "example": "She kept her promise.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 95
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_kneel",
@@ -1245,7 +1340,8 @@
     "meaning": "quỳ gối",
     "example": "He knelt down to propose.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 96
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_knit",
@@ -1258,7 +1354,8 @@
     "meaning": "đan len, liên kết",
     "example": "Grandmother knit a wool scarf.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 97
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_know",
@@ -1271,7 +1368,8 @@
     "meaning": "biết, hiểu",
     "example": "I knew the correct answer.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 98
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_lade",
@@ -1284,7 +1382,8 @@
     "meaning": "chất tải, chở nặng",
     "example": "The ship was heavily laden.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 99
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lay",
@@ -1297,7 +1396,8 @@
     "meaning": "đặt, để, đẻ trứng",
     "example": "She laid the book on the table.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 100
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lead",
@@ -1310,7 +1410,8 @@
     "meaning": "dẫn dắt, lãnh đạo",
     "example": "He led the team to success.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 101
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lean",
@@ -1323,7 +1424,8 @@
     "meaning": "dựa, tựa vào",
     "example": "He leaned against the railing.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 102
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_leap",
@@ -1336,7 +1438,8 @@
     "meaning": "nhảy vọt, phóng qua",
     "example": "The deer leapt over the fence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 103
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_learn",
@@ -1349,7 +1452,8 @@
     "meaning": "học hỏi",
     "example": "We learned 48 units thoroughly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 104
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_leave",
@@ -1362,7 +1466,8 @@
     "meaning": "rời đi, để lại",
     "example": "The train left the station on time.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 105
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_lend",
@@ -1375,7 +1480,8 @@
     "meaning": "cho vay, cho mượn",
     "example": "He lent me his umbrella.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 106
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_let",
@@ -1388,7 +1494,8 @@
     "meaning": "để cho, cho phép",
     "example": "Let me help you with that.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 107
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lie",
@@ -1401,7 +1508,8 @@
     "meaning": "nằm",
     "example": "She lay on the grass looking at the sky.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 108
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_light",
@@ -1414,7 +1522,8 @@
     "meaning": "thắp sáng, đốt",
     "example": "He lit the candle in the room.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 109
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lose",
@@ -1427,7 +1536,8 @@
     "meaning": "làm mất, thua cuộc",
     "example": "I lost my passport.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 110
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_make",
@@ -1440,7 +1550,8 @@
     "meaning": "làm, chế tạo",
     "example": "She made a delicious cake.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 111
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_mean",
@@ -1453,7 +1564,8 @@
     "meaning": "có nghĩa là",
     "example": "What do you mean by that?",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 112
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_meet",
@@ -1466,7 +1578,8 @@
     "meaning": "gặp gỡ",
     "example": "They met at the cafe.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 113
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_melt",
@@ -1479,7 +1592,8 @@
     "meaning": "tan chảy",
     "example": "The snow melted in spring.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 114
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_miscast",
@@ -1492,7 +1606,8 @@
     "meaning": "giao sai vai trò",
     "example": "The actor was miscast in the film.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 115
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misdeal",
@@ -1505,7 +1620,8 @@
     "meaning": "chia bài sai, xử lý nhầm",
     "example": "The dealer misdealt the cards.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 116
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misgive",
@@ -1518,7 +1634,8 @@
     "meaning": "lo ngại, e ngại",
     "example": "Her heart misgave her.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 117
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mishear",
@@ -1531,7 +1648,8 @@
     "meaning": "nghe nhầm",
     "example": "I misheard what she said.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 118
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mishit",
@@ -1544,7 +1662,8 @@
     "meaning": "đánh trượt, sút hỏng",
     "example": "The striker mishit the ball.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 119
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mislay",
@@ -1557,7 +1676,8 @@
     "meaning": "để thất lạc",
     "example": "She mislaid her spectacles.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 120
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mislead",
@@ -1570,7 +1690,8 @@
     "meaning": "làm lạc đường, đánh lừa",
     "example": "The advertisements misled consumers.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 121
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misread",
@@ -1583,7 +1704,8 @@
     "meaning": "đọc sai, hiểu sai",
     "example": "I misread the instructions.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 122
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misspell",
@@ -1596,7 +1718,8 @@
     "meaning": "viết sai chính tả",
     "example": "You misspelt that English word.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 123
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misspend",
@@ -1609,7 +1732,8 @@
     "meaning": "tiêu xài hoang phí",
     "example": "He misspent his youth.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 124
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mistake",
@@ -1622,7 +1746,8 @@
     "meaning": "nhận nhầm, phạm sai lầm",
     "example": "I mistook him for his brother.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 125
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_misunderstand",
@@ -1635,7 +1760,8 @@
     "meaning": "hiểu lầm",
     "example": "They misunderstood the schedule.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 126
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_mow",
@@ -1648,7 +1774,8 @@
     "meaning": "cắt cỏ",
     "example": "He mowed the lawn this morning.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 127
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outbid",
@@ -1661,7 +1788,8 @@
     "meaning": "trả giá cao hơn",
     "example": "She outbid all competitors.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 128
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outdo",
@@ -1674,7 +1802,8 @@
     "meaning": "vượt trội hơn, làm giỏi hơn",
     "example": "He outdid everyone in the test.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 129
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outfight",
@@ -1687,7 +1816,8 @@
     "meaning": "đánh thắng, vượt trội",
     "example": "The boxer outfought his rival.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 130
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outgrow",
@@ -1700,7 +1830,8 @@
     "meaning": "lớn hơn, phát triển vượt",
     "example": "He outgrow his winter coat.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 131
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_output",
@@ -1713,7 +1844,8 @@
     "meaning": "xuất ra, tạo ra sản lượng",
     "example": "The factory output thousands of units.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 132
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outrun",
@@ -1726,7 +1858,8 @@
     "meaning": "chạy nhanh hơn",
     "example": "The cheetah outran the deer.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 133
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outsell",
@@ -1739,7 +1872,8 @@
     "meaning": "bán chạy hơn",
     "example": "This phone outsold all others.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 134
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outshine",
@@ -1752,7 +1886,8 @@
     "meaning": "tỏa sáng hơn, vượt trội",
     "example": "Her performance outshone the rest.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 135
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overbear",
@@ -1765,7 +1900,8 @@
     "meaning": "áp đảo, đè bẹp",
     "example": "She was overborne by his arguments.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 136
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overcast",
@@ -1778,7 +1914,8 @@
     "meaning": "che phủ mây đen, u ám",
     "example": "Dark clouds overcast the sky.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 137
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overcome",
@@ -1791,7 +1928,8 @@
     "meaning": "vượt qua, chiến thắng",
     "example": "She overcame all hardships.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 138
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overdo",
@@ -1804,7 +1942,8 @@
     "meaning": "làm quá mức",
     "example": "Don't overdo the exercise.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 139
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overdraw",
@@ -1817,7 +1956,8 @@
     "meaning": "rút quá số dư ngân hàng",
     "example": "He overdrew his checking account.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 140
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overeat",
@@ -1830,7 +1970,8 @@
     "meaning": "ăn quá độ",
     "example": "I overate at the buffet.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 141
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overfly",
@@ -1843,7 +1984,8 @@
     "meaning": "bay ngang qua",
     "example": "The plane overflew the mountain.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 142
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overhang",
@@ -1856,7 +1998,8 @@
     "meaning": "nhô ra phía trên",
     "example": "A cliff overhung the road.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 143
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overhear",
@@ -1869,7 +2012,8 @@
     "meaning": "tình cờ nghe được",
     "example": "I overheard their conversation.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 144
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overlay",
@@ -1882,7 +2026,8 @@
     "meaning": "phủ lên trên",
     "example": "Gold was overlaid on the surface.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 145
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overpay",
@@ -1895,7 +2040,8 @@
     "meaning": "trả tiền thừa",
     "example": "They accidentally overpaid the invoice.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 146
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_override",
@@ -1908,7 +2054,8 @@
     "meaning": "gạt bỏ, lấn át quyền",
     "example": "The manager overrode the decision.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 147
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overrun",
@@ -1921,7 +2068,8 @@
     "meaning": "tràn ngập, vượt quá hạn",
     "example": "The cost overran the budget.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 148
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_oversee",
@@ -1934,7 +2082,8 @@
     "meaning": "giám sát, trông coi",
     "example": "He oversaw the entire construction.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 149
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_oversell",
@@ -1947,7 +2096,8 @@
     "meaning": "bán quá số lượng có thật",
     "example": "The airline oversold the flight.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 150
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overshoot",
@@ -1960,7 +2110,8 @@
     "meaning": "bắn trượt, đi quá đà",
     "example": "The plane overshot the runway.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 151
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_oversleep",
@@ -1973,7 +2124,8 @@
     "meaning": "ngủ quên",
     "example": "I overslept and missed the bus.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 152
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overtake",
@@ -1986,7 +2138,8 @@
     "meaning": "vượt qua (xe cộ, trình độ)",
     "example": "The car overtook the truck safely.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 153
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overthrow",
@@ -1999,7 +2152,8 @@
     "meaning": "lật đổ (chính quyền)",
     "example": "The rebels overthrew the dictator.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 154
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_partake",
@@ -2012,7 +2166,8 @@
     "meaning": "tham dự, cùng ăn",
     "example": "They partook in the celebration.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 155
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_pay",
@@ -2025,7 +2180,8 @@
     "meaning": "thanh toán, trả tiền",
     "example": "She paid by credit card.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 156
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_plead",
@@ -2038,7 +2194,8 @@
     "meaning": "biện hộ, nài xin",
     "example": "The accused pled not guilty.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 157
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_prove",
@@ -2051,7 +2208,8 @@
     "meaning": "chứng minh",
     "example": "The theory was proven right.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 158
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_put",
@@ -2064,7 +2222,8 @@
     "meaning": "đặt, để",
     "example": "Put the key in your pocket.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 159
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_quit",
@@ -2077,7 +2236,8 @@
     "meaning": "từ bỏ, nghỉ việc",
     "example": "He quit his job last month.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 160
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_read",
@@ -2090,7 +2250,8 @@
     "meaning": "đọc",
     "example": "I read an interesting article.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 161
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rebind",
@@ -2103,7 +2264,8 @@
     "meaning": "đóng lại (bìa sách)",
     "example": "They rebound the old dictionary.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 162
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rebuild",
@@ -2116,7 +2278,8 @@
     "meaning": "xây dựng lại",
     "example": "The city rebuilt the bridge.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 163
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_recast",
@@ -2129,7 +2292,8 @@
     "meaning": "đúc lại, viết lại",
     "example": "She recast her ideas into a plan.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 164
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_redo",
@@ -2142,7 +2306,8 @@
     "meaning": "làm lại",
     "example": "You must redo this exercise.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 165
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rehear",
@@ -2155,7 +2320,8 @@
     "meaning": "nghe lại (vụ án)",
     "example": "The court reheard the case.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 166
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_remake",
@@ -2168,7 +2334,8 @@
     "meaning": "làm lại, quay lại phim",
     "example": "They remade the classic movie.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 167
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rend",
@@ -2181,7 +2348,8 @@
     "meaning": "xé rách, làm tan vỡ",
     "example": "The grief rent her heart.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 168
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_repay",
@@ -2194,7 +2362,8 @@
     "meaning": "hoàn trả, đền đáp",
     "example": "He repaid all his debts.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 169
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_reread",
@@ -2207,7 +2376,8 @@
     "meaning": "đọc lại",
     "example": "I reread the chapter twice.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 170
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rerun",
@@ -2220,7 +2390,8 @@
     "meaning": "chiếu lại, chạy lại",
     "example": "The TV channel rerun the show.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 171
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_resell",
@@ -2233,7 +2404,8 @@
     "meaning": "bán lại",
     "example": "He resold the car at a profit.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 172
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_reset",
@@ -2246,7 +2418,8 @@
     "meaning": "thiết lập lại",
     "example": "Please reset your password.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 173
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_resit",
@@ -2259,7 +2432,8 @@
     "meaning": "thi lại",
     "example": "Students had to resit the exam.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 174
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_retake",
@@ -2272,7 +2446,8 @@
     "meaning": "chiếm lại, chụp lại, thi lại",
     "example": "She retook the IELTS exam.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 175
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_retell",
@@ -2285,7 +2460,8 @@
     "meaning": "kể lại",
     "example": "He retold the story to his kids.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 176
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rewind",
@@ -2298,7 +2474,8 @@
     "meaning": "tua lại (băng, video)",
     "example": "Rewind the video by 10 seconds.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 177
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rewrite",
@@ -2311,7 +2488,8 @@
     "meaning": "viết lại",
     "example": "She rewrote the entire essay.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 178
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rid",
@@ -2324,7 +2502,8 @@
     "meaning": "giải thoát, loại bỏ",
     "example": "We got rid of the old junk.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 179
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_ride",
@@ -2337,7 +2516,8 @@
     "meaning": "cưỡi ngựa, lái xe đạp",
     "example": "He rode his bicycle to school.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 180
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_ring",
@@ -2350,7 +2530,8 @@
     "meaning": "rung chuông, gọi điện",
     "example": "The school bell rang loudly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 181
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rise",
@@ -2363,7 +2544,8 @@
     "meaning": "dâng lên, mọc (mặt trời)",
     "example": "The sun rose early today.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 182
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_run",
@@ -2376,7 +2558,8 @@
     "meaning": "chạy, vận hành",
     "example": "He ran five kilometers.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 183
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_saw",
@@ -2389,7 +2572,8 @@
     "meaning": "cưa (gỗ)",
     "example": "They sawed the branch off.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 184
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_say",
@@ -2402,7 +2586,8 @@
     "meaning": "nói",
     "example": "She said goodbye with a smile.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 185
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_see",
@@ -2415,7 +2600,8 @@
     "meaning": "nhìn thấy",
     "example": "I saw a wonderful film.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 186
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_seek",
@@ -2428,7 +2614,8 @@
     "meaning": "tìm kiếm, mưu cầu",
     "example": "They sought advice from experts.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 187
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sell",
@@ -2441,7 +2628,8 @@
     "meaning": "bán",
     "example": "He sold his antique watch.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 188
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_send",
@@ -2454,7 +2642,8 @@
     "meaning": "gửi đi",
     "example": "She sent a message to her teacher.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 189
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_set",
@@ -2467,7 +2656,8 @@
     "meaning": "đặt, thiết lập, lặn",
     "example": "The sun set behind the mountains.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 190
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sew",
@@ -2480,7 +2670,8 @@
     "meaning": "may vá, khâu",
     "example": "She sewed a button onto the shirt.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 191
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shake",
@@ -2493,7 +2684,8 @@
     "meaning": "rung, lắc, bắt tay",
     "example": "They shook hands warmly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 192
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shave",
@@ -2506,7 +2698,8 @@
     "meaning": "cạo râu",
     "example": "He shaved every morning.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 193
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shear",
@@ -2519,7 +2712,8 @@
     "meaning": "xén lông cừu",
     "example": "The farmer sheared the sheep.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 194
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shed",
@@ -2532,7 +2726,8 @@
     "meaning": "rơi rụng, trút bỏ",
     "example": "Trees shed their leaves.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 195
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shine",
@@ -2545,7 +2740,8 @@
     "meaning": "tỏa sáng, chiếu rọi",
     "example": "The sun shone brightly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 196
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shit",
@@ -2558,7 +2754,8 @@
     "meaning": "đi đại tiện (thông tục)",
     "example": "The bird shat on the car.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 197
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shoe",
@@ -2571,7 +2768,8 @@
     "meaning": "đóng móng ngựa",
     "example": "The blacksmith shod the horse.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 198
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shoot",
@@ -2584,7 +2782,8 @@
     "meaning": "bắn, sút bóng",
     "example": "The striker shot and scored.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 199
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_show",
@@ -2597,7 +2796,8 @@
     "meaning": "chỉ dẫn, cho xem",
     "example": "Show me your work.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 200
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shrink",
@@ -2610,7 +2810,8 @@
     "meaning": "co lại, thu nhỏ",
     "example": "The sweater shrank in the wash.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 201
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shrive",
@@ -2623,7 +2824,8 @@
     "meaning": "xưng tội, giải tội",
     "example": "The priest shrove the penitent.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 202
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_shut",
@@ -2636,7 +2838,8 @@
     "meaning": "đóng lại",
     "example": "Please shut the door quietly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 203
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sing",
@@ -2649,7 +2852,8 @@
     "meaning": "hát",
     "example": "She sang a sweet song.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 204
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sink",
@@ -2662,7 +2866,8 @@
     "meaning": "chìm xuống",
     "example": "The Titanic sank in 1912.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 205
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sit",
@@ -2675,7 +2880,8 @@
     "meaning": "ngồi",
     "example": "They sat by the fireplace.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 206
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_slay",
@@ -2688,7 +2894,8 @@
     "meaning": "giết hại, tàn sát",
     "example": "The knight slew the dragon.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 207
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sleep",
@@ -2701,7 +2908,8 @@
     "meaning": "ngủ",
     "example": "He slept for eight hours.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 208
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_slide",
@@ -2714,7 +2922,8 @@
     "meaning": "trượt, lướt",
     "example": "The children slid down the hill.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 209
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sling",
@@ -2727,7 +2936,8 @@
     "meaning": "quăng, ném bằng ná",
     "example": "David slung a stone at Goliath.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 210
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_slink",
@@ -2740,7 +2950,8 @@
     "meaning": "lẻn đi, lủi thủi",
     "example": "The fox slunk into the bushes.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 211
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_slit",
@@ -2753,7 +2964,8 @@
     "meaning": "rạch, rọc",
     "example": "He slit the envelope open.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 212
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_smell",
@@ -2766,7 +2978,8 @@
     "meaning": "ngửi thấy, có mùi",
     "example": "The roses smelled wonderful.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 213
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_smite",
@@ -2779,7 +2992,8 @@
     "meaning": "đánh mạnh, giáng đòn",
     "example": "He was smitten with love.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 214
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sow",
@@ -2792,7 +3006,8 @@
     "meaning": "gieo hạt",
     "example": "Farmers sowed the wheat seeds.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 215
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_speak",
@@ -2805,7 +3020,8 @@
     "meaning": "nói chuyện",
     "example": "She spoke fluent English.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 216
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_speed",
@@ -2818,7 +3034,8 @@
     "meaning": "tăng tốc, phóng nhanh",
     "example": "The ambulance sped to the hospital.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 217
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spell",
@@ -2831,7 +3048,8 @@
     "meaning": "đánh vần",
     "example": "How do you spell your surname?",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 218
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spend",
@@ -2844,7 +3062,8 @@
     "meaning": "tiêu xài, dành thời gian",
     "example": "We spent the weekend studying.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 219
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_spill",
@@ -2857,7 +3076,8 @@
     "meaning": "làm tràn, đổ nước",
     "example": "He accidentally spilt the milk.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 220
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spin",
@@ -2870,7 +3090,8 @@
     "meaning": "quay tròn, giăng tơ",
     "example": "The earth spins on its axis.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 221
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spit",
@@ -2883,7 +3104,8 @@
     "meaning": "khạc nhổ",
     "example": "Spitting on the street is banned.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 222
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_split",
@@ -2896,7 +3118,8 @@
     "meaning": "chẻ đôi, phân chia",
     "example": "They split the bill evenly.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 223
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spoil",
@@ -2909,7 +3132,8 @@
     "meaning": "làm hỏng, chiều chuộng",
     "example": "The rain spoilt our picnic.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 224
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spread",
@@ -2922,7 +3146,8 @@
     "meaning": "lan tỏa, trải rộng",
     "example": "News spread very fast.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 225
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spring",
@@ -2935,7 +3160,8 @@
     "meaning": "bật nhảy, nảy sinh",
     "example": "Tears sprang to her eyes.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 226
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_stand",
@@ -2948,7 +3174,8 @@
     "meaning": "đứng, chịu đựng",
     "example": "Everyone stood up as he entered.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 227
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_stave",
@@ -2961,7 +3188,8 @@
     "meaning": "thủng, ngăn chặn",
     "example": "They staved off bankruptcy.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 228
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_steal",
@@ -2974,7 +3202,8 @@
     "meaning": "ăn trộm, đánh cắp",
     "example": "The thief stole her handbag.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 229
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_stick",
@@ -2987,7 +3216,8 @@
     "meaning": "dán dính, mắc kẹt",
     "example": "The stamp stuck firmly to the letter.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 230
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sting",
@@ -3000,7 +3230,8 @@
     "meaning": "châm, đốt (ong, muỗi)",
     "example": "A bee stung him on the arm.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 231
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_stink",
@@ -3013,7 +3244,8 @@
     "meaning": "bốc mùi hôi thối",
     "example": "The garbage stank in the heat.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 232
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_strew",
@@ -3026,7 +3258,8 @@
     "meaning": "rải rác, vương vãi",
     "example": "Flowers were strewn on the floor.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 233
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_stride",
@@ -3039,7 +3272,8 @@
     "meaning": "sải bước dài",
     "example": "He strode purposefully into the room.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 234
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_strike",
@@ -3052,7 +3286,8 @@
     "meaning": "đánh đập, đình công",
     "example": "Lightning struck the tower.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 235
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_string",
@@ -3065,7 +3300,8 @@
     "meaning": "xâu chuỗi, căng dây",
     "example": "She strung the beads on a wire.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 236
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_strip",
@@ -3078,7 +3314,8 @@
     "meaning": "cởi bỏ, tước đoạt",
     "example": "He stripped the old wallpaper.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 237
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_strive",
@@ -3091,7 +3328,8 @@
     "meaning": "cố gắng, phấn đấu",
     "example": "We strive for excellence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 238
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sublet",
@@ -3104,7 +3342,8 @@
     "meaning": "cho thuê lại",
     "example": "They sublet the second floor.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 239
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sunburn",
@@ -3117,7 +3356,8 @@
     "meaning": "cháy nắng",
     "example": "Her skin was sunburnt.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 240
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_swear",
@@ -3130,7 +3370,8 @@
     "meaning": "thề, chửi thề",
     "example": "He swore to tell the whole truth.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 241
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sweat",
@@ -3143,7 +3384,8 @@
     "meaning": "đổ mồ hôi",
     "example": "He sweat profusely after running.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 242
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sweep",
@@ -3156,7 +3398,8 @@
     "meaning": "quét dọn",
     "example": "She swept the courtyard clean.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 243
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_swell",
@@ -3169,7 +3412,8 @@
     "meaning": "sưng lên, phồng to",
     "example": "His ankle was swollen after the twist.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 244
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_swim",
@@ -3182,7 +3426,8 @@
     "meaning": "bơi lội",
     "example": "We swam across the clear lake.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 245
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_swing",
@@ -3195,7 +3440,8 @@
     "meaning": "đu đưa, xoay tròn",
     "example": "The monkey swung from branch to branch.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 246
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_take",
@@ -3208,7 +3454,8 @@
     "meaning": "cầm, lấy, đưa đi",
     "example": "She took a photo of the sunset.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 247
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_teach",
@@ -3221,7 +3468,8 @@
     "meaning": "dạy học",
     "example": "Teacher Mai Phuong taught grammar well.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 248
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_tear",
@@ -3234,7 +3482,8 @@
     "meaning": "xé rách",
     "example": "He tore the envelope open.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 249
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_tell",
@@ -3247,7 +3496,8 @@
     "meaning": "kể, bảo",
     "example": "She told me the whole truth.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 250
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_think",
@@ -3260,7 +3510,8 @@
     "meaning": "suy nghĩ",
     "example": "I thought about your suggestion.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 251
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_thrive",
@@ -3273,7 +3524,8 @@
     "meaning": "phát đạt, thịnh vượng",
     "example": "The business thrived in the new market.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 252
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_throw",
@@ -3286,7 +3538,8 @@
     "meaning": "ném, quăng",
     "example": "He threw the ball to his teammate.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 253
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_thrust",
@@ -3299,7 +3552,8 @@
     "meaning": "đẩy mạnh, ấn sâu",
     "example": "She thrust the key into the lock.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 254
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_tread",
@@ -3312,7 +3566,8 @@
     "meaning": "giẫm đạp, bước đi",
     "example": "Tread softly on the grass.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 255
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unbend",
@@ -3325,7 +3580,8 @@
     "meaning": "thẳng ra, thư giãn",
     "example": "He unbent his back after working.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 256
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underbid",
@@ -3338,7 +3594,8 @@
     "meaning": "bỏ giá thấp hơn",
     "example": "They underbid other contractors.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 257
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undercut",
@@ -3351,7 +3608,8 @@
     "meaning": "bán phá giá, hạ giá",
     "example": "Small stores were undercut by big malls.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 258
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undergo",
@@ -3364,7 +3622,8 @@
     "meaning": "trải qua (thử thách, phẫu thuật)",
     "example": "She underwent a successful surgery.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 259
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underlie",
@@ -3377,7 +3636,8 @@
     "meaning": "nằm dưới, làm nền tảng",
     "example": "Trust underlies any strong relationship.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 260
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underpay",
@@ -3390,7 +3650,8 @@
     "meaning": "trả lương thấp",
     "example": "Many workers were underpaid.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 261
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undersell",
@@ -3403,7 +3664,8 @@
     "meaning": "bán rẻ hơn đối thủ",
     "example": "They undersold all competitors.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 262
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_understand",
@@ -3416,7 +3678,8 @@
     "meaning": "thấu hiểu",
     "example": "I understood the grammar rule completely.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 263
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_undertake",
@@ -3429,7 +3692,8 @@
     "meaning": "đảm nhận, cam kết",
     "example": "She undertook the big project.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 264
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underwrite",
@@ -3442,7 +3706,8 @@
     "meaning": "bảo hiểm, bảo lãnh",
     "example": "The bank underwrote the bond issue.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 265
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undo",
@@ -3455,7 +3720,8 @@
     "meaning": "hủy thao tác, tháo gỡ",
     "example": "You can undo the last change.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 266
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unfreeze",
@@ -3468,7 +3734,8 @@
     "meaning": "làm rã đông, giải tỏa",
     "example": "The bank unfroze the account.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 267
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unhang",
@@ -3481,7 +3748,8 @@
     "meaning": "tháo xuống",
     "example": "He unhung the picture.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 268
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unhide",
@@ -3494,7 +3762,8 @@
     "meaning": "làm lộ diện, bỏ ẩn",
     "example": "Unhide the columns in the spreadsheet.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 269
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unknit",
@@ -3507,7 +3776,8 @@
     "meaning": "tháo len",
     "example": "She unknit the faulty rows.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 270
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unlade",
@@ -3520,7 +3790,8 @@
     "meaning": "dỡ hàng khỏi tàu",
     "example": "The crew unladed the cargo.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 271
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unlay",
@@ -3533,7 +3804,8 @@
     "meaning": "tháo dây thừng",
     "example": "He unlaid the strands of rope.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 272
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unlearn",
@@ -3546,7 +3818,8 @@
     "meaning": "quên đi thói quen xấu",
     "example": "It is hard to unlearn bad habits.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 273
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unlock",
@@ -3559,7 +3832,8 @@
     "meaning": "mở khóa",
     "example": "He unlocked the front door.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 274
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unmake",
@@ -3572,7 +3846,8 @@
     "meaning": "hủy bỏ, tháo dỡ",
     "example": "What is done cannot be unmade.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 275
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unreeve",
@@ -3585,7 +3860,8 @@
     "meaning": "rút dây khỏi ròng rọc",
     "example": "The sailor unrove the line.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 276
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unsay",
@@ -3598,7 +3874,8 @@
     "meaning": "rút lại lời đã nói",
     "example": "I wish I could unsay those words.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 277
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unseat",
@@ -3611,7 +3888,8 @@
     "meaning": "hạ bệ, hất khỏi yên",
     "example": "The scandal unseated the mayor.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 278
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unsew",
@@ -3624,7 +3902,8 @@
     "meaning": "tháo chỉ may",
     "example": "She unsewed the hem of the dress.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 279
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unsling",
@@ -3637,7 +3916,8 @@
     "meaning": "tháo dây đeo",
     "example": "He unslung his heavy rifle.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 280
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unspin",
@@ -3650,7 +3930,8 @@
     "meaning": "gỡ chỉ xoắn",
     "example": "The wool was unspun.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 281
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unstick",
@@ -3663,7 +3944,8 @@
     "meaning": "bóc ra, gỡ kẹt",
     "example": "The adhesive came unstuck.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 282
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unstring",
@@ -3676,7 +3958,8 @@
     "meaning": "tháo dây đàn",
     "example": "He unstrung the acoustic guitar.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 283
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unswear",
@@ -3689,7 +3972,8 @@
     "meaning": "từ bỏ lời thề",
     "example": "He unswore his allegiance.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 284
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unteach",
@@ -3702,7 +3986,8 @@
     "meaning": "làm cho quên đi",
     "example": "Experience untaught him the false theory.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 285
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unthink",
@@ -3715,7 +4000,8 @@
     "meaning": "ngừng nghĩ về",
     "example": "Try to unthink the negative thoughts.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 286
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_untread",
@@ -3728,20 +4014,22 @@
     "meaning": "quay ngược bước chân",
     "example": "He untrod the path he had taken.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 287
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unweave",
     "v1": "unweave",
     "v1_ipa": "/ʌnˈwiːv/",
-    "v2": "unwove",
+    "v2": "unwove / unweaved",
     "v2_ipa": "/ʌnˈwoʊv/",
-    "v3": "unwoven",
+    "v3": "unwoven / unweaved",
     "v3_ipa": "/ʌnˈwoʊ.vən/",
     "meaning": "tháo dệt",
     "example": "Penelope unwove the tapestry each night.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 288
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unwind",
@@ -3754,7 +4042,8 @@
     "meaning": "tháo ra, thư giãn",
     "example": "Music helps me unwind after work.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 289
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_uphold",
@@ -3767,7 +4056,8 @@
     "meaning": "ủng hộ, duy trì",
     "example": "The court upheld the ruling.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 290
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_uprise",
@@ -3780,7 +4070,8 @@
     "meaning": "nổi dậy, dâng lên",
     "example": "The villagers uprose against the tyrant.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 291
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_upset",
@@ -3793,7 +4084,8 @@
     "meaning": "làm khó chịu, lật úp",
     "example": "The bad news upset everyone.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 292
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_wake",
@@ -3806,7 +4098,8 @@
     "meaning": "thức dậy",
     "example": "I woke up at six o'clock.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 293
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_waylay",
@@ -3819,7 +4112,8 @@
     "meaning": "mai phục, chặn đường",
     "example": "Bandits waylaid travelers.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 294
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_wear",
@@ -3832,7 +4126,8 @@
     "meaning": "mặc, đeo, hao mòn",
     "example": "She wore a lovely dress.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 295
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_weave",
@@ -3845,7 +4140,8 @@
     "meaning": "dệt, đan",
     "example": "They wove a traditional carpet.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 296
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_wed",
@@ -3858,7 +4154,8 @@
     "meaning": "kết hôn",
     "example": "They were wed in a private chapel.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 297
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_weep",
@@ -3871,7 +4168,8 @@
     "meaning": "khóc lóc",
     "example": "She wept tears of joy.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 298
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_wet",
@@ -3884,7 +4182,8 @@
     "meaning": "làm ướt",
     "example": "Rain wet the streets.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 299
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_win",
@@ -3897,7 +4196,8 @@
     "meaning": "chiến thắng",
     "example": "She won first prize in the contest.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 300
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_wind",
@@ -3910,7 +4210,8 @@
     "meaning": "cuộn lại, lên dây cót",
     "example": "He wound the grandfather clock.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 301
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_withdraw",
@@ -3923,7 +4224,8 @@
     "meaning": "rút lui, rút tiền",
     "example": "She withdrew money from the ATM.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 302
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_withhold",
@@ -3936,7 +4238,8 @@
     "meaning": "giữ lại, từ chối đưa",
     "example": "The employer withheld payment.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 303
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_withstand",
@@ -3949,7 +4252,8 @@
     "meaning": "chịu đựng, chống cự",
     "example": "The bridge withstood the severe flood.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 304
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_wring",
@@ -3962,7 +4266,8 @@
     "meaning": "vắt kiệt (nước)",
     "example": "She wrung out the wet towel.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 305
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_write",
@@ -3975,7 +4280,8 @@
     "meaning": "viết",
     "example": "He wrote a letter to his friend.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 306
+    "is_top40": true,
+    "unit15_featured": true
   },
   {
     "id": "irv_backbite",
@@ -3988,7 +4294,8 @@
     "meaning": "nói xấu sau lưng",
     "example": "Never backbite your friends.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 307
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_breastfeed",
@@ -4001,7 +4308,8 @@
     "meaning": "cho con bú sữa mẹ",
     "example": "She breastfed her baby for six months.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 308
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_crossbreed",
@@ -4014,7 +4322,8 @@
     "meaning": "lai giống",
     "example": "They crossbred the plants for stronger yield.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 309
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_deep-freeze",
@@ -4027,7 +4336,8 @@
     "meaning": "cấp đông sâu",
     "example": "Deep-freeze the meat immediately.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 310
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_disprove",
@@ -4040,7 +4350,8 @@
     "meaning": "bác bỏ, chứng minh sai",
     "example": "The scientist disproved the myth.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 311
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_floodlight",
@@ -4053,7 +4364,8 @@
     "meaning": "chiếu sáng bằng đèn pha",
     "example": "The stadium was floodlit for the match.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 312
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_flyblow",
@@ -4066,7 +4378,8 @@
     "meaning": "làm ôi thiu",
     "example": "Meat was flyblown in the heat.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 313
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_foreswear",
@@ -4079,7 +4392,8 @@
     "meaning": "từ thề, thề bỏ",
     "example": "He foreswore smoking forever.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 314
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_frostbite",
@@ -4092,7 +4406,8 @@
     "meaning": "gây bỏng lạnh",
     "example": "His fingers were frostbitten.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 315
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_gainsay",
@@ -4105,7 +4420,8 @@
     "meaning": "chối cãi, phản bác",
     "example": "Nobody could gainsay his evidence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 316
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_ghostwrite",
@@ -4118,7 +4434,8 @@
     "meaning": "viết hộ, chấp bút",
     "example": "She ghostwrote the politician's biography.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 317
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_hand-feed",
@@ -4131,7 +4448,8 @@
     "meaning": "mớm mồi, cho ăn bằng tay",
     "example": "Zookeepers hand-fed the panda cub.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 318
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_handwrite",
@@ -4144,7 +4462,8 @@
     "meaning": "viết tay",
     "example": "She handwrote a warm thank-you letter.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 319
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_interbreed",
@@ -4157,20 +4476,22 @@
     "meaning": "giao phối cận huyết, lai",
     "example": "Different species interbred naturally.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 320
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_interweave",
     "v1": "interweave",
     "v1_ipa": "/ˌɪn.təˈwiːv/",
-    "v2": "interwove",
+    "v2": "interwove / interweaved",
     "v2_ipa": "/ˌɪn.təˈwoʊv/",
-    "v3": "interwoven",
+    "v3": "interwoven / interweaved",
     "v3_ipa": "/ˌɪn.təˈwoʊ.vən/",
-    "meaning": "dệt xen kẽ, đan kết",
+    "meaning": "dệt xen kẽ, đan kết, trộn lẫn",
     "example": "Truth and fiction were interwoven.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 321
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_lip-read",
@@ -4183,7 +4504,8 @@
     "meaning": "đọc mấp máy môi",
     "example": "She lip-read what they were whispering.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 322
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_offset",
@@ -4196,7 +4518,8 @@
     "meaning": "bù đắp, đền bù",
     "example": "Gains offset the previous losses.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 323
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outbleed",
@@ -4209,7 +4532,8 @@
     "meaning": "chảy máu nhiều hơn",
     "example": "He outbled his opponent in endurance.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 324
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outbreed",
@@ -4222,7 +4546,8 @@
     "meaning": "sinh sản nhanh hơn",
     "example": "The new strain outbred native insects.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 325
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outdrink",
@@ -4235,7 +4560,8 @@
     "meaning": "uống nhiều hơn người khác",
     "example": "Nobody could outdrink him at the party.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 326
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outdrive",
@@ -4248,7 +4574,8 @@
     "meaning": "đánh bóng xa hơn (golf), lái giỏi hơn",
     "example": "He outdrove all players on the 18th hole.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 327
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outlay",
@@ -4261,7 +4588,8 @@
     "meaning": "tiêu phí, chi tiêu",
     "example": "They outlaid large funds on technology.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 328
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outleap",
@@ -4274,7 +4602,8 @@
     "meaning": "nhảy xa hơn",
     "example": "The champion outleapt his rivals.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 329
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outlie",
@@ -4287,7 +4616,8 @@
     "meaning": "nằm ngoài rìa",
     "example": "Several rocks outlay the main reef.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 330
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outride",
@@ -4300,7 +4630,8 @@
     "meaning": "cưỡi ngựa vượt trước, vượt qua giông bão",
     "example": "The ship outrode the fierce storm.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 331
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outshoot",
@@ -4313,7 +4644,8 @@
     "meaning": "bắn giỏi hơn",
     "example": "The archer outshot his rivals easily.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 332
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outsing",
@@ -4326,7 +4658,8 @@
     "meaning": "hát hay/vang hơn",
     "example": "Her clear soprano outsang the chorus.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 333
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outsit",
@@ -4339,7 +4672,8 @@
     "meaning": "ngồi lâu hơn",
     "example": "He outsat everyone during the debate.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 334
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outsleep",
@@ -4352,7 +4686,8 @@
     "meaning": "ngủ lâu hơn",
     "example": "She outslept the entire household.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 335
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outsmell",
@@ -4365,7 +4700,8 @@
     "meaning": "thính mũi hơn",
     "example": "The bloodhound outsmelt all other dogs.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 336
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outspeak",
@@ -4378,7 +4714,8 @@
     "meaning": "nói to hơn, bộc trực",
     "example": "She outspoke in defense of her rights.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 337
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outspeed",
@@ -4391,7 +4728,8 @@
     "meaning": "vượt tốc độ",
     "example": "The electric car outsped traditional models.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 338
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outspend",
@@ -4404,7 +4742,8 @@
     "meaning": "chi tiêu vượt mặt",
     "example": "The campaign outspent its opponents.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 339
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outspin",
@@ -4417,7 +4756,8 @@
     "meaning": "quay nhanh hơn",
     "example": "The new centrifuge outspun older units.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 340
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outspring",
@@ -4430,7 +4770,8 @@
     "meaning": "bật nảy cao hơn",
     "example": "The cat outsprang the fence.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 341
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outstand",
@@ -4443,7 +4784,8 @@
     "meaning": "nổi bật, tồn đọng",
     "example": "Several issues still outstood.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 342
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outswear",
@@ -4456,7 +4798,8 @@
     "meaning": "chửi rủa át lời người khác",
     "example": "The sailor outswore the pirate.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 343
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outswim",
@@ -4469,7 +4812,8 @@
     "meaning": "bơi nhanh hơn",
     "example": "The dolphin easily outswam the boat.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 344
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outthink",
@@ -4482,7 +4826,8 @@
     "meaning": "mưu mẹo hơn, nghĩ sâu hơn",
     "example": "The grandmaster outthought his opponent.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 345
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outthrow",
@@ -4495,7 +4840,8 @@
     "meaning": "ném xa hơn",
     "example": "He outthrew all competitor javelins.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 346
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outwear",
@@ -4508,7 +4854,8 @@
     "meaning": "bền hơn, làm hao mòn",
     "example": "Leather shoes outwear fabric sneakers.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 347
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outwind",
@@ -4521,7 +4868,8 @@
     "meaning": "tháo cuộn ra ngoài",
     "example": "He outwound the fishing line.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 348
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_outwrite",
@@ -4534,7 +4882,8 @@
     "meaning": "viết nhiều/nhanh hơn",
     "example": "The author outwrote all his contemporaries.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 349
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overbid",
@@ -4547,7 +4896,8 @@
     "meaning": "trả giá quá đà",
     "example": "They overbid at the auction.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 350
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overblow",
@@ -4560,7 +4910,8 @@
     "meaning": "thổi quá trớn, phóng đại",
     "example": "The media overblew the crisis.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 351
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overbreed",
@@ -4573,7 +4924,8 @@
     "meaning": "nhân giống quá mức",
     "example": "Overbred pets often have health issues.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 352
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overbuild",
@@ -4586,7 +4938,8 @@
     "meaning": "xây dựng quá mức",
     "example": "The district was overbuilt with condos.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 353
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overbuy",
@@ -4599,7 +4952,8 @@
     "meaning": "mua quá nhiều",
     "example": "They overbought supplies before the holidays.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 354
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overfeed",
@@ -4612,7 +4966,8 @@
     "meaning": "cho ăn quá no",
     "example": "Do not overfeed the fish in the aquarium.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 355
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overgrow",
@@ -4625,7 +4980,8 @@
     "meaning": "mọc tràn lan",
     "example": "Weeds overgrew the path.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 356
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overlie",
@@ -4638,7 +4994,8 @@
     "meaning": "nằm đè lên trên",
     "example": "Sandstone overlain by basalt.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 357
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overspend",
@@ -4651,7 +5008,8 @@
     "meaning": "tiêu quá ngân sách",
     "example": "The department overspent its budget.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 358
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overspill",
@@ -4664,7 +5022,8 @@
     "meaning": "tràn ra ngoài",
     "example": "Crowds overspilt into the streets.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 359
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overthink",
@@ -4677,7 +5036,8 @@
     "meaning": "nghĩ ngợi quá mức",
     "example": "Stop overthinking every small detail.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 360
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overwind",
@@ -4690,7 +5050,8 @@
     "meaning": "vặn dây cót quá chặt",
     "example": "He overwound the mechanical toy.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 361
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_overwrite",
@@ -4703,7 +5064,8 @@
     "meaning": "ghi đè lên",
     "example": "The new file overwrote the previous version.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 362
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_proofread",
@@ -4716,7 +5078,8 @@
     "meaning": "đọc dò lỗi chính tả",
     "example": "She proofread the manuscript carefully.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 363
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_quick-freeze",
@@ -4729,7 +5092,8 @@
     "meaning": "làm đông cấp tốc",
     "example": "Quick-freeze the berries to keep vitamins.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 364
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_reawake",
@@ -4742,7 +5106,8 @@
     "meaning": "thức tỉnh lại",
     "example": "His speech reawoke their passion.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 365
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_refit",
@@ -4755,7 +5120,8 @@
     "meaning": "sửa chữa, tân trang tàu",
     "example": "Engineers refit the container ship.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 366
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_regrind",
@@ -4768,7 +5134,8 @@
     "meaning": "mài lại, nghiền lại",
     "example": "They reground the dull blades.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 367
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_regrow",
@@ -4781,7 +5148,8 @@
     "meaning": "mọc lại",
     "example": "The lizard regrew its lost tail.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 368
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rehang",
@@ -4794,7 +5162,8 @@
     "meaning": "treo lại",
     "example": "She rehung the painting in the gallery.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 369
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_reknit",
@@ -4807,7 +5176,8 @@
     "meaning": "đan lại, liền lại xương",
     "example": "The broken bone reknit naturally.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 370
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_relay",
@@ -4820,7 +5190,8 @@
     "meaning": "đặt lại (đường ray, gạch)",
     "example": "Workers relaid the railway tracks.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 371
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_relearn",
@@ -4833,7 +5204,8 @@
     "meaning": "học lại từ đầu",
     "example": "He relearnt English grammar foundations.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 372
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_relight",
@@ -4846,7 +5218,8 @@
     "meaning": "thắp sáng lại",
     "example": "She relit the extinguished candle.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 373
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_resend",
@@ -4859,7 +5232,8 @@
     "meaning": "gửi lại (email, tin nhắn)",
     "example": "Please resend the confirmation email.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 374
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_resew",
@@ -4872,7 +5246,8 @@
     "meaning": "khâu lại",
     "example": "The tailor resewed the loose pocket.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 375
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_reteach",
@@ -4885,7 +5260,8 @@
     "meaning": "dạy lại",
     "example": "The tutor retaught the difficult unit.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 376
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rethink",
@@ -4898,7 +5274,8 @@
     "meaning": "suy nghĩ lại, cân nhắc lại",
     "example": "We must rethink our strategy.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 377
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rewear",
@@ -4911,7 +5288,8 @@
     "meaning": "mặc lại trang phục",
     "example": "She rewore her favorite dress.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 378
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_rough-hew",
@@ -4924,7 +5302,8 @@
     "meaning": "đẽo thô, tạo hình sơ bộ",
     "example": "They rough-hewn timbers for the cabin.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 379
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sand-cast",
@@ -4937,7 +5316,8 @@
     "meaning": "đúc bằng khuôn cát",
     "example": "The iron gears were sand-cast.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 380
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_sight-read",
@@ -4950,7 +5330,8 @@
     "meaning": "xướng âm không chuẩn bị",
     "example": "The pianist can sight-read any sheet music.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 381
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_skywrite",
@@ -4963,7 +5344,8 @@
     "meaning": "viết khói trên bầu trời",
     "example": "The pilot skywrote a birthday message.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 382
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spoon-feed",
@@ -4976,7 +5358,8 @@
     "meaning": "mớm cơm, chiều chuộng quá mức",
     "example": "Do not spoon-feed all solutions to students.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 383
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_spring-clean",
@@ -4989,7 +5372,8 @@
     "meaning": "tổng vệ sinh mùa xuân",
     "example": "We spring-cleaned the whole house.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 384
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_telecast",
@@ -5002,7 +5386,8 @@
     "meaning": "phát hình trên tivi",
     "example": "The ceremony was telecast worldwide.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 385
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_test-drive",
@@ -5015,7 +5400,8 @@
     "meaning": "lái thử xe",
     "example": "He test-drove the brand new car.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 386
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_test-fly",
@@ -5028,7 +5414,8 @@
     "meaning": "bay thử nghiệm",
     "example": "Pilots test-flew the supersonic jet.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 387
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_typewrite",
@@ -5041,7 +5428,8 @@
     "meaning": "đánh máy chữ",
     "example": "He typewrote the legal document.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 388
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unbind",
@@ -5054,7 +5442,8 @@
     "meaning": "mở trói, cởi trói",
     "example": "She unbound the prisoner's hands.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 389
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unclothe",
@@ -5067,7 +5456,8 @@
     "meaning": "cởi bỏ quần áo",
     "example": "The doctor asked him to unclothe.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 390
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underbuy",
@@ -5080,7 +5470,8 @@
     "meaning": "mua dưới mức cần",
     "example": "They underbought winter stock.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 391
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_underfeed",
@@ -5093,7 +5484,8 @@
     "meaning": "thiếu ăn, bỏ đói",
     "example": "The rescue dog was severely underfed.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 392
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undergird",
@@ -5106,7 +5498,8 @@
     "meaning": "chống đỡ, gia cố bên dưới",
     "example": "Solid principles undergird our project.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 393
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_undraw",
@@ -5119,7 +5512,8 @@
     "meaning": "kéo mở rèm cửa",
     "example": "She undrew the heavy curtains at dawn.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 394
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_unhold",
@@ -5132,7 +5526,8 @@
     "meaning": "thả tay, buông ra",
     "example": "He unheld her wrist gently.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 395
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_untie",
@@ -5145,7 +5540,8 @@
     "meaning": "cởi dây, tháo nút",
     "example": "She untied the ribbon on the gift.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 396
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_upbuild",
@@ -5158,7 +5554,8 @@
     "meaning": "xây dựng nâng tầm",
     "example": "Education upbuilt the entire community.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 397
+    "is_top40": false,
+    "unit15_featured": false
   },
   {
     "id": "irv_uppercut",
@@ -5171,6 +5568,7 @@
     "meaning": "đấm móc lên (boxing)",
     "example": "The fighter landed a sharp uppercut.",
     "source": "Oxford & Cambridge Irregular Verbs Standard",
-    "stt": 398
+    "is_top40": false,
+    "unit15_featured": false
   }
 ]
