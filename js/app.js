@@ -18,6 +18,7 @@ class SmobApp {
     this.quizletAnswers = {};
     this.quizletTimerSeconds = 0;
     this.quizletTimerInterval = null;
+    this.quizletSelectedUnits = [];
 
     // Test Engine State
     this.testScopeUnits = [1];
@@ -107,6 +108,7 @@ class SmobApp {
     this.initSplitViewResizer();
     this.initTextSelectionToolbar();
     this.initFlashcardSwipeGesture();
+    this.initActiveStudyTracker();
 
     // 1. Render active initial view (Dashboard) cleanly and instantly
     if (this.currentView === 'dashboard') {
@@ -2602,6 +2604,7 @@ class SmobApp {
       alert('Vui lòng tích chọn ít nhất 1 Unit để làm bài kiểm tra!');
       return;
     }
+    this.quizletSelectedUnits = [...selectedUnits];
 
     let qCountInput = 20;
     try {
@@ -2963,10 +2966,18 @@ class SmobApp {
     this.quizletQuestions.forEach(q => {
       const userAnsRaw = (this.quizletAnswers[q.id] || '').trim();
       const userAns = userAnsRaw.toLowerCase();
-      const correctAns = q.correctAnswer.trim().toLowerCase();
+      const correctAns = (q.correctAnswer || '').trim().toLowerCase();
+      const wordKey = q.item?.id || q.item?.word;
+
       if (userAns === correctAns) {
         correct++;
+        if (wordKey && window.dataStore && typeof window.dataStore.markVocabKnown === 'function') {
+          window.dataStore.markVocabKnown(wordKey);
+        }
       } else {
+        if (wordKey && window.dataStore && typeof window.dataStore.markVocabReview === 'function') {
+          window.dataStore.markVocabReview(wordKey);
+        }
         const wordStr = q.item?.word || 'Từ vựng';
         const ipaStr = q.item?.ipa ? ` (${q.item.ipa})` : '';
         const meanStr = q.item?.meaning || '';
@@ -2974,7 +2985,7 @@ class SmobApp {
         const expl = `Từ vựng gốc: ${wordStr}${ipaStr} ➔ ${meanStr}${exStr}`;
         const stem = q.stem || `Nghĩa của từ vựng "${wordStr}"`;
         window.dataStore.recordMistake(
-          q.unitId || window.dataStore.currentUnitId || 1,
+          q.unitId || q.item?.unitId || window.dataStore.currentUnitId || 1,
           q.id,
           stem,
           userAnsRaw || '(Chưa làm)',
@@ -2985,7 +2996,42 @@ class SmobApp {
       }
     });
 
-    const percent = Math.round((correct / total) * 100);
+    const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+    // Determine activeUnit and customTitle
+    const selectedUnits = (this.quizletSelectedUnits && this.quizletSelectedUnits.length > 0)
+      ? this.quizletSelectedUnits
+      : [window.dataStore.currentUnitId || 1];
+    
+    const activeUnit = (selectedUnits.length === 1)
+      ? selectedUnits[0]
+      : (this.quizletQuestions[0]?.item?.unitId || window.dataStore.currentUnitId || 1);
+
+    let unitTitle = '';
+    if (selectedUnits.length > 1) {
+      unitTitle = `Tổng hợp (${selectedUnits.length} Units: ${selectedUnits.slice(0, 3).map(u => `U${u}`).join(', ')}${selectedUnits.length > 3 ? '...' : ''})`;
+    } else {
+      const u = window.dataStore.getUnit(activeUnit);
+      unitTitle = u ? (u.title || `Unit ${activeUnit}`) : `Unit ${activeUnit}`;
+    }
+
+    // Save attempt to history
+    window.dataStore.saveVocabQuizAttempt(activeUnit, {
+      scorePercent: percent,
+      masteredCount: correct,
+      reviewCount: total - correct,
+      totalCount: total,
+      customTitle: unitTitle
+    });
+
+    // Update dashboard & cloud sync
+    if (typeof this.renderDashboard === 'function') {
+      this.renderDashboard();
+    }
+    if (window.smobCloudSync && typeof window.smobCloudSync.autoSyncIfEnabled === 'function') {
+      window.smobCloudSync.autoSyncIfEnabled();
+    }
+
     document.getElementById('vocab-quizlet-test-runner').style.display = 'none';
     const resScreen = document.getElementById('vocab-quizlet-result-screen');
     resScreen.style.display = 'block';
@@ -2999,6 +3045,8 @@ class SmobApp {
     document.getElementById('qz-res-title').innerText = percent >= 80 ? 'Tuyệt Vời! Bạn Đã Hoàn Thành Xuất Sắc' : 'Kết Quả Bài Kiểm Tra';
     document.getElementById('qz-res-score').innerText = `${percent}%`;
     document.getElementById('qz-res-desc').innerText = `Đúng ${correct} / ${total} câu • Thời gian làm bài: ${Math.floor(this.quizletTimerSeconds / 60)} phút ${this.quizletTimerSeconds % 60} giây`;
+
+    this.showToast(`🎉 Đã lưu bài kiểm tra từ vựng vào Lịch sử! (${correct}/${total} câu đúng - ${percent}%)`, 'success');
   }
 
   reviewQuizletTest() {
@@ -6529,6 +6577,70 @@ class SmobApp {
     this._irvPractice.score = score;
     const pct = Math.round((score / total) * 100);
 
+    // Collect verbs and persist to history & mistakes notebook
+    const wrongVerbs = [];
+    const correctVerbs = [];
+
+    gradedResults.forEach(res => {
+      const q = res.question;
+      const v = q?.verb;
+      if (v) {
+        if (res.isCorrect) {
+          correctVerbs.push({
+            v1: v.v1,
+            v2: v.v2,
+            v3: v.v3,
+            meaning: v.meaning
+          });
+        } else {
+          wrongVerbs.push({
+            v1: v.v1,
+            v2: v.v2,
+            v3: v.v3,
+            meaning: v.meaning,
+            userAns: res.userAnsDisplay || ''
+          });
+
+          // Record mistake in Mistakes Notebook
+          const cleanTriad = `${v.v1} — ${v.v2} — ${v.v3}`;
+          const stemText = q.stem ? q.stem.replace(/<[^>]*>/g, '') : `Động từ bất quy tắc "${v.v1}"`;
+          const explText = `📘 Dạng chuẩn: ${cleanTriad} (${v.meaning}). ${q.explanation ? q.explanation.replace(/<[^>]*>/g, ' ') : ''}`;
+
+          if (window.dataStore && typeof window.dataStore.recordMistake === 'function') {
+            window.dataStore.recordMistake(
+              1,
+              `irv_${v.v1}`,
+              stemText,
+              res.userAnsDisplay || '(Chưa làm)',
+              q.correct_answer || cleanTriad,
+              explText,
+              'grammar_theory'
+            );
+          }
+        }
+      }
+    });
+
+    // Save attempt to irregular verbs history
+    if (window.dataStore && typeof window.dataStore.saveIrregularQuizAttempt === 'function') {
+      window.dataStore.saveIrregularQuizAttempt({
+        scorePercent: pct,
+        correctCount: score,
+        wrongCount: total - score,
+        totalCount: total,
+        wrongVerbs,
+        correctVerbs
+      });
+    }
+
+    // Update dashboard & cloud sync
+    if (typeof this.renderDashboard === 'function') {
+      this.renderDashboard();
+    }
+    if (window.smobCloudSync && typeof window.smobCloudSync.autoSyncIfEnabled === 'function') {
+      window.smobCloudSync.autoSyncIfEnabled();
+    }
+
     const activeArena = document.getElementById('irv-active-arena');
     const resultsPanel = document.getElementById('irv-results-panel');
     const setupPanel = document.getElementById('irv-setup-panel');
@@ -6676,7 +6788,7 @@ class SmobApp {
       });
     }
 
-    this.showToast(`🎉 Đã nộp bài! Kết quả: ${score}/${total} câu đúng (${pct}%)!`);
+    this.showToast(`🎉 Đã nộp bài & lưu Lịch sử! Kết quả: ${score}/${total} câu đúng (${pct}%)!`, 'success');
   }
 
   restartCurrentIrregularPractice() {
@@ -9990,18 +10102,23 @@ class SmobApp {
           </div>
         `;
       } else {
-        vContainer.innerHTML = vHistory.slice(0, 20).map(v => `
-          <div class="history-item-card" style="padding: 14px 18px;">
-            <div>
-              <div style="font-weight: 700; font-size: 14.5px;">Unit ${v.unitId}: ${v.unitTitle}</div>
-              <div style="font-size: 12.5px; color: var(--text-secondary);">🗓️ ${v.displayTime}</div>
+        vContainer.innerHTML = vHistory.slice(0, 20).map(v => {
+          const titleDisplay = (v.unitTitle && (v.unitTitle.startsWith('Tổng hợp') || v.unitTitle.startsWith('Unit ')))
+            ? v.unitTitle
+            : `Unit ${v.unitId}: ${v.unitTitle || ''}`;
+          return `
+            <div class="history-item-card" style="padding: 14px 18px;">
+              <div>
+                <div style="font-weight: 700; font-size: 14.5px;">${titleDisplay}</div>
+                <div style="font-size: 12.5px; color: var(--text-secondary);">🗓️ ${v.displayTime}</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-weight: 800; color: ${v.scorePercent >= 80 ? '#16a34a' : '#ea580c'}; font-size: 16px;">${v.scorePercent}%</div>
+                <div style="font-size: 12px; color: var(--text-secondary);">${v.masteredCount}/${v.totalCount} từ đã thuộc</div>
+              </div>
             </div>
-            <div style="text-align: right;">
-              <div style="font-weight: 800; color: #16a34a; font-size: 16px;">${v.scorePercent}%</div>
-              <div style="font-size: 12px; color: var(--text-secondary);">${v.masteredCount}/${v.totalCount} từ đã thuộc</div>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
     }
 
@@ -10015,11 +10132,11 @@ class SmobApp {
       if (weakVerbs.length > 0) {
         html += `
           <div style="margin-bottom: 14px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 12px; padding: 14px;">
-            <div style="font-size: 13px; font-weight: 800; color: #e11d48; margin-bottom: 6px;">⚠️ Danh Sách Động Từ Hay Nhầm Lẫn Cần Ôn Lại:</div>
+            <div style="font-size: 13px; font-weight: 800; color: #e11d48; margin-bottom: 6px;">⚠️ Danh Sách Động Từ Hay Nhầm Lẫn (Bấm vào để tra cứu):</div>
             <div style="display: flex; flex-wrap: wrap; gap: 6px;">
               ${weakVerbs.map(w => `
-                <span style="background: #ffe4e6; color: #be123c; font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 20px;">
-                  ${w.verb} (${w.count} lần sai)
+                <span style="background: #ffe4e6; color: #be123c; font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 20px; cursor: pointer; transition: all 0.2s;" title="Bấm để xem chi tiết động từ này trong Bảng tra cứu" onclick="window.smobApp.navigate('irregular'); window.smobApp.switchIrregularSubView('table'); const inp = document.getElementById('irv-search'); if (inp) { inp.value = '${w.verb}'; window.smobApp.filterIrregularVerbs('${w.verb}'); }">
+                  ${w.verb} (${w.count} lần sai) 🔍
                 </span>
               `).join('')}
             </div>
@@ -10034,21 +10151,43 @@ class SmobApp {
           </div>
         `;
       } else {
-        html += irvHistory.slice(0, 15).map(ir => `
-          <div class="history-item-card" style="padding: 14px 18px;">
-            <div>
-              <div style="font-weight: 700; font-size: 14.5px;">Kiểm Tra 3 Cột V1-V2-V3</div>
-              <div style="font-size: 12.5px; color: var(--text-secondary);">🗓️ ${ir.displayTime}</div>
+        html += irvHistory.slice(0, 20).map(ir => {
+          const wrongList = (ir.wrongVerbs && ir.wrongVerbs.length > 0)
+            ? ir.wrongVerbs.map(w => (typeof w === 'string' ? w : w.v1)).slice(0, 5).join(', ')
+            : '';
+          return `
+            <div class="history-item-card" style="padding: 14px 18px;">
+              <div>
+                <div style="font-weight: 700; font-size: 14.5px;">Kiểm Tra 3 Cột V1-V2-V3</div>
+                <div style="font-size: 12.5px; color: var(--text-secondary);">🗓️ ${ir.displayTime}</div>
+                ${wrongList ? `<div style="font-size: 12px; color: #dc2626; margin-top: 4px; font-weight: 600;">⚠️ Cần ôn: ${wrongList}${ir.wrongVerbs.length > 5 ? '...' : ''}</div>` : ''}
+              </div>
+              <div style="text-align: right;">
+                <div style="font-weight: 800; color: ${ir.scorePercent >= 80 ? '#16a34a' : '#ea580c'}; font-size: 16px;">${ir.scorePercent}%</div>
+                <div style="font-size: 12px; color: var(--text-secondary);">${ir.correctCount}/${ir.totalCount} từ đúng</div>
+              </div>
             </div>
-            <div style="text-align: right;">
-              <div style="font-weight: 800; color: #16a34a; font-size: 16px;">${ir.scorePercent}%</div>
-              <div style="font-size: 12px; color: var(--text-secondary);">${ir.correctCount}/${ir.totalCount} từ đúng</div>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
       irvContainer.innerHTML = html;
+    }
+  }
+
+  clearVocabQuizHistory() {
+    if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử làm bài Quizlet từ vựng không?')) {
+      window.dataStore.clearVocabQuizHistory();
+      this.renderAnalyticsVocabAndIrregularHistory();
+      this.showToast('🗑️ Đã xóa toàn bộ lịch sử Quizlet từ vựng.');
+    }
+  }
+
+  clearIrregularQuizHistory() {
+    if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử bài kiểm tra Động từ bất quy tắc không?')) {
+      window.dataStore.clearIrregularQuizHistory();
+      this.renderAnalyticsVocabAndIrregularHistory();
+      this.showToast('🗑️ Đã xóa toàn bộ lịch sử kiểm tra Động từ bất quy tắc.');
     }
   }
 

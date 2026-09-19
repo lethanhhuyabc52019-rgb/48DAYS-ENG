@@ -687,13 +687,11 @@
           <div style="font-size: 15px; color: var(--text-secondary); margin-bottom: 24px;" id="qz-res-desc">Đúng 19 / 20
             câu • Thời gian: 3 phút 45 giây</div>
 
-          <div style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
-            <button class="apple-btn btn-primary" onclick="window.smobApp.reviewQuizletTest()">Xem Lại Từng Câu Kèm Giải
-              Thích</button>
-            <button class="apple-btn btn-secondary" onclick="window.smobApp.openQuizletSetupModal()">Thi Lại Bài
-              Mới</button>
-            <button class="apple-btn btn-secondary" onclick="window.smobApp.setVocabMode('flashcard')">Về Thẻ
-              Flashcard</button>
+          <div style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap;">
+            <button class="apple-btn btn-primary" onclick="window.smobApp.reviewQuizletTest()">Xem Lại Từng Câu Kèm Giải Thích</button>
+            <button class="apple-btn btn-secondary" onclick="window.smobApp.openHistoryTab('vocab')">📊 Xem Lịch Sử Làm Bài</button>
+            <button class="apple-btn btn-secondary" onclick="window.smobApp.openQuizletSetupModal()">Thi Lại Bài Mới</button>
+            <button class="apple-btn btn-secondary" onclick="window.smobApp.setVocabMode('flashcard')">Về Thẻ Flashcard</button>
           </div>
 
           <div id="qz-review-list"
@@ -1123,6 +1121,7 @@
               <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
                 <button class="apple-btn btn-primary" onclick="window.smobApp.restartCurrentIrregularPractice()" style="font-weight: 700; padding: 10px 24px;">🔄 Luyện Lại Đề Này</button>
                 <button class="apple-btn btn-secondary" onclick="window.smobApp.startIrregularPracticeSession()" style="font-weight: 700; padding: 10px 24px;">🎲 Tạo Đề Mới Ngẫu Nhiên</button>
+                <button class="apple-btn btn-secondary" onclick="window.smobApp.openHistoryTab('vocab')" style="font-weight: 700; padding: 10px 24px;">📊 Xem Lịch Sử Làm Bài</button>
                 <button class="apple-btn btn-secondary" onclick="window.smobApp.switchIrregularSubView('table')" style="font-weight: 700; padding: 10px 24px;">📖 Xem Bảng Tra Cứu</button>
               </div>
             </div>
@@ -1909,11 +1908,17 @@
         <div id="subview-analytics-vocab" style="display: none;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
-              <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">🗂️ Lịch Sử Quizlet Từ Vựng</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 700; color: var(--text-primary);">🗂️ Lịch Sử Quizlet Từ Vựng</div>
+                <button class="apple-btn btn-secondary" style="padding: 4px 10px; font-size: 11.5px;" onclick="window.smobApp.clearVocabQuizHistory()">Xóa Lịch Sử</button>
+              </div>
               <div id="vocab-history-list-container"></div>
             </div>
             <div>
-              <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">⚡ Lịch Sử Động Từ Bất Quy Tắc & Từ Hay Sai</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 700; color: var(--text-primary);">⚡ Lịch Sử Động Từ Bất Quy Tắc & Từ Hay Sai</div>
+                <button class="apple-btn btn-secondary" style="padding: 4px 10px; font-size: 11.5px;" onclick="window.smobApp.clearIrregularQuizHistory()">Xóa Lịch Sử</button>
+              </div>
               <div id="irregular-history-list-container"></div>
             </div>
           </div>

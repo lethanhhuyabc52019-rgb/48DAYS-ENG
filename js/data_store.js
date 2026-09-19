@@ -187,7 +187,7 @@ class DataStore {
     const attempt = {
       attemptId: `v_att_${Date.now()}`,
       unitId: uid,
-      unitTitle: unit.title || `Unit ${uid}`,
+      unitTitle: data.customTitle || unit.title || `Unit ${uid}`,
       timestamp: timeInfo.iso,
       displayTime: timeInfo.fullFormatted,
       dateFormatted: timeInfo.dateStr,
@@ -209,6 +209,11 @@ class DataStore {
   getVocabQuizHistory(unitId = null) {
     if (!unitId || unitId === 'all') return this.vocabQuizHistory;
     return this.vocabQuizHistory.filter(v => v.unitId === Number(unitId));
+  }
+
+  clearVocabQuizHistory() {
+    this.vocabQuizHistory = [];
+    this.saveVocabQuizHistory();
   }
 
   // ==========================================
@@ -254,6 +259,11 @@ class DataStore {
 
   getIrregularQuizHistory() {
     return this.irregularQuizHistory;
+  }
+
+  clearIrregularQuizHistory() {
+    this.irregularQuizHistory = [];
+    this.saveIrregularQuizHistory();
   }
 
   // Get most frequently mistaken irregular verbs
