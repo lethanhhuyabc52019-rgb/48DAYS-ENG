@@ -17,6 +17,10 @@
   <link rel="shortcut icon" href="assets/icon.ico">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
   <link rel="apple-touch-icon" href="assets/icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SMOB English">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#1e3a8a">
   <meta name="msapplication-TileColor" content="#1e3a8a">
   <meta property="og:image" content="assets/icon.png">
@@ -38,7 +42,9 @@
       </div>
 
       <div class="brand-section">
-        <div class="brand-icon">S</div>
+        <div class="brand-icon">
+          <img src="assets/icon.png" alt="SMOB English Lab" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block;">
+        </div>
         <div>
           <div class="brand-title">SMOB English Lab</div>
           <div class="brand-sub">48-Day Foundation Course</div>
@@ -62,6 +68,16 @@
           <circle cx="12" cy="12" r="2"></circle>
         </svg>
         🎯 Chuẩn Đầu Ra (Target)
+      </div>
+      <div class="nav-link" data-view="study-plan">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <path d="M9 16l2 2 4-4"></path>
+        </svg>
+        📅 Kế Hoạch 48 Ngày
       </div>
       <div class="nav-link" data-view="units">
         <svg viewBox="0 0 24 24">
@@ -162,11 +178,21 @@
       </div>
     </aside>
 
+    <!-- Mobile Drawer Backdrop -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="window.smobApp.toggleMobileSidebar(false)"></div>
+
     <!-- Main Workspace -->
     <main class="main-workspace">
       <!-- Top Header -->
       <header class="top-bar">
         <div style="display: flex; align-items: center; gap: 14px;">
+          <button id="mobile-menu-btn" class="mobile-menu-btn" onclick="window.smobApp.toggleMobileSidebar()" aria-label="Mở danh mục bài học">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
           <button id="nav-back-btn" class="apple-btn btn-secondary nav-back-btn" onclick="window.smobApp.goBack()"
             style="display: none; padding: 7px 16px; font-weight: 700; border-radius: 20px; flex-shrink: 0;"
             title="Quay lại màn hình trước (Alt + Mũi tên trái)">
@@ -220,6 +246,9 @@
             </div>
           </div>
         </div>
+
+        <!-- DYNAMIC STUDY PLAN & CIRCULAR PROGRESS WIDGET -->
+        <div id="dash-dynamic-plan-widget"></div>
 
         <!-- TARGET OUTCOMES MOTIVATIONAL BANNER -->
         <div class="apple-card outcomes-dash-banner" style="margin-bottom: 24px; background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; padding: 24px 28px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.25); position: relative; overflow: hidden;">
@@ -444,6 +473,9 @@
         </div>
       </section>
 
+      <!-- VIEW: KẾ HOẠCH & TIẾN ĐỘ ĐỘNG 48 NGÀY -->
+      <section class="tab-view" id="view-study-plan"></section>
+
       <!-- VIEW 2: 48 UNITS CATALOG -->
       <section class="tab-view" id="view-units">
         <div class="filter-bar">
@@ -496,11 +528,15 @@
       <!-- VIEW 4: VOCABULARY & FLASHCARDS (QUIZLET-STYLE) -->
       <section class="tab-view" id="view-vocabulary">
         <!-- Quizlet Top Action Bar (Sticky Toolbar) -->
-        <div class="sticky-view-toolbar"
+        <div class="sticky-view-toolbar" id="vocab-sticky-toolbar"
           style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-            <select id="vocab-unit-select" class="search-field" style="padding: 6px 12px; font-size: 13px;"
-              onchange="window.smobApp.switchVocabUnit(this.value)"></select>
+            <div style="display: flex; gap: 5px; align-items: center;">
+              <button class="apple-btn btn-secondary" style="padding: 5px 9px; font-size: 12px; font-weight: 600;" onclick="window.smobApp.switchVocabUnitOffset(-1)" title="Bài Trước">← Trước</button>
+              <select id="vocab-unit-select" class="search-field" style="padding: 6px 12px; font-size: 13px;"
+                onchange="window.smobApp.switchVocabUnit(this.value)"></select>
+              <button class="apple-btn btn-secondary" style="padding: 5px 9px; font-size: 12px; font-weight: 600;" onclick="window.smobApp.switchVocabUnitOffset(1)" title="Bài Sau">Sau →</button>
+            </div>
             <button class="filter-chip active" id="btn-mode-fc" onclick="window.smobApp.setVocabMode('flashcard')">🎴
               Flashcards 3D</button>
             <button class="filter-chip" id="btn-mode-quizlet" onclick="window.smobApp.openQuizletSetupModal()"
@@ -515,7 +551,7 @@
           </div>
         </div>
 
-        <div
+        <div id="fc-progress-container"
           style="width: 320px; height: 4px; background: #e5e5ea; border-radius: 2px; margin: 0 auto 16px; overflow: hidden;">
           <div id="fc-progress-bar" style="height: 100%; width: 5%; background: var(--accent); transition: width 0.2s;">
           </div>
@@ -534,14 +570,14 @@
                 </button>
                 <div class="fc-media-box" id="fc-media-box">
                   <img id="fc-photo-img" class="fc-photo-img" src="" alt="" style="display:none;"
-                    onerror="window.smobApp.onVocabImageError()" />
-                  <div class="fc-illustration-badge" id="fc-visual-icon">📖</div>
+                    onerror="this.style.display='none'">
+                  <div id="fc-photo-fallback" class="fc-photo-fallback">📖</div>
                 </div>
-                <div class="fc-word" id="fc-word">word</div>
-                <div class="fc-ipa">
-                  <span id="fc-ipa">/ipa/</span>
-                  <button class="speaker-btn" onclick="event.stopPropagation(); window.smobApp.speakCurrentWord()"
-                    title="Nghe phát âm chuẩn">🔊</button>
+                <div class="fc-word" id="fc-word">Word</div>
+                <div class="fc-ipa-row">
+                  <span class="fc-ipa" id="fc-ipa">/ipa/</span>
+                  <button class="speaker-btn" onclick="event.stopPropagation(); window.smobApp.speakCurrentVocab()"
+                    title="Nghe phát âm">🔊</button>
                   <button class="btn-ai-coach-inline"
                     onclick="event.stopPropagation(); window.smobApp.openAICoachForCurrentWord()"
                     title="Trợ lý AI chấm bạn đọc có chuẩn không">🎙️ Chấm Phát Âm AI</button>
@@ -602,19 +638,23 @@
 
         <!-- Quizlet Test Runner View (Deferred Grading after Finish) -->
         <div id="vocab-quizlet-test-runner" style="display: none; max-width: 780px; margin: 0 auto;">
-          <div class="apple-card"
-            style="margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <div style="font-weight: 700; font-size: 17px;" id="qz-test-title">Kiểm Tra Từ Vựng Chuẩn Quizlet</div>
-              <div style="font-size: 13px; color: var(--text-secondary);" id="qz-test-progress-text">Đã trả lời 0 / 20
-                câu</div>
+          <div class="apple-card qz-test-sticky-header" id="qz-test-sticky-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="font-weight: 700; font-size: 17px;" id="qz-test-title">Kiểm Tra Từ Vựng Chuẩn Quizlet</div>
+                <div style="font-size: 13px; color: var(--text-secondary);" id="qz-test-progress-text">Đã trả lời 0 / 20 câu</div>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <div class="test-timer-badge" id="qz-test-timer">⏱️ 00:00</div>
+                <button class="apple-btn btn-secondary" style="padding: 8px 16px; font-weight: 600;"
+                  onclick="window.smobApp.exitQuizletTest()">✕ Thoát Bài Thi</button>
+                <button class="apple-btn btn-primary" style="padding: 8px 20px;"
+                  onclick="window.smobApp.finishQuizletTest()">Finish Test (Nộp Bài)</button>
+              </div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-              <div class="test-timer-badge" id="qz-test-timer">⏱️ 00:00</div>
-              <button class="apple-btn btn-secondary" style="padding: 8px 16px; font-weight: 600;"
-                onclick="window.smobApp.exitQuizletTest()">✕ Thoát Bài Thi</button>
-              <button class="apple-btn btn-primary" style="padding: 8px 20px;"
-                onclick="window.smobApp.finishQuizletTest()">Finish Test (Nộp Bài)</button>
+            <!-- Interactive live progress line -->
+            <div class="qz-sticky-progress-track">
+              <div id="qz-sticky-progress-bar" style="width: 0%;"></div>
             </div>
           </div>
 
@@ -694,9 +734,11 @@
             <div style="padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 15px;">Chọn Unit muốn kiểm tra:</div>
-                <div style="display: flex; gap: 8px;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                   <button class="filter-chip" style="padding: 4px 10px; font-size: 11.5px;"
                     onclick="window.smobApp.selectAllQuizletUnits(true)">Chọn Tất Cả 48</button>
+                  <button class="filter-chip" style="padding: 4px 10px; font-size: 11.5px;"
+                    onclick="window.smobApp.selectOnlyCurrentQuizletUnit()">Chỉ Unit Hiện Tại</button>
                   <button class="filter-chip" style="padding: 4px 10px; font-size: 11.5px;"
                     onclick="window.smobApp.selectAllQuizletUnits(false)">Bỏ Chọn</button>
                 </div>
@@ -771,14 +813,46 @@
           </div>
           <div style="display: flex; gap: 10px; align-items: center;">
             <div id="grammar-unit-sub" style="font-size: 13px; color: var(--text-secondary);">Chuyên đề ngữ pháp</div>
+            <button class="apple-btn btn-secondary" id="btn-gm-split-view" onclick="window.smobApp.toggleSplitView()" style="font-size: 13px; padding: 7px 14px; display: inline-flex; align-items: center; gap: 6px;" title="Xem đôi song song: Vừa đọc giáo trình vừa xem video giảng bài">◫ Xem Đôi Cùng Video</button>
             <button class="apple-btn btn-primary" style="font-size: 13px; padding: 7px 18px;"
               onclick="window.smobApp.openGrammarTopicsModal()">📚 10 Chủ Điểm Ngữ Pháp</button>
           </div>
         </div>
-        <!-- Mode 1: Full Book Reader (100% original text, formulas, examples, tables) -->
-        <div id="grammar-full-container" class="theory-full-reader"></div>
-        <!-- Mode 2: Card Breakdown -->
-        <div class="grammar-article" id="grammar-content-container" style="display: none;"></div>
+
+        <!-- Split View Dual Container -->
+        <div id="grammar-split-layout-box" class="grammar-split-layout">
+          <!-- Left Column: Full Book Reader & Card Breakdown -->
+          <div id="grammar-split-left-pane" class="grammar-split-pane grammar-split-left">
+            <!-- Mode 1: Full Book Reader (100% original text, formulas, examples, tables) -->
+            <div id="grammar-full-container" class="theory-full-reader"></div>
+            <!-- Mode 2: Card Breakdown -->
+            <div class="grammar-article" id="grammar-content-container" style="display: none;"></div>
+          </div>
+
+          <!-- Middle Splitter Divider (Resizable) -->
+          <div id="grammar-split-divider" class="grammar-split-divider" title="Kéo qua lại để điều chỉnh độ rộng 2 bên">
+            <div class="split-divider-handle"></div>
+          </div>
+
+          <!-- Right Column: Video Lecture Panel -->
+          <div id="grammar-split-right-pane" class="grammar-split-pane grammar-split-right" style="display: none;">
+            <div class="split-video-header">
+              <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                <span style="font-size: 16px;">🎬</span>
+                <div style="overflow: hidden;">
+                  <div id="split-video-title" style="font-size: 13px; font-weight: 800; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: var(--text-primary);">Unit 9: Video Bài Giảng</div>
+                  <div id="split-video-sub" style="font-size: 11px; color: var(--text-secondary);">Cô Mai Phương • Xem song song</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <button class="apple-btn btn-secondary" style="padding: 4px 8px; font-size: 11.5px; font-weight: 700; color: #0071e3;" onclick="window.smobApp.expandSplitToFullVideo()" title="Phóng to thành tab Video bài giảng toàn màn hình">⤢ Full Tab Video</button>
+                <button class="apple-btn btn-secondary" style="padding: 4px 8px; font-size: 11.5px;" onclick="window.smobApp.toggleMiniVideoPlayer()" title="Thu nhỏ thành cửa sổ nổi góc (PiP)">⤡ Thu Nhỏ</button>
+                <button class="apple-btn btn-secondary" style="padding: 4px 8px; font-size: 11.5px;" onclick="window.smobApp.closeSplitView()" title="Đóng chế độ xem đôi">✕ Tắt Video</button>
+              </div>
+            </div>
+            <div id="split-video-wrapper" class="split-video-wrapper"></div>
+          </div>
+        </div>
       </section>
 
       <!-- VIEW 6: IRREGULAR VERBS (398+ VERBS WITH FULL IPA & TEST ARENA) -->
@@ -1056,8 +1130,12 @@
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <label style="font-weight: 700; font-size: 13.5px;">Chọn Unit Thi:</label>
-              <select id="test-unit-select" class="apple-input" style="width: 250px; font-weight: 600;"
-                onchange="window.smobApp.onTestUnitSelectChange(this.value)"></select>
+              <div style="display: flex; gap: 5px; align-items: center;">
+                <button class="apple-btn btn-secondary" style="padding: 6px 10px; font-size: 12px; font-weight: 600;" onclick="window.smobApp.switchTestUnitOffset(-1)" title="Bài Trước">← Trước</button>
+                <select id="test-unit-select" class="apple-input" style="width: 250px; font-weight: 600;"
+                  onchange="window.smobApp.onTestUnitSelectChange(this.value)"></select>
+                <button class="apple-btn btn-secondary" style="padding: 6px 10px; font-size: 12px; font-weight: 600;" onclick="window.smobApp.switchTestUnitOffset(1)" title="Bài Sau">Sau →</button>
+              </div>
             </div>
             <div style="display: flex; gap: 6px;">
               <button class="filter-chip active" id="btn-tf-all"
@@ -1518,93 +1596,98 @@
       <section class="tab-view" id="view-videos">
         <div class="video-theater-layout">
           <!-- Main Video Screen Box -->
-          <div class="video-player-box">
-            <div class="video-screen-wrapper" id="video-screen-wrapper" onclick="window.smobApp.toggleVideoPlay()"
-              title="Click vào màn hình hoặc bấm Space để Tạm Dừng / Phát">
-              <video id="embedded-video-player" preload="metadata" playsinline></video>
-              <div id="video-big-center-btn" class="video-big-center-btn">▶</div>
-              <div id="video-feedback-icon" class="video-feedback-icon"></div>
+          <div class="video-player-box" id="main-video-player-box">
+            <div id="video-stage-container" class="video-stage-container">
+              <div class="video-screen-wrapper" id="video-screen-wrapper" onclick="window.smobApp.toggleVideoPlay()"
+                title="Click vào màn hình hoặc bấm Space để Tạm Dừng / Phát">
+                <video id="embedded-video-player" preload="metadata" playsinline></video>
+                <div id="video-big-center-btn" class="video-big-center-btn">▶</div>
+                <div id="video-feedback-icon" class="video-feedback-icon"></div>
 
-              <!-- Floating Apple-style Video Resume Banner -->
-              <div id="video-resume-banner" class="video-resume-banner" style="display: none;" onclick="event.stopPropagation();">
-                <div class="video-resume-content">
-                  <div class="video-resume-title">⏱️ Tiếp tục xem bài giảng?</div>
-                  <div class="video-resume-text" id="video-resume-text">Bạn đã dừng ở 00:00 lần trước.</div>
-                </div>
-                <div class="video-resume-actions">
-                  <button type="button" class="btn-resume-continue" onclick="window.smobApp.resumeVideoPlayback(true)">▶ Tiếp Tục Xem</button>
-                  <button type="button" class="btn-resume-restart" onclick="window.smobApp.resumeVideoPlayback(false)">↺ Xem Từ Đầu</button>
-                  <button type="button" class="btn-resume-close" onclick="window.smobApp.closeResumeBanner()" title="Đóng">✕</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Video Custom Controls (Matching User Screenshot) -->
-            <div class="custom-video-controls">
-              <!-- Scrubber Timeline -->
-              <div class="video-scrubber-bar" id="vid-scrubber-bar" onclick="window.smobApp.seekVideo(event)">
-                <div class="video-scrubber-fill" id="vid-scrubber-fill"></div>
-              </div>
-
-              <div class="video-controls-row">
-                <div class="video-btn-group">
-                  <button class="ctrl-btn" id="btn-vid-play"
-                    onclick="event.stopPropagation(); window.smobApp.toggleVideoPlay()"
-                    title="Phát / Tạm dừng (Phím Space)">▶ Phát</button>
-                  <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.skipVideo(-10)"
-                    title="Tua lùi 10 giây (Phím Mũi tên trái)">⏪ 10s</button>
-                  <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.skipVideo(10)"
-                    title="Tua tới 10 giây (Phím Mũi tên phải)">⏩ 10s</button>
-                  <button class="ctrl-btn" id="btn-vid-mute"
-                    onclick="event.stopPropagation(); window.smobApp.toggleVideoMute()"
-                    title="Bật/Tắt âm thanh">🔊</button>
-                  <input type="range" id="vid-vol-slider" min="0" max="1" step="0.05" value="0.45"
-                    style="width: 75px; accent-color: var(--accent);"
-                    oninput="event.stopPropagation(); window.smobApp.setVideoVolume(this.value)">
-                  <span id="vid-time-display" style="font-size: 13px; font-weight: 600; margin-left: 10px;">00:00 /
-                    00:00</span>
-                </div>
-
-                <div class="video-btn-group">
-                  <div class="video-speed-group" id="video-speed-group" title="Tốc độ bài giảng">
-                    <span
-                      style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; margin-right: 2px;">Tốc
-                      độ:</span>
-                    <button type="button" class="speed-btn" data-speed="0.5"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(0.5, this)">0.5x</button>
-                    <button type="button" class="speed-btn" data-speed="0.75"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(0.75, this)">0.75x</button>
-                    <button type="button" class="speed-btn active" data-speed="1.0"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.0, this)">1.0x</button>
-                    <button type="button" class="speed-btn" data-speed="1.25"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.25, this)">1.25x</button>
-                    <button type="button" class="speed-btn" data-speed="1.5"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.5, this)">1.5x</button>
-                    <button type="button" class="speed-btn" data-speed="1.75"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.75, this)">1.75x</button>
-                    <button type="button" class="speed-btn" data-speed="2.0"
-                      onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(2.0, this)">2.0x</button>
+                <!-- Floating Apple-style Video Resume Banner -->
+                <div id="video-resume-banner" class="video-resume-banner" style="display: none;" onclick="event.stopPropagation();">
+                  <div class="video-resume-content">
+                    <div class="video-resume-title">⏱️ Tiếp tục xem bài giảng?</div>
+                    <div class="video-resume-text" id="video-resume-text">Bạn đã dừng ở 00:00 lần trước.</div>
                   </div>
-                  <button class="ctrl-btn" id="btn-vid-fit" onclick="event.stopPropagation(); window.smobApp.toggleVideoFitMode()"
-                    title="Chuyển chế độ: Vừa khung / Lấp đầy (Fit / Fill)">🔲 Vừa Khung</button>
-                  <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.toggleMiniVideoPlayer()"
-                    title="Thu nhỏ thành cửa sổ con nổi (Mini Player / PiP)">🖼️ Cửa Sổ Con</button>
-                  <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.toggleVideoFullscreen()"
-                    title="Toàn màn hình">⛶ Toàn Màn Hình</button>
-                  <button class="ctrl-btn" style="opacity: 0.75;"
-                    onclick="event.stopPropagation(); window.smobApp.launchExternalVideo()"
-                    title="Mở bằng Windows Media Player">↗ Ngoài</button>
+                  <div class="video-resume-actions">
+                    <button type="button" class="btn-resume-continue" onclick="window.smobApp.resumeVideoPlayback(true)">▶ Tiếp Tục Xem</button>
+                    <button type="button" class="btn-resume-restart" onclick="window.smobApp.resumeVideoPlayback(false)">↺ Xem Từ Đầu</button>
+                    <button type="button" class="btn-resume-close" onclick="window.smobApp.closeResumeBanner()" title="Đóng">✕</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video Custom Controls (Matching User Screenshot) -->
+              <div class="custom-video-controls" id="custom-video-controls">
+                <!-- Scrubber Timeline -->
+                <div class="video-scrubber-bar" id="vid-scrubber-bar" onclick="window.smobApp.seekVideo(event)">
+                  <div class="video-scrubber-fill" id="vid-scrubber-fill"></div>
+                </div>
+
+                <div class="video-controls-row">
+                  <div class="video-btn-group">
+                    <button class="ctrl-btn" id="btn-vid-play"
+                      onclick="event.stopPropagation(); window.smobApp.toggleVideoPlay()"
+                      title="Phát / Tạm dừng (Phím Space)">▶ Phát</button>
+                    <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.skipVideo(-10)"
+                      title="Tua lùi 10 giây (Phím Mũi tên trái)">⏪ 10s</button>
+                    <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.skipVideo(10)"
+                      title="Tua tới 10 giây (Phím Mũi tên phải)">⏩ 10s</button>
+                    <button class="ctrl-btn" id="btn-vid-mute"
+                      onclick="event.stopPropagation(); window.smobApp.toggleVideoMute()"
+                      title="Bật/Tắt âm thanh">🔊</button>
+                    <input type="range" id="vid-vol-slider" min="0" max="1" step="0.05" value="0.45"
+                      style="width: 75px; accent-color: var(--accent);"
+                      oninput="event.stopPropagation(); window.smobApp.setVideoVolume(this.value)">
+                    <span id="vid-time-display" style="font-size: 13px; font-weight: 600; margin-left: 10px;">00:00 /
+                      00:00</span>
+                  </div>
+
+                  <div class="video-btn-group">
+                    <div class="video-speed-group" id="video-speed-group" title="Tốc độ bài giảng">
+                      <span
+                        style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; margin-right: 2px;">Tốc
+                        độ:</span>
+                      <button type="button" class="speed-btn" data-speed="0.5"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(0.5, this)">0.5x</button>
+                      <button type="button" class="speed-btn" data-speed="0.75"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(0.75, this)">0.75x</button>
+                      <button type="button" class="speed-btn active" data-speed="1.0"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.0, this)">1.0x</button>
+                      <button type="button" class="speed-btn" data-speed="1.25"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.25, this)">1.25x</button>
+                      <button type="button" class="speed-btn" data-speed="1.5"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.5, this)">1.5x</button>
+                      <button type="button" class="speed-btn" data-speed="1.75"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(1.75, this)">1.75x</button>
+                      <button type="button" class="speed-btn" data-speed="2.0"
+                        onclick="event.stopPropagation(); window.smobApp.setVideoSpeed(2.0, this)">2.0x</button>
+                    </div>
+                    <button class="ctrl-btn" id="btn-vid-fit" onclick="event.stopPropagation(); window.smobApp.toggleVideoFitMode()"
+                      title="Chuyển chế độ: Vừa khung / Lấp đầy (Fit / Fill)">🔲 Vừa Khung</button>
+                    <button class="ctrl-btn" id="btn-vid-split" onclick="event.stopPropagation(); window.smobApp.toggleSplitView()"
+                      title="Xem đôi song song: Vừa xem video vừa đọc sách giáo trình">◫ Xem Đôi</button>
+                    <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.toggleMiniVideoPlayer()"
+                      title="Thu nhỏ thành cửa sổ con nổi (Mini Player / PiP)">🖼️ Cửa Sổ Con</button>
+                    <button class="ctrl-btn" onclick="event.stopPropagation(); window.smobApp.toggleVideoFullscreen()"
+                      title="Toàn màn hình">⛶ Toàn Màn Hình</button>
+                    <button class="ctrl-btn" style="opacity: 0.75;"
+                      onclick="event.stopPropagation(); window.smobApp.launchExternalVideo()"
+                      title="Mở bằng Windows Media Player">↗ Ngoài</button>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Video Details Card -->
-            <div class="video-meta-bar">
+            <div class="video-meta-bar" id="video-meta-bar">
               <div class="video-meta-info">
                 <div class="video-meta-title" id="theater-unit-title">Unit 1: THỂ KHẲNG ĐỊNH VÀ PHỦ ĐỊNH VỚI TO BE</div>
                 <div class="video-meta-sub" id="theater-unit-sub">Giáo viên: Cô Vũ Thị Mai Phương • Khóa 48 ngày lấy gốc toàn diện</div>
               </div>
               <div class="video-meta-actions">
+                <button class="apple-btn btn-primary" onclick="window.smobApp.toggleSplitView()" style="display: inline-flex; align-items: center; gap: 6px;">◫ Xem Đôi Cùng Sách Giáo Trình</button>
                 <button class="apple-btn btn-secondary" onclick="window.smobApp.openUnitHub(window.dataStore.currentUnitId)">Quay Lại Trạm Học Tập</button>
               </div>
             </div>
@@ -1726,18 +1809,45 @@
         <div
           style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
           <div>
-            <div style="font-size: 18px; font-weight: 700;">Nhật Ký Câu Sai & Ôn Luyện Bù Đắp Lỗ Hổng</div>
-            <div style="font-size: 13px; color: var(--text-secondary);">Tập hợp các câu bạn từng trả lời sai trong bài
-              thi. Hãy ôn luyện liên tục để khắc phục hoàn toàn.</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--text-primary);">📕 Sổ Tay Câu Sai &amp; Ôn Luyện Bù Đắp Lỗ Hổng</div>
+            <div style="font-size: 13px; color: var(--text-secondary); margin-top: 3px;">Tập hợp các câu bạn từng trả lời sai trong bài thi, phân chia theo loại hình kiểm tra và từng Unit cụ thể.</div>
           </div>
-          <div style="display: flex; gap: 10px;">
-            <button class="apple-btn btn-warning" style="font-weight: 700;"
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="apple-btn btn-warning" style="font-weight: 700; display: inline-flex; align-items: center; gap: 6px;"
               onclick="window.smobApp.retestWrongAnswers()">🎯 Luyện Tập Lại Toàn Bộ Câu Sai</button>
             <button class="apple-btn btn-secondary"
-              onclick="localStorage.removeItem('smob_mistakes_log'); window.smobApp.renderMistakes();">Xóa Lịch
-              Sử</button>
+              onclick="if(confirm('Bạn có chắc muốn xóa toàn bộ lịch sử câu sai không?')) { localStorage.removeItem('smob_mistakes_log'); window.dataStore.mistakes = []; window.smobApp.renderMistakes(); }">Xóa Lịch Sử</button>
           </div>
         </div>
+
+        <!-- Category & Unit Filter Sticky Toolbar -->
+        <div class="sticky-view-toolbar" style="margin-bottom: 20px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <!-- 3 Categories Filter Chips -->
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-right: 4px;">Phân Loại:</span>
+            <button class="filter-chip active" id="btn-mistake-cat-all" onclick="window.smobApp.setMistakesCategory('all', this)">
+              🌟 Tất Cả (<span id="mistake-count-all">0</span>)
+            </button>
+            <button class="filter-chip" id="btn-mistake-cat-vocab" onclick="window.smobApp.setMistakesCategory('vocab_quizlet', this)">
+              📝 Quizlet Từ Vựng (<span id="mistake-count-vocab">0</span>)
+            </button>
+            <button class="filter-chip" id="btn-mistake-cat-grammar" onclick="window.smobApp.setMistakesCategory('grammar_theory', this)">
+              📖 Lý Thuyết / Ngữ Pháp (<span id="mistake-count-grammar">0</span>)
+            </button>
+            <button class="filter-chip" id="btn-mistake-cat-test" onclick="window.smobApp.setMistakesCategory('test_unit', this)">
+              📄 Đề Thi Online 48 Units (<span id="mistake-count-test">0</span>)
+            </button>
+          </div>
+
+          <!-- Unit Selector -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="mistakes-unit-select" style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">Lọc theo Unit:</label>
+            <select id="mistakes-unit-select" class="apple-input" style="padding: 6px 14px; font-size: 13px; font-weight: 600; min-width: 220px;" onchange="window.smobApp.setMistakesUnitFilter(this.value)">
+              <option value="all">Tất Cả Các Unit Có Câu Sai</option>
+            </select>
+          </div>
+        </div>
+
         <div id="mistakes-container"></div>
       </section>
 
@@ -1875,24 +1985,27 @@
     </div>
   </div>
 
-  <!-- IN-APP FLOATING MINI VIDEO DOCK -->
+  <!-- IN-APP FLOATING MINI VIDEO DOCK (DRAGGABLE & RESIZABLE PIP PRO) -->
   <div id="floating-video-dock" class="floating-video-dock">
-    <div class="floating-dock-controls">
-      <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
-        <span style="font-size: 14px;">🎬</span>
+    <div class="floating-dock-controls" id="floating-dock-drag-handle" title="Click và giữ chuột để kéo di chuyển vị trí">
+      <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; pointer-events: none;">
+        <span class="dock-drag-icon" style="font-size: 13px; opacity: 0.7; cursor: move;">⠿</span>
         <span id="mini-video-title"
-          style="font-size: 12.5px; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 200px;">Unit
-          1: To Be</span>
+          style="font-size: 12px; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 170px;">Unit 1: To Be</span>
       </div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <button class="ctrl-btn" style="padding: 3px 8px; font-size: 11px;"
+      <div style="display: flex; gap: 5px; align-items: center;" onclick="event.stopPropagation();">
+        <button class="ctrl-btn" style="padding: 3px 7px; font-size: 11px;"
+          onclick="window.smobApp.openSplitViewFromPiP()" title="Chuyển sang xem đôi cùng sách giáo trình">◫ Xem Đôi</button>
+        <button class="ctrl-btn" style="padding: 3px 7px; font-size: 11px;"
           onclick="window.smobApp.restoreVideoToTheater()" title="Phóng to về rạp chiếu">⤢ Mở Rộng</button>
-        <button class="ctrl-btn" style="padding: 3px 8px; font-size: 11px;"
+        <button class="ctrl-btn" style="padding: 3px 7px; font-size: 11px;"
           onclick="window.smobApp.closeMiniVideoPlayer()" title="Đóng cửa sổ con">✕</button>
       </div>
     </div>
     <div id="mini-video-container" style="position: relative; cursor: pointer;"
       onclick="window.smobApp.toggleVideoPlay()"></div>
+    <!-- Bottom-right Resize Grip Handle -->
+    <div id="floating-dock-resize-handle" class="floating-dock-resize-handle" title="Kéo góc để co giãn kích thước to / nhỏ (Giữ chuẩn tỉ lệ 16:9)">⤡</div>
   </div>
 
   <!-- PERSISTENT FLOATING AUDIO BAR (ACROSS TABS) -->
@@ -2054,13 +2167,105 @@
     </div>
   </div>
 
+  <!-- UNANSWERED EXAM / QUIZ CONFIRMATION MODAL -->
+  <div class="modal-backdrop" id="unanswered-warning-modal" style="display: none; z-index: 10000;" onclick="if(event.target===this) window.smobApp.closeUnansweredModal()">
+    <div class="modal-card" style="max-width: 520px; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.35); overflow: hidden;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #fff5f5, #ffffff); border-bottom: 1px solid #fee2e2; padding: 18px 22px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 24px;">⚠️</div>
+          <div>
+            <div style="font-size: 11.5px; color: #b91c1c; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Cảnh Báo Chưa Hoàn Thành</div>
+            <h3 style="font-size: 18px; font-weight: 800; margin: 0; color: #1e293b;" id="unans-modal-title">Còn Câu Hỏi Chưa Làm!</h3>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="window.smobApp.closeUnansweredModal()" title="Đóng (Esc)">✕</button>
+      </div>
+      <div style="padding: 22px 24px;">
+        <div style="font-size: 14px; color: var(--text-primary); line-height: 1.6; margin-bottom: 14px;">
+          Bài thi gồm <strong id="unans-modal-total">20</strong> câu hỏi. Bạn mới làm được <strong id="unans-modal-done" style="color: #16a34a;">0</strong> câu và hiện còn <strong id="unans-modal-missing" style="color: #dc2626;">20 câu chưa trả lời</strong>:
+        </div>
+
+        <!-- Chips of missing question numbers -->
+        <div style="font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 6px;">
+          Danh sách câu chưa làm (Bấm vào để nhảy đến câu):
+        </div>
+        <div class="unans-missing-chips-container" id="unans-modal-chips"></div>
+
+        <div class="unans-warning-notice">
+          ⚠️ <strong>Chú ý:</strong> Nếu bạn chọn <strong>"Vẫn Nộp Bài"</strong>, tất cả các câu chưa làm sẽ tính là <strong>0 điểm</strong>. Hệ thống đã <strong style="color: #dc2626;">light đỏ</strong> các câu chưa làm trên màn hình để bạn dễ nhận biết.
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap;">
+          <button class="apple-btn btn-secondary" style="color: #dc2626; border-color: #fca5a5; padding: 10px 18px; font-weight: 700;" onclick="window.smobApp.confirmSubmitUnanswered()">
+            Vẫn Nộp Bài (Chấm Điểm)
+          </button>
+          <button class="apple-btn btn-primary" style="padding: 10px 24px; font-weight: 800; box-shadow: 0 4px 14px rgba(0, 113, 227, 0.4);" onclick="window.smobApp.resumeAndJumpToFirstUnanswered()">
+            ✏️ Tiếp Tục Làm Bài
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING TEXT SELECTION ACTION TOOLBAR (QUICK COPY / SPEAK / SEARCH / SHARE) -->
+  <div id="smob-selection-toolbar" class="smob-selection-toolbar" style="display: none;">
+    <div class="selection-toolbar-inner" onclick="event.stopPropagation();">
+      <button type="button" class="sel-tool-btn" id="btn-sel-copy" onclick="window.smobApp.copySelectedText()" title="Sao chép văn bản (Ctrl+C)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span id="sel-copy-label">Sao Chép</span>
+      </button>
+      <div class="sel-tool-sep"></div>
+      <button type="button" class="sel-tool-btn" id="btn-sel-speak" onclick="window.smobApp.speakSelectedText()" title="Phát âm tiếng Anh chuẩn qua giọng đọc AI">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <span>Phát Âm</span>
+      </button>
+      <div class="sel-tool-sep"></div>
+      <button type="button" class="sel-tool-btn" id="btn-sel-search" onclick="window.smobApp.searchSelectedText()" title="Tra cứu từ điển Cambridge / Google">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Tra Cứu</span>
+      </button>
+      <div class="sel-tool-sep"></div>
+      <button type="button" class="sel-tool-btn" id="btn-sel-share" onclick="window.smobApp.shareSelectedText()" title="Sao chép nhanh kèm trích dẫn để gửi">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>Gửi Đi</span>
+      </button>
+      <div class="sel-tool-sep"></div>
+      <button type="button" class="sel-tool-btn" style="padding: 6px 8px; font-size: 11px; opacity: 0.7;" onclick="window.smobApp.hideSelectionToolbar()" title="Đóng thanh công cụ">✕</button>
+    </div>
+    <div class="sel-toolbar-arrow"></div>
+  </div>
+
   <!-- ATTEMPT REVIEW MODAL -->
   <div id="attempt-review-modal-container"></div>
 
-  <!-- Scripts -->
   <script src="./js/embedded_data.js"></script>
   <script src="./js/data_store.js"></script>
+  <script src="./js/dynamic_plan.js"></script>
   <script src="./js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.log('SW registration note:', err);
+        });
+      });
+    }
+  </script>
 </body>
 
 </html>

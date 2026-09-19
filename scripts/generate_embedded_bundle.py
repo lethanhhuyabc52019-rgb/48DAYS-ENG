@@ -31,6 +31,15 @@ with open(out_file, 'w', encoding='utf-8') as f:
     json.dump(irregular_verbs, f, ensure_ascii=False)
     f.write(";\n\n")
     
+    # In-Theory Interactive Quizzes Ground Truth (995 items with pedagogical explanations)
+    theory_file = os.path.join(data_dir, 'theory_quizzes_data.json')
+    if os.path.exists(theory_file):
+        with open(theory_file, encoding='utf-8') as tf:
+            theory_data = json.load(tf)
+        f.write("window.SMOB_THEORY_QUIZZES = ")
+        json.dump(theory_data, f, ensure_ascii=False)
+        f.write(";\n\n")
+
     # Backwards compatibility
     f.write("window.SMOB_UNIT1_DATA = window.SMOB_ALL_DATA['1'] || window.SMOB_ALL_DATA[1];\n")
 

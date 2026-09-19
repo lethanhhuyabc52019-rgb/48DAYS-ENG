@@ -1,0 +1,24 @@
+{
+  "name": "SMOB English Lab — 48-Day Course",
+  "short_name": "SMOB English",
+  "description": "Nền tảng học tiếng Anh 48 ngày lấy gốc toàn diện: Lý thuyết, Trắc nghiệm, Flashcard và Thi thử.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a8a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

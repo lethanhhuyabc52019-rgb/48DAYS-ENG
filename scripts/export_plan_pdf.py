@@ -8,19 +8,19 @@ def generate_pdf():
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Kế Hoạch Học Tiếng Anh Tuần 1 - SMOB English Lab</title>
+<title>Kế Hoạch Học Tiếng Anh Vững Chắc (19/09 - 25/09/2026) - SMOB English Lab</title>
 <style>
   @page {
     size: A4 portrait;
-    margin: 8mm 12mm 8mm 12mm;
+    margin: 4mm 8mm 4mm 8mm;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
     color: #1e293b;
     background: #ffffff;
-    font-size: 11px;
-    line-height: 1.42;
+    font-size: 10px;
+    line-height: 1.32;
   }
   .container {
     width: 100%;
@@ -34,23 +34,23 @@ def generate_pdf():
   .header {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: #ffffff;
-    padding: 14px 18px;
-    border-radius: 8px;
+    padding: 9px 14px;
+    border-radius: 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   }
   .header-left h1 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: -0.2px;
     color: #38bdf8;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
   .header-left .subtitle {
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: #cbd5e1;
     font-weight: 500;
   }
@@ -58,51 +58,52 @@ def generate_pdf():
     background: rgba(56, 189, 248, 0.15);
     border: 1px solid #38bdf8;
     color: #e0f2fe;
-    padding: 6px 12px;
+    padding: 4px 9px;
     border-radius: 6px;
-    font-size: 10.5px;
+    font-size: 9.5px;
     font-weight: 600;
     text-align: right;
+    line-height: 1.25;
   }
 
   /* Strategy Banner */
   .strategy-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
   .card {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    padding: 8px 10px;
+    padding: 5px 8px;
   }
   .card-title {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
   .card-p {
-    font-size: 10px;
+    font-size: 9.2px;
     color: #475569;
-    line-height: 1.35;
+    line-height: 1.28;
   }
   .tag-blue { color: #0284c7; }
   .tag-purple { color: #7c3aed; }
-  .tag-green { color: #059669; }
+  .tag-amber { color: #d97706; }
 
   /* Daily Table */
   .section-title {
-    font-size: 12.5px;
+    font-size: 11px;
     font-weight: 700;
     color: #0f172a;
     border-left: 3.5px solid #0284c7;
-    padding-left: 8px;
-    margin-bottom: 6px;
+    padding-left: 6px;
+    margin-bottom: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,21 +111,21 @@ def generate_pdf():
   .schedule-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .schedule-table th {
     background: #f1f5f9;
     color: #334155;
     font-weight: 700;
     text-align: left;
-    padding: 6px 8px;
-    font-size: 10.5px;
+    padding: 4.5px 6px;
+    font-size: 9.5px;
     border: 1px solid #cbd5e1;
   }
   .schedule-table td {
-    padding: 6px 8px;
+    padding: 3.8px 6px;
     border: 1px solid #e2e8f0;
-    font-size: 10.5px;
+    font-size: 9.5px;
     vertical-align: middle;
   }
   .schedule-table tr:nth-child(even) td {
@@ -134,61 +135,67 @@ def generate_pdf():
     display: inline-block;
     background: #0f172a;
     color: #fff;
-    padding: 2px 6px;
+    padding: 2px 4.5px;
     border-radius: 4px;
     font-weight: 700;
-    font-size: 9.5px;
+    font-size: 8.5px;
   }
   .unit-pill {
     display: inline-block;
     background: #e0f2fe;
     color: #0369a1;
     font-weight: 600;
-    padding: 1px 5px;
+    padding: 1px 4px;
     border-radius: 3px;
-    font-size: 9.5px;
+    font-size: 8.5px;
     margin: 1px 1px;
+    border: 1px solid #bae6fd;
+  }
+  .unit-pill-highlight {
+    background: #fef3c7;
+    color: #b45309;
+    border-color: #fde68a;
   }
   .check-box {
     display: inline-block;
-    width: 13px;
-    height: 13px;
+    width: 11px;
+    height: 11px;
     border: 1.5px solid #64748b;
     border-radius: 3px;
     vertical-align: middle;
-    margin-right: 3px;
+    margin-right: 2px;
   }
 
   /* Bottom Grid */
   .bottom-grid {
     display: grid;
     grid-template-columns: 1.25fr 0.75fr;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 5px;
   }
   .tips-card {
     background: #fffbeb;
     border: 1px solid #fde68a;
     border-radius: 6px;
-    padding: 8px 10px;
+    padding: 5px 8px;
   }
   .tips-title {
     font-weight: 700;
     color: #b45309;
-    font-size: 10.5px;
-    margin-bottom: 3px;
+    font-size: 9.8px;
+    margin-bottom: 2px;
   }
   .tips-list {
-    padding-left: 14px;
-    font-size: 10px;
+    padding-left: 13px;
+    font-size: 9.2px;
     color: #92400e;
-    line-height: 1.35;
+    line-height: 1.28;
   }
   .next-card {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
     border-radius: 6px;
-    padding: 8px 10px;
+    padding: 5px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -196,20 +203,20 @@ def generate_pdf():
   .next-title {
     font-weight: 700;
     color: #166534;
-    font-size: 10.5px;
-    margin-bottom: 3px;
+    font-size: 9.8px;
+    margin-bottom: 2px;
   }
   .next-desc {
-    font-size: 10px;
+    font-size: 9.2px;
     color: #15803d;
-    line-height: 1.35;
+    line-height: 1.28;
   }
 
   /* Footer */
   .footer {
     border-top: 1px solid #e2e8f0;
-    padding-top: 6px;
-    font-size: 9px;
+    padding-top: 4px;
+    font-size: 8.2px;
     color: #64748b;
     display: flex;
     justify-content: space-between;
@@ -222,35 +229,35 @@ def generate_pdf():
     <!-- Header -->
     <div class="header">
       <div class="header-left">
-        <h1>SMOB ENGLISH LAB — KẾ HOẠCH TUẦN 1</h1>
-        <div class="subtitle">Lộ Trình Tái Khởi Động: Quét Cấp Tốc Unit 1 ➔ Unit 17 (Bắt đầu: Thứ 2, 14/09/2026)</div>
+        <h1>SMOB ENGLISH LAB — KẾ HOẠCH HỌC TẬP CHẮC CHẮN (7 NGÀY)</h1>
+        <div class="subtitle">Lộ Trình Củng Cố Vững Chắc Unit 1 ➔ Unit 17 (Bắt đầu: Thứ 7, 19/09 ➔ Thứ 6, 25/09/2026)</div>
       </div>
       <div class="header-badge">
-        <div>15 Phút/Ngày • Không Áp Lực</div>
-        <div style="font-size: 9.5px; opacity: 0.85;">Active Recall • Văn Phòng Yên Tĩnh</div>
+        <div>15 - 20 Phút/Ngày • Không Hời Hợt</div>
+        <div style="font-size: 8.8px; opacity: 0.9;">Xem Lý Thuyết Trước ➔ Làm Bài Thực Hành ➔ Khắc Phục Câu Sai</div>
       </div>
     </div>
     
     <!-- Strategy Cards -->
     <div class="strategy-grid">
       <div class="card">
-        <div class="card-title"><span class="tag-blue">🏢 Ban Ngày (Công ty - 15p)</span></div>
-        <div class="card-p"><strong>Làm thẳng Quiz trắc nghiệm:</strong> Không cần đọc lý thuyết trước. Câu nào sai đọc giải thích 10s để nhớ sâu ngay tại chỗ. Tắt tiếng hoàn toàn.</div>
+        <div class="card-title"><span class="tag-blue">📖 Xem Lướt Lý Thuyết Trước (5p)</span></div>
+        <div class="card-p"><strong>Khởi động nhận diện công thức:</strong> Mở tab Ngữ Pháp xem lướt bảng công thức, dấu hiệu nhận biết & ví dụ mẫu (3-5p) để não bộ có điểm tựa vững vàng trước khi làm bài.</div>
       </div>
       <div class="card">
-        <div class="card-title"><span class="tag-purple">🛋️ Buổi Tối (Ở nhà - 10-15p)</span></div>
-        <div class="card-p"><strong>Tiếp nhận thụ động:</strong> Bấm xem video bài giảng Unit bị sai nhiều hoặc lướt 5-10 thẻ Flashcard BQT. <em>Nếu mệt: Cho phép nghỉ 100%!</em></div>
+        <div class="card-title"><span class="tag-purple">✏️ Làm Quiz & Đọc Giải Thích (10-12p)</span></div>
+        <div class="card-p"><strong>Thực hành trắc nghiệm tự tin:</strong> Vận dụng ngay lý thuyết vừa xem để làm Quiz. Câu nào làm sai, dành 15s đọc kỹ giải thích chi tiết ngay tại chỗ để bịt lỗ hổng triệt để.</div>
       </div>
       <div class="card">
-        <div class="card-title"><span class="tag-green">💻 Cuối Tuần (Thứ 7 & CN)</span></div>
-        <div class="card-p"><strong>Nghỉ Tiếng Anh hoàn toàn:</strong> Dành 100% năng lượng cho chuyên môn kỹ thuật: Revit, Dynamo, phát triển Add-in SMOB và quay video.</div>
+        <div class="card-title"><span class="tag-amber">🛋️ Buổi Tối: Split View & Sổ Câu Sai</span></div>
+        <div class="card-p"><strong>Củng cố sâu không áp lực:</strong> Mở Split View xem lại video cô Mai Phương song song với sách, hoặc vào Sổ Tay Câu Sai làm lại các câu bị sai cho đến khi thuộc lòng.</div>
       </div>
     </div>
 
     <!-- Table Title -->
     <div class="section-title">
-      <span>CHI TIẾT LỊCH TRÌNH 5 NGÀY QUÉT CHẨN ĐOÁN (14/09 – 18/09/2026)</span>
-      <span style="font-size: 10px; font-weight: 500; color: #64748b;">Phần mềm: D:\2.English\phan mem hoc\SMOB English Lab.exe</span>
+      <span>CHI TIẾT LỊCH TRÌNH 7 NGÀY ÔN TẬP VỮNG CHẮC (19/09 – 25/09/2026)</span>
+      <span style="font-size: 9px; font-weight: 500; color: #64748b;">Phần mềm: D:\2.English\phan mem hoc\SMOB English Lab.exe</span>
     </div>
 
     <!-- Table -->
@@ -260,95 +267,119 @@ def generate_pdf():
           <th style="width: 14%;">Thời Gian</th>
           <th style="width: 25%;">Chủ Đề Trọng Tâm</th>
           <th style="width: 22%;">Các Unit Quét</th>
-          <th style="width: 27%;">Hành Động Cụ Thể (Ngày & Tối)</th>
-          <th style="width: 12%; text-align: center;">Hoàn Thành</th>
+          <th style="width: 28%;">Hành Động Cụ Thể (Lý Thuyết & Thực Hành)</th>
+          <th style="width: 11%; text-align: center;">Hoàn Thành</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><span class="day-badge">THỨ 2</span><br><strong style="font-size: 9.5px; color: #475569;">14/09/2026</strong></td>
-          <td><strong>Hệ TO BE & Wh- Questions</strong><br><span style="color: #64748b; font-size: 9.5px;">am/is/are, isn't/aren't, Who, What, Where, When</span></td>
+          <td><span class="day-badge">THỨ 7</span><br><strong style="font-size: 8.5px; color: #475569;">19/09/2026</strong></td>
+          <td><strong>Củng Cố Nền Móng: TO BE & Hiện Tại Đơn</strong><br><span style="color: #64748b; font-size: 8.5px;">am/is/are, Wh-questions, V-s/-es, Do/Does, don't/doesn't</span></td>
           <td>
             <span class="unit-pill">Unit 01</span> <span class="unit-pill">Unit 02</span><br>
-            <span class="unit-pill">Unit 03</span> <span class="unit-pill">Unit 04</span>
-          </td>
-          <td>
-            • <strong>Ngày (15p):</strong> Làm Quiz 4 Unit.<br>
-            • <strong>Tối (10p):</strong> Xem video Unit 01 hoặc lướt 5 Flashcard.
-          </td>
-          <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #64748b;">Score: ___%</span>
-          </td>
-        </tr>
-        <tr>
-          <td><span class="day-badge">THỨ 3</span><br><strong style="font-size: 9.5px; color: #475569;">15/09/2026</strong></td>
-          <td><strong>Động Từ Thường & Hiện Tại Đơn</strong><br><span style="color: #64748b; font-size: 9.5px;">Quy tắc -s/-es, trợ động từ don't/doesn't, Do/Does</span></td>
-          <td>
+            <span class="unit-pill">Unit 03</span> <span class="unit-pill">Unit 04</span><br>
             <span class="unit-pill">Unit 05</span> <span class="unit-pill">Unit 06</span><br>
             <span class="unit-pill">Unit 07</span> <span class="unit-pill">Unit 08</span>
           </td>
           <td>
-            • <strong>Ngày (15p):</strong> Làm Quiz 4 Unit.<br>
-            • <strong>Tối (10p):</strong> Xem video tổng hợp Unit 08 (HTĐ).
+            • <strong>Lý thuyết (5p):</strong> Lướt công thức to be & động từ thường (-s/-es, do/does).<br>
+            • <strong>Quiz (12p):</strong> Làm trắc nghiệm Unit 1->8.<br>
+            • <strong>Tối (10p):</strong> Xem giải thích câu sai trong Sổ tay. Split View Unit 08 nếu cần.
           </td>
           <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #64748b;">Score: ___%</span>
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #64748b;">Score: ___%</span>
+          </td>
+        </tr>
+        <tr style="background: #fffdf5;">
+          <td><span class="day-badge" style="background: #b45309;">CHỦ NHẬT</span><br><strong style="font-size: 8.5px; color: #b45309;">20/09/2026</strong></td>
+          <td><strong>Bản Lề: Từ Loại & Hiện Tại Tiếp Diễn</strong><br><span style="color: #b45309; font-size: 8.5px;">Vị trí Noun/Adj/Adv, be + V-ing, phân biệt HTĐ vs HTTD</span></td>
+          <td>
+            <span class="unit-pill unit-pill-highlight">Unit 09 (Từ Loại)</span><br>
+            <span class="unit-pill">Unit 10</span> <span class="unit-pill">Unit 11</span>
+          </td>
+          <td>
+            • <strong>Lý thuyết (7p):</strong> Đọc kỹ bảng phân biệt Danh - Động - Tính - Trạng & đuôi nhận biết Unit 09.<br>
+            • <strong>Quiz (10p):</strong> Làm trắc nghiệm Unit 09 & 10, 11.<br>
+            • <strong>Tối (10p):</strong> Quét chọn text tra từ. Xóa câu đã hiểu trong Sổ tay!
+          </td>
+          <td style="text-align: center;">
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #b45309; font-weight: 700;">Chắc Gốc</span>
           </td>
         </tr>
         <tr>
-          <td><span class="day-badge">THỨ 4</span><br><strong style="font-size: 9.5px; color: #475569;">16/09/2026</strong></td>
-          <td><strong>Từ Loại & Hiện Tại Tiếp Diễn</strong><br><span style="color: #64748b; font-size: 9.5px;">Vị trí Noun/Adj/Adv, be + V-ing, phân biệt HTĐ & HTTD</span></td>
-          <td>
-            <span class="unit-pill">Unit 09</span> <span class="unit-pill">Unit 10</span><br>
-            <span class="unit-pill">Unit 11</span>
-          </td>
-          <td>
-            • <strong>Ngày (15p):</strong> Làm Quiz 3 Unit.<br>
-            • <strong>Tối (10p):</strong> Xem video Unit 11 (Phân biệt HTĐ vs HTTD).
-          </td>
-          <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #64748b;">Score: ___%</span>
-          </td>
-        </tr>
-        <tr>
-          <td><span class="day-badge">THỨ 5</span><br><strong style="font-size: 9.5px; color: #475569;">17/09/2026</strong></td>
-          <td><strong>Hệ Quá Khứ & 40 Động Từ BQT</strong><br><span style="color: #64748b; font-size: 9.5px;">V-ed / V2, didn't + V-inf, was/were + V-ing</span></td>
+          <td><span class="day-badge">THỨ 2</span><br><strong style="font-size: 8.5px; color: #475569;">21/09/2026</strong></td>
+          <td><strong>Quá Khứ Đơn & 40 Động Từ BQT</strong><br><span style="color: #64748b; font-size: 8.5px;">V-ed / V2, didn't + V-inf, Did + S + V-inf?</span></td>
           <td>
             <span class="unit-pill">Unit 12</span> <span class="unit-pill">Unit 13</span><br>
+            <span class="unit-pill unit-pill-highlight">⭐ 40 từ BQT</span>
+          </td>
+          <td>
+            • <strong>Lý thuyết (5p):</strong> Đọc quy tắc thêm -ed & trợ động từ didn't/did trong quá khứ.<br>
+            • <strong>Quiz (10p):</strong> Làm bài tập Unit 12 & 13.<br>
+            • <strong>Tối (10p):</strong> Tab BQT lọc ⭐ 40 từ sao vàng. Quẹt 5-10 thẻ Flashcard 3 cột.
+          </td>
+          <td style="text-align: center;">
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #64748b;">Score: ___%</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">THỨ 3</span><br><strong style="font-size: 8.5px; color: #475569;">22/09/2026</strong></td>
+          <td><strong>Quá Khứ Tiếp Diễn & Phối Hợp Thì</strong><br><span style="color: #64748b; font-size: 8.5px;">was/were + V-ing, hành động xen vào (When/While)</span></td>
+          <td>
             <span class="unit-pill">Unit 14</span>
           </td>
           <td>
-            • <strong>Ngày (18p):</strong> Làm Quiz 3 Unit + 3p lướt ⭐ 40 từ BQT.<br>
-            • <strong>Tối (10p):</strong> Xem video Unit 12 hoặc quẹt Flashcard.
+            • <strong>Lý thuyết (5p):</strong> Mở Split View xem cô Mai Phương giảng When/While và công thức was/were + V-ing.<br>
+            • <strong>Quiz (10p):</strong> Làm bài tập Unit 14.<br>
+            • <strong>Tối (10p):</strong> Vào Phòng Luyện BQT làm 10 câu trắc nghiệm 3 cột phản xạ.
           </td>
           <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #64748b;">Score: ___%</span>
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #64748b;">Score: ___%</span>
           </td>
         </tr>
         <tr>
-          <td><span class="day-badge">THỨ 6</span><br><strong style="font-size: 9.5px; color: #475569;">18/09/2026</strong></td>
-          <td><strong>Hiện Tại Hoàn Thành & Tương Lai</strong><br><span style="color: #64748b; font-size: 9.5px;">have/has + V3, will + V-inf, will have + V3</span></td>
+          <td><span class="day-badge">THỨ 4</span><br><strong style="font-size: 8.5px; color: #475569;">23/09/2026</strong></td>
+          <td><strong>Thì Hiện Tại Hoàn Thành</strong><br><span style="color: #64748b; font-size: 8.5px;">have/has + V3, since, for, already, yet, ever, never</span></td>
           <td>
-            <span class="unit-pill">Unit 15</span> <span class="unit-pill">Unit 16</span><br>
-            <span class="unit-pill">Unit 17</span>
+            <span class="unit-pill">Unit 15</span>
           </td>
           <td>
-            • <strong>Ngày (15p):</strong> Làm Quiz 3 Unit + xem Bảng theo dõi.<br>
-            • <strong>Tối:</strong> TỔNG KẾT TUẦN 1 — Nghỉ ngơi xả hơi!
+            • <strong>Lý thuyết (5p):</strong> Xem bảng công thức have/has + V3 & các dấu hiệu since/for/already/yet.<br>
+            • <strong>Quiz (10p):</strong> Làm bài tập Unit 15.<br>
+            • <strong>Tối (10p):</strong> Xem bài giảng Unit 15 tốc độ 1.25x/1.5x để tránh bẫy giữa QKĐ và HTHT.
           </td>
           <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #64748b;">Score: ___%</span>
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #64748b;">Score: ___%</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="day-badge">THỨ 5</span><br><strong style="font-size: 8.5px; color: #475569;">24/09/2026</strong></td>
+          <td><strong>Hệ Thì Tương Lai: Đơn & Hoàn Thành</strong><br><span style="color: #64748b; font-size: 8.5px;">will + V-inf, will have + V3, by the time / by + mốc</span></td>
+          <td>
+            <span class="unit-pill">Unit 16</span> <span class="unit-pill">Unit 17</span>
+          </td>
+          <td>
+            • <strong>Lý thuyết (5p):</strong> Đọc tóm tắt thì Tương lai đơn (will) & Tương lai hoàn thành (will have + V3).<br>
+            • <strong>Quiz (10p):</strong> Làm bài Quiz Unit 16 & 17.<br>
+            • <strong>Tối (10p):</strong> Tổng kết ngắn lý thuyết Unit 17, đánh dấu các từ vựng mới cần nhớ.
+          </td>
+          <td style="text-align: center;">
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #64748b;">Score: ___%</span>
           </td>
         </tr>
         <tr style="background: #f0fdf4;">
-          <td><span class="day-badge" style="background: #166534;">THỨ 7 & CN</span><br><strong style="font-size: 9.5px; color: #166534;">19 – 20/09</strong></td>
-          <td><strong style="color: #166534;">Chuyên Môn Kỹ Thuật (BIM / SMOB)</strong><br><span style="color: #15803d; font-size: 9.5px;">Revit Add-in, Dynamo, quay video chia sẻ tool</span></td>
-          <td colspan="2">
-            • Nghỉ học tiếng Anh 100% để não bộ reset.<br>
-            • Dành toàn bộ thời gian cho công việc & dự án chuyên môn kỹ thuật cá nhân.
+          <td><span class="day-badge" style="background: #166534;">THỨ 6</span><br><strong style="font-size: 8.5px; color: #166534;">25/09/2026</strong></td>
+          <td><strong style="color: #166534;">TỔNG ÔN CHẮC CHẮN & MOCK TEST 17 UNITS</strong><br><span style="color: #15803d; font-size: 8.5px;">Quét sạch câu sai trong Sổ tay + Mock test phản xạ</span></td>
+          <td>
+            <span class="unit-pill" style="background: #dcfce7; color: #166534; border-color: #86efac;">Toàn bộ Unit 01 ➔ 17</span>
+          </td>
+          <td>
+            • <strong>Lý thuyết (5p):</strong> Lướt lại bảng tổng hợp ngữ pháp 17 Units.<br>
+            • <strong>Test & Sửa câu sai (15p):</strong> Làm lại toàn bộ câu trong Sổ Tay Câu Sai + Thi thử Mock Test 20 câu Unit 1-17 (mục tiêu >= 80%).<br>
+            • <strong>Tối:</strong> <strong>TỐT NGHIỆP 17 UNITS!</strong> Nghỉ ngơi trọn vẹn, sẵn sàng chuyển sang Unit 18.
           </td>
           <td style="text-align: center;">
-            <span class="check-box"></span> <br><span style="font-size: 9px; color: #166534; font-weight: 700;">SMOB Tool</span>
+            <span class="check-box"></span> <br><span style="font-size: 8px; color: #166534; font-weight: 700;">Đạt Chuẩn</span>
           </td>
         </tr>
       </tbody>
@@ -357,20 +388,20 @@ def generate_pdf():
     <!-- Bottom Highlights -->
     <div class="bottom-grid">
       <div class="tips-card">
-        <div class="tips-title">⚡ 3 NGUYÊN TẮC VÀNG DUY TRÌ THÓI QUEN KHÔNG BỎ CUỘC</div>
+        <div class="tips-title">⚡ 3 NGUYÊN TẮC VÀNG: HIỂU BẢN CHẤT MỚI LÀM BÀI</div>
         <ul class="tips-list">
-          <li><strong>Cố định mốc 15 phút:</strong> Làm ngay 15 phút đầu giờ sáng hoặc sau giờ ngủ trưa tại văn phòng.</li>
-          <li><strong>Đừng cầu toàn 100 điểm:</strong> Mục tiêu tuần này là chẩn đoán lỗ hổng. Sai càng nhiều thì phát hiện điểm yếu để bù đắp càng nhanh!</li>
-          <li><strong>Nguyên tắc Không Đứt Chuỗi:</strong> Nếu hôm nào bận đột xuất, chỉ cần làm đúng 1 bài Quiz (3 phút) để giữ streak!</li>
+          <li><strong>Xem lý thuyết trước 3 - 5 phút:</strong> Đừng đoán mò. Nắm chắc công thức và ví dụ mẫu trước để khi làm bài có phản xạ chính xác.</li>
+          <li><strong>Đọc kỹ giải thích khi làm sai:</strong> Sai câu nào đọc giải thích câu đó để hiểu bản chất sâu sắc và nhớ lâu gấp 3 lần.</li>
+          <li><strong>Làm sạch Sổ Tay Câu Sai:</strong> Dùng bộ lọc 3 danh mục và bấm "✓ Đã Thuộc / Xóa" để triệt tiêu dứt điểm mọi lỗ hổng kiến thức.</li>
         </ul>
       </div>
 
       <div class="next-card">
         <div>
-          <div class="next-title">🚀 MỤC TIÊU TUẦN 2 (TIẾP THEO)</div>
-          <div class="next-desc">Bắt đầu tiếp thu kiến thức mới từ <strong>Unit 18 ➔ Unit 48</strong> theo tiến độ 1 bài/ngày với tâm thế hoàn toàn tự tin và phản xạ nhạy bén.</div>
+          <div class="next-title">🚀 MỤC TIÊU TIẾP THEO (TỪ THỨ 7, 26/09)</div>
+          <div class="next-desc">Bắt đầu tiếp thu kiến thức mới từ <strong>Unit 18 (Ngữ âm: Nguyên âm & Phụ âm)</strong> và tiến tới Unit 48 với tâm thế hoàn toàn tự tin, nền móng vững chắc!</div>
         </div>
-        <div style="font-size: 9.5px; color: #0369a1; font-weight: 600; margin-top: 3px;">
+        <div style="font-size: 8.5px; color: #0369a1; font-weight: 600; margin-top: 1px;">
           App: D:\2.English\phan mem hoc\SMOB English Lab.exe
         </div>
       </div>
@@ -379,8 +410,8 @@ def generate_pdf():
 
   <!-- Footer -->
   <div class="footer">
-    <span>SMOB English Lab (48-Day Foundation Course) • Được tạo tự động bởi Antigravity</span>
-    <span>Ngày lập kế hoạch: 13/09/2026 • Áp dụng: 14/09/2026 – 20/09/2026</span>
+    <span>SMOB English Lab (48-Day Foundation Course) • Được lập trình cho: lethanhhuyabc52019</span>
+    <span>Ngày cập nhật: 19/09/2026 • Áp dụng: 19/09/2026 – 25/09/2026</span>
   </div>
 </div>
 </body>

@@ -44,10 +44,15 @@ class SmobApp {
     this.compTimeLimit = 15 * 60;
     this.compFinished = false;
 
-    // Video Theater State
+    // Video Theater & Split View State
     this.currentPlayingUnit = 1;
     this.videoElement = null;
     this.isMiniVideoOpen = false;
+    this.isSplitViewOpen = false;
+
+    // Mistakes Notebook Filter State
+    this.mistakesCategoryFilter = 'all'; // all | vocab_quizlet | grammar_theory | test_unit
+    this.mistakesUnitFilter = 'all'; // all | unitId
 
     // Audio Player State
     this.currentAudioTrack = null;
@@ -84,6 +89,10 @@ class SmobApp {
       isAnswered: false,
       timerSeconds: 0
     };
+
+    // Text Selection Floating Toolbar State
+    this.selectedText = '';
+    this.selectionToolbarTimer = null;
   }
 
   async init() {
@@ -94,6 +103,9 @@ class SmobApp {
     this.setupSearch();
     this.populateUnitDropdowns();
     this.initVideoPlayer();
+    this.initFloatingVideoInteractions();
+    this.initSplitViewResizer();
+    this.initTextSelectionToolbar();
 
     this.renderDashboard();
     this.renderUnitsCatalog();
@@ -127,6 +139,32 @@ class SmobApp {
     if (label) label.innerText = theme === 'dark' ? 'Chế độ Sáng' : 'Chế độ Tối';
   }
 
+  showToast(message, type = 'info', duration = 2800) {
+    if (!message) return;
+    let container = document.getElementById('smob-global-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'smob-global-toast-container';
+      container.className = 'smob-toast-container';
+      document.body.appendChild(container);
+    }
+    const toast = document.createElement('div');
+    toast.className = `smob-toast-item smob-toast-${type}`;
+    toast.innerHTML = `<span class="smob-toast-msg">${message}</span>`;
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.classList.add('smob-toast-visible');
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('smob-toast-visible');
+      setTimeout(() => {
+        if (toast.parentElement) toast.parentElement.removeChild(toast);
+      }, 300);
+    }, duration);
+  }
+
   escapeHtml(str) {
     if (!str) return '';
     return String(str)
@@ -142,8 +180,23 @@ class SmobApp {
       link.addEventListener('click', () => {
         const view = link.getAttribute('data-view');
         this.navigate(view);
+        this.toggleMobileSidebar(false);
       });
     });
+  }
+
+  toggleMobileSidebar(force) {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!sidebar) return;
+    const shouldOpen = (typeof force === 'boolean') ? force : !sidebar.classList.contains('mobile-open');
+    if (shouldOpen) {
+      sidebar.classList.add('mobile-open');
+      if (backdrop) backdrop.classList.add('active');
+    } else {
+      sidebar.classList.remove('mobile-open');
+      if (backdrop) backdrop.classList.remove('active');
+    }
   }
 
   setupGlobalShortcuts() {
@@ -165,6 +218,7 @@ class SmobApp {
   }
 
   navigate(viewId, pushHistory = true) {
+    this.toggleMobileSidebar(false);
     if (this.currentView === viewId) return;
 
     if (pushHistory && this.currentView && this.currentView !== viewId) {
@@ -198,6 +252,15 @@ class SmobApp {
       this.hidePersistentAudioBar();
     }
 
+    // Handle split view state when navigating away from grammar
+    if (this.isSplitViewOpen && viewId !== 'grammar') {
+      this.closeSplitView();
+      const video = this.videoElement || document.getElementById('embedded-video-player');
+      if (video && !video.paused) {
+        this.showMiniVideoDock();
+      }
+    }
+
     // Update nav-link active class
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.toggle('active', link.getAttribute('data-view') === viewId);
@@ -211,6 +274,7 @@ class SmobApp {
     const meta = {
       'dashboard': ['Dashboard', 'Chào mừng bạn trở lại với lộ trình 48 ngày lấy gốc'],
       'outcomes': ['Chuẩn Đầu Ra & Mục Tiêu 48 Ngày', 'Lộ trình chuyển đổi năng lực từ mất gốc đến TOEIC 550 - 700+ và tự tin giao tiếp'],
+      'study-plan': ['Kế Hoạch & Tiến Độ 48 Ngày', 'Lộ trình cá nhân hóa tự động cập nhật và dời lịch thông minh theo thời gian thực'],
       'units': ['48 Units Lộ Trình', 'Khóa học 48 ngày lấy gốc tiếng Anh toàn diện cô Mai Phương'],
       'unit-hub': [`Unit ${window.dataStore.currentUnitId}: Trạm Học Tập`, 'Tổng quan trạm học: Từ vựng, Ngữ pháp, Video, Audio và Bài thi gốc'],
       'vocabulary': ['Từ Vựng & Flashcards Chuẩn Quizlet', 'Học từ vựng trực quan với hình ảnh, Flashcard 3D và Bộ kiểm tra chuẩn Quizlet'],
@@ -230,20 +294,26 @@ class SmobApp {
       document.getElementById('page-description').innerText = meta[viewId][1];
     }
 
+    const curU = window.dataStore?.currentUnitId || 1;
     if (viewId === 'outcomes') {
-      const curU = window.dataStore?.currentUnitId || 1;
       const btn = document.getElementById('btn-outcomes-continue');
       if (btn) btn.innerHTML = `🚀 Tiếp Tục Học Unit ${curU}`;
     }
     if (viewId === 'dashboard') this.renderDashboard();
+    if (viewId === 'study-plan') {
+      if (window.dynamicPlan) window.dynamicPlan.render();
+    }
     if (viewId === 'mistakes') this.renderMistakes();
     if (viewId === 'analytics') this.renderAnalyticsView();
-    if (viewId === 'vocabulary') this.switchVocabUnit(window.dataStore.currentUnitId || 1);
-    if (viewId === 'grammar') this.switchGrammarUnit(window.dataStore.currentUnitId || 1);
+    if (viewId === 'vocabulary') this.switchVocabUnit(curU);
+    if (viewId === 'grammar') this.switchGrammarUnit(curU);
     if (viewId === 'comprehensive-test') this.initComprehensiveTestView();
-    if (viewId === 'tests') this.initPdfExamView();
+    if (viewId === 'tests') {
+      this.currentPdfUnit = curU;
+      this.initPdfExamView();
+    }
     if (viewId === 'videos') {
-      const targetVidUnit = this.currentPlayingUnit || window.dataStore.currentUnitId || parseInt(localStorage.getItem('smob_last_playing_unit')) || 1;
+      const targetVidUnit = curU || this.currentPlayingUnit || 1;
       this.loadTheaterVideo(targetVidUnit);
     }
   }
@@ -265,6 +335,7 @@ class SmobApp {
         this.closeQuizletSetupModal();
         this.closeGrammarTopicsModal();
         this.closeAIPronunciationModal();
+        this.closeUnansweredModal();
       }
 
       const isInput = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable);
@@ -384,6 +455,11 @@ class SmobApp {
       Math.round(testScores.reduce((a, b) => a + b.score, 0) / testScores.length) : 0;
     document.getElementById('dash-avg-score').innerText = `${avgScore}%`;
 
+    // Render Dynamic Study Plan & Circular Progress Gauge Widget
+    if (window.dynamicPlan) {
+      window.dynamicPlan.renderDashboardWidget();
+    }
+
     const grid = document.getElementById('dash-suggested-grid');
     if (!grid) return;
     grid.innerHTML = '';
@@ -462,6 +538,51 @@ class SmobApp {
   }
 
   // ==========================================
+  // GLOBAL UNIT SYNCHRONIZATION
+  // ==========================================
+  syncCurrentUnit(unitId, source = null) {
+    const uid = parseInt(unitId) || 1;
+    if (uid < 1 || uid > 48) return;
+
+    window.dataStore.setCurrentUnit(uid);
+    this.currentPdfUnit = uid;
+    this.currentVocabUnit = uid;
+    this.currentGrammarUnit = uid;
+    this.currentHubUnit = uid;
+    this.currentPlayingUnit = uid;
+
+    // Synchronize all dropdowns across views immediately
+    const dropdownIds = ['grammar-unit-select', 'vocab-unit-select', 'test-unit-select', 'hub-unit-select'];
+    dropdownIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && parseInt(el.value) !== uid) {
+        el.value = String(uid);
+      }
+    });
+
+    // Synchronize video playlist active item
+    document.querySelectorAll('.playlist-item').forEach(item => {
+      const isActive = item.getAttribute('data-unit-id') === String(uid);
+      item.classList.toggle('active', isActive);
+      if (isActive && this.currentView === 'videos') {
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
+
+    // If currently on videos view and source is external, load the video
+    if (this.currentView === 'videos' && source !== 'videos') {
+      this.loadTheaterVideo(uid);
+    }
+
+    // When switching active unit from outside quizlet modal, synchronize quizlet default
+    if (source !== 'quizlet_modal') {
+      try {
+        localStorage.setItem('smob_quizlet_selected_units', JSON.stringify([uid]));
+      } catch (e) {}
+    }
+  }
+
+  // ==========================================
   // UNIT HUB
   // ==========================================
   switchHubUnitOffset(delta) {
@@ -474,7 +595,7 @@ class SmobApp {
 
   openUnitHub(unitId) {
     const uid = parseInt(unitId) || 1;
-    window.dataStore.setCurrentUnit(uid);
+    this.syncCurrentUnit(uid, 'hub');
     const u = window.dataStore.getCurrentUnit();
     if (!u) return;
 
@@ -709,12 +830,16 @@ class SmobApp {
   }
 
   openUnitVocab() {
-    this.switchVocabUnit(window.dataStore.currentUnitId);
+    const curU = window.dataStore.currentUnitId || 1;
+    this.syncCurrentUnit(curU, 'vocabulary');
+    this.switchVocabUnit(curU);
     this.navigate('vocabulary');
   }
 
   openUnitGrammar() {
-    this.switchGrammarUnit(window.dataStore.currentUnitId);
+    const curU = window.dataStore.currentUnitId || 1;
+    this.syncCurrentUnit(curU, 'grammar');
+    this.switchGrammarUnit(curU);
     this.navigate('grammar');
   }
 
@@ -724,15 +849,14 @@ class SmobApp {
 
   openGrammarUnit(unitId) {
     const uid = parseInt(unitId) || 1;
-    window.dataStore.setCurrentUnit(uid);
+    this.syncCurrentUnit(uid, 'grammar');
     this.switchGrammarUnit(uid);
     this.navigate('grammar');
   }
 
   openUnitTest(unitId) {
     const uid = parseInt(unitId) || 1;
-    window.dataStore.setCurrentUnit(uid);
-    this.currentPdfUnit = uid;
+    this.syncCurrentUnit(uid, 'tests');
     this.navigate('tests');
     this.renderPdfOnlineExam(uid);
   }
@@ -919,10 +1043,19 @@ class SmobApp {
   }
 
   loadTheaterVideo(unitId) {
-    const uid = parseInt(unitId);
+    const uid = parseInt(unitId) || 1;
     this.currentPlayingUnit = uid;
     const u = window.dataStore.getUnit(uid);
     if (!u) return;
+
+    // Update playlist active item unconditionally
+    document.querySelectorAll('.playlist-item').forEach(item => {
+      const isActive = item.getAttribute('data-unit-id') === String(uid);
+      item.classList.toggle('active', isActive);
+      if (isActive) {
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
 
     document.getElementById('theater-unit-title').innerText = `Unit ${uid}: ${u.title.toUpperCase()}`;
     document.getElementById('theater-unit-sub').innerText = `Giáo viên: Cô Vũ Thị Mai Phương • ${u.stage_name} • File: ${u.source_trace?.video_file || 'mp4'}`;
@@ -1071,6 +1204,9 @@ class SmobApp {
   }
 
   showMiniVideoDock() {
+    if (this.isSplitViewOpen) {
+      this.closeSplitView();
+    }
     const dock = document.getElementById('floating-video-dock');
     const container = document.getElementById('mini-video-container');
     const video = this.videoElement || document.getElementById('embedded-video-player');
@@ -1088,6 +1224,9 @@ class SmobApp {
   }
 
   restoreVideoToTheater() {
+    if (this.isSplitViewOpen) {
+      this.closeSplitView();
+    }
     const dock = document.getElementById('floating-video-dock');
     const mainWrapper = document.getElementById('video-screen-wrapper');
     const video = this.videoElement || document.getElementById('embedded-video-player');
@@ -1102,6 +1241,9 @@ class SmobApp {
   }
 
   closeMiniVideoPlayer() {
+    if (this.isSplitViewOpen) {
+      this.closeSplitView();
+    }
     const video = this.videoElement || document.getElementById('embedded-video-player');
     if (video) video.pause();
     const dock = document.getElementById('floating-video-dock');
@@ -1111,6 +1253,289 @@ class SmobApp {
       mainWrapper.insertBefore(video, mainWrapper.firstChild);
     }
     this.isMiniVideoOpen = false;
+  }
+
+  // ==========================================
+  // SPLIT VIEW CONTROLLER (SÁCH + VIDEO BÀI GIẢNG)
+  // ==========================================
+  toggleSplitView() {
+    if (this.isSplitViewOpen) {
+      this.closeSplitView();
+    } else {
+      this.openSplitView();
+    }
+  }
+
+  openSplitView(targetUnit = null) {
+    const curU = targetUnit || window.dataStore.currentUnitId || this.currentPlayingUnit || 1;
+    if (this.currentView !== 'grammar') {
+      this.navigate('grammar');
+    }
+
+    this.isSplitViewOpen = true;
+    const layout = document.getElementById('grammar-split-layout-box');
+    const rightPane = document.getElementById('grammar-split-right-pane');
+    const splitWrapper = document.getElementById('split-video-wrapper');
+    const btnGm = document.getElementById('btn-gm-split-view');
+    const btnVid = document.getElementById('btn-vid-split');
+
+    if (layout) layout.classList.add('split-active');
+    if (rightPane) rightPane.style.display = 'flex';
+
+    if (btnGm) {
+      btnGm.classList.add('active');
+      btnGm.innerHTML = '◫ Đang Xem Đôi';
+      btnGm.style.background = 'var(--accent)';
+      btnGm.style.color = '#ffffff';
+    }
+    if (btnVid) btnVid.classList.add('active');
+
+    // Close floating dock if open
+    const dock = document.getElementById('floating-video-dock');
+    if (dock) dock.style.display = 'none';
+    this.isMiniVideoOpen = false;
+
+    // Ensure video element is inside video-screen-wrapper
+    const video = this.videoElement || document.getElementById('embedded-video-player');
+    const screenWrapper = document.getElementById('video-screen-wrapper');
+    if (screenWrapper && video && video.parentElement !== screenWrapper) {
+      screenWrapper.insertBefore(video, screenWrapper.firstChild);
+    }
+
+    // Move entire video stage container (screen + controls) into splitWrapper
+    const stage = document.getElementById('video-stage-container');
+    if (splitWrapper && stage && stage.parentElement !== splitWrapper) {
+      splitWrapper.appendChild(stage);
+    }
+
+    // Update split title
+    const u = window.dataStore.getUnit(curU);
+    const titleEl = document.getElementById('split-video-title');
+    if (titleEl && u) {
+      titleEl.innerText = `Unit ${curU}: ${u.title}`;
+    }
+
+    // Load or ensure video is playing
+    if (!video.src || this.currentPlayingUnit !== curU) {
+      this.loadTheaterVideo(curU);
+    } else if (video.paused) {
+      video.play().catch(() => {});
+    }
+
+    this.showToast(`◫ Đã bật Chế Độ Xem Đôi: Vừa đọc sách vừa xem video Unit ${curU}`);
+  }
+
+  closeSplitView() {
+    this.isSplitViewOpen = false;
+    const layout = document.getElementById('grammar-split-layout-box');
+    const rightPane = document.getElementById('grammar-split-right-pane');
+    const leftPane = document.getElementById('grammar-split-left-pane');
+    const btnGm = document.getElementById('btn-gm-split-view');
+    const btnVid = document.getElementById('btn-vid-split');
+
+    if (layout) layout.classList.remove('split-active');
+    if (rightPane) rightPane.style.display = 'none';
+    if (leftPane) {
+      leftPane.style.flex = '';
+      leftPane.style.width = '100%';
+    }
+
+    if (btnGm) {
+      btnGm.classList.remove('active');
+      btnGm.innerHTML = '◫ Xem Đôi Cùng Video';
+      btnGm.style.background = '';
+      btnGm.style.color = '';
+    }
+    if (btnVid) btnVid.classList.remove('active');
+
+    // Restore video stage container back to main theater player box
+    const stage = document.getElementById('video-stage-container');
+    const mainPlayerBox = document.getElementById('main-video-player-box');
+    const metaBar = document.getElementById('video-meta-bar');
+    if (mainPlayerBox && stage && stage.parentElement !== mainPlayerBox) {
+      if (metaBar) {
+        mainPlayerBox.insertBefore(stage, metaBar);
+      } else {
+        mainPlayerBox.appendChild(stage);
+      }
+    }
+
+    // Also ensure video is inside video-screen-wrapper
+    const mainWrapper = document.getElementById('video-screen-wrapper');
+    const video = this.videoElement || document.getElementById('embedded-video-player');
+    if (mainWrapper && video && video.parentElement !== mainWrapper) {
+      mainWrapper.insertBefore(video, mainWrapper.firstChild);
+    }
+
+    this.showToast('✕ Đã tắt Xem Đôi. Trở về toàn màn hình sách giáo trình.');
+  }
+
+  expandSplitToFullVideo() {
+    this.closeSplitView();
+    this.navigate('videos');
+    this.showToast('⤢ Đã mở rộng toàn màn hình Video Bài Giảng');
+  }
+
+  openSplitViewFromPiP() {
+    const uid = this.currentPlayingUnit || window.dataStore.currentUnitId || 1;
+    this.closeMiniVideoPlayer();
+    this.openSplitView(uid);
+  }
+
+  initSplitViewResizer() {
+    const divider = document.getElementById('grammar-split-divider');
+    const layout = document.getElementById('grammar-split-layout-box');
+    const leftPane = document.getElementById('grammar-split-left-pane');
+    const rightPane = document.getElementById('grammar-split-right-pane');
+    if (!divider || !layout || !leftPane || !rightPane) return;
+
+    divider.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      divider.classList.add('is-dragging');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+
+      const layoutRect = layout.getBoundingClientRect();
+      const totalWidth = layoutRect.width;
+
+      const onMouseMove = (ev) => {
+        const offsetLeft = ev.clientX - layoutRect.left;
+        const percentLeft = (offsetLeft / totalWidth) * 100;
+        if (percentLeft >= 25 && percentLeft <= 75) {
+          leftPane.style.flex = `0 0 ${percentLeft}%`;
+          rightPane.style.flex = `0 0 ${100 - percentLeft}%`;
+        }
+      };
+
+      const onMouseUp = () => {
+        divider.classList.remove('is-dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      };
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+  }
+
+  // ==========================================
+  // FLOATING MINI VIDEO DOCK INTERACTIONS (DRAGGABLE & RESIZABLE PIP)
+  // ==========================================
+  initFloatingVideoInteractions() {
+    const dock = document.getElementById('floating-video-dock');
+    const dragHandle = document.getElementById('floating-dock-drag-handle');
+    const resizeHandle = document.getElementById('floating-dock-resize-handle');
+    if (!dock || !dragHandle) return;
+
+    // Restore saved width and position
+    try {
+      const savedWidth = localStorage.getItem('smob_pip_width');
+      if (savedWidth) {
+        const w = parseInt(savedWidth, 10);
+        if (w >= 260 && w <= 750) {
+          dock.style.width = `${w}px`;
+        }
+      }
+      const savedPos = JSON.parse(localStorage.getItem('smob_pip_pos') || 'null');
+      if (savedPos && typeof savedPos.left === 'number' && typeof savedPos.top === 'number') {
+        const maxL = Math.max(10, window.innerWidth - (dock.offsetWidth || 360) - 10);
+        const maxT = Math.max(10, window.innerHeight - (dock.offsetHeight || 220) - 10);
+        dock.style.left = `${Math.min(Math.max(10, savedPos.left), maxL)}px`;
+        dock.style.top = `${Math.min(Math.max(10, savedPos.top), maxT)}px`;
+        dock.style.right = 'auto';
+        dock.style.bottom = 'auto';
+      }
+    } catch (e) {}
+
+    // Dragging interaction
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let initialLeft = 0, initialTop = 0;
+
+    dragHandle.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button') || e.target.closest('.ctrl-btn')) return;
+      isDragging = true;
+      dock.classList.add('is-dragging');
+
+      const rect = dock.getBoundingClientRect();
+      initialLeft = rect.left;
+      initialTop = rect.top;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      dock.style.left = `${initialLeft}px`;
+      dock.style.top = `${initialTop}px`;
+      dock.style.right = 'auto';
+      dock.style.bottom = 'auto';
+
+      const onMouseMove = (ev) => {
+        if (!isDragging) return;
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+        const maxL = Math.max(10, window.innerWidth - dock.offsetWidth - 10);
+        const maxT = Math.max(10, window.innerHeight - dock.offsetHeight - 10);
+        const newL = Math.min(Math.max(10, initialLeft + dx), maxL);
+        const newT = Math.min(Math.max(10, initialTop + dy), maxT);
+        dock.style.left = `${newL}px`;
+        dock.style.top = `${newT}px`;
+      };
+
+      const onMouseUp = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        dock.classList.remove('is-dragging');
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+        try {
+          localStorage.setItem('smob_pip_pos', JSON.stringify({
+            left: parseInt(dock.style.left, 10),
+            top: parseInt(dock.style.top, 10)
+          }));
+        } catch (err) {}
+      };
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+
+    // Resizing interaction
+    if (resizeHandle) {
+      let isResizing = false;
+      let rStartX = 0, rStartW = 0;
+
+      resizeHandle.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        isResizing = true;
+        rStartX = e.clientX;
+        rStartW = dock.offsetWidth;
+        dock.classList.add('is-dragging');
+
+        const onResizeMove = (ev) => {
+          if (!isResizing) return;
+          const dw = ev.clientX - rStartX;
+          const maxW = Math.min(750, window.innerWidth - 40);
+          const newW = Math.min(Math.max(260, rStartW + dw), maxW);
+          dock.style.width = `${newW}px`;
+        };
+
+        const onResizeUp = () => {
+          if (!isResizing) return;
+          isResizing = false;
+          dock.classList.remove('is-dragging');
+          window.removeEventListener('mousemove', onResizeMove);
+          window.removeEventListener('mouseup', onResizeUp);
+          try {
+            localStorage.setItem('smob_pip_width', dock.offsetWidth);
+          } catch (err) {}
+        };
+
+        window.addEventListener('mousemove', onResizeMove);
+        window.addEventListener('mouseup', onResizeUp);
+      });
+    }
   }
 
   toggleVideoPlay() {
@@ -1236,6 +1661,7 @@ class SmobApp {
         </div>
       `;
       item.onclick = () => {
+        this.syncCurrentUnit(u.unit_number, 'videos');
         this.loadTheaterVideo(u.unit_number);
       };
       container.appendChild(item);
@@ -1252,9 +1678,17 @@ class SmobApp {
   // ==========================================
   // VOCABULARY & FLASHCARDS (QUIZLET-STYLE)
   // ==========================================
+  switchVocabUnitOffset(offset) {
+    const cur = window.dataStore.currentUnitId || 1;
+    let next = cur + offset;
+    if (next < 1) next = 48;
+    if (next > 48) next = 1;
+    this.switchVocabUnit(next);
+  }
+
   switchVocabUnit(unitId) {
     const uid = parseInt(unitId) || 1;
-    window.dataStore.setCurrentUnit(uid);
+    this.syncCurrentUnit(uid, 'vocabulary');
     const u = window.dataStore.getUnit(uid);
     if (!u) return;
 
@@ -1317,10 +1751,16 @@ class SmobApp {
 
   setVocabMode(mode) {
     this.vocabMode = mode;
+    this.closeUnansweredModal();
     const btnFc = document.getElementById('btn-mode-fc');
     if (btnFc) btnFc.classList.toggle('active', mode === 'flashcard');
     const btnLearn = document.getElementById('btn-mode-learn');
     if (btnLearn) btnLearn.classList.toggle('active', mode === 'learn');
+
+    const vocabToolbar = document.getElementById('vocab-sticky-toolbar');
+    if (vocabToolbar) vocabToolbar.style.display = 'flex';
+    const fcProg = document.getElementById('fc-progress-container');
+    if (fcProg) fcProg.style.display = (mode === 'flashcard') ? 'block' : 'none';
 
     const fcArea = document.getElementById('vocab-flashcard-area');
     if (fcArea) fcArea.style.display = (mode === 'flashcard') ? 'block' : 'none';
@@ -1839,15 +2279,34 @@ class SmobApp {
     const units = window.dataStore.units;
     const curUnitId = window.dataStore.currentUnitId || 1;
 
+    let savedUnits = null;
+    try {
+      const raw = localStorage.getItem('smob_quizlet_selected_units');
+      if (raw) savedUnits = JSON.parse(raw);
+    } catch (e) {}
+
+    const isChecked = (uNum) => {
+      if (Array.isArray(savedUnits) && savedUnits.length > 0) {
+        return savedUnits.includes(uNum);
+      }
+      return uNum === curUnitId;
+    };
+
     units.forEach(u => {
       const label = document.createElement('label');
       label.className = 'unit-check-label';
       label.innerHTML = `
-        <input type="checkbox" class="qz-unit-cb" value="${u.unit_number}" ${u.unit_number === curUnitId ? 'checked' : ''} onchange="window.smobApp.updateQuizletSelectedSummary()">
+        <input type="checkbox" class="qz-unit-cb" value="${u.unit_number}" ${isChecked(u.unit_number) ? 'checked' : ''} onchange="window.smobApp.updateQuizletSelectedSummary()">
         <span>Unit ${u.unit_number < 10 ? '0' + u.unit_number : u.unit_number}</span>
       `;
       container.appendChild(label);
     });
+
+    const savedQCount = localStorage.getItem('smob_quizlet_q_count');
+    if (savedQCount) {
+      const inputCount = document.getElementById('qz-questions-input');
+      if (inputCount) inputCount.value = savedQCount;
+    }
 
     this.updateQuizletSelectedSummary();
     modal.style.display = 'flex';
@@ -1875,12 +2334,25 @@ class SmobApp {
     this.updateQuizletSelectedSummary();
   }
 
+  selectOnlyCurrentQuizletUnit() {
+    const curUnitId = window.dataStore.currentUnitId || 1;
+    document.querySelectorAll('.qz-unit-cb').forEach(cb => {
+      cb.checked = (parseInt(cb.value) === curUnitId);
+    });
+    this.updateQuizletSelectedSummary();
+  }
+
   updateQuizletSelectedSummary() {
     const selected = Array.from(document.querySelectorAll('.qz-unit-cb:checked')).map(cb => parseInt(cb.value));
+    if (selected.length > 0) {
+      try {
+        localStorage.setItem('smob_quizlet_selected_units', JSON.stringify(selected));
+      } catch (e) {}
+    }
     let totalVocab = 0;
     selected.forEach(uid => {
       const u = window.dataStore.getUnit(uid);
-      if (u) totalVocab += u.vocabulary.length;
+      if (u && u.vocabulary) totalVocab += u.vocabulary.length;
     });
 
     const summary = document.getElementById('qz-selected-units-summary');
@@ -1890,7 +2362,12 @@ class SmobApp {
     const maxLabel = document.getElementById('qz-max-count-label');
     if (maxLabel) maxLabel.innerText = `(max ${totalVocab} từ)`;
     const inputCount = document.getElementById('qz-questions-input');
-    if (inputCount) inputCount.max = totalVocab;
+    if (inputCount) {
+      inputCount.max = Math.max(totalVocab, 5);
+      if (parseInt(inputCount.value) > totalVocab && totalVocab > 0) {
+        inputCount.value = Math.min(20, totalVocab);
+      }
+    }
   }
 
   startGeneratedQuizletTest() {
@@ -1900,7 +2377,13 @@ class SmobApp {
       return;
     }
 
-    const qCountInput = parseInt(document.getElementById('qz-questions-input').value) || 20;
+    let qCountInput = 20;
+    try {
+      localStorage.setItem('smob_quizlet_selected_units', JSON.stringify(selectedUnits));
+      qCountInput = parseInt(document.getElementById('qz-questions-input').value) || 20;
+      localStorage.setItem('smob_quizlet_q_count', qCountInput);
+    } catch (e) {}
+
     const answerWith = document.getElementById('qz-answer-with-select').value; // both | en | vi
     const useTF = document.getElementById('qz-switch-tf').checked;
     const useMC = document.getElementById('qz-switch-mc').checked;
@@ -1999,12 +2482,19 @@ class SmobApp {
   }
 
   renderQuizletTestRunner() {
+    this.closeUnansweredModal();
     const fcArea = document.getElementById('vocab-flashcard-area');
     if (fcArea) fcArea.style.display = 'none';
     const quizArea = document.getElementById('vocab-quiz-area');
     if (quizArea) quizArea.style.display = 'none';
     const resScreen = document.getElementById('vocab-quizlet-result-screen');
     if (resScreen) resScreen.style.display = 'none';
+
+    // Hide outer toolbars so Quizlet test header is the only sticky element
+    const vocabToolbar = document.getElementById('vocab-sticky-toolbar');
+    if (vocabToolbar) vocabToolbar.style.display = 'none';
+    const fcProg = document.getElementById('fc-progress-container');
+    if (fcProg) fcProg.style.display = 'none';
 
     const runner = document.getElementById('vocab-quizlet-test-runner');
     if (!runner) return;
@@ -2014,6 +2504,9 @@ class SmobApp {
     if (titleEl) titleEl.innerText = `Kiểm Tra Quizlet (${this.quizletQuestions.length} Câu Hỏi)`;
     const progEl = document.getElementById('qz-test-progress-text');
     if (progEl) progEl.innerText = `Đã trả lời 0 / ${this.quizletQuestions.length} câu`;
+
+    const progBar = document.getElementById('qz-sticky-progress-bar');
+    if (progBar) progBar.style.width = '0%';
 
     // Start timer
     this.quizletTimerSeconds = 0;
@@ -2039,6 +2532,7 @@ class SmobApp {
       const headerDiv = document.createElement('div');
       headerDiv.style.display = 'flex';
       headerDiv.style.justifyContent = 'space-between';
+      headerDiv.style.alignItems = 'center';
       headerDiv.style.marginBottom = '8px';
       headerDiv.innerHTML = `
         <span style="font-size: 13px; font-weight: 700; color: var(--accent);">CÂU ${idx + 1} / ${this.quizletQuestions.length}</span>
@@ -2115,41 +2609,153 @@ class SmobApp {
     btn.style.background = 'var(--accent-bg)';
     btn.style.color = 'var(--accent)';
 
-    const answeredCount = Object.keys(this.quizletAnswers).length;
+    // Remove unanswered alert when user interacts
+    const qzCard = document.getElementById(`qz-card-${qId}`);
+    if (qzCard) {
+      qzCard.classList.remove('exam-card-unanswered-alert');
+      const badge = qzCard.querySelector('.unans-badge-tag');
+      if (badge) badge.remove();
+    }
+
+    const answeredCount = Object.keys(this.quizletAnswers).filter(k => (this.quizletAnswers[k] || '').trim().length > 0).length;
     const pEl = document.getElementById('qz-test-progress-text');
     if (pEl) pEl.innerText = `Đã trả lời ${answeredCount} / ${this.quizletQuestions.length} câu`;
+
+    const progBar = document.getElementById('qz-sticky-progress-bar');
+    if (progBar && this.quizletQuestions.length > 0) {
+      const pct = Math.round((answeredCount / this.quizletQuestions.length) * 100);
+      progBar.style.width = pct + '%';
+    }
   }
 
   exitQuizletTest() {
     clearInterval(this.quizletTimerInterval);
+    this.closeUnansweredModal();
     const runner = document.getElementById('vocab-quizlet-test-runner');
     if (runner) runner.style.display = 'none';
     const res = document.getElementById('vocab-quizlet-result-screen');
     if (res) res.style.display = 'none';
     const fcArea = document.getElementById('vocab-flashcard-area');
     if (fcArea) fcArea.style.display = 'block';
+
+    const vocabToolbar = document.getElementById('vocab-sticky-toolbar');
+    if (vocabToolbar) vocabToolbar.style.display = 'flex';
+    const fcProg = document.getElementById('fc-progress-container');
+    if (fcProg) fcProg.style.display = 'block';
   }
 
   setQuizletWrittenAnswer(qId, val) {
     if (val.trim()) {
       this.quizletAnswers[qId] = val.trim();
+      const qzCard = document.getElementById(`qz-card-${qId}`);
+      if (qzCard) {
+        qzCard.classList.remove('exam-card-unanswered-alert');
+        const badge = qzCard.querySelector('.unans-badge-tag');
+        if (badge) badge.remove();
+      }
     } else {
       delete this.quizletAnswers[qId];
     }
-    const answeredCount = Object.keys(this.quizletAnswers).length;
-    document.getElementById('qz-test-progress-text').innerText = `Đã trả lời ${answeredCount} / ${this.quizletQuestions.length} câu`;
+    const answeredCount = Object.keys(this.quizletAnswers).filter(k => (this.quizletAnswers[k] || '').trim().length > 0).length;
+    const pEl = document.getElementById('qz-test-progress-text');
+    if (pEl) pEl.innerText = `Đã trả lời ${answeredCount} / ${this.quizletQuestions.length} câu`;
+
+    const progBar = document.getElementById('qz-sticky-progress-bar');
+    if (progBar && this.quizletQuestions.length > 0) {
+      const pct = Math.round((answeredCount / this.quizletQuestions.length) * 100);
+      progBar.style.width = pct + '%';
+    }
   }
 
   finishQuizletTest() {
+    // Clear any previous alerts
+    document.querySelectorAll('#qz-test-questions-container .exam-card-unanswered-alert').forEach(el => el.classList.remove('exam-card-unanswered-alert'));
+    document.querySelectorAll('#qz-test-questions-container .unans-badge-tag').forEach(el => el.remove());
+
+    const total = this.quizletQuestions.length;
+    const missing = [];
+
+    this.quizletQuestions.forEach((q, idx) => {
+      const ans = (this.quizletAnswers[q.id] || '').trim();
+      if (!ans) {
+        missing.push({
+          id: q.id,
+          num: idx + 1,
+          q: q
+        });
+      }
+    });
+
+    if (missing.length > 0) {
+      // 1. Light up red on unanswered question cards
+      missing.forEach(m => {
+        const card = document.getElementById(`qz-card-${m.id}`);
+        if (card) {
+          card.classList.add('exam-card-unanswered-alert');
+          const header = card.querySelector('div');
+          if (header && !card.querySelector('.unans-badge-tag')) {
+            const badge = document.createElement('span');
+            badge.className = 'unans-badge-tag';
+            badge.innerText = '⚠️ Chưa trả lời';
+            header.appendChild(badge);
+          }
+        }
+      });
+
+      // 2. Show confirmation modal
+      this.showUnansweredConfirmModal({
+        testType: 'quizlet_test',
+        title: 'Chưa Hoàn Thành Bài Kiểm Tra Quizlet!',
+        total: total,
+        answered: total - missing.length,
+        missingList: missing,
+        onConfirmSubmit: () => this._doFinishQuizletTest(),
+        onJump: (qId) => {
+          const target = document.getElementById(`qz-card-${qId}`);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const inp = target.querySelector('input');
+            if (inp) inp.focus();
+            target.style.transition = 'box-shadow 0.3s';
+            target.style.boxShadow = '0 0 0 4px #ef4444';
+            setTimeout(() => { target.style.boxShadow = ''; }, 1500);
+          }
+        }
+      });
+      return;
+    }
+
+    this._doFinishQuizletTest();
+  }
+
+  _doFinishQuizletTest() {
+    this.closeUnansweredModal();
     clearInterval(this.quizletTimerInterval);
     const total = this.quizletQuestions.length;
     let correct = 0;
 
     this.quizletQuestions.forEach(q => {
-      const userAns = (this.quizletAnswers[q.id] || '').trim().toLowerCase();
+      const userAnsRaw = (this.quizletAnswers[q.id] || '').trim();
+      const userAns = userAnsRaw.toLowerCase();
       const correctAns = q.correctAnswer.trim().toLowerCase();
       if (userAns === correctAns) {
         correct++;
+      } else {
+        const wordStr = q.item?.word || 'Từ vựng';
+        const ipaStr = q.item?.ipa ? ` (${q.item.ipa})` : '';
+        const meanStr = q.item?.meaning || '';
+        const exStr = q.item?.example ? ` • Ví dụ: "${q.item.example}"` : '';
+        const expl = `Từ vựng gốc: ${wordStr}${ipaStr} ➔ ${meanStr}${exStr}`;
+        const stem = q.stem || `Nghĩa của từ vựng "${wordStr}"`;
+        window.dataStore.recordMistake(
+          q.unitId || window.dataStore.currentUnitId || 1,
+          q.id,
+          stem,
+          userAnsRaw || '(Chưa làm)',
+          q.correctAnswer,
+          expl,
+          'vocab_quizlet'
+        );
       }
     });
 
@@ -2157,6 +2763,11 @@ class SmobApp {
     document.getElementById('vocab-quizlet-test-runner').style.display = 'none';
     const resScreen = document.getElementById('vocab-quizlet-result-screen');
     resScreen.style.display = 'block';
+
+    const vocabToolbar = document.getElementById('vocab-sticky-toolbar');
+    if (vocabToolbar) vocabToolbar.style.display = 'flex';
+    const fcProg = document.getElementById('fc-progress-container');
+    if (fcProg) fcProg.style.display = 'block';
 
     document.getElementById('qz-res-icon').innerText = percent >= 80 ? '🏆' : (percent >= 50 ? '⭐' : '📖');
     document.getElementById('qz-res-title').innerText = percent >= 80 ? 'Tuyệt Vời! Bạn Đã Hoàn Thành Xuất Sắc' : 'Kết Quả Bài Kiểm Tra';
@@ -2258,7 +2869,7 @@ class SmobApp {
 
   switchGrammarUnit(unitId) {
     const uid = parseInt(unitId) || 1;
-    window.dataStore.setCurrentUnit(uid);
+    this.syncCurrentUnit(uid, 'grammar');
     const u = window.dataStore.getUnit(uid);
     if (!u) return;
 
@@ -2271,6 +2882,15 @@ class SmobApp {
     const subEl = document.getElementById('grammar-unit-sub');
     if (subEl) {
       subEl.innerText = `Unit ${u.unit_number}: ${u.title} • ${totalPages > 0 ? totalPages + ' trang giáo trình gốc (100% đầy đủ)' : u.grammar.sections.length + ' chuyên đề'}`;
+    }
+
+    // Sync split view video if active
+    if (this.isSplitViewOpen) {
+      const splitTitle = document.getElementById('split-video-title');
+      if (splitTitle) splitTitle.innerText = `Unit ${uid}: ${u.title}`;
+      if (this.currentPlayingUnit !== uid) {
+        this.loadTheaterVideo(uid);
+      }
     }
 
     // 1. Populate Mode 1: Full Book Reader transformed into pedagogical learning cards & interactive quizzes
@@ -2485,6 +3105,88 @@ class SmobApp {
     return html;
   }
 
+  getPartsOfSpeechLegendHtml() {
+    return `
+      <div class="pdf-quiz-legend-card">
+        <div class="legend-header-row">
+          <div class="legend-title">
+            <span>💡 BẢNG QUY ƯỚC KÝ HIỆU TỪ LOẠI (HƯỚNG DẪN ĐIỀN ĐÁP ÁN)</span>
+          </div>
+          <span class="legend-badge-tag">Chuẩn Quốc Tế & Song Ngữ</span>
+        </div>
+        <div class="legend-table-wrapper">
+          <table class="legend-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Từ loại tiếng Việt</th>
+                <th style="width: 25%;">Ký hiệu chuẩn (Khuyên dùng)</th>
+                <th style="width: 22%;">Ký hiệu chấp nhận thêm</th>
+                <th style="width: 28%;">Ví dụ minh họa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tính từ sở hữu</strong></td>
+                <td><span class="legend-code-pill">POSS</span> <span class="legend-code-desc">(viết tắt: Possessive)</span></td>
+                <td><span class="legend-code-alt">TTSH</span></td>
+                <td><em>my, your, his, her, their, our, its</em></td>
+              </tr>
+              <tr>
+                <td><strong>Đại từ nhân xưng</strong></td>
+                <td><span class="legend-code-pill">PRON</span> <span class="legend-code-desc">(viết tắt: Pronoun)</span></td>
+                <td><span class="legend-code-alt">PRO</span> <span class="legend-code-alt">ĐTX</span></td>
+                <td><em>I, you, we, they, he, she, it</em></td>
+              </tr>
+              <tr>
+                <td><strong>Danh từ</strong></td>
+                <td><span class="legend-code-pill">N</span> <span class="legend-code-desc">(viết tắt: Noun)</span></td>
+                <td><span class="legend-code-alt">DT</span></td>
+                <td><em>mother, flat, book, weather, room, cat</em></td>
+              </tr>
+              <tr>
+                <td><strong>Động từ to be</strong></td>
+                <td><span class="legend-code-pill">BE</span> <span class="legend-code-desc">(viết tắt: To be)</span></td>
+                <td><span class="legend-code-alt">TO BE</span> <span class="legend-code-alt">TOBE</span></td>
+                <td><em>is, am, are, was, were</em></td>
+              </tr>
+              <tr>
+                <td><strong>Động từ thường</strong></td>
+                <td><span class="legend-code-pill">V</span> <span class="legend-code-desc">(viết tắt: Verb)</span></td>
+                <td><span class="legend-code-alt">VERB</span> <span class="legend-code-alt">ĐT</span></td>
+                <td><em>have, drive, sing, study, work</em></td>
+              </tr>
+              <tr>
+                <td><strong>Tính từ</strong></td>
+                <td><span class="legend-code-pill">ADJ</span> <span class="legend-code-desc">(viết tắt: Adjective)</span></td>
+                <td><span class="legend-code-alt">TINHTU</span> <span class="legend-code-alt">TT</span></td>
+                <td><em>happy, lovely, great, nice, tidy, easy, small</em></td>
+              </tr>
+              <tr>
+                <td><strong>Trạng từ</strong></td>
+                <td><span class="legend-code-pill">ADV</span> <span class="legend-code-desc">(viết tắt: Adverb)</span></td>
+                <td><span class="legend-code-alt">TRANGTU</span> <span class="legend-code-alt">TRT</span></td>
+                <td><em>carefully, well, very, quite, quickly</em></td>
+              </tr>
+              <tr>
+                <td><strong>Mạo từ</strong></td>
+                <td><span class="legend-code-pill">ART</span> <span class="legend-code-desc">(viết tắt: Article)</span></td>
+                <td><span class="legend-code-alt">MT</span></td>
+                <td><em>a, an, the</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="legend-rule-box">
+          <strong>📌 Quy ước cách điền đáp án bài tập Phân tích từ loại:</strong><br>
+          • Phân tích từ loại từng từ trong câu theo thứ tự từ trái sang phải.<br>
+          • Ngăn cách giữa các từ bằng dấu gạch ngang (<code>-</code>) hoặc khoảng trắng.<br>
+          • Không phân biệt chữ HOA hay thường (bạn gõ <code>poss-n-be-adj</code> hay <code>POSS - N - BE - ADJ</code> đều được tính đúng).<br>
+          • <strong>Ví dụ:</strong> <em>Her mother is happy.</em> ➔ Điền: <strong><code>POSS - N - BE - ADJ</code></strong> (hoặc <strong><code>TTSH - DT - BE - TT</code></strong>).
+        </div>
+      </div>
+    `;
+  }
+
   renderStructuredTheory(u, container) {
     if (!container) return;
     const fullText = u.full_theory_text || u.theory_text || '';
@@ -2559,7 +3261,7 @@ class SmobApp {
           'Look', 'Listen', 'Read', 'Write', 'Choose', 'Fill', 'Match', 'Complete', 'Check'
         ];
         if (englishStarters.includes(fw)) {
-          if (!/\b(?:và|trong|của)\b/i.test(l)) {
+          if (!/(?:^|\s)(?:và|trong|của|với|hoặc)(?:\s|$|[.,:;])/i.test(l)) {
             return false;
           }
         }
@@ -2571,12 +3273,12 @@ class SmobApp {
       const textPart = m[2].trim();
       
       // Translation exercise items
-      if (/^(?:\d+\s+giờ|\$\d+|giáo viên của|mẹ của|xe ô tô của|cuốn sách của|chị gái của|bố của|bạn của|nhà của|con chó của|trường học của|môn thể thao yêu thích|anh rể của|chị của|sở thích của tôi là|nghề nghiệp của)\b/i.test(textPart)) {
+      if (/^(?:\d+\s+giờ|\$\d+|giáo viên của|mẹ của|xe ô tô của|cuốn sách của|chị gái của|bố của|bạn của|nhà của|con chó của|trường học của|môn thể thao yêu thích|anh rể của|chị của|sở thích của tôi là|nghề nghiệp của)/i.test(textPart)) {
         return false;
       }
       
       if (textPart.endsWith('.') && textPart.split(/\s+/).length >= 4) {
-        if (/\blà\b|\bthích\b|\bchơi\b|\bđang\b|\bở\b/i.test(textPart)) {
+        if (/(?:^|\s)(?:là|thích|chơi|đang|ở)(?:\s|$)/i.test(textPart)) {
           return false;
         }
       }
@@ -2592,9 +3294,9 @@ class SmobApp {
         'thuyết trình', 'giới thiệu', 'bước', 'phần', 'bài học', 'tổng hợp', 'lưu ý', 'bảng'
       ];
       
-      const tLower = textPart.lower ? textPart.toLowerCase() : textPart;
+      const tLower = textPart.toLowerCase();
       if (vnGrammarKeywords.some(k => tLower.includes(k))) return true;
-      if (/\b(?:và|trong|của|với|hoặc|cho|được|như|khi|sau|trước)\b/i.test(tLower)) return true;
+      if (/(?:^|\s)(?:và|trong|của|với|hoặc|cho|được|như|khi|sau|trước)(?:\s|$|[.,:;])/i.test(tLower)) return true;
       
       const hasVnAccents = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(tLower);
       if (hasVnAccents && textPart.split(/\s+/).length <= 6 && !textPart.endsWith('.')) return true;
@@ -2841,14 +3543,37 @@ class SmobApp {
         continue;
       }
 
-      // 5. CURRICULUM TOPICS (1. Danh từ số ít, 2. This, that, these và those, 3. Here và There)
-      if (isCurriculumTopic(line)) {
-        out += `
-          <div class="pdf-topic-heading">
-            <span class="pdf-topic-bullet">🔹</span>
-            <span class="pdf-topic-title">${this.escapeHtml(line)}</span>
-          </div>
-        `;
+      // 5. CURRICULUM TOPICS & SUBTOPICS (e.g. 1. Danh từ, 1.1. Định nghĩa, 1.2. Vị trí...)
+      if (isCurriculumTopic(line) || /^\d+\.\d+(?:\.\d+)*\.?\s+/.test(line)) {
+        const numMatch = line.trim().match(/^(\d+(?:\.\d+)*)\.?\s+(.*)$/);
+        if (numMatch) {
+          const numStr = numMatch[1];
+          const textPart = numMatch[2].trim();
+          const depth = numStr.split('.').length;
+          if (depth === 1) {
+            // Level 1: Chuyên đề chính (e.g. "1. Danh từ (Noun - N)")
+            out += `
+              <div class="pdf-topic-heading-lvl1">
+                <span class="pdf-topic-num-badge">${this.escapeHtml(numStr)}</span>
+                <span class="pdf-topic-title-lvl1">${this.escapeHtml(textPart || line)}</span>
+              </div>
+            `;
+          } else {
+            // Level 2+: Tiểu mục chi tiết (e.g. "1.1. Định nghĩa", "1.2. Vị trí...")
+            out += `
+              <div class="pdf-topic-heading-lvl2">
+                <span class="pdf-subtopic-num-tag">${this.escapeHtml(numStr)}</span>
+                <span class="pdf-topic-title-lvl2">${this.escapeHtml(textPart || line)}</span>
+              </div>
+            `;
+          }
+        } else {
+          out += `
+            <div class="pdf-topic-heading-lvl1">
+              <span class="pdf-topic-title-lvl1">${this.escapeHtml(line)}</span>
+            </div>
+          `;
+        }
         i++;
         continue;
       }
@@ -2929,10 +3654,13 @@ class SmobApp {
 
       // 5b. SUBTOPIC HEADINGS (e.g. 2.1. Cách dùng, 2.2. Cách chia động từ to be, 4.1. Cấu trúc, 4.2. Thể nghi vấn...)
       if (/^\d+\.\d+(?:\.\d+)*\.?\s+/.test(line)) {
+        const m = line.trim().match(/^(\d+(?:\.\d+)*)\.?\s*(.*)$/);
+        const numStr = m ? m[1] : '';
+        const textPart = m ? m[2].trim() : line;
         out += `
-          <div class="pdf-subtopic-banner">
-            <span class="pdf-subtopic-dot">⚡</span>
-            <span class="pdf-subtopic-text">${this.escapeHtml(line)}</span>
+          <div class="pdf-topic-heading-lvl2">
+            ${numStr ? `<span class="pdf-subtopic-num-tag">${this.escapeHtml(numStr)}</span>` : ''}
+            <span class="pdf-topic-title-lvl2">${this.escapeHtml(textPart || line)}</span>
           </div>
         `;
         i++;
@@ -3115,7 +3843,7 @@ class SmobApp {
       if (line.startsWith('▪') || line.startsWith('')) {
         out += `
           <div class="pdf-rule-card">
-            <span class="pdf-rule-icon">🔹</span>
+            <span class="pdf-rule-bullet">•</span>
             <div class="pdf-rule-content">${this.escapeHtml(line.replace(/^[▪]\s*/, ''))}</div>
           </div>
         `;
@@ -3393,6 +4121,31 @@ class SmobApp {
       }
     }
 
+    // Special Customer-First Legend Cards for Guided Worksheets
+    let legendHtml = '';
+    const isUnit9Pos = unitNumber === 9 || /từ loại|part of speech|parts of speech/i.test(quizTitleAndDesc + ' ' + finalInstruction);
+    const isUnit31Time = unitNumber === 31 || /cách nói giờ|thời gian|o'clock|đọc giờ/i.test(quizTitleAndDesc + ' ' + finalInstruction);
+
+    if (isUnit9Pos) {
+      legendHtml = this.getPartsOfSpeechLegendHtml();
+    } else if (isUnit31Time) {
+      legendHtml = `
+        <div class="pdf-quiz-legend-card">
+          <div class="legend-header-row">
+            <div class="legend-title">
+              <span>⏰ HƯỚNG DẪN QUY ƯỚC CÁCH VIẾT GIỜ (UNIT 31)</span>
+            </div>
+            <span class="legend-badge-tag">Cách nói giờ tiếng Anh</span>
+          </div>
+          <div class="legend-rule-box">
+            • <strong>Giờ đúng:</strong> Gõ <em>5:00</em> hoặc <em>5 o'clock</em> (hoặc <em>five o'clock</em>).<br>
+            • <strong>Giờ hơn / kém:</strong> Gõ <em>4:25</em> (twenty-five past four), <em>7:30</em> (half past seven / 7:30).<br>
+            • <strong>Buổi sáng / tối:</strong> Gõ <em>9 p.m.</em> (9 giờ tối), <em>11 a.m.</em> (11 giờ trưa), <em>2 a.m.</em> (2 giờ sáng).
+          </div>
+        </div>
+      `;
+    }
+
     // Render Question Rows (Each item is a distinct, spacious card)
     let qRowsHtml = '';
     qItems.forEach((item, idx) => {
@@ -3474,10 +4227,10 @@ class SmobApp {
         // Translation or Fill-in-the-blank or Part-of-speech Input
         const cleanStem = item.stem.replace(/_{2,}|\.{3,}/g, '').trim();
         let placeholderText = "Nhập đáp án tiếng Anh...";
-        if (unitNumber === 9 || finalInstruction.toLowerCase().includes('từ loại')) {
-          placeholderText = "Nhập từ loại của câu (Ví dụ: Her: TTSH, mother: N, is: to be, happy: Adj)...";
-        } else if (unitNumber === 31 || finalInstruction.toLowerCase().includes('giờ')) {
-          placeholderText = "Nhập cách nói giờ (Ví dụ: 5 o'clock)...";
+        if (isUnit9Pos) {
+          placeholderText = "Gõ chuỗi từ loại (Ví dụ: POSS - N - BE - ADJ hoặc TTSH - N - BE - ADJ)...";
+        } else if (isUnit31Time) {
+          placeholderText = "Nhập cách nói giờ (Ví dụ: 5 o'clock hoặc 5:00)...";
         }
 
         qRowsHtml += `
@@ -3498,7 +4251,7 @@ class SmobApp {
 
     this._theoryQuizzes = this._theoryQuizzes || {};
     this._theoryQuizzes[quizId] = {
-      unitNumber: unitNumber,
+      unitNumber,
       questions: qItems,
       isReadingExercise: isReadingExercise
     };
@@ -3539,6 +4292,7 @@ class SmobApp {
         </div>
         <div class="pdf-quiz-body">
           ${sampleHtml}
+          ${legendHtml}
           ${qRowsHtml}
         </div>
         ${actionsRowHtml}
@@ -3858,13 +4612,66 @@ class SmobApp {
       if (oAm) return { key: oAm.key, text: oAm.text, expl: 'Chủ ngữ "I" đi với động từ to be <strong>am</strong>.' };
     }
 
+    // 8. UNIT 9: PARTS OF SPEECH (Từ loại)
+    if (s.includes('sings')) {
+      const oBeautifully = findOpt(/^beautifully$/i);
+      if (oBeautifully) return { key: oBeautifully.key, text: oBeautifully.text, expl: 'Sau động từ thường "sings" ta dùng trạng từ chỉ cách thức <strong>beautifully</strong> để bổ nghĩa cho động từ đó.' };
+    }
+    if (s.includes('great')) {
+      const oTeacher = findOpt(/^teacher$/i);
+      if (oTeacher) return { key: oTeacher.key, text: oTeacher.text, expl: 'Cụm danh từ: Mạo từ (a) + Tính từ (great) + Danh từ (<strong>teacher</strong>).' };
+    }
+    if (s.includes('students are')) {
+      const oFriendly = findOpt(/^friendly$/i);
+      if (oFriendly) return { key: oFriendly.key, text: oFriendly.text, expl: 'Sau động từ to be "are" ta dùng tính từ miêu tả đặc điểm (<strong>friendly</strong>).' };
+    }
+    if (s.includes('homework is')) {
+      const oEasy = findOpt(/^easy$/i);
+      if (oEasy) return { key: oEasy.key, text: oEasy.text, expl: 'Sau động từ to be "is" ta dùng tính từ đóng vai trò vị ngữ (<strong>easy</strong>).' };
+    }
+
+    // 9. UNIT 35: REFLEXIVE PRONOUNS (Đại từ phản thân)
+    if (/\b(?:he|john|my son|lukas|david)\b/i.test(s)) {
+      const oHimself = findOpt(/^himself$/i);
+      if (oHimself) return { key: oHimself.key, text: oHimself.text, expl: 'Chủ ngữ ngôi thứ 3 số ít giống đực (He/John/My son) đi với đại từ phản thân <strong>himself</strong>.' };
+    }
+    if (/\b(?:she|mary|my daughter|linda|her daughter)\b/i.test(s)) {
+      const oHerself = findOpt(/^herself$/i);
+      if (oHerself) return { key: oHerself.key, text: oHerself.text, expl: 'Chủ ngữ ngôi thứ 3 số ít giống cái (She/Mary/My daughter) đi với đại từ phản thân <strong>herself</strong>.' };
+    }
+    if (/\bthey\b/i.test(s)) {
+      const oThemselves = findOpt(/^themselves$/i);
+      if (oThemselves) return { key: oThemselves.key, text: oThemselves.text, expl: 'Chủ ngữ số nhiều "They" đi với đại từ phản thân <strong>themselves</strong>.' };
+    }
+    if (/\bwe\b/i.test(s)) {
+      const oOurselves = findOpt(/^ourselves$/i);
+      if (oOurselves) return { key: oOurselves.key, text: oOurselves.text, expl: 'Chủ ngữ ngôi thứ nhất số nhiều "We" đi với đại từ phản thân <strong>ourselves</strong>.' };
+    }
+    if (/\bi\b/i.test(s)) {
+      const oMyself = findOpt(/^myself$/i);
+      if (oMyself) return { key: oMyself.key, text: oMyself.text, expl: 'Chủ ngữ "I" đi với đại từ phản thân <strong>myself</strong>.' };
+    }
+    if (/\b(?:software|cat|dog|it)\b/i.test(s)) {
+      const oItself = findOpt(/^itself$/i);
+      if (oItself) return { key: oItself.key, text: oItself.text, expl: 'Chủ ngữ chỉ sự vật "It" đi với đại từ phản thân <strong>itself</strong>.' };
+    }
+
     // Default Fallback
     const fallbackOpt = opts[0] || { key: 'A', text: '' };
     return {
       key: fallbackOpt.key,
       text: fallbackOpt.text,
-      expl: `Dựa vào cấu trúc ngữ pháp và ngữ cảnh bài học, đáp án chính xác là <strong>${fallbackOpt.key}. ${fallbackOpt.text}</strong>.`
+      expl: `Dựa vào cấu trúc ngữ pháp bài học Unit ${unitNumber}, phương án chuẩn xác là <strong>${fallbackOpt.key}. ${fallbackOpt.text}</strong>.`
     };
+  }
+
+  formatTheoryExplanation(expl) {
+    if (!expl) return '';
+    let s = String(expl);
+    s = s.replace(/\$\\implies\$/g, '➜').replace(/\$\\rightarrow\$/g, '➜').replace(/\\rightarrow/g, '➜').replace(/\\implies/g, '➜');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return s;
   }
 
   checkTheoryQuiz(quizId, unitNumber) {
@@ -3876,19 +4683,134 @@ class SmobApp {
 
     let correctCount = 0;
 
-    // Unit 9 Parts of Speech breakdown table
+    // Unit 9 Parts of Speech breakdown table (Standard & Bilingual)
     const unit9Lookup = {
-      'her mother is happy': { ans: 'Her (TTSH) - mother (Danh từ) - is (To be) - happy (Tính từ)', expl: '<strong>Her</strong>: Tính từ sở hữu | <strong>mother</strong>: Danh từ (N) | <strong>is</strong>: Động từ to be | <strong>happy</strong>: Tính từ (Adj) đứng sau to be.' },
-      'they have a lovely flat': { ans: 'They (Đại từ) - have (Động từ) - a (Mạo từ) - lovely (Tính từ) - flat (Danh từ)', expl: '<strong>They</strong>: Đại từ nhân xưng | <strong>have</strong>: Động từ thường | <strong>a</strong>: Mạo từ | <strong>lovely</strong>: Tính từ | <strong>flat</strong>: Danh từ (N).' },
-      'he drives carefully': { ans: 'He (Đại từ) - drives (Động từ) - carefully (Trạng từ)', expl: '<strong>He</strong>: Đại từ nhân xưng | <strong>drives</strong>: Động từ thường | <strong>carefully</strong>: Trạng từ chỉ cách thức bổ nghĩa cho động từ "drives".' },
-      'the book is very great': { ans: 'The (Mạo từ) - book (Danh từ) - is (To be) - very (Trạng từ) - great (Tính từ)', expl: '<strong>The</strong>: Mạo từ | <strong>book</strong>: Danh từ | <strong>is</strong>: To be | <strong>very</strong>: Trạng từ chỉ mức độ | <strong>great</strong>: Tính từ.' },
-      'the weather is nice': { ans: 'The (Mạo từ) - weather (Danh từ) - is (To be) - nice (Tính từ)', expl: '<strong>The</strong>: Mạo từ | <strong>weather</strong>: Danh từ | <strong>is</strong>: To be | <strong>nice</strong>: Tính từ.' },
-      'his room is tidy': { ans: 'His (TTSH) - room (Danh từ) - is (To be) - tidy (Tính từ)', expl: '<strong>His</strong>: Tính từ sở hữu | <strong>room</strong>: Danh từ | <strong>is</strong>: To be | <strong>tidy</strong>: Tính từ.' },
-      'he sings well': { ans: 'He (Đại từ) - sings (Động từ) - well (Trạng từ)', expl: '<strong>He</strong>: Đại từ nhân xưng | <strong>sings</strong>: Động từ thường | <strong>well</strong>: Trạng từ chỉ cách thức bổ nghĩa cho "sings".' },
-      'the homework is easy': { ans: 'The (Mạo từ) - homework (Danh từ) - is (To be) - easy (Tính từ)', expl: '<strong>The</strong>: Mạo từ | <strong>homework</strong>: Danh từ | <strong>is</strong>: To be | <strong>easy</strong>: Tính từ.' },
-      'her daughter is careless': { ans: 'Her (TTSH) - daughter (Danh từ) - is (To be) - careless (Tính từ)', expl: '<strong>Her</strong>: Tính từ sở hữu | <strong>daughter</strong>: Danh từ | <strong>is</strong>: To be | <strong>careless</strong>: Tính từ.' },
-      'the boy is quite active': { ans: 'The (Mạo từ) - boy (Danh từ) - is (To be) - quite (Trạng từ) - active (Tính từ)', expl: '<strong>The</strong>: Mạo từ | <strong>boy</strong>: Danh từ | <strong>is</strong>: To be | <strong>quite</strong>: Trạng từ chỉ mức độ | <strong>active</strong>: Tính từ.' }
+      'her mother is happy': {
+        tokens: ['POSS', 'N', 'BE', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'POSS - N - BE - ADJ (TTSH - N - BE - ADJ)',
+        expl: '<strong>Her</strong>: Tính từ sở hữu (POSS/TTSH) | <strong>mother</strong>: Danh từ (N) | <strong>is</strong>: Động từ to be (BE) | <strong>happy</strong>: Tính từ (ADJ) đứng sau to be.'
+      },
+      'they have a lovely flat': {
+        tokens: ['PRON', 'V', 'ART', 'ADJ', 'N'],
+        targetWordPos: 'ADJ',
+        ans: 'PRON - V - ART - ADJ - N (PRO - V - MT - ADJ - N)',
+        expl: '<strong>They</strong>: Đại từ nhân xưng (PRON/PRO) | <strong>have</strong>: Động từ thường (V) | <strong>a</strong>: Mạo từ (ART/MT) | <strong>lovely</strong>: Tính từ (ADJ) | <strong>flat</strong>: Danh từ (N).'
+      },
+      'he drives carefully': {
+        tokens: ['PRON', 'V', 'ADV'],
+        targetWordPos: 'ADV',
+        ans: 'PRON - V - ADV (PRO - V - ADV)',
+        expl: '<strong>He</strong>: Đại từ nhân xưng (PRON/PRO) | <strong>drives</strong>: Động từ thường (V) | <strong>carefully</strong>: Trạng từ chỉ cách thức (ADV) bổ nghĩa cho động từ "drives".'
+      },
+      'the book is very great': {
+        tokens: ['ART', 'N', 'BE', 'ADV', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'ART - N - BE - ADV - ADJ (MT - N - BE - ADV - ADJ)',
+        expl: '<strong>The</strong>: Mạo từ (ART/MT) | <strong>book</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>very</strong>: Trạng từ chỉ mức độ (ADV) | <strong>great</strong>: Tính từ (ADJ).'
+      },
+      'the weather is nice': {
+        tokens: ['ART', 'N', 'BE', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'ART - N - BE - ADJ (MT - N - BE - ADJ)',
+        expl: '<strong>The</strong>: Mạo từ (ART/MT) | <strong>weather</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>nice</strong>: Tính từ (ADJ).'
+      },
+      'his room is tidy': {
+        tokens: ['POSS', 'N', 'BE', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'POSS - N - BE - ADJ (TTSH - N - BE - ADJ)',
+        expl: '<strong>His</strong>: Tính từ sở hữu (POSS/TTSH) | <strong>room</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>tidy</strong>: Tính từ (ADJ).'
+      },
+      'he sings well': {
+        tokens: ['PRON', 'V', 'ADV'],
+        targetWordPos: 'ADV',
+        ans: 'PRON - V - ADV (PRO - V - ADV)',
+        expl: '<strong>He</strong>: Đại từ nhân xưng (PRON/PRO) | <strong>sings</strong>: Động từ thường (V) | <strong>well</strong>: Trạng từ chỉ cách thức (ADV) bổ nghĩa cho "sings".'
+      },
+      'the homework is easy': {
+        tokens: ['ART', 'N', 'BE', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'ART - N - BE - ADJ (MT - N - BE - ADJ)',
+        expl: '<strong>The</strong>: Mạo từ (ART/MT) | <strong>homework</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>easy</strong>: Tính từ (ADJ).'
+      },
+      'her daughter is careless': {
+        tokens: ['POSS', 'N', 'BE', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'POSS - N - BE - ADJ (TTSH - N - BE - ADJ)',
+        expl: '<strong>Her</strong>: Tính từ sở hữu (POSS/TTSH) | <strong>daughter</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>careless</strong>: Tính từ (ADJ).'
+      },
+      'the boy is quite active': {
+        tokens: ['ART', 'N', 'BE', 'ADV', 'ADJ'],
+        targetWordPos: 'ADJ',
+        ans: 'ART - N - BE - ADV - ADJ (MT - N - BE - ADV - ADJ)',
+        expl: '<strong>The</strong>: Mạo từ (ART/MT) | <strong>boy</strong>: Danh từ (N) | <strong>is</strong>: To be (BE) | <strong>quite</strong>: Trạng từ chỉ mức độ (ADV) | <strong>active</strong>: Tính từ (ADJ).'
+      }
     };
+
+    const removeVietnameseAccents = (str) => {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'D');
+    };
+
+    const matchUnit9Pos = (uInput, targetObj) => {
+      if (!uInput || !targetObj) return false;
+      const clean = uInput.trim();
+      if (!clean) return false;
+
+      const mapToken = (raw) => {
+        const t = removeVietnameseAccents(raw || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (['poss', 'ttsh', 'tinhtusohuu', 'pos'].includes(t)) return 'POSS';
+        if (['pron', 'pro', 'daitu', 'daitunhanxung'].includes(t)) return 'PRON';
+        if (['n', 'dt', 'danhtu', 'noun'].includes(t)) return 'N';
+        if (['be', 'tobe', 'dongtutobe', 'is', 'am', 'are', 'was', 'were'].includes(t)) return 'BE';
+        if (['v', 'dongtu', 'verb', 'dongtuthuong'].includes(t)) return 'V';
+        if (['adj', 'tt', 'tinhtu', 'adjective', 'a'].includes(t)) return 'ADJ';
+        if (['adv', 'trt', 'trangtu', 'adverb'].includes(t)) return 'ADV';
+        if (['art', 'mt', 'maotu', 'article'].includes(t)) return 'ART';
+        return t.toUpperCase();
+      };
+
+      // 1. Check parentheses format first: e.g. "Her (TTSH) - mother (Danh từ) - is (To be) - happy (Tính từ)"
+      const parenMatches = clean.match(/\(([^)]+)\)/g);
+      if (parenMatches && parenMatches.length === targetObj.tokens.length) {
+        const extractedTokens = parenMatches.map(p => mapToken(p.replace(/[\(\)]/g, '')));
+        if (extractedTokens.join('-') === targetObj.tokens.join('-')) return true;
+      }
+
+      // 2. Collapse multi-word terms and unaccent
+      const collapsed = removeVietnameseAccents(clean)
+        .toLowerCase()
+        .replace(/to\s+be/gi, 'tobe')
+        .replace(/tinh\s+tu\s+so\s+huu/gi, 'poss')
+        .replace(/tinh\s+tu/gi, 'adj')
+        .replace(/trang\s+tu/gi, 'adv')
+        .replace(/danh\s+tu/gi, 'n')
+        .replace(/dai\s+tu\s+nhan\s+xung/gi, 'pron')
+        .replace(/dai\s+tu/gi, 'pron')
+        .replace(/dong\s+tu\s+to\s+be/gi, 'tobe')
+        .replace(/dong\s+tu\s+thuong/gi, 'v')
+        .replace(/dong\s+tu/gi, 'v')
+        .replace(/mao\s+tu/gi, 'art');
+
+      const rawTokens = collapsed.split(/[\s\-,\/|]+/).filter(Boolean);
+      const userTokens = rawTokens.map(mapToken);
+
+      // 3. Exact token sequence match
+      if (userTokens.length === targetObj.tokens.length) {
+        if (userTokens.join('-') === targetObj.tokens.join('-')) return true;
+      }
+
+      // 4. Lenient single word check (only if user entered just 1 token, e.g. "Tính từ" or "Adj")
+      if (userTokens.length === 1) {
+        if (userTokens[0] === targetObj.targetWordPos) return true;
+      }
+
+      return false;
+    };
+
 
     // Unit 31 Time notation lookup
     const unit31Lookup = {
@@ -3980,8 +4902,44 @@ class SmobApp {
           explBox.innerHTML = `<strong>💡 Lời giải chi tiết:</strong> ${expl}`;
         }
       } else if (q.type === 'CHOICE') {
-        const solved = this.solveTheoryQuizAnswer(q.stem, q.options, unitNumber);
-        const correctKey = solved.key;
+        const itemKey = `${quizId}_${idx}`;
+        let correctKey = 'A';
+        let explText = '';
+
+        const theoryDB = window.SMOB_THEORY_QUIZZES;
+        const stemNorm = (q.stem || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        let groundTruth = theoryDB ? (theoryDB[itemKey] || null) : null;
+
+        // Smart Content Guard: verify stem match
+        if (groundTruth) {
+          const dbStemNorm = (groundTruth.stem || groundTruth.targetWord || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+          const isStemOk = (stemNorm === dbStemNorm) || (stemNorm.length > 6 && dbStemNorm.length > 6 && (stemNorm.includes(dbStemNorm) || dbStemNorm.includes(stemNorm)));
+          if (!isStemOk) groundTruth = null;
+        }
+
+        // Fallback search by content within the unit
+        if (!groundTruth && theoryDB) {
+          for (const k in theoryDB) {
+            const it = theoryDB[k];
+            if (it.unit === unitNumber) {
+              const itNorm = (it.stem || it.targetWord || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+              if (itNorm === stemNorm || (stemNorm.length > 6 && itNorm.length > 6 && (stemNorm.includes(itNorm) || itNorm.includes(stemNorm)))) {
+                groundTruth = it;
+                break;
+              }
+            }
+          }
+        }
+
+        if (groundTruth && groundTruth.correct_key) {
+          correctKey = groundTruth.correct_key;
+          explText = groundTruth.explanation;
+        } else {
+          const solved = this.solveTheoryQuizAnswer(q.stem, q.options, unitNumber);
+          correctKey = solved.key;
+          explText = solved.expl;
+        }
+
         const isCorrect = userAns.toUpperCase() === correctKey.toUpperCase();
         if (isCorrect) correctCount++;
 
@@ -3999,7 +4957,7 @@ class SmobApp {
         }
         if (explBox) {
           explBox.style.display = 'block';
-          explBox.innerHTML = `<strong>💡 Lời giải chi tiết: Đáp án đúng là ${correctKey}.</strong> ${solved.expl}`;
+          explBox.innerHTML = `<strong>💡 Lời giải chi tiết (Đáp án đúng: ${correctKey}):</strong><br>${this.formatTheoryExplanation(explText)}`;
         }
       } else if (q.type === 'TEXTAREA') {
         if (userAns.trim().length > 0) correctCount++;
@@ -4011,16 +4969,51 @@ class SmobApp {
           explBox.innerHTML = `<strong>💡 Gợi ý:</strong> Bạn có thể nghe lại audio để bổ sung các ý chính còn thiếu hoặc đối chiếu với phần Audio Script của bài học.`;
         }
       } else {
-        // Translation or Fill-in-the-blank or Unit 9 / Unit 31 Input
+        // Translation or Fill-in-the-blank or Unit 9 / Unit 31 Input / Grammatical transformations
+        const itemKey = `${quizId}_${idx}`;
+        const theoryDB = window.SMOB_THEORY_QUIZZES;
+        const stemNorm = (q.stem || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        let groundTruth = theoryDB ? (theoryDB[itemKey] || null) : null;
+
+        // Smart Content Guard for INPUT: verify stem match
+        if (groundTruth) {
+          const dbStemNorm = (groundTruth.stem || groundTruth.targetWord || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+          const isStemOk = (stemNorm === dbStemNorm) || (stemNorm.length > 6 && dbStemNorm.length > 6 && (stemNorm.includes(dbStemNorm) || dbStemNorm.includes(stemNorm)));
+          if (!isStemOk) groundTruth = null;
+        }
+
+        // Fallback search by content within the unit for INPUT
+        if (!groundTruth && theoryDB) {
+          for (const k in theoryDB) {
+            const it = theoryDB[k];
+            if (it.unit === unitNumber) {
+              const itNorm = (it.stem || it.targetWord || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+              if (itNorm === stemNorm || (stemNorm.length > 6 && itNorm.length > 6 && (stemNorm.includes(itNorm) || itNorm.includes(stemNorm)))) {
+                groundTruth = it;
+                break;
+              }
+            }
+          }
+        }
+
         const stemClean = (q.stem || '').replace(/^\d+\.\s*/, '').replace(/\.$/, '').trim().toLowerCase();
         let expectedAns = '';
         let explText = '';
         let isMatch = false;
+        const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim().replace(/\s+/g, ' ');
 
         if (unit9Lookup[stemClean]) {
-          expectedAns = unit9Lookup[stemClean].ans;
-          explText = unit9Lookup[stemClean].expl;
-          isMatch = userAns.trim().length > 0;
+          const u9Item = unit9Lookup[stemClean];
+          expectedAns = u9Item.ans;
+          explText = u9Item.expl;
+          isMatch = matchUnit9Pos(userAns, u9Item);
+        } else if (groundTruth && groundTruth.correct_text) {
+          expectedAns = groundTruth.correct_text;
+          explText = groundTruth.explanation;
+          const uNorm = normalize(userAns);
+          const expNorm = normalize(expectedAns);
+          const variants = (groundTruth.acceptable_variants || []).map(normalize);
+          isMatch = (uNorm.length > 0) && ((uNorm === expNorm) || variants.includes(uNorm));
         } else if (unit31Lookup[stemClean]) {
           expectedAns = unit31Lookup[stemClean].ans;
           explText = unit31Lookup[stemClean].expl;
@@ -4029,12 +5022,10 @@ class SmobApp {
         } else if (pluralLookup[stemClean]) {
           expectedAns = pluralLookup[stemClean].ans;
           explText = pluralLookup[stemClean].expl;
-          const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim().replace(/\s+/g, ' ');
           isMatch = normalize(userAns) === normalize(expectedAns);
         } else if (translationLookup[stemClean]) {
           expectedAns = translationLookup[stemClean].ans;
           explText = translationLookup[stemClean].expl;
-          const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim().replace(/\s+/g, ' ');
           isMatch = normalize(userAns) === normalize(expectedAns);
         } else {
           if (stemClean.includes('của anh ấy')) {
@@ -4056,7 +5047,6 @@ class SmobApp {
             expectedAns = stemClean;
           }
           explText = `Đáp án chuẩn xác: <strong>${expectedAns}</strong>.`;
-          const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim().replace(/\s+/g, ' ');
           isMatch = normalize(userAns) === normalize(expectedAns);
         }
 
@@ -4073,7 +5063,7 @@ class SmobApp {
         }
         if (explBox) {
           explBox.style.display = 'block';
-          explBox.innerHTML = `<strong>💡 Lời giải & Phân tích chi tiết:</strong> ${explText}`;
+          explBox.innerHTML = `<strong>💡 Lời giải & Phân tích chi tiết:</strong><br>${this.formatTheoryExplanation(explText)}`;
         }
       }
     });
@@ -4746,7 +5736,12 @@ class SmobApp {
     } else if (classification.isAllSame) {
       extraNote = `<br>🎯 <strong>Mẹo ghi nhớ:</strong> Nhóm từ đặc biệt có 3 dạng (V1 = V2 = V3) giống hệt nhau!`;
     }
-    const baseExplanation = `📘 <strong>Bộ ba chuẩn:</strong> <span style="color:#0071e3; font-weight:800;">${v.v1}</span> ➔ <span style="color:#16a34a; font-weight:800;">${v.v2}</span> ➔ <span style="color:#0071e3; font-weight:800;">${v.v3}</span><br>🗣️ <strong>Phiên âm:</strong> /${v.v1_ipa || ''}/ • /${v.v2_ipa || ''}/ • /${v.v3_ipa || ''}/<br>🇻🇳 <strong>Nghĩa:</strong> ${v.meaning}${v.example ? `<br>💡 <strong>Ví dụ:</strong> <em>"${v.example}"</em>` : ''}${extraNote}`;
+    const cleanIpa = (ipa) => {
+      if (!ipa) return '';
+      const s = ipa.trim().replace(/^\/+|\/+$/g, '');
+      return s ? `/${s}/` : '';
+    };
+    const baseExplanation = `📘 <strong>Bộ ba chuẩn:</strong> <span style="color:#0071e3; font-weight:800;">${v.v1}</span> ➔ <span style="color:#16a34a; font-weight:800;">${v.v2}</span> ➔ <span style="color:#0071e3; font-weight:800;">${v.v3}</span><br>🗣️ <strong>Phiên âm:</strong> ${cleanIpa(v.v1_ipa)} • ${cleanIpa(v.v2_ipa)} • ${cleanIpa(v.v3_ipa)}<br>🇻🇳 <strong>Nghĩa:</strong> ${v.meaning}${v.example ? `<br>💡 <strong>Ví dụ:</strong> <em>"${v.example}"</em>` : ''}${extraNote}`;
 
     // 1. CHOICE MODE
     if (itemMode === 'choice') {
@@ -5247,6 +6242,7 @@ class SmobApp {
       let isCorrect = false;
       let userAnsDisplay = '(Chưa trả lời)';
 
+      let fillDetails = null;
       if (q.mode === 'choice') {
         if (a && a.value) {
           userAnsDisplay = a.value;
@@ -5265,12 +6261,32 @@ class SmobApp {
             const m3 = checkMatch(a.v3, q.expected.v3);
             isCorrect = m1 && m2 && m3;
             userAnsDisplay = `${a.v1 || '(trống)'} — ${a.v2 || '(trống)'} — ${a.v3 || '(trống)'}`;
+            fillDetails = [
+              { label: 'V1 (Nguyên thể)', user: a.v1, exp: q.expected.v1, pass: m1 },
+              { label: 'V2 (Quá khứ)', user: a.v2, exp: q.expected.v2, pass: m2 },
+              { label: 'V3 (Phân từ)', user: a.v3, exp: q.expected.v3, pass: m3 }
+            ];
           } else {
             const m2 = checkMatch(a.v2, q.expected.v2);
             const m3 = checkMatch(a.v3, q.expected.v3);
             isCorrect = m2 && m3;
             userAnsDisplay = `V2: ${a.v2 || '(trống)'}, V3: ${a.v3 || '(trống)'}`;
+            fillDetails = [
+              { label: 'V2 (Quá khứ)', user: a.v2, exp: q.expected.v2, pass: m2 },
+              { label: 'V3 (Phân từ)', user: a.v3, exp: q.expected.v3, pass: m3 }
+            ];
           }
+        } else {
+          fillDetails = (q.fillType === 'triad')
+            ? [
+                { label: 'V1 (Nguyên thể)', user: '', exp: q.expected.v1, pass: false },
+                { label: 'V2 (Quá khứ)', user: '', exp: q.expected.v2, pass: false },
+                { label: 'V3 (Phân từ)', user: '', exp: q.expected.v3, pass: false }
+              ]
+            : [
+                { label: 'V2 (Quá khứ)', user: '', exp: q.expected.v2, pass: false },
+                { label: 'V3 (Phân từ)', user: '', exp: q.expected.v3, pass: false }
+              ];
         }
       }
 
@@ -5279,7 +6295,8 @@ class SmobApp {
       gradedResults.push({
         question: q,
         isCorrect,
-        userAnsDisplay
+        userAnsDisplay,
+        fillDetails
       });
     });
 
@@ -5321,6 +6338,12 @@ class SmobApp {
     const reviewList = document.getElementById('irv-review-items-list');
     if (reviewList) {
       reviewList.innerHTML = '';
+      const cleanIpa = (ipa) => {
+        if (!ipa) return '';
+        const s = ipa.trim().replace(/^\/+|\/+$/g, '');
+        return s ? `/${s}/` : '';
+      };
+
       gradedResults.forEach((res, idx) => {
         const q = res.question;
         const isPass = res.isCorrect;
@@ -5331,36 +6354,95 @@ class SmobApp {
           displayCorrect = q.correct_answer === 'True' ? 'ĐÚNG (True)' : 'SAI (False)';
         }
 
+        // Targeted pedagogical rationale based on question type
+        let targetedExpl = '';
+        if (q.mode === 'tf') {
+          if (q.dir === 'en_vi') {
+            targetedExpl = q.isTrueClaim
+              ? `💡 <strong>Giải thích vì sao ĐÚNG:</strong> Bộ ba động từ <strong>${v.v1} — ${v.v2} — ${v.v3}</strong> mang nghĩa chuẩn xác là <em>"${v.meaning}"</em>.`
+              : `💡 <strong>Giải thích vì sao SAI:</strong> Bộ ba <strong>${v.v1} — ${v.v2} — ${v.v3}</strong> thực chất có nghĩa là <em>"${v.meaning}"</em>. Khẳng định trong đề bài đã gán sai nghĩa tiếng Việt!`;
+          } else {
+            targetedExpl = q.isTrueClaim
+              ? `💡 <strong>Giải thích vì sao ĐÚNG:</strong> Động từ <strong>${v.v1}</strong> chia ở quá khứ V2 là <strong>${v.v2}</strong> và phân từ V3 là <strong>${v.v3}</strong>.`
+              : `💡 <strong>Giải thích vì sao SAI:</strong> Động từ <strong>${v.v1}</strong> có dạng quá khứ V2 chuẩn là <strong>${v.v2}</strong> và phân từ V3 chuẩn là <strong>${v.v3}</strong>. Khẳng định trong đề bài đã chia sai dạng từ!`;
+          }
+        }
+
+        const classification = this.classifyIrregularVerb(v);
+        let grammarNote = '';
+        if (classification && classification.isDualEd) {
+          grammarNote = `<div style="margin-top: 4px; color: #b45309; font-size: 12.5px;">⚡ <strong>Lưu ý ngữ pháp:</strong> Động từ này có 2 cách chia song hành (dạng bất quy tắc chuẩn & dạng thêm đuôi <code>-ed</code> kiểu hiện đại). Cả 2 đều đúng ngữ pháp.</div>`;
+        } else if (classification && classification.isAllSame) {
+          grammarNote = `<div style="margin-top: 4px; color: #0284c7; font-size: 12.5px;">🎯 <strong>Mẹo ghi nhớ:</strong> Nhóm động từ đặc biệt có cả 3 dạng V1 = V2 = V3 giống hệt nhau.</div>`;
+        }
+
         const item = document.createElement('div');
         item.className = `irv-review-item ${isPass ? 'is-pass' : 'is-fail'}`;
         item.innerHTML = `
           <div style="flex: 1; min-width: 260px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
               <span class="status-pill ${isPass ? 'status-avail' : 'status-pending'}" style="font-size: 11.5px; font-weight: 800;">
                 ${isPass ? '✓ ĐÚNG' : '✗ SAI'}
               </span>
-              <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">Câu ${idx + 1} (${q.typeLabel})</span>
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">Câu ${idx + 1}: ${q.typeLabel}</span>
             </div>
-            <div style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">
-              ${q.stem.replace(/<div.*?<\/div>/g, '')}
+
+            <!-- Câu hỏi (Giữ nguyên hộp khẳng định cho câu Đúng/Sai) -->
+            <div style="font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; line-height: 1.5;">
+              ${q.stem}
             </div>
-            <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-              Đáp án của bạn: <strong style="color: ${isPass ? '#16a34a' : '#dc2626'};">${this.escapeHtml(res.userAnsDisplay || '')}</strong>
-              ${!isPass ? ` • Đáp án chuẩn: <strong style="color: #0071e3;">${this.escapeHtml(displayCorrect || '')}</strong>` : ''}
+
+            <!-- Khối so sánh đối chiếu kết quả thông minh -->
+            ${res.fillDetails ? `
+              <div class="irv-fill-eval-grid">
+                ${res.fillDetails.map(fd => `
+                  <div class="irv-fill-eval-card ${fd.pass ? 'pass' : 'fail'}">
+                    <span style="font-weight: 700; color: var(--text-secondary); font-size: 11.5px; text-transform: uppercase;">${fd.label}</span>
+                    <span style="font-size: 13.5px;">Bạn gõ: <strong style="color: ${fd.pass ? '#16a34a' : '#dc2626'};">${this.escapeHtml(fd.user || '(bỏ trống)')}</strong></span>
+                    <span style="font-size: 13px; font-weight: 700; color: ${fd.pass ? '#16a34a' : '#0071e3'};">
+                      ${fd.pass ? '✓ Chính xác' : `➜ Đáp án đúng: <strong>${this.escapeHtml(fd.exp)}</strong>`}
+                    </span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : `
+              <div class="irv-compare-cards-grid">
+                <div class="irv-compare-box user-ans ${isPass ? 'is-pass' : 'is-fail'}">
+                  <span class="compare-title">👤 Câu trả lời của bạn</span>
+                  <span class="compare-val">${this.escapeHtml(res.userAnsDisplay || '(Chưa trả lời)')}</span>
+                </div>
+                <div class="irv-compare-box correct-ans">
+                  <span class="compare-title">🎯 Đáp án chính xác</span>
+                  <span class="compare-val">${this.escapeHtml(displayCorrect || '')}</span>
+                </div>
+              </div>
+            `}
+
+            <!-- Bảng 3 cột V1 - V2 - V3 chuẩn Apple (Chỉ hiển thị 1 lần duy nhất, không lặp lại) -->
+            <div class="irv-3col-card">
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px;">V1 (Nguyên thể)</div>
+                <div style="font-size: 14px; font-weight: 800; color: #0071e3;">${v.v1} <span style="font-size: 12px; font-weight: 500; color: var(--text-secondary);">${cleanIpa(v.v1_ipa)}</span></div>
+              </div>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px;">V2 (Quá khứ)</div>
+                <div style="font-size: 14px; font-weight: 800; color: #16a34a;">${v.v2} <span style="font-size: 12px; font-weight: 500; color: var(--text-secondary);">${cleanIpa(v.v2_ipa)}</span></div>
+              </div>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px;">V3 (Phân từ)</div>
+                <div style="font-size: 14px; font-weight: 800; color: #0071e3;">${v.v3} <span style="font-size: 12px; font-weight: 500; color: var(--text-secondary);">${cleanIpa(v.v3_ipa)}</span></div>
+              </div>
             </div>
-            <div class="irv-triad-display" style="margin-top: 8px;">
-              <span>V1: <strong style="color: #0071e3;">${v.v1}</strong> /${v.v1_ipa || ''}/</span>
-              <span>➔</span>
-              <span>V2: <strong style="color: #16a34a;">${v.v2}</strong> /${v.v2_ipa || ''}/</span>
-              <span>➔</span>
-              <span>V3: <strong style="color: #0071e3;">${v.v3}</strong> /${v.v3_ipa || ''}/</span>
-              <span>• Nghĩa: <em>${v.meaning}</em></span>
-            </div>
-            <div style="margin-top: 10px; padding: 10px 14px; background: rgba(0,0,0,0.03); border-radius: 8px; border-left: 3.5px solid ${isPass ? '#16a34a' : '#0071e3'}; font-size: 13px; line-height: 1.6;">
-              ${q.explanation}
+
+            <!-- Nghĩa tiếng Việt, ví dụ và giải thích trọng tâm -->
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-top: 6px;">
+              <div>🇻🇳 <strong>Nghĩa:</strong> <span style="color: var(--text-primary); font-weight: 600;">${v.meaning}</span></div>
+              ${v.example ? `<div>💡 <strong>Ví dụ:</strong> <em>"${v.example}"</em></div>` : ''}
+              ${targetedExpl ? `<div style="margin-top: 6px; padding: 8px 12px; background: rgba(0,0,0,0.03); border-radius: 6px; border-left: 3px solid #0071e3; color: var(--text-primary);">${targetedExpl}</div>` : ''}
+              ${grammarNote}
             </div>
           </div>
-          <div>
+          <div style="display: flex; align-items: flex-start; padding-top: 4px;">
             <button class="speaker-btn" onclick="window.smobApp.speakText('${v.v1}')" title="Nghe phát âm">🔊</button>
           </div>
         `;
@@ -5728,10 +6810,13 @@ class SmobApp {
     document.getElementById('test-config-panel').style.display = 'block';
   }
 
-  retestWrongAnswers() {
-    const mistakes = window.dataStore.mistakes;
+  retestWrongAnswers(customMistakes = null, customTitle = null) {
+    const mistakes = customMistakes || window.dataStore.getFilteredMistakes(
+      this.mistakesCategoryFilter || 'all',
+      this.mistakesUnitFilter || 'all'
+    );
     if (!mistakes || mistakes.length === 0) {
-      alert('Bạn chưa có câu sai nào trong sổ tay! Rất xuất sắc!');
+      alert('Không có câu sai nào trong danh mục hoặc Unit đã chọn!');
       return;
     }
 
@@ -5747,7 +6832,8 @@ class SmobApp {
     }));
 
     this.navigate('tests');
-    this.launchExamSession(questions, `Khắc Phục Lỗ Hổng: Ôn Lại ${questions.length} Câu Sai`);
+    const title = customTitle || `Khắc Phục Lỗ Hổng: Ôn Lại ${questions.length} Câu Sai`;
+    this.launchExamSession(questions, title);
   }
 
   // ==========================================
@@ -6609,13 +7695,40 @@ class SmobApp {
   }
 
   submitCompTest() {
-    const answeredCount = Object.keys(this.userCompAnswers).length;
-    if (answeredCount < this.compTestQuestions.length) {
-      if (!confirm(`Bạn mới làm ${answeredCount}/${this.compTestQuestions.length} câu. Bạn có muốn nộp bài chấm điểm ngay không?`)) {
-        return;
+    const total = this.compTestQuestions.length;
+    const missing = [];
+    this.compTestQuestions.forEach((q, idx) => {
+      if (!this.userCompAnswers[q.id]) {
+        missing.push({ id: q.id, num: idx + 1, q: q, idx: idx });
       }
+    });
+
+    if (missing.length > 0) {
+      missing.forEach(m => {
+        const pal = document.getElementById(`comp-pal-${m.idx}`);
+        if (pal) pal.classList.add('unanswered-alert');
+      });
+
+      this.showUnansweredConfirmModal({
+        testType: 'comp_test',
+        title: 'Chưa Hoàn Thành Bài Kiểm Tra Toàn Diện!',
+        total: total,
+        answered: total - missing.length,
+        missingList: missing,
+        onConfirmSubmit: () => this._doSubmitCompTest(),
+        onJump: (qId) => {
+          const m = missing.find(x => x.id === qId);
+          if (m) this.goToCompQuestion(m.idx);
+        }
+      });
+      return;
     }
 
+    this._doSubmitCompTest();
+  }
+
+  _doSubmitCompTest() {
+    this.closeUnansweredModal();
     clearInterval(this.compTimerInterval);
     this.compFinished = true;
 
@@ -6686,47 +7799,174 @@ class SmobApp {
   // ==========================================
   // MISTAKES NOTEBOOK
   // ==========================================
+  setMistakesCategory(cat, btn) {
+    this.mistakesCategoryFilter = cat;
+    document.querySelectorAll('#view-mistakes .filter-chip').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    this.renderMistakes();
+  }
+
+  setMistakesUnitFilter(unitVal) {
+    this.mistakesUnitFilter = unitVal;
+    this.renderMistakes();
+  }
+
   renderMistakes() {
     const container = document.getElementById('mistakes-container');
     if (!container) return;
-    const mistakes = window.dataStore.mistakes;
 
-    if (mistakes.length === 0) {
+    const stats = window.dataStore.getMistakeStats();
+
+    // Update count badges in header filter
+    const cntAll = document.getElementById('mistake-count-all');
+    const cntVocab = document.getElementById('mistake-count-vocab');
+    const cntGrammar = document.getElementById('mistake-count-grammar');
+    const cntTest = document.getElementById('mistake-count-test');
+    if (cntAll) cntAll.innerText = stats.total;
+    if (cntVocab) cntVocab.innerText = stats.vocab_quizlet;
+    if (cntGrammar) cntGrammar.innerText = stats.grammar_theory;
+    if (cntTest) cntTest.innerText = stats.test_unit;
+
+    // Populate unit selector with units that have mistakes
+    const unitSelect = document.getElementById('mistakes-unit-select');
+    if (unitSelect) {
+      const curSelected = this.mistakesUnitFilter || 'all';
+      unitSelect.innerHTML = '<option value="all">🌟 Tất Cả Các Unit Có Câu Sai</option>';
+      stats.unitsWithMistakes.forEach(uid => {
+        const u = window.dataStore.getUnit(uid);
+        const opt = document.createElement('option');
+        opt.value = String(uid);
+        opt.innerText = `Unit ${uid}: ${u ? u.title : ''}`;
+        if (String(uid) === String(curSelected)) opt.selected = true;
+        unitSelect.appendChild(opt);
+      });
+    }
+
+    const filteredMistakes = window.dataStore.getFilteredMistakes(
+      this.mistakesCategoryFilter || 'all',
+      this.mistakesUnitFilter || 'all'
+    );
+
+    if (filteredMistakes.length === 0) {
+      let emptyMsg = 'Chưa có câu hỏi nào bị ghi nhận sai!';
+      if (this.mistakesCategoryFilter === 'vocab_quizlet') {
+        emptyMsg = 'Không có câu sai nào trong danh mục Quizlet Từ Vựng!';
+      } else if (this.mistakesCategoryFilter === 'grammar_theory') {
+        emptyMsg = 'Không có câu sai nào trong danh mục Lý Thuyết / Ngữ Pháp!';
+      } else if (this.mistakesCategoryFilter === 'test_unit') {
+        emptyMsg = 'Không có câu sai nào trong danh mục Đề Thi Online 48 Units!';
+      }
+
       container.innerHTML = `
         <div style="text-align:center; padding: 60px 20px; color: var(--text-secondary);">
-          <div style="font-size: 40px; margin-bottom: 12px;">🌟</div>
-          <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">Sổ tay câu sai trống</div>
-          <div style="font-size: 13px; margin-top: 4px;">Bạn đang học rất xuất sắc! Chưa có câu hỏi nào bị ghi nhận sai.</div>
+          <div style="font-size: 44px; margin-bottom: 12px;">🌟</div>
+          <div style="font-size: 19px; font-weight: 700; color: var(--text-primary);">Sổ tay câu sai trống</div>
+          <div style="font-size: 13.5px; margin-top: 6px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.5;">${emptyMsg} Hãy tiếp tục luyện tập và duy trì phong độ xuất sắc nhé!</div>
         </div>
       `;
       return;
     }
 
+    // Group mistakes by unitId
+    const grouped = {};
+    filteredMistakes.forEach(m => {
+      const uid = m.unitId || 1;
+      if (!grouped[uid]) grouped[uid] = [];
+      grouped[uid].push(m);
+    });
+
+    const sortedUnitIds = Object.keys(grouped).map(Number).sort((a, b) => a - b);
     container.innerHTML = '';
-    mistakes.forEach(m => {
-      const card = document.createElement('div');
-      card.className = 'apple-card';
-      card.style.marginBottom = '16px';
-      card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span class="unit-chip">UNIT ${m.unitId}</span>
-          <span style="font-size: 12px; color: var(--danger); font-weight: 600;">Đã làm sai ${m.wrongCount} lần</span>
+
+    sortedUnitIds.forEach(uid => {
+      const u = window.dataStore.getUnit(uid);
+      const items = grouped[uid];
+
+      const groupEl = document.createElement('div');
+      groupEl.className = 'mistake-unit-group';
+
+      // Group Header
+      const headerEl = document.createElement('div');
+      headerEl.className = 'mistake-unit-group-header';
+      headerEl.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span class="mistake-unit-badge-pill">UNIT ${uid}</span>
+          <span style="font-size: 15px; font-weight: 800; color: var(--text-primary);">${u ? u.title.toUpperCase() : `BÀI HỌC UNIT ${uid}`}</span>
+          <span style="font-size: 12.5px; color: var(--text-secondary); font-weight: 600;">(${items.length} câu sai cần ôn)</span>
         </div>
-        <div style="font-size: 17px; font-weight: 600; margin-bottom: 14px;">${m.stem}</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; font-size: 14px;">
-          <div style="background: var(--danger-bg); padding: 10px 14px; border-radius: var(--radius-xs); color: #cf222e;">
-            <strong>Bạn chọn:</strong> ${m.userAnswer}
-          </div>
-          <div style="background: var(--success-bg); padding: 10px 14px; border-radius: var(--radius-xs); color: #1a7f37;">
-            <strong>Đáp án đúng:</strong> ${m.correctAnswer}
-          </div>
-        </div>
-        <div style="font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); background: #f8f9fb; padding: 12px; border-radius: var(--radius-xs);">
-          <strong>Giải thích:</strong> ${m.explanation}
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button class="apple-btn btn-primary" style="padding: 5px 12px; font-size: 12px; font-weight: 700;"
+            onclick="window.smobApp.retestUnitMistakes(${uid})">⚡ Luyện Lại Riêng Unit ${uid}</button>
+          <button class="apple-btn btn-secondary" style="padding: 5px 10px; font-size: 12px;"
+            onclick="window.smobApp.openGrammarUnit(${uid})" title="Mở giáo trình bài này">📖 Đọc Sách</button>
         </div>
       `;
-      container.appendChild(card);
+      groupEl.appendChild(headerEl);
+
+      // Cards Container
+      const cardsContainer = document.createElement('div');
+      cardsContainer.className = 'mistake-unit-cards-container';
+
+      items.forEach(m => {
+        let catBadge = '';
+        if (m.category === 'vocab_quizlet') {
+          catBadge = '<span class="mistake-cat-pill cat-pill-vocab">📝 Quizlet Từ Vựng</span>';
+        } else if (m.category === 'grammar_theory') {
+          catBadge = '<span class="mistake-cat-pill cat-pill-grammar">📖 Lý Thuyết / Ngữ Pháp</span>';
+        } else {
+          catBadge = '<span class="mistake-cat-pill cat-pill-test">📄 Đề Thi Online</span>';
+        }
+
+        const card = document.createElement('div');
+        card.className = 'apple-card';
+        card.style.margin = '0';
+        card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.02)';
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              ${catBadge}
+              <span style="font-size: 12px; color: var(--danger); font-weight: 700;">Đã làm sai ${m.wrongCount || 1} lần</span>
+            </div>
+            <button class="ctrl-btn" style="padding: 2px 8px; font-size: 11px; color: var(--text-tertiary);"
+              onclick="window.smobApp.removeSingleMistake('${m.exerciseId}')" title="Đã nắm vững, xóa câu này khỏi danh sách">✓ Đã Thuộc / Xóa</button>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); line-height: 1.45;">${m.stem}</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; font-size: 13.5px;">
+            <div style="background: var(--danger-bg); padding: 10px 14px; border-radius: var(--radius-xs); color: #cf222e; border: 1px solid rgba(239, 68, 68, 0.2);">
+              <strong style="display:block; font-size: 11.5px; text-transform: uppercase; margin-bottom: 2px; opacity: 0.8;">Bạn chọn:</strong> ${m.userAnswer || '(Chưa làm)'}
+            </div>
+            <div style="background: var(--success-bg); padding: 10px 14px; border-radius: var(--radius-xs); color: #1a7f37; border: 1px solid rgba(34, 197, 94, 0.2);">
+              <strong style="display:block; font-size: 11.5px; text-transform: uppercase; margin-bottom: 2px; opacity: 0.8;">Đáp án đúng:</strong> ${m.correctAnswer}
+            </div>
+          </div>
+          ${m.explanation ? `
+            <div style="font-size: 13px; line-height: 1.55; color: var(--text-secondary); background: #f8f9fb; padding: 12px 14px; border-radius: var(--radius-xs); border: 1px solid var(--border-subtle);">
+              <strong style="color: var(--text-primary);">💡 Giải thích chi tiết:</strong> ${m.explanation}
+            </div>
+          ` : ''}
+        `;
+        cardsContainer.appendChild(card);
+      });
+
+      groupEl.appendChild(cardsContainer);
+      container.appendChild(groupEl);
     });
+  }
+
+  retestUnitMistakes(unitId) {
+    const mistakes = window.dataStore.mistakes.filter(m => Number(m.unitId) === Number(unitId));
+    if (!mistakes || mistakes.length === 0) {
+      this.showToast(`Unit ${unitId} không có câu sai nào!`);
+      return;
+    }
+    this.retestWrongAnswers(mistakes, `Luyện Lại ${mistakes.length} Câu Sai Unit ${unitId}`);
+  }
+
+  removeSingleMistake(exerciseId) {
+    window.dataStore.mistakes = window.dataStore.mistakes.filter(m => m.exerciseId !== exerciseId);
+    localStorage.setItem('smob_mistakes_log', JSON.stringify(window.dataStore.mistakes));
+    this.renderMistakes();
+    this.showToast('✓ Đã xóa câu hỏi khỏi sổ tay câu sai.');
   }
 
   // ==========================================
@@ -6742,6 +7982,15 @@ class SmobApp {
   // ==========================================
   // OFFICIAL PDF ONLINE EXAM ENGINE
   // ==========================================
+  switchTestUnitOffset(offset) {
+    const cur = window.dataStore.currentUnitId || 1;
+    let next = cur + offset;
+    if (next < 1) next = 48;
+    if (next > 48) next = 1;
+    this.syncCurrentUnit(next, 'tests');
+    this.initPdfExamView();
+  }
+
   initPdfExamView() {
     const sel = document.getElementById('test-unit-select');
     if (!sel) return;
@@ -6772,7 +8021,11 @@ class SmobApp {
       sel.appendChild(opt);
     });
 
-    const targetUnit = this.currentPdfUnit || window.dataStore.currentUnitId || (filteredUnits[0] ? filteredUnits[0].unit_number : 1);
+    let targetUnit = window.dataStore.currentUnitId || this.currentPdfUnit || 1;
+    const isAvailable = filteredUnits.some(u => u.unit_number === targetUnit);
+    if (!isAvailable && filteredUnits.length > 0) {
+      targetUnit = filteredUnits[0].unit_number;
+    }
     sel.value = targetUnit;
     this.currentPdfUnit = targetUnit;
 
@@ -6791,8 +8044,7 @@ class SmobApp {
 
   onTestUnitSelectChange(val) {
     const uid = parseInt(val) || 1;
-    this.currentPdfUnit = uid;
-    window.dataStore.setCurrentUnit(uid);
+    this.syncCurrentUnit(uid, 'tests');
     this.renderPdfOnlineExam(uid);
   }
 
@@ -6931,6 +8183,14 @@ class SmobApp {
       </button>
     `;
     container.appendChild(heroCard);
+
+    if (unitId === 9) {
+      const legendWrapper = document.createElement('div');
+      legendWrapper.innerHTML = this.getPartsOfSpeechLegendHtml();
+      if (legendWrapper.firstElementChild) {
+        container.appendChild(legendWrapper.firstElementChild);
+      }
+    }
 
     // Group questions by part/instruction
     const sections = [];
@@ -7359,16 +8619,30 @@ class SmobApp {
       return expandContractions(n1) === expandContractions(n2);
     };
 
+    // Strip leading option letter prefix like "A. ", "B. ", "a) " (e.g. "A. didn't pay" -> "didn't pay")
+    const stripOptionPrefix = (s) => (s || '').replace(/^[a-d][\.\)]\s*/i, '').trim();
+    // Normalize en-dash / em-dash / hyphen
+    const normalizeDashes = (s) => (s || '').replace(/[\u2010-\u2015]/g, '-').replace(/\s*-\s*/g, ' - ');
+
     const uClean = normalize(userAns);
     const cClean = normalize(q.correct_answer || '');
     if (!cClean) return false;
 
     if (isMatch(uClean, cClean)) return true;
 
+    // Smart typing check without option letter prefix
+    const uNoPfx = stripOptionPrefix(normalizeDashes(uClean));
+    const cNoPfx = stripOptionPrefix(normalizeDashes(cClean));
+    if (uNoPfx && cNoPfx && isMatch(uNoPfx, cNoPfx)) return true;
+
     // Check all acceptable_variants & valid_alternatives
     const variants = (q.acceptable_variants || []).concat(q.valid_alternatives || []);
     if (variants.length > 0) {
-      if (variants.some(v => isMatch(uClean, v))) {
+      if (variants.some(v => {
+        const vNorm = normalize(v);
+        const vNoPfx = stripOptionPrefix(normalizeDashes(vNorm));
+        return isMatch(uClean, vNorm) || (uNoPfx && vNoPfx && isMatch(uNoPfx, vNoPfx));
+      })) {
         return true;
       }
     }
@@ -7451,6 +8725,16 @@ class SmobApp {
       });
     }
 
+    // Remove unanswered alert when user answers question
+    const palItem = document.getElementById(`palette-item-${qId}`);
+    if (palItem) palItem.classList.remove('unanswered-alert');
+    const card = document.getElementById(`pdf-card-${qId}`) || document.getElementById(`pdf-q-row-${qId}`);
+    if (card) {
+      card.classList.remove('exam-card-unanswered-alert');
+      const badge = card.querySelector('.unans-badge-tag');
+      if (badge) badge.remove();
+    }
+
     // Update auto-save indicator badge
     const badge = document.getElementById(`pdf-saved-${qId}`);
     if (badge) {
@@ -7479,11 +8763,12 @@ class SmobApp {
 
     this.pdfExamQuestions.forEach((q, idx) => {
       const item = document.createElement('div');
-      item.className = 'palette-item';
+      item.className = 'palette-item palette-num';
       item.id = `palette-item-${q.id}`;
       item.innerText = idx + 1;
+      item.title = `Câu ${idx + 1}`;
 
-      if (this.userPdfAnswers[q.id]) {
+      if (this.userPdfAnswers[q.id] && (this.userPdfAnswers[q.id] || '').trim().length > 0) {
         item.classList.add('answered');
       }
 
@@ -7501,17 +8786,147 @@ class SmobApp {
     });
   }
 
+  // ==========================================
+  // UNANSWERED QUESTIONS CONFIRMATION MODAL
+  // ==========================================
+  showUnansweredConfirmModal(config) {
+    this._unansweredModalConfig = config;
+    const modal = document.getElementById('unanswered-warning-modal');
+    if (!modal) {
+      if (confirm(`Bạn còn ${config.missingList.length} câu chưa làm. Bạn có chắc chắn muốn nộp bài ngay không?`)) {
+        config.onConfirmSubmit();
+      }
+      return;
+    }
+
+    const titleEl = document.getElementById('unans-modal-title');
+    if (titleEl) titleEl.innerText = config.title || 'Còn Câu Hỏi Chưa Làm!';
+
+    const totalEl = document.getElementById('unans-modal-total');
+    if (totalEl) totalEl.innerText = config.total;
+
+    const doneEl = document.getElementById('unans-modal-done');
+    if (doneEl) doneEl.innerText = config.answered;
+
+    const missingEl = document.getElementById('unans-modal-missing');
+    if (missingEl) missingEl.innerText = `${config.missingList.length} câu chưa trả lời`;
+
+    const chipsContainer = document.getElementById('unans-modal-chips');
+    if (chipsContainer) {
+      chipsContainer.innerHTML = '';
+      config.missingList.forEach(m => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'unans-chip-btn';
+        btn.innerHTML = `Câu ${m.num} <span>➔</span>`;
+        btn.title = `Nhảy đến Câu ${m.num}`;
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          this.closeUnansweredModal();
+          if (config.onJump) {
+            config.onJump(m.id);
+          }
+        };
+        chipsContainer.appendChild(btn);
+      });
+    }
+
+    modal.style.display = 'flex';
+  }
+
+  closeUnansweredModal() {
+    const modal = document.getElementById('unanswered-warning-modal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  resumeAndJumpToFirstUnanswered() {
+    this.closeUnansweredModal();
+    const config = this._unansweredModalConfig;
+    if (config && config.missingList && config.missingList.length > 0) {
+      const first = config.missingList[0];
+      if (config.onJump) {
+        config.onJump(first.id);
+      }
+    }
+  }
+
+  confirmSubmitUnanswered() {
+    this.closeUnansweredModal();
+    const config = this._unansweredModalConfig;
+    if (config && typeof config.onConfirmSubmit === 'function') {
+      config.onConfirmSubmit();
+    }
+  }
+
   submitPdfExam() {
     if (this.pdfExamQuestions.length === 0) return;
 
+    // Clear previous alerts
+    document.querySelectorAll('.unanswered-alert').forEach(el => el.classList.remove('unanswered-alert'));
+    document.querySelectorAll('.exam-card-unanswered-alert').forEach(el => el.classList.remove('exam-card-unanswered-alert'));
+    document.querySelectorAll('.unans-badge-tag').forEach(el => el.remove());
+
     const total = this.pdfExamQuestions.length;
-    const answeredCount = Object.keys(this.userPdfAnswers).filter(k => (this.userPdfAnswers[k] || '').trim().length > 0).length;
-    if (answeredCount < total) {
-      if (!confirm(`Bạn đã trả lời ${answeredCount}/${total} câu hỏi. Bạn có chắc chắn muốn nộp bài ngay để chấm điểm?`)) {
-        return;
+    const missing = [];
+
+    this.pdfExamQuestions.forEach((q, idx) => {
+      const ans = (this.userPdfAnswers[q.id] || '').trim();
+      if (!ans) {
+        missing.push({
+          id: q.id,
+          num: idx + 1,
+          q: q
+        });
       }
+    });
+
+    if (missing.length > 0) {
+      // 1. Light up red on the palette
+      missing.forEach(m => {
+        const palItem = document.getElementById(`palette-item-${m.id}`);
+        if (palItem) {
+          palItem.classList.add('unanswered-alert');
+        }
+        // 2. Light up red on question card
+        const card = document.getElementById(`pdf-card-${m.id}`) || document.getElementById(`pdf-q-row-${m.id}`);
+        if (card) {
+          card.classList.add('exam-card-unanswered-alert');
+          const numEl = card.querySelector('.q-number') || card.querySelector('.pdf-q-num') || card.querySelector('strong') || card;
+          if (numEl && !card.querySelector('.unans-badge-tag')) {
+            const badge = document.createElement('span');
+            badge.className = 'unans-badge-tag';
+            badge.innerText = '⚠️ Chưa làm';
+            numEl.insertAdjacentElement('afterend', badge);
+          }
+        }
+      });
+
+      // 3. Show confirmation modal
+      this.showUnansweredConfirmModal({
+        testType: 'pdf_exam',
+        title: 'Chưa Hoàn Thành Bài Thi Online!',
+        total: total,
+        answered: total - missing.length,
+        missingList: missing,
+        onConfirmSubmit: () => this._doSubmitPdfExam(),
+        onJump: (qId) => {
+          const target = document.getElementById(`pdf-q-row-${qId}`) || document.getElementById(`pdf-card-${qId}`);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.style.transition = 'box-shadow 0.3s';
+            target.style.boxShadow = '0 0 0 4px #ef4444';
+            setTimeout(() => { target.style.boxShadow = ''; }, 1500);
+          }
+        }
+      });
+      return;
     }
 
+    this._doSubmitPdfExam();
+  }
+
+  _doSubmitPdfExam() {
+    this.closeUnansweredModal();
     clearInterval(this.pdfExamTimerInterval);
 
     if (this.activeInlineAudio) {
@@ -8401,6 +9816,230 @@ class SmobApp {
         }
       }
     }, 60000);
+  }
+
+  // ==========================================
+  // FLOATING TEXT SELECTION ACTION TOOLBAR (QUICK COPY / SPEAK / SEARCH / SHARE)
+  // ==========================================
+  initTextSelectionToolbar() {
+    const toolbar = document.getElementById('smob-selection-toolbar');
+    if (!toolbar) return;
+
+    const handleSelection = () => {
+      clearTimeout(this.selectionToolbarTimer);
+      this.selectionToolbarTimer = setTimeout(() => {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed) {
+          this.hideSelectionToolbar();
+          return;
+        }
+
+        const rawText = sel.toString();
+        const text = rawText ? rawText.trim() : '';
+        if (text.length < 1) {
+          this.hideSelectionToolbar();
+          return;
+        }
+
+        // Don't pop toolbar if selecting inside an input or textarea
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        if (activeTag === 'input' || activeTag === 'textarea') {
+          this.hideSelectionToolbar();
+          return;
+        }
+
+        this.selectedText = text;
+
+        if (sel.rangeCount > 0) {
+          try {
+            const range = sel.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            if (rect && (rect.width > 0 || rect.height > 0)) {
+              this.showSelectionToolbar(rect, text);
+            }
+          } catch(e) {}
+        }
+      }, 70);
+    };
+
+    // Listen on mouseup across the document
+    document.addEventListener('mouseup', (e) => {
+      if (toolbar.contains(e.target)) return;
+      handleSelection();
+    });
+
+    // Listen on keyup across the document (for Shift+Arrow selection)
+    document.addEventListener('keyup', (e) => {
+      if (toolbar.contains(e.target)) return;
+      if (e.key === 'Shift' || e.key.startsWith('Arrow')) {
+        handleSelection();
+      } else if (e.key === 'Escape') {
+        this.hideSelectionToolbar();
+      }
+    });
+
+    // Dismiss toolbar on mousedown outside
+    document.addEventListener('mousedown', (e) => {
+      if (toolbar.contains(e.target)) return;
+      this.hideSelectionToolbar();
+    });
+  }
+
+  showSelectionToolbar(rect, text) {
+    const toolbar = document.getElementById('smob-selection-toolbar');
+    if (!toolbar) return;
+
+    // Reset copy button state
+    const copyLabel = document.getElementById('sel-copy-label');
+    const copyBtn = document.getElementById('btn-sel-copy');
+    if (copyLabel) copyLabel.innerText = 'Sao Chép';
+    if (copyBtn) copyBtn.classList.remove('btn-copied');
+
+    toolbar.style.display = 'flex';
+    toolbar.style.opacity = '0';
+    toolbar.classList.remove('arrow-top');
+
+    // Calculate dimensions
+    const tbWidth = toolbar.offsetWidth || 340;
+    const tbHeight = toolbar.offsetHeight || 42;
+
+    let left = rect.left + (rect.width / 2) - (tbWidth / 2);
+    // Boundary check horizontal
+    left = Math.max(12, Math.min(left, window.innerWidth - tbWidth - 12));
+
+    let top = rect.top - tbHeight - 10;
+    if (top < 10) {
+      // Position below selection if top overflow
+      top = rect.bottom + 10;
+      toolbar.classList.add('arrow-top');
+    }
+
+    toolbar.style.left = `${Math.round(left)}px`;
+    toolbar.style.top = `${Math.round(top)}px`;
+    toolbar.style.opacity = '1';
+  }
+
+  hideSelectionToolbar() {
+    const toolbar = document.getElementById('smob-selection-toolbar');
+    if (!toolbar) return;
+    toolbar.style.opacity = '0';
+    setTimeout(() => {
+      if (toolbar.style.opacity === '0') {
+        toolbar.style.display = 'none';
+      }
+    }, 150);
+  }
+
+  copySelectedText() {
+    const text = this.selectedText || (window.getSelection() ? window.getSelection().toString().trim() : '');
+    if (!text) return;
+
+    const copyBtn = document.getElementById('btn-sel-copy');
+    const copyLabel = document.getElementById('sel-copy-label');
+
+    const onSuccess = () => {
+      if (copyLabel) copyLabel.innerText = '✓ Đã Chép!';
+      if (copyBtn) copyBtn.classList.add('btn-copied');
+      this.showToast(`📋 Đã sao chép: "${text.length > 35 ? text.slice(0, 35) + '...' : text}"`);
+      setTimeout(() => {
+        if (copyLabel) copyLabel.innerText = 'Sao Chép';
+        if (copyBtn) copyBtn.classList.remove('btn-copied');
+        this.hideSelectionToolbar();
+      }, 1200);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+        this.fallbackCopyText(text, onSuccess);
+      });
+    } else {
+      this.fallbackCopyText(text, onSuccess);
+    }
+  }
+
+  fallbackCopyText(text, callback) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      const res = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (res && callback) callback();
+      else if (res) this.showToast('📋 Đã sao chép vào bộ nhớ tạm!');
+      else this.showToast('⚠️ Nhấn Ctrl+C để sao chép!');
+    } catch(err) {
+      this.showToast('⚠️ Nhấn Ctrl+C để sao chép!');
+    }
+  }
+
+  speakSelectedText() {
+    const text = this.selectedText || (window.getSelection() ? window.getSelection().toString().trim() : '');
+    if (!text) return;
+    this.speakText(text);
+    this.showToast(`🔊 Đang phát âm: "${text.length > 35 ? text.slice(0, 35) + '...' : text}"`);
+  }
+
+  searchSelectedText() {
+    const raw = this.selectedText || (window.getSelection() ? window.getSelection().toString().trim() : '');
+    if (!raw) return;
+
+    // Clean word: remove parentheses or extra punctuation if single word
+    const cleanWord = raw.replace(/[(),.?!:;"]/g, '').trim();
+    if (!cleanWord) return;
+
+    // First check if it's in Irregular Verbs
+    if (window.dataStore && window.dataStore.irregularVerbs) {
+      const foundIrv = window.dataStore.irregularVerbs.find(v => 
+        v.v1.toLowerCase() === cleanWord.toLowerCase() || 
+        v.v2.toLowerCase() === cleanWord.toLowerCase() || 
+        v.v3.toLowerCase() === cleanWord.toLowerCase()
+      );
+      if (foundIrv) {
+        this.showToast(`📖 Động từ bất quy tắc: ${foundIrv.v1} ➔ ${foundIrv.v2} ➔ ${foundIrv.v3} (${foundIrv.meaning})`);
+        this.hideSelectionToolbar();
+        return;
+      }
+    }
+
+    // Open Cambridge Dictionary in default browser
+    const url = `https://dictionary.cambridge.org/vi/dictionary/english/${encodeURIComponent(cleanWord)}`;
+    this.showToast(`🔍 Đang tra từ "${cleanWord}" trên Cambridge Dictionary...`);
+    this.openExternalUrl(url);
+    this.hideSelectionToolbar();
+  }
+
+  shareSelectedText() {
+    const text = this.selectedText || (window.getSelection() ? window.getSelection().toString().trim() : '');
+    if (!text) return;
+
+    const curU = window.dataStore.currentUnitId || 1;
+    const quote = `"${text}"\n— (Trích từ SMOB English Lab • Unit ${curU})`;
+
+    const onSuccess = () => {
+      this.showToast('📤 Đã sao chép đoạn trích dẫn kèm nguồn để gửi đi!');
+      this.hideSelectionToolbar();
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(quote).then(onSuccess).catch(() => {
+        this.fallbackCopyText(quote, onSuccess);
+      });
+    } else {
+      this.fallbackCopyText(quote, onSuccess);
+    }
+  }
+
+  openExternalUrl(url) {
+    if (window.pywebview && window.pywebview.api && window.pywebview.api.open_browser) {
+      window.pywebview.api.open_browser(url);
+    } else {
+      window.open(url, '_blank');
+    }
   }
 
 }

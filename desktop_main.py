@@ -227,6 +227,30 @@ class AppApi:
 
         return {"status": "MISSING", "message": "Video bài giảng hiện chưa có trong bộ dữ liệu."}
 
+    def open_browser(self, url):
+        """Mở liên kết tra cứu bên ngoài bằng trình duyệt mặc định của hệ thống"""
+        try:
+            import webbrowser
+            webbrowser.open(url)
+            return {"status": "SUCCESS"}
+        except Exception as e:
+            return {"status": "ERROR", "message": str(e)}
+
+    def launch_pdf(self, path=None):
+        """Mở file PDF kế hoạch học tập bằng phần mềm xem PDF mặc định của Windows"""
+        target = path or r"D:\2.English\Lo_Trinh_48_Ngay_Thong_Tha_SMOB.pdf"
+        if not os.path.isfile(target):
+            alt = r"D:\2.English\Ke_Hoach_Hoc_Tieng_Anh_Tuan_1_SMOB.pdf"
+            if os.path.isfile(alt):
+                target = alt
+        if os.path.isfile(target):
+            try:
+                os.startfile(target)
+                return {"status": "SUCCESS", "path": target}
+            except Exception as e:
+                return {"status": "ERROR", "message": str(e)}
+        return {"status": "ERROR", "message": f"Không tìm thấy file PDF tại: {target}"}
+
 def main():
     base_dir = get_base_dir()
     source_root = resolve_source_root()

@@ -623,7 +623,26 @@ class DataStore {
   loadMistakes() {
     const raw = localStorage.getItem('smob_mistakes_log');
     if (raw) {
-      try { return JSON.parse(raw); } catch (e) {}
+      try {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) {
+          // Normalize categories for legacy records
+          arr.forEach(m => {
+            if (!m.category) {
+              const exId = String(m.exerciseId || '').toLowerCase();
+              const stem = String(m.stem || '').toLowerCase();
+              if (exId.startsWith('qz_') || exId.startsWith('vocab_') || stem.includes('nghĩa của từ') || stem.includes('quizlet')) {
+                m.category = 'vocab_quizlet';
+              } else if (exId.startsWith('gm_') || exId.startsWith('grammar_') || stem.includes('tính từ') || stem.includes('danh từ') || stem.includes('động từ') || stem.includes('trạng từ') || stem.includes('sắp xếp') || stem.includes('từ loại') || stem.includes('thì ')) {
+                m.category = 'grammar_theory';
+              } else {
+                m.category = 'test_unit';
+              }
+            }
+          });
+          return arr;
+        }
+      } catch (e) {}
     }
     return [];
   }
@@ -642,7 +661,7 @@ class DataStore {
     this.recordEngagement('flip', 1);
   }
 
-  recordMistake(unitId, questionId, stem, userAnswer, correctAnswer, explanation) {
+  recordMistake(unitId, questionId, stem, userAnswer, correctAnswer, explanation, category = 'test_unit') {
     const uid = Number(unitId) || this.currentUnitId;
     const existing = this.mistakes.find(m => m.exerciseId === questionId);
     if (existing) {
@@ -650,6 +669,7 @@ class DataStore {
       existing.lastWrongAt = new Date().toISOString();
       existing.userAnswer = userAnswer || '(Chưa làm)';
       existing.unitId = uid;
+      if (category) existing.category = category;
       if (stem) existing.stem = stem;
       if (correctAnswer) existing.correctAnswer = correctAnswer;
       if (explanation) existing.explanation = explanation;
@@ -657,6 +677,7 @@ class DataStore {
       this.mistakes.push({
         exerciseId: questionId,
         unitId: uid,
+        category: category || 'test_unit', // 'vocab_quizlet' | 'grammar_theory' | 'test_unit'
         stem: stem,
         userAnswer: userAnswer || '(Chưa làm)',
         correctAnswer: correctAnswer,
@@ -666,6 +687,38 @@ class DataStore {
       });
     }
     localStorage.setItem('smob_mistakes_log', JSON.stringify(this.mistakes));
+  }
+
+  getMistakeStats() {
+    const stats = {
+      total: this.mistakes.length,
+      vocab_quizlet: 0,
+      grammar_theory: 0,
+      test_unit: 0,
+      unitsWithMistakes: []
+    };
+
+    const unitSet = new Set();
+    this.mistakes.forEach(m => {
+      const cat = m.category || 'test_unit';
+      if (stats[cat] !== undefined) {
+        stats[cat]++;
+      } else {
+        stats.test_unit++;
+      }
+      if (m.unitId) unitSet.add(Number(m.unitId));
+    });
+
+    stats.unitsWithMistakes = Array.from(unitSet).sort((a, b) => a - b);
+    return stats;
+  }
+
+  getFilteredMistakes(category = 'all', unitId = 'all') {
+    return this.mistakes.filter(m => {
+      const matchCat = (category === 'all') || (m.category === category);
+      const matchUnit = (unitId === 'all') || (Number(m.unitId) === Number(unitId));
+      return matchCat && matchUnit;
+    });
   }
 }
 

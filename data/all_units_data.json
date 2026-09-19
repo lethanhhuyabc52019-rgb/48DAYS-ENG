@@ -8928,7 +8928,7 @@
           "A. plays",
           "B. play"
         ],
-        "correct_answer": "B. play",
+        "correct_answer": "play",
         "acceptable_variants": [
           "B. play",
           "play",
@@ -9161,7 +9161,7 @@
         "options": [
           "A. Does his mother drink tea in the morning?"
         ],
-        "correct_answer": "A. Does his mother drink tea in the morning?",
+        "correct_answer": "Does his mother drink tea in the morning?",
         "acceptable_variants": [
           "Does his mother drink tea in the morning?",
           "Does his mother drink tea in the morning",
@@ -9184,7 +9184,7 @@
         "options": [
           "A. Does Harry eat fruits every evening?"
         ],
-        "correct_answer": "A. Does Harry eat fruits every evening?",
+        "correct_answer": "Does Harry eat fruits every evening?",
         "acceptable_variants": [
           "Does Harry eat fruits every evening?",
           "Does Harry eat fruits every evening",
@@ -9207,7 +9207,7 @@
         "options": [
           "A. Does Joey teach him English?"
         ],
-        "correct_answer": "A. Does Joey teach him English?",
+        "correct_answer": "Does Joey teach him English?",
         "acceptable_variants": [
           "Does Joey teach him English?",
           "Does Joey teach him English",
@@ -9230,7 +9230,7 @@
         "options": [
           "A. Do her sisters work at a bank?"
         ],
-        "correct_answer": "A. Do her sisters work at a bank?",
+        "correct_answer": "Do her sisters work at a bank?",
         "acceptable_variants": [
           "Do her sisters work at a bank?",
           "Do her sisters work at a bank",
@@ -9253,7 +9253,7 @@
         "options": [
           "A. Does their father buy them new toys?"
         ],
-        "correct_answer": "A. Does their father buy them new toys?",
+        "correct_answer": "Does their father buy them new toys?",
         "acceptable_variants": [
           "Does their father buy them new toys?",
           "Does their father buy them new toys",
@@ -11439,480 +11439,400 @@
         "id": "u09_v01",
         "word": "flower",
         "ipa": "/ˈflaʊə(r)/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "hoa",
-        "example": "Example with flower",
-        "translation": "Ví dụ với flower: hoa",
+        "example": "She planted beautiful flowers in the garden.",
+        "translation": "Cô ấy đã trồng những bông hoa tuyệt đẹp trong vườn.",
         "source_page": 1
       },
       {
         "id": "u09_v02",
         "word": "girl",
         "ipa": "/ɡɜːl/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "cô gái",
-        "example": "Example with girl",
-        "translation": "Ví dụ với girl: cô gái",
+        "example": "The young girl is reading a book under the tree.",
+        "translation": "Cô gái trẻ đang đọc sách dưới gốc cây.",
         "source_page": 1
       },
       {
         "id": "u09_v03",
         "word": "teacher",
         "ipa": "/ˈtiːtʃə(r)/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "giáo viên",
-        "example": "Example with teacher",
-        "translation": "Ví dụ với teacher: giáo viên",
+        "example": "Our English teacher is very kind and patient.",
+        "translation": "Giáo viên tiếng Anh của chúng tôi rất tốt bụng và kiên nhẫn.",
         "source_page": 1
       },
       {
         "id": "u09_v04",
         "word": "visitor",
         "ipa": "/ˈvɪzɪtə(r)/",
-        "pos": "từ vựng",
-        "meaning": "du khách",
-        "example": "Example with visitor",
-        "translation": "Ví dụ với visitor: du khách",
+        "pos": "danh từ",
+        "meaning": "du khách, khách tham quan",
+        "example": "The city attracts millions of visitors every year.",
+        "translation": "Thành phố thu hút hàng triệu du khách mỗi năm.",
         "source_page": 1
       },
       {
         "id": "u09_v05",
         "word": "moment",
         "ipa": "/ˈməʊmənt/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "khoảnh khắc",
-        "example": "Example with moment",
-        "translation": "Ví dụ với moment: khoảnh khắc",
+        "example": "Please wait a moment, I will be right back.",
+        "translation": "Vui lòng chờ một khoảnh khắc, tôi sẽ quay lại ngay.",
         "source_page": 1
       },
       {
         "id": "u09_v06",
         "word": "boy",
         "ipa": "/bɔɪ/",
-        "pos": "từ vựng",
-        "meaning": "chàng trai",
-        "example": "Example with boy",
-        "translation": "Ví dụ với boy: chàng trai",
+        "pos": "danh từ",
+        "meaning": "cậu bé, chàng trai",
+        "example": "The boy is playing football in the playground.",
+        "translation": "Cậu bé đang chơi bóng đá ở sân chơi.",
         "source_page": 1
       },
       {
         "id": "u09_v07",
         "word": "happiness",
         "ipa": "/ˈhæpinəs/",
-        "pos": "từ vựng",
-        "meaning": "niềm vui",
-        "example": "Example with happiness",
-        "translation": "Ví dụ với happiness: niềm vui",
+        "pos": "danh từ",
+        "meaning": "niềm vui, hạnh phúc",
+        "example": "Family and good health bring true happiness.",
+        "translation": "Gia đình và sức khỏe tốt mang lại hạnh phúc đích thực.",
         "source_page": 1
       },
       {
         "id": "u09_v08",
         "word": "city",
         "ipa": "/ˈsɪti/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "thành phố",
-        "example": "Example with city",
-        "translation": "Ví dụ với city: thành phố",
+        "example": "Da Nang is a peaceful and modern coastal city.",
+        "translation": "Đà Nẵng là một thành phố ven biển yên bình và hiện đại.",
         "source_page": 1
       },
       {
         "id": "u09_v09",
         "word": "artist",
         "ipa": "/ˈɑːtɪst/",
-        "pos": "từ vựng",
-        "meaning": "nghệ sĩ",
-        "example": "Example with artist",
-        "translation": "Ví dụ với artist: nghệ sĩ",
+        "pos": "danh từ",
+        "meaning": "nghệ sĩ, họa sĩ",
+        "example": "The artist painted a vivid landscape of the mountains.",
+        "translation": "Người nghệ sĩ đã vẽ một bức tranh phong cảnh núi non sống động.",
         "source_page": 1
       },
       {
         "id": "u09_v10",
         "word": "weather",
         "ipa": "/ˈweðə(r)/",
-        "pos": "từ vựng",
+        "pos": "danh từ",
         "meaning": "thời tiết",
-        "example": "Example with weather",
-        "translation": "Ví dụ với weather: thời tiết",
+        "example": "The weather in Hanoi is wonderfully pleasant in autumn.",
+        "translation": "Thời tiết ở Hà Nội rất dễ chịu vào mùa thu.",
         "source_page": 1
       },
       {
         "id": "u09_v11",
-        "word": "nice",
-        "ipa": "/naɪs/",
-        "pos": "từ vựng",
-        "meaning": "tốt, đẹp",
-        "example": "Example with nice",
-        "translation": "Ví dụ với nice: tốt, đẹp",
+        "word": "house",
+        "ipa": "/haʊs/",
+        "pos": "danh từ",
+        "meaning": "ngôi nhà",
+        "example": "His house is big and has a lovely garden.",
+        "translation": "Ngôi nhà của anh ấy to lớn và có một khu vườn xinh xắn.",
         "source_page": 1
       },
       {
         "id": "u09_v12",
-        "word": "good",
-        "ipa": "/ɡʊd/",
-        "pos": "từ vựng",
-        "meaning": "tốt, khoẻ",
-        "example": "Example with good",
-        "translation": "Ví dụ với good: tốt, khoẻ",
+        "word": "bedroom",
+        "ipa": "/ˈbedruːm/",
+        "pos": "danh từ",
+        "meaning": "phòng ngủ",
+        "example": "My bedroom is clean, quiet, and comfortable.",
+        "translation": "Phòng ngủ của tôi sạch sẽ, yên tĩnh và thoải mái.",
         "source_page": 1
       },
       {
         "id": "u09_v13",
-        "word": "great",
-        "ipa": "/ɡreɪt/",
-        "pos": "từ vựng",
-        "meaning": "tuyệt vời",
-        "example": "Example with great",
-        "translation": "Ví dụ với great: tuyệt vời",
+        "word": "tree",
+        "ipa": "/triː/",
+        "pos": "danh từ",
+        "meaning": "cái cây",
+        "example": "The green tree provides great shade in the summer.",
+        "translation": "Cái cây xanh tỏa bóng mát tuyệt vời vào mùa hè.",
         "source_page": 1
       },
       {
         "id": "u09_v14",
-        "word": "happy",
-        "ipa": "/ˈhæpi/",
-        "pos": "từ vựng",
-        "meaning": "vui vẻ",
-        "example": "Example with happy",
-        "translation": "Ví dụ với happy: vui vẻ",
+        "word": "cat",
+        "ipa": "/kæt/",
+        "pos": "danh từ",
+        "meaning": "con mèo",
+        "example": "He has a cute cat with soft white fur.",
+        "translation": "Anh ấy có một chú mèo dễ thương với bộ lông trắng mềm mại.",
         "source_page": 1
       },
       {
         "id": "u09_v15",
-        "word": "easy",
-        "ipa": "/ˈiːzi/",
-        "pos": "từ vựng",
-        "meaning": "dễ dàng",
-        "example": "Example with easy",
-        "translation": "Ví dụ với easy: dễ dàng",
+        "word": "hat",
+        "ipa": "/hæt/",
+        "pos": "danh từ",
+        "meaning": "chiếc mũ",
+        "example": "She wears a sun hat whenever she goes outdoors.",
+        "translation": "Cô ấy đội một chiếc mũ chống nắng mỗi khi ra ngoài trời.",
         "source_page": 1
       },
       {
         "id": "u09_v16",
-        "word": "beautiful",
-        "ipa": "/ˈbjuːtɪfl/",
-        "pos": "từ vựng",
-        "meaning": "đẹp",
-        "example": "Example with beautiful",
-        "translation": "Ví dụ với beautiful: đẹp",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v17",
-        "word": "careful",
-        "ipa": "/ˈkeəfl/",
-        "pos": "tính từ",
-        "meaning": "cẩn thận",
-        "example": "Always be careful when checking important technical specifications.",
-        "translation": "Hãy luôn cẩn thận khi kiểm tra các thông số kỹ thuật quan trọng.",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v18",
-        "word": "suitable",
-        "ipa": "/ˈsuːtəbl/",
-        "pos": "từ vựng",
-        "meaning": "phù hợp",
-        "example": "Example with suitable",
-        "translation": "Ví dụ với suitable: phù hợp",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v19",
-        "word": "active",
-        "ipa": "/ˈæktɪv/",
-        "pos": "tính từ",
-        "meaning": "năng động",
-        "example": "She takes an active role in all company sports and cultural clubs.",
-        "translation": "Cô ấy tham gia rất năng động vào mọi câu lạc bộ thể thao và văn hóa của công ty.",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v20",
-        "word": "careless",
-        "ipa": "/ˈkeələs/",
-        "pos": "từ vựng",
-        "meaning": "bất cẩn",
-        "example": "Example with careless",
-        "translation": "Ví dụ với careless: bất cẩn",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v21",
-        "word": "quickly",
-        "ipa": "/ˈkwɪkli/",
-        "pos": "từ vựng",
-        "meaning": "nhanh chóng",
-        "example": "Example with quickly",
-        "translation": "Ví dụ với quickly: nhanh chóng",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v22",
-        "word": "carefully",
-        "ipa": "/ˈkeəfəli/",
-        "pos": "từ vựng",
-        "meaning": "đầy cẩn thận",
-        "example": "Example with carefully",
-        "translation": "Ví dụ với carefully: đầy cẩn thận",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v23",
-        "word": "carelessly",
-        "ipa": "/ˈkeələsli/",
-        "pos": "từ vựng",
-        "meaning": "đầy bất cẩn",
-        "example": "Example with carelessly",
-        "translation": "Ví dụ với carelessly: đầy bất cẩn",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v24",
-        "word": "slowly",
-        "ipa": "/ˈsləʊli/",
-        "pos": "trạng từ",
-        "meaning": "một cách chậm rãi",
-        "example": "Speak slowly and articulate clearly when presenting complex technical ideas.",
-        "translation": "Hãy nói chậm rãi và phát âm rõ ràng khi trình bày các ý tưởng kỹ thuật phức tạp.",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v25",
-        "word": "fast",
-        "ipa": "/fɑːst/",
-        "pos": "từ vựng",
-        "meaning": "nhanh",
-        "example": "Example with fast",
-        "translation": "Ví dụ với fast: nhanh",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v26",
-        "word": "well",
-        "ipa": "/wel/",
-        "pos": "từ vựng",
-        "meaning": "tốt, giỏi",
-        "example": "Example with well",
-        "translation": "Ví dụ với well: tốt, giỏi",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v27",
-        "word": "hard",
-        "ipa": "/hɑːd/",
-        "pos": "tính từ / trạng từ",
-        "meaning": "chăm chỉ",
-        "example": "If you work hard and stay focused, you will achieve remarkable breakthroughs.",
-        "translation": "Nếu bạn làm việc chăm chỉ và giữ vững sự tập trung, bạn sẽ đạt được những bước tiến vượt bậc.",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v28",
-        "word": "very",
-        "ipa": "/ˈveri/",
-        "pos": "từ vựng",
-        "meaning": "rất",
-        "example": "Example with very",
-        "translation": "Ví dụ với very: rất",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v29",
-        "word": "quite",
-        "ipa": "/kwaɪt/",
-        "pos": "từ vựng",
-        "meaning": "khá",
-        "example": "Example with quite",
-        "translation": "Ví dụ với quite: khá",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v30",
-        "word": "His",
-        "ipa": "/hɪz/",
-        "pos": "từ vựng",
-        "meaning": "tính từ sở hữu",
-        "example": "Example with His",
-        "translation": "Nghĩa: tính từ sở hữu",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v31",
-        "word": "house",
-        "ipa": "/haʊs/",
-        "pos": "từ vựng",
-        "meaning": "danh từ",
-        "example": "Example with house",
-        "translation": "Nghĩa: danh từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v32",
-        "word": "is",
-        "ipa": "/ɪz/",
-        "pos": "từ vựng",
-        "meaning": "động từ to be",
-        "example": "Example with is",
-        "translation": "Nghĩa: động từ to be",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v33",
-        "word": "big",
-        "ipa": "/bɪɡ/",
-        "pos": "từ vựng",
-        "meaning": "tính từ",
-        "example": "Example with big",
-        "translation": "Nghĩa: tính từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v34",
-        "word": "He",
-        "ipa": "/hiː/",
-        "pos": "từ vựng",
-        "meaning": "đại từ",
-        "example": "Example with He",
-        "translation": "Nghĩa: đại từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v35",
-        "word": "has",
-        "ipa": "/hæz/",
-        "pos": "từ vựng",
-        "meaning": "động từ thường",
-        "example": "Example with has",
-        "translation": "Nghĩa: động từ thường",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v37",
-        "word": "cute",
-        "ipa": "/kjuːt/",
-        "pos": "tính từ",
-        "meaning": "tính từ",
-        "example": "Look at that cute little puppy running in the front yard!",
-        "translation": "Nhìn chú cún con xinh xắn đáng yêu đang chạy ngoài sân trước kìa!",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v38",
-        "word": "cat",
-        "ipa": "/kæt/",
-        "pos": "từ vựng",
-        "meaning": "danh từ",
-        "example": "Example with cat",
-        "translation": "Nghĩa: danh từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v39",
-        "word": "She",
-        "ipa": "/ʃiː/",
-        "pos": "từ vựng",
-        "meaning": "đại từ",
-        "example": "Example with She",
-        "translation": "Nghĩa: đại từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v41",
-        "word": "hat",
-        "ipa": "/hæt/",
-        "pos": "danh từ",
-        "meaning": "danh từ",
-        "example": "You should wear a wide hat to protect yourself from the summer sun.",
-        "translation": "Bạn nên đội một chiếc mũ rộng vành để che nắng mùa hè.",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v42",
         "word": "question",
         "ipa": "/ˈkwestʃən/",
         "pos": "danh từ",
         "meaning": "câu hỏi",
-        "example": "Feel free to raise your hand if you have any question about the lesson.",
-        "translation": "Hãy thoải mái giơ tay nếu bạn có bất kỳ câu hỏi nào về bài học.",
+        "example": "Feel free to ask a question if anything is unclear.",
+        "translation": "Hãy thoải mái đặt câu hỏi nếu có điều gì chưa rõ.",
         "source_page": 1
       },
       {
-        "id": "u09_v48",
-        "word": "have",
-        "ipa": "/hæv/",
-        "pos": "động từ",
-        "meaning": "động từ thường",
-        "example": "We have a short team meeting at nine in the morning.",
-        "translation": "Chúng tôi có một cuộc họp nhóm ngắn vào lúc 9 giờ sáng.",
+        "id": "u09_v17",
+        "word": "nice",
+        "ipa": "/naɪs/",
+        "pos": "tính từ",
+        "meaning": "tốt, đẹp, dễ thương",
+        "example": "It is very nice to meet you today.",
+        "translation": "Rất vui và tốt đẹp được gặp bạn hôm nay.",
         "source_page": 1
       },
       {
-        "id": "u09_v50",
+        "id": "u09_v18",
+        "word": "good",
+        "ipa": "/ɡʊd/",
+        "pos": "tính từ",
+        "meaning": "tốt, giỏi, khỏe",
+        "example": "Regular exercise is very good for your health.",
+        "translation": "Tập thể dục đều đặn rất tốt cho sức khỏe của bạn.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v19",
+        "word": "great",
+        "ipa": "/ɡreɪt/",
+        "pos": "tính từ",
+        "meaning": "tuyệt vời, to lớn",
+        "example": "You did a great job on the English test.",
+        "translation": "Bạn đã làm một bài kiểm tra tiếng Anh rất tuyệt vời.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v20",
+        "word": "happy",
+        "ipa": "/ˈhæpi/",
+        "pos": "tính từ",
+        "meaning": "vui vẻ, hạnh phúc",
+        "example": "The children were extremely happy with their gifts.",
+        "translation": "Lũ trẻ vô cùng vui vẻ với những món quà của chúng.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v21",
+        "word": "easy",
+        "ipa": "/ˈiːzi/",
+        "pos": "tính từ",
+        "meaning": "dễ dàng, đơn giản",
+        "example": "English pronunciation becomes easy with daily practice.",
+        "translation": "Phát âm tiếng Anh trở nên dễ dàng nếu luyện tập hàng ngày.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v22",
+        "word": "beautiful",
+        "ipa": "/ˈbjuːtɪfl/",
+        "pos": "tính từ",
+        "meaning": "đẹp, xinh đẹp",
+        "example": "Sunset over West Lake is always breathtakingly beautiful.",
+        "translation": "Hoàng hôn trên Hồ Tây lúc nào cũng đẹp đến ngỡ ngàng.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v23",
+        "word": "careful",
+        "ipa": "/ˈkeəfl/",
+        "pos": "tính từ",
+        "meaning": "cẩn thận, chu đáo",
+        "example": "Be careful when driving in heavy rainy weather.",
+        "translation": "Hãy cẩn thận khi lái xe trong thời tiết mưa to.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v24",
+        "word": "suitable",
+        "ipa": "/ˈsuːtəbl/",
+        "pos": "tính từ",
+        "meaning": "phù hợp, thích hợp",
+        "example": "This online course is very suitable for beginners.",
+        "translation": "Khóa học trực tuyến này rất phù hợp cho người mới bắt đầu.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v25",
+        "word": "active",
+        "ipa": "/ˈæktɪv/",
+        "pos": "tính từ",
+        "meaning": "năng động, tích cực",
+        "example": "She is an active member of the English speaking club.",
+        "translation": "Cô ấy là một thành viên năng động của câu lạc bộ nói tiếng Anh.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v26",
+        "word": "careless",
+        "ipa": "/ˈkeələs/",
+        "pos": "tính từ",
+        "meaning": "bất cẩn, cẩu thả",
+        "example": "Avoid making careless spelling mistakes in formal writing.",
+        "translation": "Tránh mắc những lỗi chính tả bất cẩn trong văn bản trang trọng.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v27",
+        "word": "cute",
+        "ipa": "/kjuːt/",
+        "pos": "tính từ",
+        "meaning": "dễ thương, xinh xắn",
+        "example": "Look at that cute puppy wagging its little tail!",
+        "translation": "Nhìn chú cún dễ thương đang vẫy chiếc đuôi nhỏ kìa!",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v28",
         "word": "small",
         "ipa": "/smɔːl/",
-        "pos": "từ vựng",
-        "meaning": "tính từ",
-        "example": "Example with small",
-        "translation": "Nghĩa: tính từ",
+        "pos": "tính từ",
+        "meaning": "nhỏ, bé",
+        "example": "Although the apartment is small, it is very cozy.",
+        "translation": "Mặc dù căn hộ nhỏ nhưng nó rất ấm cúng.",
         "source_page": 1
       },
       {
-        "id": "u09_v51",
-        "word": "bedroom",
-        "ipa": "/ˈbedruːm/",
-        "pos": "danh từ",
-        "meaning": "danh từ",
-        "example": "He painted his bedroom walls in warm neutral tones for better relaxation.",
-        "translation": "Anh ấy đã sơn các bức tường phòng ngủ bằng tông màu trung tính ấm áp để thư giãn tốt hơn.",
+        "id": "u09_v29",
+        "word": "big",
+        "ipa": "/bɪɡ/",
+        "pos": "tính từ",
+        "meaning": "to, lớn",
+        "example": "They moved into a big house near the city center.",
+        "translation": "Họ đã chuyển vào một ngôi nhà to lớn gần trung tâm thành phố.",
         "source_page": 1
       },
       {
-        "id": "u09_v54",
+        "id": "u09_v30",
         "word": "tall",
         "ipa": "/tɔːl/",
-        "pos": "từ vựng",
-        "meaning": "tính từ",
-        "example": "Example with tall",
-        "translation": "Nghĩa: tính từ",
+        "pos": "tính từ",
+        "meaning": "cao",
+        "example": "The tall oak tree stands proudly in the schoolyard.",
+        "translation": "Cây sồi cao đứng kiêu hãnh giữa sân trường.",
         "source_page": 1
       },
       {
-        "id": "u09_v55",
-        "word": "The",
-        "ipa": "/ðə/",
-        "pos": "từ vựng",
-        "meaning": "mạo từ",
-        "example": "Example with The",
-        "translation": "Nghĩa: mạo từ",
-        "source_page": 1
-      },
-      {
-        "id": "u09_v62",
+        "id": "u09_v31",
         "word": "lovely",
         "ipa": "/ˈlʌvli/",
         "pos": "tính từ",
-        "meaning": "đáng yêu, đẹp",
-        "example": "We had a lovely evening walking along the beach.",
-        "translation": "Chúng tôi đã có một buổi tối thật tuyệt vời khi đi dạo dọc bờ biển.",
+        "meaning": "đáng yêu, xinh xắn, thú vị",
+        "example": "We spent a lovely afternoon walking in the park.",
+        "translation": "Chúng tôi đã trải qua một buổi chiều thật đáng yêu khi đi dạo trong công viên.",
         "source_page": 1
       },
       {
-        "id": "u09_v65",
-        "word": "run",
-        "ipa": "/rʌn/",
-        "pos": "động từ",
-        "meaning": "động từ thường",
-        "example": "He runs five kilometers every morning to keep his heart healthy.",
-        "translation": "Anh ấy chạy 5 cây số mỗi sáng để giữ cho trái tim luôn khỏe mạnh.",
+        "id": "u09_v32",
+        "word": "quickly",
+        "ipa": "/ˈkwɪkli/",
+        "pos": "trạng từ",
+        "meaning": "nhanh chóng",
+        "example": "He quickly understood the grammar explanation.",
+        "translation": "Anh ấy đã nhanh chóng hiểu được phần giải thích ngữ pháp.",
         "source_page": 1
       },
       {
-        "id": "u09_v68",
-        "word": "tree",
-        "ipa": "/triː/",
-        "pos": "danh từ",
-        "meaning": "danh từ",
-        "example": "Ancient banyan trees provide deep soothing shade along the street.",
-        "translation": "Những cây đa cổ thụ rủ bóng mát rượi dọc theo con phố.",
+        "id": "u09_v33",
+        "word": "carefully",
+        "ipa": "/ˈkeəfəli/",
+        "pos": "trạng từ",
+        "meaning": "cẩn thận, chu đáo",
+        "example": "Read the question carefully before picking your answer.",
+        "translation": "Hãy đọc kỹ câu hỏi một cách cẩn thận trước khi chọn đáp án.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v34",
+        "word": "carelessly",
+        "ipa": "/ˈkeələsli/",
+        "pos": "trạng từ",
+        "meaning": "bất cẩn, cẩu thả",
+        "example": "Do not drive carelessly on crowded streets.",
+        "translation": "Đừng lái xe bất cẩn trên những con đường đông đúc.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v35",
+        "word": "slowly",
+        "ipa": "/ˈsləʊli/",
+        "pos": "trạng từ",
+        "meaning": "một cách chậm rãi",
+        "example": "Please speak more slowly so everyone can follow along.",
+        "translation": "Xin hãy nói chậm rãi hơn để mọi người đều có thể theo kịp.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v36",
+        "word": "fast",
+        "ipa": "/fɑːst/",
+        "pos": "trạng từ / tính từ",
+        "meaning": "nhanh",
+        "example": "He runs very fast and won first place in the race.",
+        "translation": "Anh ấy chạy rất nhanh và đã đoạt giải nhất trong cuộc thi chạy.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v37",
+        "word": "well",
+        "ipa": "/wel/",
+        "pos": "trạng từ",
+        "meaning": "tốt, giỏi",
+        "example": "She speaks English fluently and writes very well.",
+        "translation": "Cô ấy nói tiếng Anh lưu loát và viết rất tốt.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v38",
+        "word": "hard",
+        "ipa": "/hɑːd/",
+        "pos": "trạng từ / tính từ",
+        "meaning": "chăm chỉ, nỗ lực",
+        "example": "If you study hard every day, you will master English.",
+        "translation": "Nếu bạn học hành chăm chỉ mỗi ngày, bạn sẽ làm chủ được tiếng Anh.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v39",
+        "word": "very",
+        "ipa": "/ˈveri/",
+        "pos": "trạng từ",
+        "meaning": "rất",
+        "example": "The teacher explained the lesson in a very clear manner.",
+        "translation": "Cô giáo đã giảng bài một cách rất rõ ràng.",
+        "source_page": 1
+      },
+      {
+        "id": "u09_v40",
+        "word": "quite",
+        "ipa": "/kwaɪt/",
+        "pos": "trạng từ",
+        "meaning": "khá, tương đối",
+        "example": "The exam was quite challenging but very rewarding.",
+        "translation": "Bài thi khá thử thách nhưng rất xứng đáng.",
         "source_page": 1
       }
     ],
@@ -17697,7 +17617,7 @@
           "B. doesn't pay",
           "C. didn't paid"
         ],
-        "correct_answer": "A. didn't pay",
+        "correct_answer": "didn't pay",
         "acceptable_variants": [
           "A. didn't pay",
           "didn't pay",
@@ -17723,7 +17643,7 @@
           "B. Do – win",
           "C. Did – won"
         ],
-        "correct_answer": "A. Did – win",
+        "correct_answer": "Did – win",
         "acceptable_variants": [
           "A. Did – win",
           "Did – win",
@@ -17749,7 +17669,7 @@
           "B. wasn't",
           "C. aren't"
         ],
-        "correct_answer": "A. weren't",
+        "correct_answer": "weren't",
         "acceptable_variants": [
           "A. weren't",
           "weren't",
@@ -17775,7 +17695,7 @@
           "B. don't come",
           "C. didn't came"
         ],
-        "correct_answer": "A. didn’t come",
+        "correct_answer": "didn’t come",
         "acceptable_variants": [
           "A. didn’t come",
           "didn’t come",
@@ -17801,7 +17721,7 @@
           "B. Does – rain",
           "C. Was – rain"
         ],
-        "correct_answer": "A. Did – rain",
+        "correct_answer": "Did – rain",
         "acceptable_variants": [
           "A. Did – rain",
           "Did – rain",
@@ -21836,7 +21756,7 @@
           "B. returned",
           "C. returns"
         ],
-        "correct_answer": "A. will return",
+        "correct_answer": "will return",
         "acceptable_variants": [
           "A. will return",
           "will return",
@@ -21860,7 +21780,7 @@
           "B. are",
           "C. were"
         ],
-        "correct_answer": "A. will be",
+        "correct_answer": "will be",
         "acceptable_variants": [
           "A. will be",
           "will be",
@@ -21884,7 +21804,7 @@
           "B. Does – tell",
           "C. Did – tell"
         ],
-        "correct_answer": "A. Will – tell",
+        "correct_answer": "Will – tell",
         "acceptable_variants": [
           "A. Will – tell",
           "Will – tell",
@@ -21910,7 +21830,7 @@
           "B. lent",
           "C. lends"
         ],
-        "correct_answer": "A. will lend",
+        "correct_answer": "will lend",
         "acceptable_variants": [
           "A. will lend",
           "will lend",
@@ -21934,7 +21854,7 @@
           "B. didn't sell",
           "C. doesn't sell"
         ],
-        "correct_answer": "A. won't sell",
+        "correct_answer": "won't sell",
         "acceptable_variants": [
           "A. won't sell",
           "won't sell",
@@ -57384,7 +57304,7 @@
           "A. It’s very kind of you to say so.",
           "B. Great idea."
         ],
-        "correct_answer": "A. It’s very kind of you to say so.",
+        "correct_answer": "It’s very kind of you to say so.",
         "acceptable_variants": [
           "A. It’s very kind of you to say so.",
           "A",
@@ -57616,7 +57536,7 @@
             "bbox": [
               36.33599967956543,
               270.7840169270833,
-              558.0,
+              558,
               327.6499938964844
             ],
             "col_count": 2,
