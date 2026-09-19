@@ -108,16 +108,28 @@ class SmobApp {
     this.initTextSelectionToolbar();
     this.initFlashcardSwipeGesture();
 
-    this.renderDashboard();
-    this.renderUnitsCatalog();
-    this.renderIrregularVerbs();
-    this.renderVideoTheaterPlaylist();
-    this.renderAudioCatalog();
-    this.selectAudioUnit(32);
-    this.renderExamUnitsCheckboxes();
-    
-    // Open default unit 1 hub
+    // 1. Immediately render only active station for instant sub-20ms paint
     this.openUnitHub(window.dataStore.currentUnitId || 1);
+
+    // 2. Pre-warm background tabs progressively in non-blocking slices (eliminates Windows Not Responding)
+    setTimeout(() => {
+      this.renderDashboard();
+    }, 200);
+
+    setTimeout(() => {
+      this.renderUnitsCatalog();
+    }, 500);
+
+    setTimeout(() => {
+      this.renderIrregularVerbs();
+    }, 900);
+
+    setTimeout(() => {
+      this.renderVideoTheaterPlaylist();
+      this.renderAudioCatalog();
+      this.selectAudioUnit(32);
+      this.renderExamUnitsCheckboxes();
+    }, 1400);
 
     if (window.smobCloudSync) {
       window.smobCloudSync.updateUI();
@@ -310,6 +322,12 @@ class SmobApp {
       if (btn) btn.innerHTML = `🚀 Tiếp Tục Học Unit ${curU}`;
     }
     if (viewId === 'dashboard') this.renderDashboard();
+    if (viewId === 'units') this.renderUnitsCatalog();
+    if (viewId === 'irregular') this.renderIrregularVerbs();
+    if (viewId === 'audio') {
+      this.renderAudioCatalog();
+      this.selectAudioUnit(32);
+    }
     if (viewId === 'study-plan') {
       if (window.dynamicPlan) window.dynamicPlan.render();
     }
@@ -324,6 +342,7 @@ class SmobApp {
     }
     if (viewId === 'videos') {
       const targetVidUnit = curU || this.currentPlayingUnit || 1;
+      this.renderVideoTheaterPlaylist();
       this.loadTheaterVideo(targetVidUnit);
     }
   }
@@ -603,7 +622,7 @@ class SmobApp {
     this.openUnitHub(next);
   }
 
-  openUnitHub(unitId) {
+  openUnitHub(unitId, shouldNavigate = true) {
     const uid = parseInt(unitId) || 1;
     this.syncCurrentUnit(uid, 'hub');
     const u = window.dataStore.getCurrentUnit();
@@ -809,6 +828,8 @@ class SmobApp {
     if (tSel) tSel.value = u.unit_number;
 
     // Smart contextual navigation: stay on current learning view if active
+    if (!shouldNavigate) return;
+
     if (this.currentView === 'vocabulary') {
       this.switchVocabUnit(u.unit_number);
       return;
@@ -826,7 +847,9 @@ class SmobApp {
       return;
     }
 
-    this.navigate('unit-hub');
+    if (this.currentView === 'unit-hub' || !this.currentView) {
+      this.navigate('unit-hub');
+    }
   }
 
   handleUnitVideo() {

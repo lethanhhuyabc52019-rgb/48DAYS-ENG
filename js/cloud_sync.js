@@ -290,7 +290,7 @@ class CloudSyncEngine {
         window.smobApp.renderDiligenceChart();
       }
       if (window.dataStore && typeof window.smobApp.openUnitHub === 'function') {
-        window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1);
+        window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1, false);
       }
       const streakEl = document.getElementById('sidebar-streak');
       if (streakEl && window.dataStore && window.dataStore.engagement) {
