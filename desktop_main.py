@@ -251,6 +251,50 @@ class AppApi:
                 return {"status": "ERROR", "message": str(e)}
         return {"status": "ERROR", "message": f"Không tìm thấy file PDF tại: {target}"}
 
+    def save_backup_file(self, data_json):
+        """Mở hộp thoại lưu file dữ liệu học tập (.json) trên Windows"""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            file_path = filedialog.asksaveasfilename(
+                title="Lưu file dữ liệu học tập SMOB English Lab",
+                defaultextension=".json",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+                initialfile="SMOB_English_Lab_Backup.json"
+            )
+            root.destroy()
+            if file_path:
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(data_json)
+                return {"status": "SUCCESS", "path": file_path}
+            return {"status": "CANCELLED"}
+        except Exception as e:
+            return {"status": "ERROR", "message": str(e)}
+
+    def load_backup_file(self):
+        """Mở hộp thoại nạp file dữ liệu học tập (.json) trên Windows"""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            file_path = filedialog.askopenfilename(
+                title="Chọn file dữ liệu học tập SMOB English Lab để khôi phục",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+            )
+            root.destroy()
+            if file_path and os.path.isfile(file_path):
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                return {"status": "SUCCESS", "data": content, "path": file_path}
+            return {"status": "CANCELLED"}
+        except Exception as e:
+            return {"status": "ERROR", "message": str(e)}
+
 def main():
     base_dir = get_base_dir()
     source_root = resolve_source_root()

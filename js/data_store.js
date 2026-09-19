@@ -720,6 +720,140 @@ class DataStore {
       return matchCat && matchUnit;
     });
   }
+
+  // ==========================================
+  // 5. DATA EXPORT & MERGE (CLOUD / OFFLINE SYNC)
+  // ==========================================
+  getAllExportData() {
+    return {
+      version: 1,
+      app: 'SMOB English Lab',
+      exportedAt: new Date().toISOString(),
+      userProgress: this.userProgress,
+      mistakes: this.mistakes,
+      examHistory: this.examHistory,
+      vocabQuizHistory: this.vocabQuizHistory,
+      irregularQuizHistory: this.irregularQuizHistory,
+      engagement: this.engagement
+    };
+  }
+
+  mergeExternalData(incoming) {
+    if (!incoming || typeof incoming !== 'object') return false;
+
+    // 1. Merge userProgress
+    if (incoming.userProgress) {
+      const inc = incoming.userProgress;
+      const combinedUnits = new Set([...(this.userProgress.completedUnits || []), ...(inc.completedUnits || [])]);
+      this.userProgress.completedUnits = Array.from(combinedUnits).sort((a, b) => a - b);
+
+      this.userProgress.testScores = this.userProgress.testScores || {};
+      if (inc.testScores) {
+        Object.entries(inc.testScores).forEach(([k, incScoreObj]) => {
+          const cur = this.userProgress.testScores[k];
+          if (!cur || (Number(incScoreObj.score) > Number(cur.score))) {
+            this.userProgress.testScores[k] = incScoreObj;
+          }
+        });
+      }
+
+      this.userProgress.starredVocab = { ...(this.userProgress.starredVocab || {}), ...(inc.starredVocab || {}) };
+      this.userProgress.vocabNotes = { ...(this.userProgress.vocabNotes || {}), ...(inc.vocabNotes || {}) };
+      this.userProgress.starredIrregular = { ...(this.userProgress.starredIrregular || {}), ...(inc.starredIrregular || {}) };
+      this.userProgress.irregularNotes = { ...(this.userProgress.irregularNotes || {}), ...(inc.irregularNotes || {}) };
+
+      if (inc.lastStudiedUnit && inc.lastStudiedUnit > (this.userProgress.lastStudiedUnit || 1)) {
+        this.userProgress.lastStudiedUnit = inc.lastStudiedUnit;
+      }
+      this.saveUserProgress();
+    }
+
+    // 2. Merge examHistory (deduplicate by attemptId or timestamp)
+    if (Array.isArray(incoming.examHistory)) {
+      const existingIds = new Set(this.examHistory.map(a => a.attemptId || a.timestamp));
+      incoming.examHistory.forEach(att => {
+        const id = att.attemptId || att.timestamp;
+        if (!existingIds.has(id)) {
+          this.examHistory.push(att);
+          existingIds.add(id);
+        }
+      });
+      this.examHistory.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+      if (this.examHistory.length > 200) this.examHistory = this.examHistory.slice(0, 200);
+      this.saveExamHistory();
+    }
+
+    // 3. Merge vocabQuizHistory
+    if (Array.isArray(incoming.vocabQuizHistory)) {
+      const existingIds = new Set(this.vocabQuizHistory.map(a => a.attemptId || a.timestamp));
+      incoming.vocabQuizHistory.forEach(att => {
+        const id = att.attemptId || att.timestamp;
+        if (!existingIds.has(id)) {
+          this.vocabQuizHistory.push(att);
+          existingIds.add(id);
+        }
+      });
+      this.vocabQuizHistory.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+      if (this.vocabQuizHistory.length > 100) this.vocabQuizHistory = this.vocabQuizHistory.slice(0, 100);
+      this.saveVocabQuizHistory();
+    }
+
+    // 4. Merge irregularQuizHistory
+    if (Array.isArray(incoming.irregularQuizHistory)) {
+      const existingIds = new Set(this.irregularQuizHistory.map(a => a.attemptId || a.timestamp));
+      incoming.irregularQuizHistory.forEach(att => {
+        const id = att.attemptId || att.timestamp;
+        if (!existingIds.has(id)) {
+          this.irregularQuizHistory.push(att);
+          existingIds.add(id);
+        }
+      });
+      this.irregularQuizHistory.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+      if (this.irregularQuizHistory.length > 100) this.irregularQuizHistory = this.irregularQuizHistory.slice(0, 100);
+      this.saveIrregularQuizHistory();
+    }
+
+    // 5. Merge mistakes
+    if (Array.isArray(incoming.mistakes)) {
+      const makeKey = m => `${m.category || 'test'}_${m.unitId || 0}_${m.stem || ''}`;
+      const existingKeys = new Set(this.mistakes.map(makeKey));
+      incoming.mistakes.forEach(m => {
+        const key = makeKey(m);
+        if (!existingKeys.has(key)) {
+          this.mistakes.push(m);
+          existingKeys.add(key);
+        }
+      });
+      localStorage.setItem('smob_mistakes_log', JSON.stringify(this.mistakes));
+    }
+
+    // 6. Merge engagement & streak
+    if (incoming.engagement && typeof incoming.engagement === 'object') {
+      const incEng = incoming.engagement;
+      this.engagement.totalTypingCount = Math.max(this.engagement.totalTypingCount || 0, incEng.totalTypingCount || 0);
+      this.engagement.flashcardFlips = Math.max(this.engagement.flashcardFlips || 0, incEng.flashcardFlips || 0);
+      this.engagement.aiSpeechCount = Math.max(this.engagement.aiSpeechCount || 0, incEng.aiSpeechCount || 0);
+      this.engagement.activeMinutesTotal = Math.max(this.engagement.activeMinutesTotal || 0, incEng.activeMinutesTotal || 0);
+      this.engagement.dailyStreak = Math.max(this.engagement.dailyStreak || 1, incEng.dailyStreak || 1);
+
+      if (incEng.studyDays) {
+        this.engagement.studyDays = this.engagement.studyDays || {};
+        Object.entries(incEng.studyDays).forEach(([ymd, dayObj]) => {
+          if (!this.engagement.studyDays[ymd]) {
+            this.engagement.studyDays[ymd] = dayObj;
+          } else {
+            this.engagement.studyDays[ymd].minutes = Math.max(this.engagement.studyDays[ymd].minutes, dayObj.minutes || 0);
+            this.engagement.studyDays[ymd].actions = Math.max(this.engagement.studyDays[ymd].actions, dayObj.actions || 0);
+          }
+        });
+      }
+      this.saveEngagement();
+    }
+
+    this.updateDailyStreak();
+    return true;
+  }
 }
 
 window.dataStore = new DataStore();
+

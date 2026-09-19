@@ -117,6 +117,10 @@ class SmobApp {
     
     // Open default unit 1 hub
     this.openUnitHub(window.dataStore.currentUnitId || 1);
+
+    if (window.smobCloudSync) {
+      window.smobCloudSync.updateUI();
+    }
   }
 
   initTheme() {
@@ -6786,6 +6790,10 @@ class SmobApp {
     this.renderDashboard();
     this.updatePaletteStyles();
 
+    if (window.smobCloudSync) {
+      window.smobCloudSync.autoSyncIfEnabled();
+    }
+
     // Show Result Screen
     document.getElementById('test-runner-shell').style.display = 'none';
     const resScreen = document.getElementById('test-result-screen');
@@ -9082,6 +9090,10 @@ class SmobApp {
     window.dataStore.saveProgress(this.currentPdfUnit, percent);
 
     window.smobApp.showToast(`🎉 Đã nộp bài: ${correctCount}/${this.pdfExamQuestions.length} câu đúng (${percent}%)! Đã lưu vào Lịch sử.`);
+
+    if (window.smobCloudSync) {
+      window.smobCloudSync.autoSyncIfEnabled();
+    }
   }
 
   renderPdfTranscriptsAndReview() {
