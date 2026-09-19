@@ -11,8 +11,24 @@ import socket
 import threading
 import time
 import urllib.request
+from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler
+from socketserver import ThreadingMixIn
 import webview
 import bottle
+
+class ThreadingWSGIServer(ThreadingMixIn, WSGIServer):
+    daemon_threads = True
+
+class ThreadedServer(bottle.ServerAdapter):
+    def run(self, handler):
+        class QuietHandler(WSGIRequestHandler):
+            def log_message(self, format, *args):
+                pass
+            def address_string(self):
+                # Bypass slow reverse DNS lookup on Windows loopback
+                return self.client_address[0]
+        self.server = make_server(self.host, self.port, handler, server_class=ThreadingWSGIServer, handler_class=QuietHandler)
+        self.server.serve_forever()
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -217,14 +233,15 @@ class MediaServer:
                         headers={'Content-Type': 'application/json', 'User-Agent': 'SMOB-Desktop'},
                         method='PUT'
                     )
-                    with urllib.request.urlopen(patch_req, timeout=10) as resp:
+                    with urllib.request.urlopen(patch_req, timeout=5) as resp:
                         return json.dumps({"success": True, "pin": pin})
                 except Exception as ex:
                     bottle.response.status = 502
                     return json.dumps({"error": str(ex)})
 
     def start(self):
-        bottle.run(self.app, host='127.0.0.1', port=self.port, quiet=True)
+        adapter = ThreadedServer(host='127.0.0.1', port=self.port)
+        bottle.run(self.app, server=adapter, quiet=True)
 
 class AppApi:
     def __init__(self, port, source_root, server=None):

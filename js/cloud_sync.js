@@ -19,13 +19,13 @@ class CloudSyncEngine {
       document.addEventListener('DOMContentLoaded', () => {
         this.updateUI();
         if (this.pin && this.online) {
-          setTimeout(() => this.syncNow(true), 1500);
+          setTimeout(() => this.syncNow(true), 3500);
         }
       });
     } else {
       this.updateUI();
       if (this.pin && this.online) {
-        setTimeout(() => this.syncNow(true), 1500);
+        setTimeout(() => this.syncNow(true), 3500);
       }
     }
   }
@@ -268,30 +268,26 @@ class CloudSyncEngine {
   refreshAppViews() {
     if (!window.smobApp) return;
     try {
-      if (typeof window.smobApp.renderDashboardMetrics === 'function') {
-        window.smobApp.renderDashboardMetrics();
+      const currentView = window.smobApp.currentView || 'unit-hub';
+      if (currentView === 'dashboard') {
+        if (typeof window.smobApp.renderDashboardMetrics === 'function') window.smobApp.renderDashboardMetrics();
+        if (typeof window.smobApp.renderDashboard === 'function') window.smobApp.renderDashboard();
+      } else if (currentView === 'unit-hub') {
+        if (window.dataStore && typeof window.smobApp.openUnitHub === 'function') {
+          window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1, false);
+        }
+      } else if (currentView === 'study-plan') {
+        if (window.dynamicPlan && typeof window.dynamicPlan.render === 'function') window.dynamicPlan.render();
+      } else if (currentView === 'units') {
+        if (typeof window.smobApp.renderUnitsCatalog === 'function') window.smobApp.renderUnitsCatalog();
+      } else if (currentView === 'analytics') {
+        if (typeof window.smobApp.renderAnalyticsView === 'function') window.smobApp.renderAnalyticsView();
+      } else if (currentView === 'irregular') {
+        if (typeof window.smobApp.renderIrregularVerbs === 'function') window.smobApp.renderIrregularVerbs();
+      } else if (currentView === 'mistakes') {
+        if (typeof window.smobApp.renderMistakes === 'function') window.smobApp.renderMistakes();
       }
-      if (typeof window.smobApp.renderDashboard === 'function') {
-        window.smobApp.renderDashboard();
-      }
-      if (typeof window.smobApp.renderStudyPlanView === 'function') {
-        window.smobApp.renderStudyPlanView();
-      }
-      if (typeof window.smobApp.renderUnitsCatalog === 'function') {
-        window.smobApp.renderUnitsCatalog();
-      }
-      if (typeof window.smobApp.renderAnalyticsExamHistory === 'function') {
-        window.smobApp.renderAnalyticsExamHistory();
-      }
-      if (typeof window.smobApp.renderAnalyticsVocabAndIrregularHistory === 'function') {
-        window.smobApp.renderAnalyticsVocabAndIrregularHistory();
-      }
-      if (typeof window.smobApp.renderDiligenceChart === 'function') {
-        window.smobApp.renderDiligenceChart();
-      }
-      if (window.dataStore && typeof window.smobApp.openUnitHub === 'function') {
-        window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1, false);
-      }
+
       const streakEl = document.getElementById('sidebar-streak');
       if (streakEl && window.dataStore && window.dataStore.engagement) {
         streakEl.innerText = `🔥 ${window.dataStore.engagement.dailyStreak || 1} ngày học liên tục`;

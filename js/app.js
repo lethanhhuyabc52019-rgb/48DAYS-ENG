@@ -111,26 +111,6 @@ class SmobApp {
     // 1. Immediately render only active station for instant sub-20ms paint
     this.openUnitHub(window.dataStore.currentUnitId || 1);
 
-    // 2. Pre-warm background tabs progressively in non-blocking slices (eliminates Windows Not Responding)
-    setTimeout(() => {
-      this.renderDashboard();
-    }, 200);
-
-    setTimeout(() => {
-      this.renderUnitsCatalog();
-    }, 500);
-
-    setTimeout(() => {
-      this.renderIrregularVerbs();
-    }, 900);
-
-    setTimeout(() => {
-      this.renderVideoTheaterPlaylist();
-      this.renderAudioCatalog();
-      this.selectAudioUnit(32);
-      this.renderExamUnitsCheckboxes();
-    }, 1400);
-
     if (window.smobCloudSync) {
       window.smobCloudSync.updateUI();
     }
@@ -264,6 +244,8 @@ class SmobApp {
       const aud = document.getElementById('html5-audio');
       if (aud && !aud.paused) {
         this.showPersistentAudioBar();
+      } else {
+        this.hidePersistentAudioBar();
       }
     } else {
       this.hidePersistentAudioBar();
@@ -326,7 +308,12 @@ class SmobApp {
     if (viewId === 'irregular') this.renderIrregularVerbs();
     if (viewId === 'audio') {
       this.renderAudioCatalog();
-      this.selectAudioUnit(32);
+      const currentU = window.dataStore?.currentUnitId || 21;
+      const audioUnits = [21, 29, 30, 31, 32, 33, 34, 37, 39, 40, 41, 42, 43, 44, 46, 47, 48];
+      const targetU = audioUnits.includes(Number(currentU)) ? Number(currentU) : 21;
+      if (!this.currentAudioUnit) {
+        this.selectAudioUnit(targetU, false);
+      }
     }
     if (viewId === 'study-plan') {
       if (window.dynamicPlan) window.dynamicPlan.render();
@@ -7099,10 +7086,10 @@ class SmobApp {
   }
 
   loadUnitAudio(unitId, audioFiles) {
-    this.selectAudioUnit(unitId);
+    this.selectAudioUnit(unitId, false);
   }
 
-  selectAudioUnit(unitId) {
+  selectAudioUnit(unitId, autoPlay = false) {
     const uid = parseInt(unitId);
     const u = window.dataStore.getUnit(uid);
     if (!u) return;
@@ -7132,7 +7119,8 @@ class SmobApp {
             <span style="font-size: 11.5px; opacity: 0.75;">Phát</span>
           `;
           btn.onclick = () => {
-            this.loadAudioTrack(uid, file);
+            // User explicitly clicked a track -> start playback immediately
+            this.loadAudioTrack(uid, file, true);
           };
           listContainer.appendChild(btn);
         });
@@ -7140,11 +7128,11 @@ class SmobApp {
     }
 
     if (audioFiles.length > 0) {
-      this.loadAudioTrack(uid, audioFiles[0]);
+      this.loadAudioTrack(uid, audioFiles[0], autoPlay);
     }
   }
 
-  loadAudioTrack(unitId, trackName) {
+  loadAudioTrack(unitId, trackName, autoPlay = false) {
     this.currentAudioTrack = trackName;
     const uid = parseInt(unitId);
     this.currentAudioUnit = uid;
@@ -7187,15 +7175,29 @@ class SmobApp {
         }
       };
 
-      audioEl.play().then(() => {
-        this.updateAudioButtons(true);
-      }).catch(e => {
-        console.log('Audio autoplay handled:', e);
+      if (autoPlay) {
+        audioEl.play().then(() => {
+          this.updateAudioButtons(true);
+        }).catch(e => {
+          console.log('Audio autoplay prevented/handled:', e);
+          this.updateAudioButtons(false);
+        });
+      } else {
+        audioEl.pause();
         this.updateAudioButtons(false);
-      });
+      }
 
       audioEl.onplay = () => this.updateAudioButtons(true);
-      audioEl.onpause = () => this.updateAudioButtons(false);
+      audioEl.onpause = () => {
+        this.updateAudioButtons(false);
+        if (this.currentView !== 'audio') {
+          this.hidePersistentAudioBar();
+        }
+      };
+      audioEl.onended = () => {
+        this.updateAudioButtons(false);
+        this.hidePersistentAudioBar();
+      };
 
       const savedAudioSpeed = parseFloat(localStorage.getItem('smob_audio_speed') || '1.0');
       audioEl.playbackRate = savedAudioSpeed;
@@ -7234,9 +7236,12 @@ class SmobApp {
     const audioEl = document.getElementById('html5-audio');
     if (!audioEl) return;
     if (audioEl.paused) {
-      audioEl.play().catch(e => console.log(e));
+      audioEl.play().then(() => {
+        this.updateAudioButtons(true);
+      }).catch(e => console.log(e));
     } else {
       audioEl.pause();
+      this.updateAudioButtons(false);
     }
   }
 
@@ -7250,7 +7255,9 @@ class SmobApp {
     const audioEl = document.getElementById('html5-audio');
     if (!audioEl) return;
     audioEl.currentTime = 0;
-    audioEl.play().catch(e => console.log(e));
+    audioEl.play().then(() => {
+      this.updateAudioButtons(true);
+    }).catch(e => console.log(e));
   }
 
   showPersistentAudioBar() {
@@ -7259,6 +7266,8 @@ class SmobApp {
     if (audioEl && !audioEl.paused && bar) {
       bar.style.display = 'flex';
       this.updateAudioButtons(true);
+    } else if (bar) {
+      bar.style.display = 'none';
     }
   }
 
