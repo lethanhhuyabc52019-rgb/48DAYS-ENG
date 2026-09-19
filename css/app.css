@@ -541,6 +541,13 @@ body {
   width: min(500px, 94vw);
   height: 420px;
   margin: 20px auto;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.flashcard-stage:active {
+  cursor: grabbing;
 }
 .flashcard-object {
   width: 100%;
@@ -7108,8 +7115,16 @@ body {
   }
 
   .flashcard-stage {
-    max-width: 100% !important;
-    min-height: 240px !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    height: 390px !important;
+    margin: 12px auto !important;
+  }
+
+  .fc-bottom-controls {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
   }
 
   .ans-options-grid {
@@ -7161,6 +7176,29 @@ body {
   .nav-back-btn {
     padding: 6px 10px !important;
     font-size: 12px !important;
+  }
+
+  .flashcard-stage {
+    height: 375px !important;
+  }
+
+  .fc-bottom-controls {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .fc-bottom-controls > div {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .sync-default-card, .sync-connected-card {
+    padding: 14px !important;
+  }
+
+  .sync-pin-large-input {
+    font-size: 18px !important;
+    padding: 9px 12px !important;
   }
 }
 

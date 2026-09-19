@@ -9,6 +9,8 @@ import sys
 import json
 import socket
 import threading
+import time
+import urllib.request
 import webview
 import bottle
 
@@ -175,6 +177,52 @@ class MediaServer:
                 "url": f"/video/{unit_id}"
             })
 
+        @self.app.route('/api/sync', method=['GET', 'POST', 'OPTIONS'])
+        def sync_proxy():
+            bottle.response.headers['Access-Control-Allow-Origin'] = '*'
+            bottle.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+            bottle.response.headers['Access-Control-Allow-Headers'] = '*'
+            if bottle.request.method == 'OPTIONS':
+                return ''
+            master_url = "https://extendsclass.com/api/json-storage/bin/dccfcbf"
+            if bottle.request.method == 'GET':
+                pin = bottle.request.query.get('pin', '').strip()
+                if not pin:
+                    bottle.response.status = 400
+                    return json.dumps({"error": "PIN required"})
+                try:
+                    req = urllib.request.Request(f"{master_url}?_t={int(time.time()*1000)}", headers={'User-Agent': 'SMOB-Desktop'})
+                    with urllib.request.urlopen(req, timeout=10) as resp:
+                        reg = json.loads(resp.read().decode('utf-8'))
+                        return json.dumps({"success": True, "data": reg.get(pin)})
+                except Exception as ex:
+                    bottle.response.status = 502
+                    return json.dumps({"error": str(ex)})
+
+            if bottle.request.method == 'POST':
+                try:
+                    raw_data = bottle.request.body.read().decode('utf-8')
+                    body = json.loads(raw_data)
+                    pin = str(body.get('pin') or (body.get('data') or {}).get('syncPin') or '').strip()
+                    if not pin:
+                        bottle.response.status = 400
+                        return json.dumps({"error": "PIN required"})
+                    req_get = urllib.request.Request(f"{master_url}?_t={int(time.time()*1000)}", headers={'User-Agent': 'SMOB-Desktop'})
+                    with urllib.request.urlopen(req_get, timeout=10) as resp:
+                        reg = json.loads(resp.read().decode('utf-8'))
+                    reg[pin] = body.get('data')
+                    patch_req = urllib.request.Request(
+                        master_url,
+                        data=json.dumps(reg).encode('utf-8'),
+                        headers={'Content-Type': 'application/json', 'User-Agent': 'SMOB-Desktop'},
+                        method='PUT'
+                    )
+                    with urllib.request.urlopen(patch_req, timeout=10) as resp:
+                        return json.dumps({"success": True, "pin": pin})
+                except Exception as ex:
+                    bottle.response.status = 502
+                    return json.dumps({"error": str(ex)})
+
     def start(self):
         bottle.run(self.app, host='127.0.0.1', port=self.port, quiet=True)
 
@@ -183,6 +231,10 @@ class AppApi:
         self.port = port
         self.source_root = source_root
         self.server = server
+        self.window = None
+
+    def set_window(self, window):
+        self.window = window
 
     def get_server_port(self):
         return self.port
@@ -252,45 +304,41 @@ class AppApi:
         return {"status": "ERROR", "message": f"Không tìm thấy file PDF tại: {target}"}
 
     def save_backup_file(self, data_json):
-        """Mở hộp thoại lưu file dữ liệu học tập (.json) trên Windows"""
+        """Mở hộp thoại lưu file dữ liệu học tập (.json) trên Windows - chuẩn PyWebView không crash"""
         try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            file_path = filedialog.asksaveasfilename(
-                title="Lưu file dữ liệu học tập SMOB English Lab",
-                defaultextension=".json",
-                filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
-                initialfile="SMOB_English_Lab_Backup.json"
-            )
-            root.destroy()
-            if file_path:
-                with open(file_path, "w", encoding="utf-8") as f:
-                    f.write(data_json)
-                return {"status": "SUCCESS", "path": file_path}
+            win = self.window or (webview.windows[0] if webview.windows else None)
+            if win:
+                file_path = win.create_file_dialog(
+                    webview.SAVE_DIALOG,
+                    save_filename="SMOB_English_Lab_Backup.json",
+                    file_types=('JSON files (*.json)', 'All files (*.*)')
+                )
+                if file_path:
+                    if isinstance(file_path, (list, tuple)):
+                        file_path = file_path[0]
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(data_json)
+                    return {"status": "SUCCESS", "path": file_path}
             return {"status": "CANCELLED"}
         except Exception as e:
             return {"status": "ERROR", "message": str(e)}
 
     def load_backup_file(self):
-        """Mở hộp thoại nạp file dữ liệu học tập (.json) trên Windows"""
+        """Mở hộp thoại nạp file dữ liệu học tập (.json) trên Windows - chuẩn PyWebView không crash"""
         try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            file_path = filedialog.askopenfilename(
-                title="Chọn file dữ liệu học tập SMOB English Lab để khôi phục",
-                filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
-            )
-            root.destroy()
-            if file_path and os.path.isfile(file_path):
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                return {"status": "SUCCESS", "data": content, "path": file_path}
+            win = self.window or (webview.windows[0] if webview.windows else None)
+            if win:
+                file_path = win.create_file_dialog(
+                    webview.OPEN_DIALOG,
+                    file_types=('JSON files (*.json)', 'All files (*.*)')
+                )
+                if file_path:
+                    if isinstance(file_path, (list, tuple)):
+                        file_path = file_path[0]
+                    if os.path.isfile(file_path):
+                        with open(file_path, "r", encoding="utf-8") as f:
+                            content = f.read()
+                        return {"status": "SUCCESS", "data": content, "path": file_path}
             return {"status": "CANCELLED"}
         except Exception as e:
             return {"status": "ERROR", "message": str(e)}
@@ -317,6 +365,7 @@ def main():
         min_size=(1024, 700),
         background_color='#f5f5f7'
     )
+    api.set_window(window)
     
     webview.start(debug=False)
 

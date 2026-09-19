@@ -106,6 +106,7 @@ class SmobApp {
     this.initFloatingVideoInteractions();
     this.initSplitViewResizer();
     this.initTextSelectionToolbar();
+    this.initFlashcardSwipeGesture();
 
     this.renderDashboard();
     this.renderUnitsCatalog();
@@ -1992,8 +1993,202 @@ class SmobApp {
   }
 
   toggleFlashcardFlip() {
+    if (this._justSwiped) return;
     this.isCardFlipped = !this.isCardFlipped;
-    document.getElementById('flashcard-obj').classList.toggle('is-flipped', this.isCardFlipped);
+    const obj = document.getElementById('flashcard-obj');
+    if (obj) obj.classList.toggle('is-flipped', this.isCardFlipped);
+  }
+
+  initFlashcardSwipeGesture() {
+    const stage = document.querySelector('.flashcard-stage');
+    const cardObj = document.getElementById('flashcard-obj');
+    if (!stage || !cardObj) return;
+
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isSwiping = false;
+    let isMouseDown = false;
+    let isAnimating = false;
+
+    const isInteractive = (target) => {
+      return !!target.closest('button, input, select, textarea, a, .speaker-btn, .fc-star-btn, .btn-ai-coach-inline, .ios-switch');
+    };
+
+    // --- Touch Events (Mobile / Tablet) ---
+    stage.addEventListener('touchstart', (e) => {
+      if (isAnimating || isInteractive(e.target)) return;
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      currentX = startX;
+      currentY = startY;
+      isSwiping = false;
+    }, { passive: true });
+
+    stage.addEventListener('touchmove', (e) => {
+      if (isAnimating || e.touches.length > 1) return;
+      const touch = e.touches[0];
+      currentX = touch.clientX;
+      currentY = touch.clientY;
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+
+      if (!isSwiping) {
+        if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 8) {
+          // Vertical scrolling allowed without interception
+          return;
+        }
+        if (Math.abs(diffX) > 10) {
+          isSwiping = true;
+        }
+      }
+
+      if (isSwiping) {
+        if (e.cancelable) e.preventDefault();
+        const baseRotY = this.isCardFlipped ? 180 : 0;
+        const rotateZ = diffX * 0.035;
+        cardObj.style.transition = 'none';
+        cardObj.style.transform = `rotateY(${baseRotY}deg) translateX(${diffX}px) rotateZ(${rotateZ}deg)`;
+        cardObj.style.opacity = Math.max(0.4, 1 - Math.abs(diffX) / 550);
+      }
+    }, { passive: false });
+
+    const handleTouchEnd = () => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const diffX = currentX - startX;
+      const threshold = 50;
+
+      this._justSwiped = true;
+      setTimeout(() => { this._justSwiped = false; }, 320);
+
+      if (diffX < -threshold) {
+        this.animateSwipeCard('left');
+      } else if (diffX > threshold) {
+        this.animateSwipeCard('right');
+      } else {
+        this.resetSwipeCard();
+      }
+    };
+
+    stage.addEventListener('touchend', handleTouchEnd, { passive: true });
+    stage.addEventListener('touchcancel', () => {
+      if (isSwiping) {
+        isSwiping = false;
+        this.resetSwipeCard();
+      }
+    }, { passive: true });
+
+    // --- Mouse Drag Events (PC / Laptop Web & Desktop App) ---
+    stage.addEventListener('mousedown', (e) => {
+      if (isAnimating || isInteractive(e.target) || e.button !== 0) return;
+      isMouseDown = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      currentX = startX;
+      currentY = startY;
+      isSwiping = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isMouseDown || isAnimating) return;
+      currentX = e.clientX;
+      currentY = e.clientY;
+      const diffX = currentX - startX;
+
+      if (!isSwiping && Math.abs(diffX) > 8) {
+        isSwiping = true;
+      }
+
+      if (isSwiping) {
+        const baseRotY = this.isCardFlipped ? 180 : 0;
+        const rotateZ = diffX * 0.035;
+        cardObj.style.transition = 'none';
+        cardObj.style.transform = `rotateY(${baseRotY}deg) translateX(${diffX}px) rotateZ(${rotateZ}deg)`;
+        cardObj.style.opacity = Math.max(0.4, 1 - Math.abs(diffX) / 550);
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isMouseDown) return;
+      isMouseDown = false;
+      if (isSwiping) {
+        isSwiping = false;
+        const diffX = currentX - startX;
+        const threshold = 50;
+
+        this._justSwiped = true;
+        setTimeout(() => { this._justSwiped = false; }, 320);
+
+        if (diffX < -threshold) {
+          this.animateSwipeCard('left');
+        } else if (diffX > threshold) {
+          this.animateSwipeCard('right');
+        } else {
+          this.resetSwipeCard();
+        }
+      }
+    });
+  }
+
+  animateSwipeCard(direction) {
+    const cardObj = document.getElementById('flashcard-obj');
+    if (!cardObj) {
+      if (direction === 'left') this.nextVocabCard();
+      else this.prevVocabCard();
+      return;
+    }
+
+    const baseRotY = this.isCardFlipped ? 180 : 0;
+    const flyOutX = direction === 'left' ? -115 : 115;
+    const flyOutRotZ = direction === 'left' ? -12 : 12;
+
+    cardObj.style.transition = 'transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease-out';
+    cardObj.style.transform = `rotateY(${baseRotY}deg) translateX(${flyOutX}%) rotateZ(${flyOutRotZ}deg)`;
+    cardObj.style.opacity = '0';
+
+    setTimeout(() => {
+      if (direction === 'left') {
+        this.nextVocabCard();
+      } else {
+        this.prevVocabCard();
+      }
+
+      // Enter from opposite side
+      const enterFromX = direction === 'left' ? 70 : -70;
+      cardObj.style.transition = 'none';
+      cardObj.style.transform = `rotateY(0deg) translateX(${enterFromX}px)`;
+      cardObj.style.opacity = '0';
+
+      // Force layout reflow
+      void cardObj.offsetHeight;
+
+      cardObj.style.transition = 'transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s ease-out';
+      cardObj.style.transform = 'rotateY(0deg) translateX(0) rotateZ(0deg)';
+      cardObj.style.opacity = '1';
+
+      setTimeout(() => {
+        cardObj.style.transition = '';
+        cardObj.style.transform = '';
+        cardObj.style.opacity = '';
+      }, 270);
+    }, 210);
+  }
+
+  resetSwipeCard() {
+    const cardObj = document.getElementById('flashcard-obj');
+    if (!cardObj) return;
+    const baseRotY = this.isCardFlipped ? 180 : 0;
+    cardObj.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.26s ease-out';
+    cardObj.style.transform = `rotateY(${baseRotY}deg) translateX(0) rotateZ(0deg)`;
+    cardObj.style.opacity = '1';
+    setTimeout(() => {
+      cardObj.style.transition = '';
+      cardObj.style.transform = '';
+      cardObj.style.opacity = '';
+    }, 280);
   }
 
   speakCurrentWord() {
