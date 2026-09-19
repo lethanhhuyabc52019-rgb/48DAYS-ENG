@@ -854,6 +854,10 @@ class SmobDynamicPlan {
 }
 
 // Global initialization
-window.addEventListener('DOMContentLoaded', () => {
-  window.dynamicPlan = new SmobDynamicPlan();
-});
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!window.dynamicPlan) window.dynamicPlan = new SmobDynamicPlan();
+  });
+} else {
+  if (!window.dynamicPlan) window.dynamicPlan = new SmobDynamicPlan();
+}

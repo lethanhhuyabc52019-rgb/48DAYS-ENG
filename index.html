@@ -2513,12 +2513,28 @@
   <script src="./js/dynamic_plan.js"></script>
   <script src="./js/app.js"></script>
   <script>
-    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(err => {
-          console.log('SW registration note:', err);
+    // Only register Service Worker for public web deployments (PWA on Vercel/GitHub Pages)
+    // In Desktop PyWebView or local loopback (127.0.0.1 / localhost), service workers cause redundant 4MB cache churn and socket thrashing.
+    const isDesktopOrLocal = Boolean(
+      window.pywebview || 
+      window.location.hostname === '127.0.0.1' || 
+      window.location.hostname === 'localhost' ||
+      window.location.protocol === 'file:'
+    );
+
+    if ('serviceWorker' in navigator) {
+      if (isDesktopOrLocal) {
+        // Cleanly unregister any previously installed SW on localhost to prevent proxying
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          for (const reg of regs) reg.unregister();
+        }).catch(() => {});
+      } else if (window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(err => {
+            console.log('SW registration note:', err);
+          });
         });
-      });
+      }
     }
   </script>
 </body>

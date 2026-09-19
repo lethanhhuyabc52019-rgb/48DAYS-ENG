@@ -108,8 +108,16 @@ class SmobApp {
     this.initTextSelectionToolbar();
     this.initFlashcardSwipeGesture();
 
-    // 1. Immediately render only active station for instant sub-20ms paint
-    this.openUnitHub(window.dataStore.currentUnitId || 1);
+    // 1. Render active initial view (Dashboard) cleanly and instantly
+    if (this.currentView === 'dashboard') {
+      this.renderDashboard();
+    } else {
+      this.navigate(this.currentView, false);
+    }
+
+    // 2. Pre-populate unit hub data in background for current unit
+    const curU = window.dataStore.currentUnitId || 1;
+    this.openUnitHub(curU, false);
 
     if (window.smobCloudSync) {
       window.smobCloudSync.updateUI();
@@ -472,8 +480,12 @@ class SmobApp {
     document.getElementById('dash-avg-score').innerText = `${avgScore}%`;
 
     // Render Dynamic Study Plan & Circular Progress Gauge Widget
-    if (window.dynamicPlan) {
-      window.dynamicPlan.renderDashboardWidget();
+    if (window.dynamicPlan && typeof window.dynamicPlan.renderDashboardWidget === 'function') {
+      try {
+        window.dynamicPlan.renderDashboardWidget();
+      } catch (err) {
+        console.warn('Dynamic plan dashboard render note:', err);
+      }
     }
 
     const grid = document.getElementById('dash-suggested-grid');

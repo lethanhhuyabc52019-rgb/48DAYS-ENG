@@ -11,22 +11,44 @@ import socket
 import threading
 import time
 import urllib.request
-from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler
+from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler, ServerHandler
 from socketserver import ThreadingMixIn
 import webview
 import bottle
+
+class FastServerHandler(ServerHandler):
+    def cleanup_headers(self):
+        super().cleanup_headers()
+        self.headers['Connection'] = 'close'
+
+class QuietHandler(WSGIRequestHandler):
+    def log_message(self, format, *args):
+        pass
+
+    def address_string(self):
+        # Bypass slow reverse DNS lookup on Windows loopback (127.0.0.1)
+        return self.client_address[0]
+
+    def handle(self):
+        self.close_connection = 1
+        self.raw_requestline = self.rfile.readline(65537)
+        if len(self.raw_requestline) > 65536:
+            self.send_error(414)
+            return
+        if not self.parse_request():
+            return
+        handler = FastServerHandler(
+            self.rfile, self.wfile, self.get_stderr(), self.get_environ(),
+            multithread=True,
+        )
+        handler.request_handler = self
+        handler.run(self.server.get_app())
 
 class ThreadingWSGIServer(ThreadingMixIn, WSGIServer):
     daemon_threads = True
 
 class ThreadedServer(bottle.ServerAdapter):
     def run(self, handler):
-        class QuietHandler(WSGIRequestHandler):
-            def log_message(self, format, *args):
-                pass
-            def address_string(self):
-                # Bypass slow reverse DNS lookup on Windows loopback
-                return self.client_address[0]
         self.server = make_server(self.host, self.port, handler, server_class=ThreadingWSGIServer, handler_class=QuietHandler)
         self.server.serve_forever()
 
@@ -192,52 +214,6 @@ class MediaServer:
                 "size_mb": round(size_mb, 1),
                 "url": f"/video/{unit_id}"
             })
-
-        @self.app.route('/api/sync', method=['GET', 'POST', 'OPTIONS'])
-        def sync_proxy():
-            bottle.response.headers['Access-Control-Allow-Origin'] = '*'
-            bottle.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-            bottle.response.headers['Access-Control-Allow-Headers'] = '*'
-            if bottle.request.method == 'OPTIONS':
-                return ''
-            master_url = "https://extendsclass.com/api/json-storage/bin/dccfcbf"
-            if bottle.request.method == 'GET':
-                pin = bottle.request.query.get('pin', '').strip()
-                if not pin:
-                    bottle.response.status = 400
-                    return json.dumps({"error": "PIN required"})
-                try:
-                    req = urllib.request.Request(f"{master_url}?_t={int(time.time()*1000)}", headers={'User-Agent': 'SMOB-Desktop'})
-                    with urllib.request.urlopen(req, timeout=10) as resp:
-                        reg = json.loads(resp.read().decode('utf-8'))
-                        return json.dumps({"success": True, "data": reg.get(pin)})
-                except Exception as ex:
-                    bottle.response.status = 502
-                    return json.dumps({"error": str(ex)})
-
-            if bottle.request.method == 'POST':
-                try:
-                    raw_data = bottle.request.body.read().decode('utf-8')
-                    body = json.loads(raw_data)
-                    pin = str(body.get('pin') or (body.get('data') or {}).get('syncPin') or '').strip()
-                    if not pin:
-                        bottle.response.status = 400
-                        return json.dumps({"error": "PIN required"})
-                    req_get = urllib.request.Request(f"{master_url}?_t={int(time.time()*1000)}", headers={'User-Agent': 'SMOB-Desktop'})
-                    with urllib.request.urlopen(req_get, timeout=10) as resp:
-                        reg = json.loads(resp.read().decode('utf-8'))
-                    reg[pin] = body.get('data')
-                    patch_req = urllib.request.Request(
-                        master_url,
-                        data=json.dumps(reg).encode('utf-8'),
-                        headers={'Content-Type': 'application/json', 'User-Agent': 'SMOB-Desktop'},
-                        method='PUT'
-                    )
-                    with urllib.request.urlopen(patch_req, timeout=5) as resp:
-                        return json.dumps({"success": True, "pin": pin})
-                except Exception as ex:
-                    bottle.response.status = 502
-                    return json.dumps({"error": str(ex)})
 
     def start(self):
         adapter = ThreadedServer(host='127.0.0.1', port=self.port)
