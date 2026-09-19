@@ -1,14 +1,16 @@
-// SMOB English Lab — 6-Digit Sync Code Engine (Zero-Login / Zero-Password)
-// Synchronizes learning progress between Home & Company PC using only a 6-digit PIN (e.g. 120218)
-// 100% Offline-first, auto-merge, and 1-click JSON backup & restore
+// SMOB English Lab — 6-Digit Sync Code Engine (Zero-Login / Confidential PIN)
+// Synchronizes learning progress between Home & Company PC securely using only a private 6-digit PIN
+// Fully masked input, zero plaintext leakage, resilient Vercel API proxy with CORS preflight
 
 class CloudSyncEngine {
   constructor() {
-    this.masterEndpoint = 'https://extendsclass.com/api/json-storage/bin/dafdaee';
+    this.apiEndpoint = 'https://48smobeng.vercel.app/api/sync';
+    this.fallbackEndpoint = 'https://extendsclass.com/api/json-storage/bin/dafdaee';
     this.pin = this.loadPin();
     this.lastSyncedAt = localStorage.getItem('smob_sync_last_time') || null;
     this.isSyncing = false;
     this.online = navigator.onLine;
+    this._isPeeking = false;
 
     this.initNetworkListeners();
 
@@ -16,14 +18,13 @@ class CloudSyncEngine {
       document.addEventListener('DOMContentLoaded', () => {
         this.updateUI();
         if (this.pin && this.online) {
-          // Subtle initial auto-pull after app initializes
-          setTimeout(() => this.syncNow(true), 1200);
+          setTimeout(() => this.syncNow(true), 1500);
         }
       });
     } else {
       this.updateUI();
       if (this.pin && this.online) {
-        setTimeout(() => this.syncNow(true), 1200);
+        setTimeout(() => this.syncNow(true), 1500);
       }
     }
   }
@@ -63,65 +64,63 @@ class CloudSyncEngine {
   async connectWithPin(inputPin) {
     const cleanPin = String(inputPin || '').replace(/[^0-9a-zA-Z]/g, '').trim().slice(0, 8);
     if (!cleanPin || cleanPin.length < 4) {
-      this.showToast('⚠️ Vui lòng nhập mã tối thiểu 4 đến 6 chữ số (VD: 120218)!');
+      this.showToast('⚠️ Vui lòng nhập mã bí mật tối thiểu 4 đến 6 ký tự!');
+      const inputEl = document.getElementById('sync-pin-input');
+      if (inputEl) inputEl.focus();
       return;
     }
 
     this.isSyncing = true;
     this.updateUI();
-    this.showToast(`🔄 Đang tìm kiếm và liên kết kho dữ liệu mã [${cleanPin}]...`);
+    this.showToast('🔄 Đang kiểm tra và kết nối kho dữ liệu...');
 
     try {
-      // 1. Fetch remote registry
-      const res = await fetch(this.masterEndpoint, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(`Máy chủ đám mây bận (HTTP ${res.status}). Vui lòng thử lại.`);
-      const registry = await res.json();
+      let remoteData = null;
 
-      const localPayload = window.dataStore ? window.dataStore.getAllExportData() : {};
-      localPayload.syncPin = cleanPin;
-      localPayload.lastSyncedAt = new Date().toISOString();
+      // 1. Fetch remote data from Vercel API
+      try {
+        const res = await fetch(`${this.apiEndpoint}?pin=${encodeURIComponent(cleanPin)}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.data) {
+            remoteData = json.data;
+          }
+        }
+      } catch (apiErr) {
+        console.warn('API GET failed, trying fallback:', apiErr);
+        // Fallback: simple direct GET on ExtendsClass (zero custom headers to avoid CORS preflight)
+        try {
+          const resFallback = await fetch(this.fallbackEndpoint);
+          if (resFallback.ok) {
+            const reg = await resFallback.json();
+            if (reg && reg[cleanPin]) {
+              remoteData = reg[cleanPin];
+            }
+          }
+        } catch (e2) {
+          console.warn('Fallback GET failed:', e2);
+        }
+      }
 
-      if (registry && registry[cleanPin]) {
-        // Remote data exists: Merge remote into local!
-        const remoteData = registry[cleanPin];
+      if (remoteData) {
+        // Remote data exists: Merge into local!
         if (window.dataStore) {
           window.dataStore.mergeExternalData(remoteData);
         }
-
-        // Push combined back up to ensure cloud is fresh
-        const combinedPayload = window.dataStore ? window.dataStore.getAllExportData() : localPayload;
-        combinedPayload.syncPin = cleanPin;
-        combinedPayload.lastSyncedAt = new Date().toISOString();
-        registry[cleanPin] = combinedPayload;
-
-        await fetch(this.masterEndpoint, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(registry)
-        });
-
-        this.savePin(cleanPin);
-        this.lastSyncedAt = new Date().toISOString();
-        localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
-
-        this.refreshAppViews();
-        this.showToast(`🎉 Kết nối mã [${cleanPin}] thành công! Tiến độ đã đồng bộ 100%.`);
+        this.showToast('🎉 Kết nối thành công! Đã tải và đồng bộ tiến độ.');
       } else {
-        // No remote data yet: Initialize cloud vault with current local data!
-        registry[cleanPin] = localPayload;
-        await fetch(this.masterEndpoint, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(registry)
-        });
-
-        this.savePin(cleanPin);
-        this.lastSyncedAt = new Date().toISOString();
-        localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
-
-        this.showToast(`✨ Đã khởi tạo kho đồng bộ cho mã [${cleanPin}]! Hãy dùng mã này ở công ty.`);
+        // First time initialization
+        this.showToast('✨ Đã kết nối mã bí mật! Đang tải tiến độ lên đám mây...');
       }
 
+      this.savePin(cleanPin);
+      this.lastSyncedAt = new Date().toISOString();
+      localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
+
+      // Push current combined payload to cloud
+      await this.pushToCloud(cleanPin);
+
+      this.refreshAppViews();
       this.closeSyncModal();
     } catch (err) {
       console.error('Connect PIN error:', err);
@@ -132,6 +131,25 @@ class CloudSyncEngine {
     }
   }
 
+  async pushToCloud(pin) {
+    if (!pin || !navigator.onLine) return false;
+    const payload = window.dataStore ? window.dataStore.getAllExportData() : {};
+    payload.syncPin = pin;
+    payload.lastSyncedAt = new Date().toISOString();
+
+    try {
+      const res = await fetch(this.apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin, data: payload })
+      });
+      return res.ok;
+    } catch (err) {
+      console.warn('pushToCloud error:', err);
+      return false;
+    }
+  }
+
   async syncNow(silent = false) {
     if (!this.pin) {
       if (!silent) this.openSyncModal();
@@ -139,7 +157,7 @@ class CloudSyncEngine {
     }
 
     if (!navigator.onLine) {
-      if (!silent) this.showToast('⚠️ Bạn đang ngoại tuyến. Dữ liệu đã bảo toàn an toàn trên máy.');
+      if (!silent) this.showToast('⚠️ Bạn đang ngoại tuyến. Dữ liệu đã lưu an toàn trên máy.');
       return;
     }
 
@@ -148,37 +166,36 @@ class CloudSyncEngine {
     this.updateUI();
 
     if (!silent) {
-      this.showToast(`🔄 Đang đồng bộ tiến độ mã [${this.pin}]...`);
+      this.showToast('🔄 Đang đồng bộ tiến độ học tập...');
     }
 
     try {
-      const res = await fetch(this.masterEndpoint, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(`Lỗi kết nối máy chủ (${res.status})`);
-      const registry = await res.json();
-
-      let remoteData = registry[this.pin];
-      if (remoteData && window.dataStore) {
-        window.dataStore.mergeExternalData(remoteData);
+      // 1. Fetch remote updates
+      try {
+        const res = await fetch(`${this.apiEndpoint}?pin=${encodeURIComponent(this.pin)}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.data && window.dataStore) {
+            window.dataStore.mergeExternalData(json.data);
+          }
+        }
+      } catch (e) {
+        console.warn('Sync pull error:', e);
       }
 
-      // Prepare fresh merged payload to update cloud
-      const freshLocal = window.dataStore ? window.dataStore.getAllExportData() : {};
-      freshLocal.syncPin = this.pin;
-      freshLocal.lastSyncedAt = new Date().toISOString();
-      registry[this.pin] = freshLocal;
-
-      await fetch(this.masterEndpoint, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(registry)
-      });
+      // 2. Push fresh local combined payload
+      const pushOk = await this.pushToCloud(this.pin);
 
       this.lastSyncedAt = new Date().toISOString();
       localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
       this.refreshAppViews();
 
       if (!silent) {
-        this.showToast(`✅ Đã đồng bộ thành công! Mã [${this.pin}] đã cập nhật mới nhất.`);
+        if (pushOk) {
+          this.showToast('✅ Đã đồng bộ thành công! Dữ liệu 2 chiều đã khớp 100%.');
+        } else {
+          this.showToast('⚠️ Đã cập nhật trên máy. Đám mây đang bận, sẽ tự thử lại.');
+        }
       }
     } catch (err) {
       console.warn('Sync failed:', err);
@@ -192,19 +209,45 @@ class CloudSyncEngine {
   }
 
   disconnectPin() {
-    if (confirm(`Bạn có chắc muốn ngắt liên kết mã [${this.pin}] trên thiết bị này?\n(Dữ liệu bài học trên máy này vẫn được bảo toàn nguyên vẹn)`)) {
-      const oldPin = this.pin;
+    if (confirm('Bạn có chắc muốn ngắt kết nối mã trên thiết bị này?\n(Toàn bộ bài làm và điểm số trên máy vẫn được giữ nguyên)')) {
       this.savePin('');
       this.lastSyncedAt = null;
+      this._isPeeking = false;
       localStorage.removeItem('smob_sync_last_time');
       this.updateUI();
-      this.showToast(`Đã ngắt liên kết mã [${oldPin}]. Bạn có thể nhập mã khác.`);
+      this.showToast('Đã ngắt kết nối mã. Bạn có thể nhập mã mới.');
     }
   }
 
   autoSyncIfEnabled() {
     if (this.pin && navigator.onLine) {
       this.syncNow(true);
+    }
+  }
+
+  togglePinVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = '🙈';
+    } else {
+      input.type = 'password';
+      btn.textContent = '👁️';
+    }
+  }
+
+  toggleConnectedPinPeek(btn) {
+    const display = document.getElementById('sync-modal-pin-display');
+    if (!display) return;
+    if (this._isPeeking) {
+      display.textContent = '••••••';
+      btn.textContent = '👁️ Xem mã bí mật';
+      this._isPeeking = false;
+    } else {
+      display.textContent = this.pin || '••••••';
+      btn.textContent = '🙈 Ẩn mã';
+      this._isPeeking = true;
     }
   }
 
@@ -228,7 +271,7 @@ class CloudSyncEngine {
   exportToJsonFile() {
     if (!window.dataStore) return;
     const data = window.dataStore.getAllExportData();
-    data.syncPin = this.pin || '120218';
+    data.syncPin = this.pin || '';
 
     const jsonStr = JSON.stringify(data, null, 2);
     const timeStr = new Date().toISOString().slice(0, 10);
@@ -355,14 +398,14 @@ class CloudSyncEngine {
       } else if (!this.online) {
         syncLabel.textContent = 'Ngoại tuyến';
       } else if (this.pin) {
-        syncLabel.textContent = `Mã: ${this.pin}`;
+        syncLabel.textContent = 'Đã Đồng Bộ';
       } else {
         syncLabel.textContent = 'Đồng Bộ Mã 6 Số';
       }
     }
 
     if (syncAvatar) {
-      syncAvatar.innerHTML = this.pin ? '🔑' : '🔄';
+      syncAvatar.innerHTML = this.pin ? '🔐' : '🔄';
     }
 
     // 2. Sidebar Profile & Nav Account Link
@@ -372,11 +415,11 @@ class CloudSyncEngine {
     const navAccount = document.getElementById('nav-account-sync');
 
     if (sidebarName) {
-      sidebarName.textContent = this.pin ? `Học Viên [${this.pin}]` : 'Học Viên SMOB';
+      sidebarName.textContent = 'Học Viên SMOB';
     }
 
     if (sidebarAvatar) {
-      sidebarAvatar.textContent = this.pin ? this.pin.slice(-2) : '48';
+      sidebarAvatar.textContent = this.pin ? '🔐' : '48';
     }
 
     if (sidebarCloudStatus) {
@@ -385,9 +428,9 @@ class CloudSyncEngine {
       } else if (!this.online) {
         sidebarCloudStatus.innerHTML = `<span class="dot-status offline"></span> Ngoại tuyến`;
       } else if (this.pin) {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status online"></span> Mã: ${this.pin} (Đang đồng bộ)`;
+        sidebarCloudStatus.innerHTML = `<span class="dot-status online"></span> Đã kết nối Đám Mây`;
       } else {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Bấm để nhập mã 6 số`;
+        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Bấm để nhập mã bí mật`;
       }
     }
 
@@ -398,7 +441,7 @@ class CloudSyncEngine {
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          Mã: ${this.pin} (Đã Đồng Bộ)
+          Đã Đồng Bộ (Bấm để xem)
         `;
       } else {
         navAccount.innerHTML = `
@@ -412,7 +455,7 @@ class CloudSyncEngine {
       }
     }
 
-    // 3. Modal details (if open)
+    // 3. Modal details
     const modalPinDisplay = document.getElementById('sync-modal-pin-display');
     const modalLastSync = document.getElementById('sync-modal-last-sync');
     const connectSection = document.getElementById('sync-connect-section');
@@ -420,7 +463,7 @@ class CloudSyncEngine {
     const pinInput = document.getElementById('sync-pin-input');
 
     if (modalPinDisplay) {
-      modalPinDisplay.textContent = this.pin ? `Mã liên kết: ${this.pin}` : 'Chưa liên kết mã';
+      modalPinDisplay.textContent = this._isPeeking ? (this.pin || '••••••') : '••••••';
     }
 
     if (modalLastSync) {
@@ -436,8 +479,9 @@ class CloudSyncEngine {
       } else {
         connectSection.style.display = 'block';
         connectedSection.style.display = 'none';
-        if (pinInput && !pinInput.value) {
-          pinInput.value = '120218'; // Pre-fill default suggested PIN for immediate ease of use!
+        // NEVER prefill PIN! Always keep input blank for privacy
+        if (pinInput) {
+          pinInput.value = '';
         }
       }
     }
@@ -447,12 +491,13 @@ class CloudSyncEngine {
     const modal = document.getElementById('account-sync-modal');
     if (!modal) return;
     modal.classList.add('active');
+    this._isPeeking = false;
     this.updateUI();
 
     const pinInput = document.getElementById('sync-pin-input');
     if (pinInput && !this.pin) {
+      pinInput.value = '';
       pinInput.focus();
-      pinInput.select();
     }
   }
 

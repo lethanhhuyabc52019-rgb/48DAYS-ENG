@@ -15,3 +15,5 @@ updated: 2026-07-18
   - Resumed study after 4-month break (previously stopped at Unit 17).
   - Week 1 (14/09/2026 - 20/09/2026): Diagnostic scan of Units 1-17.
   - Next: Continue with Unit 18 onwards.
+- **Cross-Device Synchronization**:
+  - Uses 6-digit PIN: `120218` to seamlessly sync learning progress between Company PC and Home PC without login or password.
