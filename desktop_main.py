@@ -474,6 +474,14 @@ def main():
     server_thread = threading.Thread(target=server.start, daemon=True)
     server_thread.start()
 
+    # Wait until server is actually ready (avoids WebView2 "connection refused" on first request)
+    for _ in range(30):  # up to 3 seconds
+        try:
+            with socket.create_connection(('127.0.0.1', port), timeout=0.1):
+                break
+        except OSError:
+            time.sleep(0.1)
+
     api = AppApi(port, source_root, server)
     app_url = f"http://127.0.0.1:{port}/index.html"
 

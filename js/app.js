@@ -117,18 +117,36 @@ class SmobApp {
       this.navigate(this.currentView, false);
     }
 
-    // 2. Pre-populate unit hub data in background for current unit
-    const curU = window.dataStore.currentUnitId || 1;
-    this.openUnitHub(curU, false);
+    // 2. Defer heavy secondary tasks to AFTER first paint — prevents Not Responding
+    setTimeout(() => {
+      const curU = window.dataStore.currentUnitId || 1;
+      this.openUnitHub(curU, false);
 
-    if (window.smobCloudSync) {
-      window.smobCloudSync.updateUI();
-    }
+      if (window.smobCloudSync) {
+        window.smobCloudSync.updateUI();
+      }
+    }, 0);
   }
 
   initTheme() {
     const savedTheme = localStorage.getItem('smob_theme') || 'light';
     this.applyTheme(savedTheme);
+
+    // Restore sidebar collapsed state
+    if (localStorage.getItem('smob_sidebar_collapsed') === '1') {
+      document.querySelector('.app-container')?.classList.add('sidebar-collapsed');
+      const btn = document.getElementById('sidebar-toggle-btn');
+      if (btn) btn.textContent = '▶';
+    }
+  }
+
+  toggleSidebar() {
+    const container = document.querySelector('.app-container');
+    if (!container) return;
+    const isCollapsed = container.classList.toggle('sidebar-collapsed');
+    const btn = document.getElementById('sidebar-toggle-btn');
+    if (btn) btn.textContent = isCollapsed ? '▶' : '◀';
+    localStorage.setItem('smob_sidebar_collapsed', isCollapsed ? '1' : '0');
   }
 
   toggleTheme() {
@@ -4948,12 +4966,39 @@ class SmobApp {
   }
 
   formatTheoryExplanation(expl) {
+    return this.formatExplanationClean(expl);
+  }
+
+  formatExplanationClean(expl) {
     if (!expl) return '';
-    let s = String(expl);
-    s = s.replace(/\$\\implies\$/g, '➜').replace(/\$\\rightarrow\$/g, '➜').replace(/\\rightarrow/g, '➜').replace(/\\implies/g, '➜');
+    let s = String(expl).trim();
+
+    // 1. Fix LaTeX math symbols → readable unicode
+    s = s.replace(/\$\\implies\$/g, '→')
+         .replace(/\$\\rightarrow\$/g, '→')
+         .replace(/\\rightarrow/g, '→')
+         .replace(/\\implies/g, '→')
+         .replace(/\$\\Rightarrow\$/g, '⇒')
+         .replace(/\$\\neq\$/g, '≠')
+         .replace(/\$\\approx\$/g, '≈')
+         .replace(/\$([^$\n]{1,80})\$/g, '$1');  // strip remaining $...$
+
+    // 2. Remove internal category bracket tags [Nhận diện tranh & Địa điểm] etc.
+    //    These are QC metadata not meant for learners
+    s = s.replace(/\[[^\]]{2,80}\]\s*/g, '');
+
+    // 3. Remove overly long parenthetical asides (internal notes like "tuyệt đối không...")
+    //    Only strip parens with > 30 chars (short parens like "(wardrobe)" are kept)
+    s = s.replace(/\([^)]{30,300}\)/g, '');
+
+    // 4. Bold / italic markdown
     s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-    return s;
+
+    // 5. Clean up double spaces / leading-trailing whitespace
+    s = s.replace(/\s{2,}/g, ' ').trim();
+
+    return s || 'Không có giải thích chi tiết.';
   }
 
   checkTheoryQuiz(quizId, unitNumber) {
@@ -6976,7 +7021,15 @@ class SmobApp {
     const q = this.testQuestions[idx];
     document.getElementById('test-q-progress').innerText = `Câu hỏi ${idx + 1} / ${this.testQuestions.length}`;
     document.getElementById('test-part-label').innerText = `Part 1: Đề thi gốc • Unit ${q.unitId || window.dataStore.currentUnitId}`;
-    document.getElementById('test-stem').innerText = `${idx + 1}. ${q.stem}`;
+    // Format stem with blank highlights
+    let stemText = q.stem || '';
+    stemText = stemText.replace(/_{2,}/g, '<span class="q-blank-highlight">[ _____ ]</span>');
+    // Add blank prefix for MATCHING type (short stem with options, no blank marker)
+    if (!stemText.includes('q-blank-highlight') && q.options && q.options.length > 0 && stemText.trim().split(/\s+/).length <= 4 && !stemText.includes('?')) {
+      stemText = '<span class="q-blank-highlight">[ _____ ]</span> ' + stemText;
+    }
+    const stemEl = document.getElementById('test-stem');
+    if (stemEl) stemEl.innerHTML = `<strong>${idx + 1}.</strong> ${stemText}`;
 
     this.updatePaletteStyles();
 
@@ -7045,7 +7098,7 @@ class SmobApp {
         '<span style="color:#1a7f37; font-weight:700;">✓ Trả lời chính xác</span>' : 
         `<span style="color:#cf222e; font-weight:700;">✕ Bạn chọn: "${userAns || '(Bỏ trống)'}" — Đáp án đúng: "${q.correct_answer}"</span>`;
 
-      document.getElementById('expl-body-text').innerText = q.explanation || 'Không có giải thích chi tiết.';
+      document.getElementById('expl-body-text').innerHTML = this.formatExplanationClean(q.explanation);
       document.getElementById('expl-source-tag').innerText = `Nguồn: ${q.source_file || 'Đề thi gốc'} (Trang ${q.source_page || 1})`;
     }
   }
@@ -8016,7 +8069,7 @@ class SmobApp {
       document.getElementById('comp-expl-status').innerHTML = isRight
         ? `<strong style="color: #1a7f37;">✓ Chính xác!</strong> Bạn chọn: <strong>${userAns}</strong>`
         : `<strong style="color: #cf222e;">✗ Chưa chính xác!</strong> Bạn chọn: <strong>${userAns}</strong> • Đáp án đúng: <strong>${q.correct_answer}</strong>`;
-      document.getElementById('comp-expl-body').innerText = q.explanation || '';
+      document.getElementById('comp-expl-body').innerHTML = this.formatExplanationClean(q.explanation);
     } else {
       explBox.style.display = 'none';
     }
@@ -8445,19 +8498,23 @@ class SmobApp {
     if (this.pdfExamStarted) return;
     this.pdfExamStarted = true;
 
-    // Start timer interval
+    // Start timer interval — updates both hero bar and palette badge
     clearInterval(this.pdfExamTimerInterval);
     this.pdfExamTimerSeconds = 0;
-    const timerEl = document.getElementById('pdf-exam-timer');
-    if (timerEl) timerEl.innerText = '⏱️ 00:00';
-    this.pdfExamTimerInterval = setInterval(() => {
+    const paletteBadge = document.getElementById('pdf-exam-timer');
+    const liveTimer = () => {
       this.pdfExamTimerSeconds++;
       const m = Math.floor(this.pdfExamTimerSeconds / 60);
       const s = this.pdfExamTimerSeconds % 60;
-      if (timerEl) timerEl.innerText = `⏱️ ${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
-    }, 1000);
+      const display = `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+      if (paletteBadge) paletteBadge.innerText = `⏱️ ${display}`;
+      // Also update live timer in sticky hero if visible
+      const heroTimer = document.getElementById('pdf-exam-live-timer');
+      if (heroTimer) heroTimer.innerText = display;
+    };
+    this.pdfExamTimerInterval = setInterval(liveTimer, 1000);
 
-    // Update Hero Banner
+    // Update Hero Banner → sticky running bar with big timer
     const hero = document.getElementById('pdf-exam-start-hero');
     if (hero) {
       hero.classList.add('is-running');
@@ -8465,13 +8522,11 @@ class SmobApp {
         <div class="exam-hero-left">
           <div class="exam-hero-icon">⚡</div>
           <div>
-            <div class="exam-hero-title">ĐANG LÀM BÀI — ĐỒNG HỒ ĐANG TÍNH GIỜ</div>
-            <div class="exam-hero-desc">Hãy đọc kỹ câu hỏi, chọn đáp án hoặc gõ câu trả lời, sau đó bấm <strong>"Finish Test (Nộp Bài)"</strong> để chấm điểm.</div>
+            <div class="exam-hero-title">ĐANG LÀM BÀI — ĐỒNG HỒ TÍNH GIỜ</div>
+            <div class="exam-hero-desc">Đọc kỹ câu hỏi, chọn đáp án hoặc gõ trả lời → bấm <strong>"Finish Test (Nộp Bài)"</strong> để chấm điểm.</div>
           </div>
         </div>
-        <div style="font-size: 13.5px; font-weight: 700; background: rgba(255,255,255,0.25); padding: 8px 18px; border-radius: 20px;">
-          🟢 Đang tính giờ
-        </div>
+        <div id="pdf-exam-live-timer">00:00</div>
       `;
     }
 
@@ -8766,14 +8821,21 @@ class SmobApp {
           secHtml += `</div>`;
         } else {
           // Standard Multiple Choice or Fill-in-Blank Questions
-          secHtml += `<div style="display: flex; flex-direction: column; gap: 16px; margin-top: 10px;">`;
+          // Render requirement badge ONCE per section (not per question)
+          const firstReq = this.getQuestionRequirement(sec.questions[0]?.q || {}, sec.title);
+          secHtml += `
+            <div class="q-requirement-badge" style="margin-bottom: 12px;">
+              <span class="q-req-icon">📌</span>
+              <span>Yêu cầu: ${firstReq}</span>
+            </div>
+          `;
+          secHtml += `<div style="display: flex; flex-direction: column; gap: 16px; margin-top: 4px;">`;
           sec.questions.forEach(({ q, idx }, secQIdx) => {
             const overallQNo = idx + 1;
             const secQNo = secQIdx + 1;
             const totalExamQs = this.pdfExamQuestions.length;
             const safeStem = (q.stem || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const cleanSpokenText = (q.stem || '').replace(/<[^>]*>?/gm, '').replace(/_{2,}/g, 'blank').replace(/'/g, "\\'");
-            const req = this.getQuestionRequirement(q, sec.title);
             
             let formattedStem = q.stem || `Câu ${overallQNo}`;
             if (q.blank_no) {
@@ -8781,13 +8843,18 @@ class SmobApp {
               formattedStem = formattedStem.replace(targetBlank, `<span class="q-blank-highlight" style="background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); font-weight: 900;">(${q.blank_no}) [ 👉 ĐIỀN VÀO ĐÂY 👈 ]</span>`);
             }
             formattedStem = formattedStem.replace(/_{2,}/g, '<span class="q-blank-highlight">[ _____ ]</span>');
+
+            // For MATCHING/short-stem questions with options but no blank marker → add [ _____ ] prefix
+            // Detects: stem has no blank, type is MATCHING or stem is short word (< 30 chars, no spaces indicating full sentence)
+            const hasBlankMarker = formattedStem.includes('q-blank-highlight') || formattedStem.includes('[') || formattedStem.includes('_');
+            const isMatchingType = q.type === 'MATCHING' || 
+              (q.options && q.options.length > 0 && q.stem && q.stem.trim().split(/\s+/).length <= 4 && !q.stem.includes('?') && !q.stem.match(/\b(is|are|am|was|were|do|does|did)\b/i));
+            if (!hasBlankMarker && isMatchingType && q.options && q.options.length > 0) {
+              formattedStem = `<span class="q-blank-highlight">[ _____ ]</span> ${formattedStem}`;
+            }
             
             secHtml += `
               <div class="exam-card" id="pdf-card-${q.id}" style="padding: 20px 24px; margin-bottom: 0;">
-                <div class="q-requirement-badge">
-                  <span class="q-req-icon">📌</span>
-                  <span>Yêu cầu: ${req}</span>
-                </div>
 
                 <div class="pdf-exam-q-header-bar">
                   <div class="pdf-exam-q-num-box">
@@ -8813,6 +8880,11 @@ class SmobApp {
                 <div class="pdf-exam-q-stem-body">
                   ${formattedStem}
                 </div>
+                ${!q.options?.length && q.type !== 'TRUE_FALSE' && q.instruction && q.instruction !== sec.title ? `
+                  <div style="margin-top:8px; padding:8px 12px; background:var(--accent-bg,#e8f0fe); border-left:3px solid var(--accent-primary,#0071e3); border-radius:6px; font-size:13px; color:var(--text-primary); font-weight:600;">
+                    ✏️ ${q.instruction}
+                  </div>
+                ` : ''}
             `;
 
             const userAns = this.userPdfAnswers[q.id] || '';
@@ -10465,4 +10537,8 @@ window.speakWord = function(text) {
 };
 document.addEventListener('DOMContentLoaded', () => {
   window.smobApp.init();
+  // Ẩn splash screen sau khi app khởi tạo xong
+  if (typeof window.__smobSplashDone === 'function') {
+    window.__smobSplashDone();
+  }
 });

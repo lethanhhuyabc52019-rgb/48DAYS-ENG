@@ -304,20 +304,20 @@ export const translations: Record<"vi" | "en", Translations> = {
         "Mỗi bài kiểm tra được thiết kế sát theo cấu trúc đề chuẩn quốc tế giúp bạn làm quen áp lực phòng thi:",
       features: [
         {
-          title: "Đồng Hồ Đếm Ngược Chuẩn Xác",
-          desc: "Tùy chọn thời gian 15, 30 hoặc 45 phút giúp rèn luyện tốc độ làm bài tối ưu.",
+          title: "Đồng Hồ Sticky Bấm Giờ Trực Quan",
+          desc: "Timer lớn hiển thị rõ trên thanh cố định (sticky) khi làm bài — không cần cuộn lên để xem giờ. Bảng câu hỏi điều hướng luôn hiện bên phải màn hình.",
         },
         {
           title: "Chấm Điểm Tự Động & Thống Kê Ngay",
           desc: "Xem ngay số câu đúng/sai, % hoàn thành và bảng điểm tổng kết sau khi nộp bài.",
         },
         {
-          title: "Giải Thích Từng Phương Án",
-          desc: "Hệ thống hiển thị phân tích ngữ pháp vì sao phương án đó đúng, các phương án còn lại sai ở điểm nào.",
+          title: "Giải Thích Đáp Án Chi Tiết & Sạch",
+          desc: "Phân tích ngữ pháp tại sao đúng/sai được trình bày rõ ràng, không ký tự lạ, không ghi chú nội bộ thừa — chỉ thông tin học viên cần.",
         },
         {
-          title: "Lưu Lịch Sử & Bookmark Câu Khó",
-          desc: "Đánh dấu các câu làm sai để ôn tập lại riêng biệt mà không mất thời gian tìm kiếm.",
+          title: "Màn Hình Rộng Tùy Chỉnh",
+          desc: "Ẩn/hiện thanh điều hướng trái bằng một nút bấm để có thêm không gian làm bài. Trạng thái được lưu tự động cho lần mở tiếp theo.",
         },
       ],
     },
@@ -603,20 +603,20 @@ export const translations: Record<"vi" | "en", Translations> = {
         "Every test mirrors real-world test conditions to prepare you for test day:",
       features: [
         {
-          title: "Accurate Countdown Timer",
-          desc: "Choose 15, 30, or 45-minute sessions to train optimal pacing and focus.",
+          title: "Sticky Live Timer Always Visible",
+          desc: "A large, always-visible countdown timer stays pinned at the top as you scroll. The question navigation palette stays docked on the right for easy control.",
         },
         {
           title: "Instant Auto-Grading & Scores",
           desc: "Get immediate score reports, correct/incorrect counts, and percentage breakdowns.",
         },
         {
-          title: "Comprehensive Explanations",
-          desc: "Deep grammatical breakdowns explaining why the correct choice works and why other choices fail.",
+          title: "Clean, Detailed Answer Explanations",
+          desc: "Grammatical breakdowns explaining why the correct choice works — displayed cleanly without stray symbols or internal metadata.",
         },
         {
-          title: "History & Difficult Questions Bookmarking",
-          desc: "Flag difficult questions to review them later in dedicated review sessions.",
+          title: "Expandable Wide-Screen Mode",
+          desc: "Collapse the left navigation sidebar with one click to maximize your study workspace. The preference is auto-saved for next time.",
         },
       ],
     },

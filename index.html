@@ -32,7 +32,46 @@
 
 <body>
 
+  <!-- ⚡ Splash Screen: Hiển thị ngay lập tức, ẩn khi app ready. Ngăn màn hình trắng khi load JS lớn. -->
+  <div id="smob-splash" style="
+    position:fixed;inset:0;z-index:99999;
+    background:linear-gradient(135deg,#0a1628 0%,#1e3a8a 50%,#0a1628 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    transition:opacity 0.4s ease,visibility 0.4s ease;
+  ">
+    <img src="assets/icon.png" alt="SMOB" style="width:80px;height:80px;border-radius:18px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+    <div style="color:#fff;font-size:22px;font-weight:700;letter-spacing:0.5px;margin-bottom:6px;">SMOB English Lab</div>
+    <div style="color:rgba(255,255,255,0.65);font-size:13px;margin-bottom:28px;">48-Day Foundation Course</div>
+    <div style="width:200px;height:4px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden;">
+      <div id="smob-splash-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#60a5fa,#a78bfa);border-radius:4px;transition:width 0.6s ease;"></div>
+    </div>
+    <div style="color:rgba(255,255,255,0.45);font-size:11px;margin-top:12px;">Đang tải dữ liệu học tập…</div>
+  </div>
+  <script>
+    // Animate progress bar while deferred scripts load
+    (function(){
+      var bar = document.getElementById('smob-splash-bar');
+      if (!bar) return;
+      var pct = 0;
+      var iv = setInterval(function(){
+        pct = Math.min(pct + (Math.random() * 8 + 2), 85);
+        bar.style.width = pct + '%';
+      }, 200);
+      window.__smobSplashDone = function() {
+        clearInterval(iv);
+        bar.style.width = '100%';
+        setTimeout(function(){
+          var splash = document.getElementById('smob-splash');
+          if (splash) { splash.style.opacity='0'; splash.style.visibility='hidden'; }
+        }, 350);
+      };
+    })();
+  </script>
+
   <div class="app-container">
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" onclick="window.smobApp && window.smobApp.toggleSidebar()" title="Ẩn/Hiện thanh điều hướng">◀</button>
     <!-- Vibrancy Sidebar -->
     <aside class="sidebar">
       <div class="traffic-dots">
@@ -2512,11 +2551,11 @@
   <!-- ATTEMPT REVIEW MODAL -->
   <div id="attempt-review-modal-container"></div>
 
-  <script src="./js/embedded_data.js"></script>
-  <script src="./js/data_store.js"></script>
-  <script src="./js/cloud_sync.js"></script>
-  <script src="./js/dynamic_plan.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="./js/embedded_data.js" defer></script>
+  <script src="./js/data_store.js" defer></script>
+  <script src="./js/cloud_sync.js" defer></script>
+  <script src="./js/dynamic_plan.js" defer></script>
+  <script src="./js/app.js" defer></script>
   <script>
     // Only register Service Worker for public web deployments (PWA on Vercel/GitHub Pages)
     // In Desktop PyWebView or local loopback (127.0.0.1 / localhost), service workers cause redundant 4MB cache churn and socket thrashing.
