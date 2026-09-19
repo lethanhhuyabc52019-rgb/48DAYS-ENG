@@ -2533,6 +2533,11 @@
         navigator.serviceWorker.getRegistrations().then(regs => {
           for (const reg of regs) reg.unregister();
         }).catch(() => {});
+        if ('caches' in window) {
+          caches.keys().then(keys => {
+            for (const key of keys) caches.delete(key);
+          }).catch(() => {});
+        }
       } else if (window.location.protocol.startsWith('http')) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js').catch(err => {

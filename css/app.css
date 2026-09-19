@@ -7531,7 +7531,6 @@ body {
   accent-color: var(--primary);
   cursor: pointer;
 }
-}
 
 .cloud-sync-btn.logged-out:hover {
   background: var(--primary);

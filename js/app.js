@@ -488,6 +488,14 @@ class SmobApp {
       } catch (err) {
         console.warn('Dynamic plan dashboard render note:', err);
       }
+    } else {
+      setTimeout(() => {
+        if (window.dynamicPlan && typeof window.dynamicPlan.renderDashboardWidget === 'function') {
+          try {
+            window.dynamicPlan.renderDashboardWidget();
+          } catch (e) {}
+        }
+      }, 150);
     }
 
     const grid = document.getElementById('dash-suggested-grid');

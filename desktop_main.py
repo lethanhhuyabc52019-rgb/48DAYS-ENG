@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 SMOB English Lab — Windows Desktop Application
-Version 2.0 (All-in-One Learning Suite with In-App Video & Audio Streaming)
+Version 2.5 (High-Performance Learning Suite with Multi-Threaded Streaming Engine)
 """
 
 import os
@@ -10,49 +10,23 @@ import json
 import socket
 import threading
 import time
-import urllib.request
-from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler, ServerHandler
-from socketserver import ThreadingMixIn
+import urllib.parse
+import mimetypes
+import re
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import socketserver
 import webview
-import bottle
 
-class FastServerHandler(ServerHandler):
-    def cleanup_headers(self):
-        super().cleanup_headers()
-        self.headers['Connection'] = 'close'
-
-class QuietHandler(WSGIRequestHandler):
-    def log_message(self, format, *args):
+# Safeguard stdout/stderr in PyInstaller --windowed / --noconsole environments
+if sys.stdout is not None:
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
         pass
-
-    def address_string(self):
-        # Bypass slow reverse DNS lookup on Windows loopback (127.0.0.1)
-        return self.client_address[0]
-
-    def handle(self):
-        self.close_connection = 1
-        self.raw_requestline = self.rfile.readline(65537)
-        if len(self.raw_requestline) > 65536:
-            self.send_error(414)
-            return
-        if not self.parse_request():
-            return
-        handler = FastServerHandler(
-            self.rfile, self.wfile, self.get_stderr(), self.get_environ(),
-            multithread=True,
-        )
-        handler.request_handler = self
-        handler.run(self.server.get_app())
-
-class ThreadingWSGIServer(ThreadingMixIn, WSGIServer):
-    daemon_threads = True
-
-class ThreadedServer(bottle.ServerAdapter):
-    def run(self, handler):
-        self.server = make_server(self.host, self.port, handler, server_class=ThreadingWSGIServer, handler_class=QuietHandler)
-        self.server.serve_forever()
-
-sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, 'w')
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, 'w')
 
 def get_base_dir():
     if hasattr(sys, '_MEIPASS'):
@@ -92,13 +66,235 @@ def find_free_port(start_port=56789):
                 return port
     return 56789
 
+class MediaHTTPRequestHandler(SimpleHTTPRequestHandler):
+    """
+    High-Performance, Non-Blocking HTTP Request Handler with Full HTTP/1.1
+    Range Request Support (206 Partial Content) for Smooth Video & Audio Streaming.
+    Guarantees zero-deadlock and immediate socket reclamation.
+    """
+    protocol_version = 'HTTP/1.1'
+    timeout = 5.0  # 5-second socket timeout ensures no thread can ever hang indefinitely
+
+    def log_message(self, format, *args):
+        pass  # Completely suppress request logging for maximum throughput
+
+    def handle_one_request(self):
+        try:
+            super().handle_one_request()
+        except (socket.timeout, TimeoutError):
+            self.close_connection = True
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            self.close_connection = True
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.send_header('Content-Length', '0')
+        self.end_headers()
+
+    def do_HEAD(self):
+        self.handle_request(send_body=False)
+
+    def do_GET(self):
+        self.handle_request(send_body=True)
+
+    def send_file_range(self, file_path, custom_mime=None, send_body=True):
+        if not os.path.isfile(file_path):
+            self.send_error(404, "File Not Found")
+            return
+
+        try:
+            file_size = os.path.getsize(file_path)
+        except OSError:
+            self.send_error(404, "Unable to read file size")
+            return
+
+        mimetype = custom_mime
+        if not mimetype:
+            mimetype, _ = mimetypes.guess_type(file_path)
+            if not mimetype:
+                if file_path.lower().endswith('.mp4'):
+                    mimetype = 'video/mp4'
+                elif file_path.lower().endswith('.webm'):
+                    mimetype = 'video/webm'
+                elif file_path.lower().endswith('.mp3'):
+                    mimetype = 'audio/mpeg'
+                elif file_path.lower().endswith('.wav'):
+                    mimetype = 'audio/wav'
+                elif file_path.lower().endswith('.js'):
+                    mimetype = 'application/javascript; charset=utf-8'
+                elif file_path.lower().endswith('.css'):
+                    mimetype = 'text/css; charset=utf-8'
+                elif file_path.lower().endswith('.json'):
+                    mimetype = 'application/json; charset=utf-8'
+                else:
+                    mimetype = 'application/octet-stream'
+
+        range_header = self.headers.get('Range')
+        if range_header and range_header.startswith('bytes='):
+            range_match = re.search(r'bytes=(\d+)-(\d*)', range_header)
+            if range_match:
+                start = int(range_match.group(1))
+                end = int(range_match.group(2)) if range_match.group(2) else file_size - 1
+                if start >= file_size:
+                    self.send_error(416, "Requested Range Not Satisfiable")
+                    return
+                end = min(end, file_size - 1)
+                length = end - start + 1
+
+                self.send_response(206)
+                self.send_header('Content-Type', mimetype)
+                self.send_header('Content-Range', f'bytes {start}-{end}/{file_size}')
+                self.send_header('Content-Length', str(length))
+                self.send_header('Accept-Ranges', 'bytes')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+
+                if send_body:
+                    try:
+                        with open(file_path, 'rb') as f:
+                            f.seek(start)
+                            remaining = length
+                            while remaining > 0:
+                                chunk_size = min(65536, remaining)
+                                chunk = f.read(chunk_size)
+                                if not chunk:
+                                    break
+                                self.wfile.write(chunk)
+                                remaining -= len(chunk)
+                    except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError, socket.timeout):
+                        self.close_connection = True
+                return
+
+        # Full file response
+        self.send_response(200)
+        self.send_header('Content-Type', mimetype)
+        self.send_header('Content-Length', str(file_size))
+        self.send_header('Accept-Ranges', 'bytes')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+
+        if send_body:
+            try:
+                with open(file_path, 'rb') as f:
+                    while True:
+                        chunk = f.read(65536)
+                        if not chunk:
+                            break
+                        self.wfile.write(chunk)
+            except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError, socket.timeout):
+                self.close_connection = True
+
+    def handle_request(self, send_body=True):
+        parsed = urllib.parse.urlparse(self.path)
+        raw_path = parsed.path
+        server = self.server.media_server
+
+        # 1. Route: / or /index.html
+        if raw_path in ('/', '/index.html'):
+            target = os.path.join(server.base_dir, 'index.html')
+            self.send_file_range(target, 'text/html; charset=utf-8', send_body)
+            return
+
+        # 2. Route: /video/<unit_id>
+        video_match = re.match(r'^/video/(\d+)$', raw_path)
+        if video_match:
+            unit_id = int(video_match.group(1))
+            if unit_id in [12, 13]:
+                self.send_error(404, "Video bài giảng hiện chưa có trong bộ dữ liệu gốc.")
+                return
+            folder = server.get_unit_folder(unit_id)
+            if not folder:
+                self.send_error(404, f"Thư mục Unit {unit_id} không tồn tại.")
+                return
+            video_file = server.get_unit_video_filename(folder)
+            if not video_file:
+                self.send_error(404, f"Không tìm thấy file video cho Unit {unit_id}.")
+                return
+            full_path = os.path.join(folder, video_file)
+            self.send_file_range(full_path, None, send_body)
+            return
+
+        # 3. Route: /audio/<unit_id>/<filename>
+        audio_match = re.match(r'^/audio/(\d+)/(.+)$', raw_path)
+        if audio_match:
+            unit_id = int(audio_match.group(1))
+            filename = urllib.parse.unquote(audio_match.group(2))
+            folder = server.get_unit_folder(unit_id)
+            if not folder:
+                self.send_error(404, f"Thư mục Unit {unit_id} không tồn tại.")
+                return
+            actual_file = filename
+            if not os.path.isfile(os.path.join(folder, actual_file)):
+                for f in os.listdir(folder):
+                    if f.lower() == filename.lower():
+                        actual_file = f
+                        break
+            full_path = os.path.join(folder, actual_file)
+            self.send_file_range(full_path, None, send_body)
+            return
+
+        # 4. Route: /api/video_info/<unit_id>
+        info_match = re.match(r'^/api/video_info/(\d+)$', raw_path)
+        if info_match:
+            unit_id = int(info_match.group(1))
+            if unit_id in [12, 13]:
+                data = {"available": False, "message": "Chưa có video trong nguồn gốc."}
+            else:
+                folder = server.get_unit_folder(unit_id)
+                if not folder:
+                    data = {"available": False, "message": "Thư mục không tồn tại."}
+                else:
+                    video_file = server.get_unit_video_filename(folder)
+                    if not video_file:
+                        data = {"available": False, "message": "Không tìm thấy file video."}
+                    else:
+                        full_path = os.path.join(folder, video_file)
+                        size_mb = os.path.getsize(full_path) / (1024 * 1024)
+                        data = {
+                            "available": True,
+                            "filename": video_file,
+                            "size_mb": round(size_mb, 1),
+                            "url": f"/video/{unit_id}"
+                        }
+            body = json.dumps(data).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            if send_body:
+                try:
+                    self.wfile.write(body)
+                except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError, socket.timeout):
+                    self.close_connection = True
+            return
+
+        # 5. Route: Static assets in base_dir (css/, js/, data/, assets/, favicon.ico, etc.)
+        safe_rel = raw_path.lstrip('/')
+        target = os.path.abspath(os.path.join(server.base_dir, safe_rel))
+        # Prevent directory traversal
+        if not target.startswith(os.path.abspath(server.base_dir)):
+            self.send_error(403, "Access Denied")
+            return
+
+        if os.path.isfile(target):
+            self.send_file_range(target, None, send_body)
+        else:
+            self.send_error(404, "File Not Found")
+
+class ThreadedHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+    block_on_close = False
+
 class MediaServer:
     def __init__(self, base_dir, source_root, port):
         self.base_dir = base_dir
         self.source_root = source_root
         self.port = port
-        self.app = bottle.Bottle()
-        self.setup_routes()
+        self.httpd = None
 
     def get_unit_folder(self, unit_id):
         uid = int(unit_id)
@@ -131,8 +327,7 @@ class MediaServer:
         fulls = [f for f in all_files if f.lower().endswith('_full.mp4')]
         if fulls:
             return fulls[0]
-        # 2. Look for regular mp4 files that are NOT video-only/audio-only stream dumps (.f398 / .f396 / .f251 etc.)
-        import re
+        # 2. Look for regular mp4 files that are NOT video-only/audio-only stream dumps
         valid_mp4s = [f for f in all_files if f.lower().endswith('.mp4') and not re.search(r'\.f\d+', f)]
         if valid_mp4s:
             return valid_mp4s[0]
@@ -146,78 +341,15 @@ class MediaServer:
             return mp4s[0]
         return None
 
-    def setup_routes(self):
-        @self.app.route('/')
-        @self.app.route('/index.html')
-        def index():
-            return bottle.static_file('index.html', root=self.base_dir)
-
-        @self.app.route('/css/<filepath:path>')
-        def serve_css(filepath):
-            return bottle.static_file(filepath, root=os.path.join(self.base_dir, 'css'))
-
-        @self.app.route('/js/<filepath:path>')
-        def serve_js(filepath):
-            return bottle.static_file(filepath, root=os.path.join(self.base_dir, 'js'))
-
-        @self.app.route('/data/<filepath:path>')
-        def serve_data(filepath):
-            return bottle.static_file(filepath, root=os.path.join(self.base_dir, 'data'))
-
-        @self.app.route('/assets/<filepath:path>')
-        def serve_assets(filepath):
-            return bottle.static_file(filepath, root=os.path.join(self.base_dir, 'assets'))
-
-        @self.app.route('/video/<unit_id:int>')
-        def stream_video(unit_id):
-            if unit_id in [12, 13]:
-                bottle.abort(404, "Video bài giảng hiện chưa có trong bộ dữ liệu.")
-            folder = self.get_unit_folder(unit_id)
-            if not folder:
-                bottle.abort(404, f"Thư mục Unit {unit_id} không tồn tại.")
-            video_file = self.get_unit_video_filename(folder)
-            if not video_file:
-                bottle.abort(404, f"Không tìm thấy video cho Unit {unit_id}.")
-            mimetype = 'video/mp4' if video_file.lower().endswith('.mp4') else 'video/webm'
-            return bottle.static_file(video_file, root=folder, mimetype=mimetype)
-
-        @self.app.route('/audio/<unit_id:int>/<filename:path>')
-        def stream_audio(unit_id, filename):
-            folder = self.get_unit_folder(unit_id)
-            if not folder:
-                bottle.abort(404, f"Thư mục Unit {unit_id} không tồn tại.")
-            actual_file = filename
-            if not os.path.isfile(os.path.join(folder, actual_file)):
-                for f in os.listdir(folder):
-                    if f.lower() == filename.lower():
-                        actual_file = f
-                        break
-            mimetype = 'audio/mpeg' if actual_file.lower().endswith('.mp3') else 'audio/wav'
-            return bottle.static_file(actual_file, root=folder, mimetype=mimetype)
-
-        @self.app.route('/api/video_info/<unit_id:int>')
-        def video_info(unit_id):
-            bottle.response.content_type = 'application/json'
-            if unit_id in [12, 13]:
-                return json.dumps({"available": False, "message": "Chưa có video trong nguồn gốc."})
-            folder = self.get_unit_folder(unit_id)
-            if not folder:
-                return json.dumps({"available": False, "message": "Thư mục không tồn tại."})
-            video_file = self.get_unit_video_filename(folder)
-            if not video_file:
-                return json.dumps({"available": False, "message": "Không tìm thấy file video."})
-            full_path = os.path.join(folder, video_file)
-            size_mb = os.path.getsize(full_path) / (1024 * 1024)
-            return json.dumps({
-                "available": True,
-                "filename": video_file,
-                "size_mb": round(size_mb, 1),
-                "url": f"/video/{unit_id}"
-            })
-
     def start(self):
-        adapter = ThreadedServer(host='127.0.0.1', port=self.port)
-        bottle.run(self.app, server=adapter, quiet=True)
+        self.httpd = ThreadedHTTPServer(('127.0.0.1', self.port), MediaHTTPRequestHandler)
+        self.httpd.media_server = self
+        self.httpd.serve_forever()
+
+    def stop(self):
+        if self.httpd:
+            self.httpd.shutdown()
+            self.httpd.server_close()
 
 class AppApi:
     def __init__(self, port, source_root, server=None):
@@ -239,18 +371,14 @@ class AppApi:
         return f"http://127.0.0.1:{self.port}/video/{int(unit_id)}"
 
     def launch_video(self, unit_id, video_file=None):
-        """Fallback: Cho phép mở bằng player bên ngoài của Windows nếu học viên muốn"""
+        """Fallback: Mở video bằng player bên ngoài của Windows"""
         uid = int(unit_id)
         if uid in [12, 13]:
             return {"status": "MISSING", "message": "Video bài giảng hiện chưa có trong bộ dữ liệu gốc."}
-            
+
         folder = self.server.get_unit_folder(uid) if self.server else None
         if not folder:
-            candidates = [
-                f"NGÀY {uid}",
-                f"NGAY {uid}",
-                f"Ngày {uid}"
-            ]
+            candidates = [f"NGÀY {uid}", f"NGAY {uid}", f"Ngày {uid}"]
             for c in candidates:
                 p = os.path.join(self.source_root, c)
                 if os.path.isdir(p):
@@ -297,7 +425,7 @@ class AppApi:
         return {"status": "ERROR", "message": f"Không tìm thấy file PDF tại: {target}"}
 
     def save_backup_file(self, data_json):
-        """Mở hộp thoại lưu file dữ liệu học tập (.json) trên Windows - chuẩn PyWebView không crash"""
+        """Mở hộp thoại lưu file dữ liệu học tập (.json) trên Windows"""
         try:
             win = self.window or (webview.windows[0] if webview.windows else None)
             if win:
@@ -317,7 +445,7 @@ class AppApi:
             return {"status": "ERROR", "message": str(e)}
 
     def load_backup_file(self):
-        """Mở hộp thoại nạp file dữ liệu học tập (.json) trên Windows - chuẩn PyWebView không crash"""
+        """Mở hộp thoại nạp file dữ liệu học tập (.json) trên Windows"""
         try:
             win = self.window or (webview.windows[0] if webview.windows else None)
             if win:
@@ -340,15 +468,20 @@ def main():
     base_dir = get_base_dir()
     source_root = resolve_source_root()
     port = find_free_port(56789)
-    
-    # Start local streaming server in background daemon thread
+
+    # 1. Start local multi-threaded streaming server in background daemon thread
     server = MediaServer(base_dir, source_root, port)
     server_thread = threading.Thread(target=server.start, daemon=True)
     server_thread.start()
-    
+
     api = AppApi(port, source_root, server)
     app_url = f"http://127.0.0.1:{port}/index.html"
-    
+
+    # 2. Configure dedicated persistent profile storage for WebView2 (avoids random %TEMP% directories)
+    data_folder = os.environ.get('APPDATA') or os.path.expanduser('~')
+    storage_path = os.path.join(data_folder, 'SMOB_English_Lab', 'webview_profile')
+    os.makedirs(storage_path, exist_ok=True)
+
     window = webview.create_window(
         title='SMOB English Lab — 48-Day Foundation Course (v2.5 - All-in-One Learning Suite)',
         url=app_url,
@@ -359,8 +492,14 @@ def main():
         background_color='#f5f5f7'
     )
     api.set_window(window)
-    
-    webview.start(debug=False)
+
+    # 3. Launch PyWebView with explicit EdgeChromium engine & persistent profile storage
+    webview.start(
+        gui='edgechromium',
+        private_mode=False,
+        storage_path=storage_path,
+        debug=False
+    )
 
 if __name__ == '__main__':
     main()

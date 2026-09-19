@@ -20,6 +20,19 @@ os.makedirs(final_dir, exist_ok=True)
 try:
     subprocess.run(["taskkill", "/f", "/im", "SMOB English Lab.exe"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     import time; time.sleep(1)
+    # WMI termination fallback in case taskkill lacked elevation rights
+    try:
+        import win32com.client
+        wmi = win32com.client.GetObject("winmgmts:")
+        procs = wmi.ExecQuery("SELECT * FROM Win32_Process WHERE Name = 'SMOB English Lab.exe'")
+        for p in procs:
+            in_param = p.Methods_("Terminate").InParameters.SpawnInstance_()
+            in_param.Properties_("Reason").Value = 0
+            p.ExecMethod_("Terminate", in_param)
+        if len(procs) > 0:
+            time.sleep(1)
+    except Exception:
+        pass
 except Exception:
     pass
 
