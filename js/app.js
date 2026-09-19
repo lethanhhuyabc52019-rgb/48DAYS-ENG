@@ -290,12 +290,17 @@ class SmobApp {
       'audio': ['Audio & Luyện Nghe', 'Trạm luyện nghe các file âm thanh MP3 thực tế phát trực tiếp trong ứng dụng'],
       'mistakes': ['Sổ Tay Câu Sai & Khắc Phục', 'Ôn tập và luyện thi lại riêng các câu bạn đã từng trả lời chưa chính xác'],
       'analytics': ['Trung Tâm Hiệu Suất Học Tập & Lịch Sử Kiểm Tra', 'Theo dõi tiến độ, đo lường độ chăm chỉ và xem lại nhật ký các bài thi có ngày giờ chi tiết'],
-      'settings': ['Cài Đặt', 'Tùy chỉnh chế độ giao diện, tốc độ phát âm và quản lý dữ liệu học tập offline']
+      'settings': ['Cài Đặt', 'Tùy chỉnh chế độ giao diện, tốc độ phát âm và quản lý dữ liệu học tập offline'],
+      'sync': ['Quản Lý Dữ Liệu & Đồng Bộ 2 Chiều', 'Tùy chọn lưu ngoại tuyến an toàn trên máy hoặc đồng bộ dữ liệu bảo mật giữa Nhà & Công Ty']
     };
 
     if (meta[viewId]) {
       document.getElementById('page-heading').innerText = meta[viewId][0];
       document.getElementById('page-description').innerText = meta[viewId][1];
+    }
+
+    if (viewId === 'sync' && window.smobCloudSync) {
+      window.smobCloudSync.updateUI();
     }
 
     const curU = window.dataStore?.currentUnitId || 1;

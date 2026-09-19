@@ -171,8 +171,27 @@ body {
   border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  padding: 18px 16px;
+  padding: 18px 16px 36px;
   flex-shrink: 0;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .traffic-dots {
@@ -7458,28 +7477,45 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* Modal Styling */
-.sync-modal-content {
-  max-width: 520px !important;
+/* ============================================================
+   SMOB DATA MANAGEMENT & SYNC MODAL SYSTEM
+   ============================================================ */
+#account-sync-modal {
+  z-index: 100000;
+}
+
+.sync-modal-card {
+  max-width: 500px !important;
   width: 92% !important;
-  padding: 24px !important;
-  border-radius: 20px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  padding: 24px 28px !important;
+  border-radius: 22px !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35) !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .sync-modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 5;
 }
 
 .modal-close-btn {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
+  background: var(--bg-tertiary, rgba(0, 0, 0, 0.05));
+  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.1));
+  color: var(--text-secondary, #666);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -7489,14 +7525,16 @@ body {
   font-size: 14px;
   cursor: pointer;
   flex-shrink: 0;
-  margin-top: 2px;
   transition: all 0.2s ease;
+  line-height: 1;
+  padding: 0;
 }
 
 .modal-close-btn:hover {
   background: rgba(255, 59, 48, 0.15);
   color: #ff3b30;
   border-color: rgba(255, 59, 48, 0.3);
+  transform: scale(1.05);
 }
 
 .sync-modal-icon {
@@ -7511,122 +7549,65 @@ body {
   font-size: 22px;
   flex-shrink: 0;
 }
-  justify-content: center;
-  font-size: 22px;
-}
 
-.sync-profile-card {
+.sync-modal-body {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 14px;
-  padding: 16px;
-  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9), rgba(241, 245, 249, 0.8));
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  margin-bottom: 20px;
 }
 
-[data-theme="dark"] .sync-profile-card {
-  background: linear-gradient(135deg, rgba(30, 30, 36, 0.9), rgba(24, 24, 28, 0.8));
-  border-color: rgba(255, 255, 255, 0.08);
+/* 1. Offline Default Mode Card */
+.sync-default-card {
+  background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), rgba(16, 185, 129, 0.06));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 16px;
+  padding: 16px 18px;
 }
 
-.sync-card-avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0071e3, #42a5f5);
-  color: white;
-  display: flex;
+[data-theme="dark"] .sync-default-card {
+  background: linear-gradient(135deg, rgba(0, 113, 227, 0.1), rgba(16, 185, 129, 0.08));
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.sync-badge-offline {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 700;
-  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.25);
-  flex-shrink: 0;
-}
-
-.sync-card-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.sync-card-email {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 1px;
-}
-
-.sync-card-time {
+  gap: 6px;
   font-size: 11px;
-  color: var(--text-tertiary);
-  margin-top: 3px;
+  font-weight: 800;
+  color: #10b981;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
-.sync-now-action-btn {
-  padding: 8px 14px !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  border-radius: 18px !important;
-  white-space: nowrap !important;
-}
-
-.sync-toggle-label {
+/* Divider with text */
+.sync-divider-line {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--text-primary);
-  cursor: pointer;
-  user-select: none;
+  text-align: center;
+  margin: 6px 0;
 }
 
-.sync-toggle-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--primary);
-  cursor: pointer;
+.sync-divider-line::before,
+.sync-divider-line::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-/* Toast Message */
-.smob-sync-toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: rgba(20, 20, 24, 0.92);
-  color: #ffffff;
-  padding: 12px 22px;
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 10000;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
+.sync-divider-line span {
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.5px;
 }
 
-.smob-sync-toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-[data-theme="dark"] .smob-sync-toast {
-  background: rgba(40, 40, 48, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ============================================================
-   6-DIGIT PIN SYNC SYSTEM STYLING
-   ============================================================ */
+/* 2. Optional PIN Box */
 .sync-pin-box {
   background: var(--bg-tertiary);
-  padding: 20px;
+  padding: 18px;
   border-radius: 16px;
   border: 1px solid var(--border-subtle);
 }
@@ -7635,9 +7616,9 @@ body {
   width: 100%;
   max-width: 300px;
   padding: 12px 16px;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 10px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 6px;
   text-align: center;
   border-radius: 14px;
   border: 2px solid var(--primary);
@@ -7716,7 +7697,7 @@ body {
 }
 
 .pin-display-number {
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 900;
   letter-spacing: 8px;
   color: var(--primary);
@@ -7727,5 +7708,13 @@ body {
 .sync-divider {
   height: 1px;
   background: var(--border-subtle);
-  margin: 18px 0;
+  margin: 14px 0;
+}
+
+/* Modal overlay backward-compatibility alias */
+.modal-overlay {
+  display: none;
+}
+.modal-overlay.active {
+  display: flex !important;
 }

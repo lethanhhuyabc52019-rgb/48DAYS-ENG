@@ -5,7 +5,7 @@
 class CloudSyncEngine {
   constructor() {
     this.apiEndpoint = 'https://48smobeng.vercel.app/api/sync';
-    this.fallbackEndpoint = 'https://extendsclass.com/api/json-storage/bin/dafdaee';
+    this.fallbackEndpoint = 'https://extendsclass.com/api/json-storage/bin/dccfcbf';
     this.pin = this.loadPin();
     this.lastSyncedAt = localStorage.getItem('smob_sync_last_time') || null;
     this.isSyncing = false;
@@ -13,6 +13,7 @@ class CloudSyncEngine {
     this._isPeeking = false;
 
     this.initNetworkListeners();
+    this.initKeyListeners();
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
@@ -58,6 +59,14 @@ class CloudSyncEngine {
     });
   }
 
+  initKeyListeners() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.closeSyncModal();
+      }
+    });
+  }
+
   // ==========================================
   // PIN CONNECTION & TWO-WAY SYNC
   // ==========================================
@@ -90,7 +99,7 @@ class CloudSyncEngine {
         console.warn('API GET failed, trying fallback:', apiErr);
         // Fallback: simple direct GET on ExtendsClass (zero custom headers to avoid CORS preflight)
         try {
-          const resFallback = await fetch(this.fallbackEndpoint);
+          const resFallback = await fetch(`${this.fallbackEndpoint}?_t=${Date.now()}`);
           if (resFallback.ok) {
             const reg = await resFallback.json();
             if (reg && reg[cleanPin]) {
@@ -138,9 +147,10 @@ class CloudSyncEngine {
     payload.lastSyncedAt = new Date().toISOString();
 
     try {
-      const res = await fetch(this.apiEndpoint, {
+      const res = await fetch(`${this.apiEndpoint}?_t=${Date.now()}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store',
         body: JSON.stringify({ pin, data: payload })
       });
       return res.ok;
@@ -170,9 +180,11 @@ class CloudSyncEngine {
     }
 
     try {
-      // 1. Fetch remote updates
+      // 1. Fetch remote updates with cache-busting
       try {
-        const res = await fetch(`${this.apiEndpoint}?pin=${encodeURIComponent(this.pin)}`);
+        const res = await fetch(`${this.apiEndpoint}?pin=${encodeURIComponent(this.pin)}&_t=${Date.now()}`, {
+          cache: 'no-store'
+        });
         if (res.ok) {
           const json = await res.json();
           if (json && json.data && window.dataStore) {
@@ -239,20 +251,23 @@ class CloudSyncEngine {
 
   toggleConnectedPinPeek(btn) {
     const display = document.getElementById('sync-modal-pin-display');
-    if (!display) return;
+    const tabDisplay = document.getElementById('tab-sync-pin-display');
     if (this._isPeeking) {
-      display.textContent = '••••••';
+      if (display) display.textContent = '••••••';
+      if (tabDisplay) tabDisplay.textContent = '••••••';
       btn.textContent = '👁️ Xem mã bí mật';
       this._isPeeking = false;
     } else {
-      display.textContent = this.pin || '••••••';
+      if (display) display.textContent = this.pin || '••••••';
+      if (tabDisplay) tabDisplay.textContent = this.pin || '••••••';
       btn.textContent = '🙈 Ẩn mã';
       this._isPeeking = true;
     }
   }
 
   refreshAppViews() {
-    if (window.smobApp) {
+    if (!window.smobApp) return;
+    try {
       if (typeof window.smobApp.renderDashboardMetrics === 'function') {
         window.smobApp.renderDashboardMetrics();
       }
@@ -262,6 +277,27 @@ class CloudSyncEngine {
       if (typeof window.smobApp.renderStudyPlanView === 'function') {
         window.smobApp.renderStudyPlanView();
       }
+      if (typeof window.smobApp.renderUnitsCatalog === 'function') {
+        window.smobApp.renderUnitsCatalog();
+      }
+      if (typeof window.smobApp.renderAnalyticsExamHistory === 'function') {
+        window.smobApp.renderAnalyticsExamHistory();
+      }
+      if (typeof window.smobApp.renderAnalyticsVocabAndIrregularHistory === 'function') {
+        window.smobApp.renderAnalyticsVocabAndIrregularHistory();
+      }
+      if (typeof window.smobApp.renderDiligenceChart === 'function') {
+        window.smobApp.renderDiligenceChart();
+      }
+      if (window.dataStore && typeof window.smobApp.openUnitHub === 'function') {
+        window.smobApp.openUnitHub(window.dataStore.currentUnitId || 1);
+      }
+      const streakEl = document.getElementById('sidebar-streak');
+      if (streakEl && window.dataStore && window.dataStore.engagement) {
+        streakEl.innerText = `🔥 ${window.dataStore.engagement.dailyStreak || 1} ngày học liên tục`;
+      }
+    } catch (e) {
+      console.warn('refreshAppViews error:', e);
     }
   }
 
@@ -398,14 +434,14 @@ class CloudSyncEngine {
       } else if (!this.online) {
         syncLabel.textContent = 'Ngoại tuyến';
       } else if (this.pin) {
-        syncLabel.textContent = 'Đã Đồng Bộ';
+        syncLabel.textContent = '🟢 Đã Đồng Bộ';
       } else {
-        syncLabel.textContent = 'Đồng Bộ Mã 6 Số';
+        syncLabel.textContent = 'Dữ Liệu & Đồng Bộ';
       }
     }
 
     if (syncAvatar) {
-      syncAvatar.innerHTML = this.pin ? '🔐' : '🔄';
+      syncAvatar.innerHTML = this.pin ? '🔐' : '💾';
     }
 
     // 2. Sidebar Profile & Nav Account Link
@@ -430,7 +466,7 @@ class CloudSyncEngine {
       } else if (this.pin) {
         sidebarCloudStatus.innerHTML = `<span class="dot-status online"></span> Đã kết nối Đám Mây`;
       } else {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Bấm để nhập mã bí mật`;
+        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Lưu trên máy này`;
       }
     }
 
@@ -441,7 +477,7 @@ class CloudSyncEngine {
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          Đã Đồng Bộ (Bấm để xem)
+          Đã Đồng Bộ
         `;
       } else {
         navAccount.innerHTML = `
@@ -450,46 +486,59 @@ class CloudSyncEngine {
             <polyline points="1 20 1 14 7 14"></polyline>
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
           </svg>
-          Đồng Bộ Mã 6 Số
+          Đồng Bộ (Tùy Chọn)
         `;
       }
     }
 
-    // 3. Modal details
-    const modalPinDisplay = document.getElementById('sync-modal-pin-display');
-    const modalLastSync = document.getElementById('sync-modal-last-sync');
+    // 3. Modal and Tab details
+    const pinText = this._isPeeking ? (this.pin || '••••••') : '••••••';
+    const lastSyncText = this.lastSyncedAt
+      ? `Lần đồng bộ gần nhất: ${new Date(this.lastSyncedAt).toLocaleTimeString('vi-VN')} (${new Date(this.lastSyncedAt).toLocaleDateString('vi-VN')})`
+      : 'Chưa có lượt đồng bộ nào';
+
+    ['sync-modal-pin-display', 'tab-sync-pin-display'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = pinText;
+    });
+
+    ['sync-modal-last-sync', 'tab-sync-last-sync'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = lastSyncText;
+    });
+
     const connectSection = document.getElementById('sync-connect-section');
     const connectedSection = document.getElementById('sync-connected-section');
+    const tabConnectSection = document.getElementById('tab-sync-connect-section');
+    const tabConnectedSection = document.getElementById('tab-sync-connected-section');
     const pinInput = document.getElementById('sync-pin-input');
+    const tabPinInput = document.getElementById('tab-sync-pin-input');
 
-    if (modalPinDisplay) {
-      modalPinDisplay.textContent = this._isPeeking ? (this.pin || '••••••') : '••••••';
-    }
-
-    if (modalLastSync) {
-      modalLastSync.textContent = this.lastSyncedAt
-        ? `Lần đồng bộ gần nhất: ${new Date(this.lastSyncedAt).toLocaleTimeString('vi-VN')} (${new Date(this.lastSyncedAt).toLocaleDateString('vi-VN')})`
-        : 'Chưa có lượt đồng bộ nào';
-    }
-
-    if (connectSection && connectedSection) {
-      if (this.pin) {
-        connectSection.style.display = 'none';
-        connectedSection.style.display = 'block';
-      } else {
-        connectSection.style.display = 'block';
-        connectedSection.style.display = 'none';
-        // NEVER prefill PIN! Always keep input blank for privacy
-        if (pinInput) {
-          pinInput.value = '';
-        }
-      }
+    if (this.pin) {
+      if (connectSection) connectSection.style.display = 'none';
+      if (connectedSection) connectedSection.style.display = 'block';
+      if (tabConnectSection) tabConnectSection.style.display = 'none';
+      if (tabConnectedSection) tabConnectedSection.style.display = 'block';
+    } else {
+      if (connectSection) connectSection.style.display = 'block';
+      if (connectedSection) connectedSection.style.display = 'none';
+      if (tabConnectSection) tabConnectSection.style.display = 'block';
+      if (tabConnectedSection) tabConnectedSection.style.display = 'none';
+      if (pinInput) pinInput.value = '';
+      if (tabPinInput) tabPinInput.value = '';
     }
   }
 
   openSyncModal() {
+    // If the main app view navigation exists, prefer opening the dedicated tab view!
+    if (window.smobApp && typeof window.smobApp.navigate === 'function') {
+      this.closeSyncModal();
+      window.smobApp.navigate('sync');
+      return;
+    }
     const modal = document.getElementById('account-sync-modal');
     if (!modal) return;
+    modal.style.setProperty('display', 'flex', 'important');
     modal.classList.add('active');
     this._isPeeking = false;
     this.updateUI();
@@ -497,13 +546,22 @@ class CloudSyncEngine {
     const pinInput = document.getElementById('sync-pin-input');
     if (pinInput && !this.pin) {
       pinInput.value = '';
-      pinInput.focus();
+      setTimeout(() => pinInput.focus(), 80);
     }
   }
 
   closeSyncModal() {
     const modal = document.getElementById('account-sync-modal');
-    if (modal) modal.classList.remove('active');
+    if (modal) {
+      modal.style.setProperty('display', 'none', 'important');
+      modal.classList.remove('active');
+    }
+    document.querySelectorAll('.modal-backdrop').forEach(b => {
+      if (b.id === 'account-sync-modal') {
+        b.style.setProperty('display', 'none', 'important');
+        b.classList.remove('active');
+      }
+    });
   }
 
   showToast(message) {

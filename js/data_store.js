@@ -84,6 +84,15 @@ class DataStore {
   // ==========================================
   // 1. EXAM HISTORY (48 UNITS ONLINE TESTS)
   // ==========================================
+  notifySync() {
+    if (window.smobCloudSync && typeof window.smobCloudSync.autoSyncIfEnabled === 'function') {
+      clearTimeout(this._syncDebounce);
+      this._syncDebounce = setTimeout(() => {
+        window.smobCloudSync.autoSyncIfEnabled();
+      }, 1200);
+    }
+  }
+
   loadExamHistory() {
     const raw = localStorage.getItem('smob_exam_history');
     if (raw) {
@@ -94,6 +103,7 @@ class DataStore {
 
   saveExamHistory() {
     localStorage.setItem('smob_exam_history', JSON.stringify(this.examHistory));
+    this.notifySync();
   }
 
   saveExamAttempt(unitId, attemptData) {
@@ -166,6 +176,7 @@ class DataStore {
 
   saveVocabQuizHistory() {
     localStorage.setItem('smob_vocab_quiz_history', JSON.stringify(this.vocabQuizHistory));
+    this.notifySync();
   }
 
   saveVocabQuizAttempt(unitId, data) {
@@ -213,6 +224,7 @@ class DataStore {
 
   saveIrregularQuizHistory() {
     localStorage.setItem('smob_irregular_quiz_history', JSON.stringify(this.irregularQuizHistory));
+    this.notifySync();
   }
 
   saveIrregularQuizAttempt(data) {
@@ -520,6 +532,7 @@ class DataStore {
 
   saveUserProgress() {
     localStorage.setItem('smob_user_progress', JSON.stringify(this.userProgress));
+    this.notifySync();
   }
 
   saveTestResult(unitId, score, correct, total) {
