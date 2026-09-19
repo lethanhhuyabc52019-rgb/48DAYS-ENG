@@ -7007,7 +7007,11 @@ class SmobApp {
         }
 
         if (this.testFinished) {
-          if (opt === q.correct_answer) btn.classList.add('is-correct');
+          const isRightOpt = (opt === q.correct_answer) ||
+            this.checkAnswer(q, opt) ||
+            (q.correct_answer && opt.trim().toLowerCase().startsWith(q.correct_answer.trim().toLowerCase() + '.')) ||
+            (q.correct_answer && q.correct_answer.trim().toLowerCase().startsWith(opt.trim().split('.')[0].toLowerCase() + '.'));
+          if (isRightOpt) btn.classList.add('is-correct');
           else if (opt === currentAns) btn.classList.add('is-wrong');
         }
 

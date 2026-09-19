@@ -23875,7 +23875,7 @@
     "idx": 0,
     "num": 1,
     "type": "CHOICE",
-    "stem": "",
+    "stem": "Nghe đoạn audio 6 và chọn từ mô tả thời tiết chính xác (Câu 1):",
     "options": [
       {
         "key": "A",
@@ -23902,7 +23902,7 @@
     "idx": 1,
     "num": 2,
     "type": "CHOICE",
-    "stem": "",
+    "stem": "Nghe đoạn audio 6 và chọn từ mô tả thời tiết chính xác (Câu 2):",
     "options": [
       {
         "key": "A",
@@ -23929,7 +23929,7 @@
     "idx": 2,
     "num": 3,
     "type": "CHOICE",
-    "stem": "",
+    "stem": "Nghe đoạn audio 6 và chọn từ mô tả thời tiết chính xác (Câu 3):",
     "options": [
       {
         "key": "A",
@@ -23956,7 +23956,7 @@
     "idx": 3,
     "num": 4,
     "type": "CHOICE",
-    "stem": "",
+    "stem": "Nghe đoạn audio 6 và chọn từ mô tả thời tiết chính xác (Câu 4):",
     "options": [
       {
         "key": "A",

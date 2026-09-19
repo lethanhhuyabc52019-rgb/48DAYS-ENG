@@ -2778,7 +2778,7 @@
           "No, they aren't.",
           "they aren't"
         ],
-        "explanation": "【Giải thích】 Bức tranh hiển thị những chú cún con (không phải em bé). Với câu hỏi 'Are they babies?', câu trả lời phủ định là 'No, they aren't.'",
+        "explanation": "【Giải thích】 Bức tranh hiển thị các bạn học sinh/sinh viên (không phải em bé). Với câu hỏi 'Are they babies?', câu trả lời ngắn phủ định là: 'No, they aren't.'.",
         "image_url": "assets/exam_images/unit_02/u02_p3_q02.png",
         "valid_alternatives": []
       },
@@ -2837,9 +2837,11 @@
           "B. is",
           "C. am"
         ],
-        "correct_answer": "A",
+        "correct_answer": "A. are",
         "explanation": "【Giải thích】 Chủ ngữ 'These firefighters' là danh từ số nhiều nên đi với to be 'are'.",
         "acceptable_variants": [
+          "A. are",
+          "are",
           "A"
         ],
         "valid_alternatives": []
@@ -2856,9 +2858,12 @@
           "B. there is",
           "C. it isn’t"
         ],
-        "correct_answer": "C",
+        "correct_answer": "C. it isn’t",
         "explanation": "【Giải thích】 'room' là danh từ chỉ vật/nơi chốn số ít, khi trả lời câu hỏi 'Is this...?' ta dùng đại từ 'it': 'No, it isn’t.'",
         "acceptable_variants": [
+          "C. it isn’t",
+          "it isn't",
+          "it isn’t",
           "C"
         ],
         "valid_alternatives": []
@@ -2875,9 +2880,11 @@
           "B. am",
           "C. are"
         ],
-        "correct_answer": "C",
+        "correct_answer": "C. are",
         "explanation": "【Giải thích】 Trong cấu trúc đảo ngữ với 'Here', động từ to be chia theo chủ ngữ sau nó. 'my lovely daughters' là số nhiều $\\implies$ dùng 'are'.",
         "acceptable_variants": [
+          "C. are",
+          "are",
           "C"
         ],
         "valid_alternatives": []
@@ -2894,9 +2901,12 @@
           "B. Is",
           "C. Are"
         ],
-        "correct_answer": "B",
+        "correct_answer": "B. Is",
         "explanation": "【Giải thích】 Chủ ngữ 'she' là ngôi thứ 3 số ít nên câu nghi vấn to be đảo 'Is' lên đầu câu: 'Is she...?'",
         "acceptable_variants": [
+          "B. Is",
+          "Is",
+          "is",
           "B"
         ],
         "valid_alternatives": []
@@ -2913,9 +2923,11 @@
           "B. friend",
           "C. friends"
         ],
-        "correct_answer": "C",
+        "correct_answer": "C. friends",
         "explanation": "【Giải thích】 'Those are' (kia là những...) dùng cho danh từ số nhiều, do đó ta chọn 'friends'.",
         "acceptable_variants": [
+          "C. friends",
+          "friends",
           "C"
         ],
         "valid_alternatives": []
@@ -2932,9 +2944,12 @@
           "B. Are",
           "C. Am"
         ],
-        "correct_answer": "B",
+        "correct_answer": "B. Are",
         "explanation": "【Giải thích】 'children' là danh từ số nhiều (những đứa trẻ), cấu trúc 'there are' ở thể nghi vấn đảo 'Are there...?'",
         "acceptable_variants": [
+          "B. Are",
+          "Are",
+          "are",
           "B"
         ],
         "valid_alternatives": []
@@ -2951,9 +2966,11 @@
           "B. she is",
           "C. I am"
         ],
-        "correct_answer": "A",
+        "correct_answer": "A. he is",
         "explanation": "【Giải thích】 'this man' (người đàn ông này) là nam giới, đại từ thay thế là 'he'. Trả lời: 'Yes, he is.'",
         "acceptable_variants": [
+          "A. he is",
+          "he is",
           "A"
         ],
         "valid_alternatives": []
@@ -2970,9 +2987,11 @@
           "B. book",
           "C. a book"
         ],
-        "correct_answer": "A",
+        "correct_answer": "A. books",
         "explanation": "【Giải thích】 Sau 'There are' là danh từ đếm được số nhiều, chọn 'books'.",
         "acceptable_variants": [
+          "A. books",
+          "books",
           "A"
         ],
         "valid_alternatives": []
@@ -3883,7 +3902,7 @@
         "type": "typing",
         "instruction": "Dựa vào các hình ảnh, viết câu trả lời phù hợp cho câu hỏi tương ứng. Nhớ đặt dấu chấm câu ở cuối câu.",
         "stem": "What are they?",
-        "image_url": "assets/exam_images/unit_03/u03_p2_q01.png",
+        "image_url": "assets/exam_images/unit_03/u03_q01.png",
         "options": [],
         "correct_answer": "They are hats.",
         "acceptable_variants": [
@@ -3906,7 +3925,7 @@
         "type": "typing",
         "instruction": "Dựa vào các hình ảnh, viết câu trả lời phù hợp cho câu hỏi tương ứng. Nhớ đặt dấu chấm câu ở cuối câu.",
         "stem": "What is this?",
-        "image_url": "assets/exam_images/unit_03/u03_p2_q02.png",
+        "image_url": "assets/exam_images/unit_03/u03_q02.png",
         "options": [],
         "correct_answer": "It is a cake.",
         "acceptable_variants": [
@@ -3931,7 +3950,7 @@
         "type": "typing",
         "instruction": "Dựa vào các hình ảnh, viết câu trả lời phù hợp cho câu hỏi tương ứng. Nhớ đặt dấu chấm câu ở cuối câu.",
         "stem": "What are these?",
-        "image_url": "assets/exam_images/unit_03/u03_p2_q03.png",
+        "image_url": "assets/exam_images/unit_03/u03_q03.png",
         "options": [],
         "correct_answer": "They are pillows.",
         "acceptable_variants": [
@@ -3953,7 +3972,7 @@
         "type": "typing",
         "instruction": "Dựa vào các hình ảnh, viết câu trả lời phù hợp cho câu hỏi tương ứng. Nhớ đặt dấu chấm câu ở cuối câu.",
         "stem": "Who are those?",
-        "image_url": "assets/exam_images/unit_03/u03_p2_q04.png",
+        "image_url": "assets/exam_images/unit_03/u03_q04.png",
         "options": [],
         "correct_answer": "They are doctors.",
         "acceptable_variants": [
@@ -3975,7 +3994,7 @@
         "type": "typing",
         "instruction": "Dựa vào các hình ảnh, viết câu trả lời phù hợp cho câu hỏi tương ứng. Nhớ đặt dấu chấm câu ở cuối câu.",
         "stem": "What is that?",
-        "image_url": "assets/exam_images/unit_03/u03_p2_q05.png",
+        "image_url": "assets/exam_images/unit_03/u03_q05.png",
         "options": [],
         "correct_answer": "It is a bag.",
         "acceptable_variants": [
@@ -8928,7 +8947,7 @@
           "A. plays",
           "B. play"
         ],
-        "correct_answer": "play",
+        "correct_answer": "B. play",
         "acceptable_variants": [
           "B. play",
           "play",
@@ -9155,12 +9174,10 @@
         "id": "u07_q16",
         "part": 3,
         "part_title": "Chọn đáp án đúng.",
-        "type": "FILL_BLANK",
+        "type": "typing",
         "instruction": "Chọn đáp án đúng.",
         "stem": "Question 1. His mother drinks tea in the morning.",
-        "options": [
-          "A. Does his mother drink tea in the morning?"
-        ],
+        "options": [],
         "correct_answer": "Does his mother drink tea in the morning?",
         "acceptable_variants": [
           "Does his mother drink tea in the morning?",
@@ -9178,12 +9195,10 @@
         "id": "u07_q17",
         "part": 3,
         "part_title": "Chọn đáp án đúng.",
-        "type": "FILL_BLANK",
+        "type": "typing",
         "instruction": "Chọn đáp án đúng.",
         "stem": "Question 2. Harry eats fruits every evening.",
-        "options": [
-          "A. Does Harry eat fruits every evening?"
-        ],
+        "options": [],
         "correct_answer": "Does Harry eat fruits every evening?",
         "acceptable_variants": [
           "Does Harry eat fruits every evening?",
@@ -9201,12 +9216,10 @@
         "id": "u07_q18",
         "part": 3,
         "part_title": "Chọn đáp án đúng.",
-        "type": "FILL_BLANK",
+        "type": "typing",
         "instruction": "Chọn đáp án đúng.",
         "stem": "Question 3. Joey teaches him English.",
-        "options": [
-          "A. Does Joey teach him English?"
-        ],
+        "options": [],
         "correct_answer": "Does Joey teach him English?",
         "acceptable_variants": [
           "Does Joey teach him English?",
@@ -9224,12 +9237,10 @@
         "id": "u07_q19",
         "part": 3,
         "part_title": "Chọn đáp án đúng.",
-        "type": "FILL_BLANK",
+        "type": "typing",
         "instruction": "Chọn đáp án đúng.",
         "stem": "Question 4. Her sisters work at a bank.",
-        "options": [
-          "A. Do her sisters work at a bank?"
-        ],
+        "options": [],
         "correct_answer": "Do her sisters work at a bank?",
         "acceptable_variants": [
           "Do her sisters work at a bank?",
@@ -9247,12 +9258,10 @@
         "id": "u07_q20",
         "part": 3,
         "part_title": "Chọn đáp án đúng.",
-        "type": "FILL_BLANK",
+        "type": "typing",
         "instruction": "Chọn đáp án đúng.",
         "stem": "Question 5. Their father buys them new toys.",
-        "options": [
-          "A. Does their father buy them new toys?"
-        ],
+        "options": [],
         "correct_answer": "Does their father buy them new toys?",
         "acceptable_variants": [
           "Does their father buy them new toys?",
@@ -17617,7 +17626,7 @@
           "B. doesn't pay",
           "C. didn't paid"
         ],
-        "correct_answer": "didn't pay",
+        "correct_answer": "A. didn't pay",
         "acceptable_variants": [
           "A. didn't pay",
           "didn't pay",
@@ -17643,11 +17652,10 @@
           "B. Do – win",
           "C. Did – won"
         ],
-        "correct_answer": "Did – win",
+        "correct_answer": "A. Did – win",
         "acceptable_variants": [
           "A. Did – win",
           "Did – win",
-          "Did - win",
           "did - win",
           "A"
         ],
@@ -17669,7 +17677,7 @@
           "B. wasn't",
           "C. aren't"
         ],
-        "correct_answer": "weren't",
+        "correct_answer": "A. weren't",
         "acceptable_variants": [
           "A. weren't",
           "weren't",
@@ -17695,11 +17703,11 @@
           "B. don't come",
           "C. didn't came"
         ],
-        "correct_answer": "didn’t come",
+        "correct_answer": "A. didn’t come",
         "acceptable_variants": [
           "A. didn’t come",
-          "didn’t come",
           "didn't come",
+          "didn’t come",
           "did not come",
           "A"
         ],
@@ -17721,11 +17729,10 @@
           "B. Does – rain",
           "C. Was – rain"
         ],
-        "correct_answer": "Did – rain",
+        "correct_answer": "A. Did – rain",
         "acceptable_variants": [
           "A. Did – rain",
           "Did – rain",
-          "Did - rain",
           "did - rain",
           "A"
         ],
@@ -21756,7 +21763,7 @@
           "B. returned",
           "C. returns"
         ],
-        "correct_answer": "will return",
+        "correct_answer": "A. will return",
         "acceptable_variants": [
           "A. will return",
           "will return",
@@ -21780,7 +21787,7 @@
           "B. are",
           "C. were"
         ],
-        "correct_answer": "will be",
+        "correct_answer": "A. will be",
         "acceptable_variants": [
           "A. will be",
           "will be",
@@ -21804,11 +21811,10 @@
           "B. Does – tell",
           "C. Did – tell"
         ],
-        "correct_answer": "Will – tell",
+        "correct_answer": "A. Will – tell",
         "acceptable_variants": [
           "A. Will – tell",
           "Will – tell",
-          "Will - tell",
           "will - tell",
           "A"
         ],
@@ -21830,7 +21836,7 @@
           "B. lent",
           "C. lends"
         ],
-        "correct_answer": "will lend",
+        "correct_answer": "A. will lend",
         "acceptable_variants": [
           "A. will lend",
           "will lend",
@@ -21854,7 +21860,7 @@
           "B. didn't sell",
           "C. doesn't sell"
         ],
-        "correct_answer": "won't sell",
+        "correct_answer": "A. won't sell",
         "acceptable_variants": [
           "A. won't sell",
           "won't sell",
@@ -28482,8 +28488,9 @@
         "source_page": 1,
         "source_file": "Bản sao của Bài thi online Các câu hỏi với từ để hỏi khác trong tiếng anh.pdf",
         "answer_source": "EXPERT_CURATED",
-        "image_url": "assets/exam_images/unit_20/u20_p1_q01.png",
-        "valid_alternatives": []
+        "image_url": null,
+        "valid_alternatives": [],
+        "image": null
       },
       {
         "id": "u20_q02",
@@ -28502,8 +28509,9 @@
         "source_page": 1,
         "source_file": "Bản sao của Bài thi online Các câu hỏi với từ để hỏi khác trong tiếng anh.pdf",
         "answer_source": "EXPERT_CURATED",
-        "image_url": "assets/exam_images/unit_20/u20_p1_q02.png",
-        "valid_alternatives": []
+        "image_url": null,
+        "valid_alternatives": [],
+        "image": null
       },
       {
         "id": "u20_q03",
@@ -28522,8 +28530,9 @@
         "source_page": 1,
         "source_file": "Bản sao của Bài thi online Các câu hỏi với từ để hỏi khác trong tiếng anh.pdf",
         "answer_source": "EXPERT_CURATED",
-        "image_url": "assets/exam_images/unit_20/u20_p1_q03.png",
-        "valid_alternatives": []
+        "image_url": null,
+        "valid_alternatives": [],
+        "image": null
       },
       {
         "id": "u20_q04",
@@ -28542,8 +28551,9 @@
         "source_page": 1,
         "source_file": "Bản sao của Bài thi online Các câu hỏi với từ để hỏi khác trong tiếng anh.pdf",
         "answer_source": "EXPERT_CURATED",
-        "image_url": "assets/exam_images/unit_20/u20_p1_q04.png",
-        "valid_alternatives": []
+        "image_url": null,
+        "valid_alternatives": [],
+        "image": null
       },
       {
         "id": "u20_q05",
@@ -28562,8 +28572,9 @@
         "source_page": 1,
         "source_file": "Bản sao của Bài thi online Các câu hỏi với từ để hỏi khác trong tiếng anh.pdf",
         "answer_source": "EXPERT_CURATED",
-        "image_url": "assets/exam_images/unit_20/u20_p1_q05.png",
-        "valid_alternatives": []
+        "image_url": null,
+        "valid_alternatives": [],
+        "image": null
       },
       {
         "id": "u20_q06",
@@ -57304,7 +57315,7 @@
           "A. It’s very kind of you to say so.",
           "B. Great idea."
         ],
-        "correct_answer": "It’s very kind of you to say so.",
+        "correct_answer": "A. It’s very kind of you to say so.",
         "acceptable_variants": [
           "A. It’s very kind of you to say so.",
           "A",
