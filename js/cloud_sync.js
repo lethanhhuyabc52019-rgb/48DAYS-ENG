@@ -1,67 +1,52 @@
-// SMOB English Lab — Cloud Sync & Authentication Engine
-// Supports Google Sign-In, Offline-First Background Sync, Auto-Merge, and 1-Click JSON Backup/Restore
+// SMOB English Lab — 6-Digit Sync Code Engine (Zero-Login / Zero-Password)
+// Synchronizes learning progress between Home & Company PC using only a 6-digit PIN (e.g. 120218)
+// 100% Offline-first, auto-merge, and 1-click JSON backup & restore
 
 class CloudSyncEngine {
   constructor() {
-    this.user = this.loadUser();
-    this.settings = this.loadSettings();
+    this.masterEndpoint = 'https://extendsclass.com/api/json-storage/bin/dafdaee';
+    this.pin = this.loadPin();
+    this.lastSyncedAt = localStorage.getItem('smob_sync_last_time') || null;
     this.isSyncing = false;
     this.online = navigator.onLine;
 
     this.initNetworkListeners();
-    this.initGoogleIdentity();
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.updateUI());
+      document.addEventListener('DOMContentLoaded', () => {
+        this.updateUI();
+        if (this.pin && this.online) {
+          // Subtle initial auto-pull after app initializes
+          setTimeout(() => this.syncNow(true), 1200);
+        }
+      });
     } else {
       this.updateUI();
+      if (this.pin && this.online) {
+        setTimeout(() => this.syncNow(true), 1200);
+      }
     }
   }
 
-  loadUser() {
-    try {
-      const raw = localStorage.getItem('smob_cloud_user');
-      if (raw) return JSON.parse(raw);
-    } catch (e) {
-      console.warn('Failed to parse user info', e);
-    }
-    return {
-      id: 'local_user',
-      name: 'Học Viên SMOB',
-      email: '',
-      avatar: 'assets/icon.png',
-      isLoggedIn: false,
-      provider: 'local',
-      lastSyncedAt: null
-    };
+  loadPin() {
+    return (localStorage.getItem('smob_sync_pin') || '').trim();
   }
 
-  saveUser() {
-    localStorage.setItem('smob_cloud_user', JSON.stringify(this.user));
+  savePin(pin) {
+    this.pin = (pin || '').trim();
+    if (this.pin) {
+      localStorage.setItem('smob_sync_pin', this.pin);
+    } else {
+      localStorage.removeItem('smob_sync_pin');
+    }
     this.updateUI();
-  }
-
-  loadSettings() {
-    try {
-      const raw = localStorage.getItem('smob_cloud_settings');
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return {
-      autoSyncOnSubmit: true,
-      googleClientId: '816174548074-smobenglish.apps.googleusercontent.com', // Configurable Client ID
-      cloudEndpoint: 'https://api.smob.vn/sync' // Cloud synchronization endpoint
-    };
-  }
-
-  saveSettings() {
-    localStorage.setItem('smob_cloud_settings', JSON.stringify(this.settings));
   }
 
   initNetworkListeners() {
     window.addEventListener('online', () => {
       this.online = true;
       this.updateUI();
-      if (this.user.isLoggedIn && this.settings.autoSyncOnSubmit) {
+      if (this.pin) {
         this.syncNow(true);
       }
     });
@@ -72,185 +57,133 @@ class CloudSyncEngine {
     });
   }
 
-  initGoogleIdentity() {
-    // Check if Google GIS script is ready
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      this.setupGoogleButton();
-    } else {
-      // Retry once after window load
-      window.addEventListener('load', () => {
-        setTimeout(() => this.setupGoogleButton(), 1000);
-      });
+  // ==========================================
+  // PIN CONNECTION & TWO-WAY SYNC
+  // ==========================================
+  async connectWithPin(inputPin) {
+    const cleanPin = String(inputPin || '').replace(/[^0-9a-zA-Z]/g, '').trim().slice(0, 8);
+    if (!cleanPin || cleanPin.length < 4) {
+      this.showToast('⚠️ Vui lòng nhập mã tối thiểu 4 đến 6 chữ số (VD: 120218)!');
+      return;
     }
-  }
 
-  setupGoogleButton() {
-    if (!window.google || !window.google.accounts || !window.google.accounts.id) return;
+    this.isSyncing = true;
+    this.updateUI();
+    this.showToast(`🔄 Đang tìm kiếm và liên kết kho dữ liệu mã [${cleanPin}]...`);
 
     try {
-      window.google.accounts.id.initialize({
-        client_id: this.settings.googleClientId,
-        callback: (response) => this.handleGoogleCredentialResponse(response),
-        auto_select: false,
-        cancel_on_tap_outside: true
-      });
+      // 1. Fetch remote registry
+      const res = await fetch(this.masterEndpoint, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Máy chủ đám mây bận (HTTP ${res.status}). Vui lòng thử lại.`);
+      const registry = await res.json();
 
-      const btnContainer = document.getElementById('google-signin-btn-container');
-      if (btnContainer) {
-        window.google.accounts.id.renderButton(btnContainer, {
-          theme: 'filled_blue',
-          size: 'large',
-          text: 'signin_with',
-          shape: 'pill',
-          width: 280
+      const localPayload = window.dataStore ? window.dataStore.getAllExportData() : {};
+      localPayload.syncPin = cleanPin;
+      localPayload.lastSyncedAt = new Date().toISOString();
+
+      if (registry && registry[cleanPin]) {
+        // Remote data exists: Merge remote into local!
+        const remoteData = registry[cleanPin];
+        if (window.dataStore) {
+          window.dataStore.mergeExternalData(remoteData);
+        }
+
+        // Push combined back up to ensure cloud is fresh
+        const combinedPayload = window.dataStore ? window.dataStore.getAllExportData() : localPayload;
+        combinedPayload.syncPin = cleanPin;
+        combinedPayload.lastSyncedAt = new Date().toISOString();
+        registry[cleanPin] = combinedPayload;
+
+        await fetch(this.masterEndpoint, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registry)
         });
+
+        this.savePin(cleanPin);
+        this.lastSyncedAt = new Date().toISOString();
+        localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
+
+        this.refreshAppViews();
+        this.showToast(`🎉 Kết nối mã [${cleanPin}] thành công! Tiến độ đã đồng bộ 100%.`);
+      } else {
+        // No remote data yet: Initialize cloud vault with current local data!
+        registry[cleanPin] = localPayload;
+        await fetch(this.masterEndpoint, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registry)
+        });
+
+        this.savePin(cleanPin);
+        this.lastSyncedAt = new Date().toISOString();
+        localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
+
+        this.showToast(`✨ Đã khởi tạo kho đồng bộ cho mã [${cleanPin}]! Hãy dùng mã này ở công ty.`);
       }
+
+      this.closeSyncModal();
     } catch (err) {
-      console.warn('Google Identity initialization skipped (offline or invalid origin):', err);
+      console.error('Connect PIN error:', err);
+      this.showToast(`❌ Lỗi kết nối: ${err.message || 'Kiểm tra kết nối mạng'}`);
+    } finally {
+      this.isSyncing = false;
+      this.updateUI();
     }
   }
 
-  // Parse Google JWT Token without external dependencies
-  parseJwt(token) {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-      return JSON.parse(jsonPayload);
-    } catch (e) {
-      console.error('Failed to parse JWT token', e);
-      return null;
-    }
-  }
-
-  // Security Sanitizer: Strips potential markup and enforces length limits
-  sanitizeText(str, maxLen = 60) {
-    if (!str) return '';
-    return String(str).replace(/[<>&"'/`]/g, '').trim().slice(0, maxLen);
-  }
-
-  handleGoogleCredentialResponse(response) {
-    if (!response || !response.credential) return;
-
-    const profile = this.parseJwt(response.credential);
-    if (!profile) return;
-
-    const cleanAvatar = (profile.picture && profile.picture.startsWith('https://')) ? profile.picture : 'assets/icon.png';
-
-    this.user = {
-      id: this.sanitizeText(profile.sub, 100) || 'google_user',
-      name: this.sanitizeText(profile.name || profile.given_name || 'Học Viên Google', 50),
-      email: this.sanitizeText(profile.email || '', 100),
-      avatar: cleanAvatar,
-      isLoggedIn: true,
-      provider: 'google',
-      lastSyncedAt: new Date().toISOString()
-    };
-
-    this.saveUser();
-    this.showToast(`🎉 Đăng nhập thành công! Xin chào ${this.user.name}`);
-    this.syncNow();
-  }
-
-  // Fast Mock/Custom Profile Login (Useful for local testing or when offline)
-  loginWithProfile(name, email) {
-    const cleanName = this.sanitizeText(name, 50);
-    if (!cleanName) return;
-    const cleanEmail = this.sanitizeText(email, 100);
-
-    this.user = {
-      id: 'usr_' + Date.now(),
-      name: cleanName,
-      email: cleanEmail,
-      avatar: 'assets/icon.png',
-      isLoggedIn: true,
-      provider: 'custom',
-      lastSyncedAt: new Date().toISOString()
-    };
-    this.saveUser();
-    this.showToast(`Đã lưu thông tin tài khoản: ${this.user.name}`);
-    this.syncNow();
-  }
-
-  logout() {
-    this.user = {
-      id: 'local_user',
-      name: 'Học Viên SMOB',
-      email: '',
-      avatar: 'assets/icon.png',
-      isLoggedIn: false,
-      provider: 'local',
-      lastSyncedAt: null
-    };
-    this.saveUser();
-    this.showToast('Đã đăng xuất tài khoản đám mây.');
-  }
-
-  // ==========================================
-  // SYNC ENGINE & MERGE WORKFLOW
-  // ==========================================
   async syncNow(silent = false) {
+    if (!this.pin) {
+      if (!silent) this.openSyncModal();
+      return;
+    }
+
+    if (!navigator.onLine) {
+      if (!silent) this.showToast('⚠️ Bạn đang ngoại tuyến. Dữ liệu đã bảo toàn an toàn trên máy.');
+      return;
+    }
+
     if (this.isSyncing) return;
     this.isSyncing = true;
     this.updateUI();
 
     if (!silent) {
-      this.showToast('🔄 Đang kết nối và đồng bộ dữ liệu đám mây...');
+      this.showToast(`🔄 Đang đồng bộ tiến độ mã [${this.pin}]...`);
     }
 
     try {
-      // 1. Pack current local payload
-      const localPayload = window.dataStore ? window.dataStore.getAllExportData() : {};
+      const res = await fetch(this.masterEndpoint, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Lỗi kết nối máy chủ (${res.status})`);
+      const registry = await res.json();
 
-      // 2. Perform sync with storage (Cloud or Simulated Cloud Storage)
-      // If offline, store pending sync locally
-      if (!navigator.onLine) {
-        throw new Error('Mạng ngoại tuyến. Dữ liệu đã lưu an toàn trong bộ nhớ máy.');
+      let remoteData = registry[this.pin];
+      if (remoteData && window.dataStore) {
+        window.dataStore.mergeExternalData(remoteData);
       }
 
-      // In client mode: store snapshot in cloud localStorage key or send to server
-      const cloudStorageKey = `smob_cloud_store_${this.user.id}`;
-      const existingCloudRaw = localStorage.getItem(cloudStorageKey);
+      // Prepare fresh merged payload to update cloud
+      const freshLocal = window.dataStore ? window.dataStore.getAllExportData() : {};
+      freshLocal.syncPin = this.pin;
+      freshLocal.lastSyncedAt = new Date().toISOString();
+      registry[this.pin] = freshLocal;
 
-      let mergedPayload = localPayload;
-      if (existingCloudRaw) {
-        try {
-          const cloudData = JSON.parse(existingCloudRaw);
-          if (window.dataStore) {
-            window.dataStore.mergeExternalData(cloudData);
-            mergedPayload = window.dataStore.getAllExportData();
-          }
-        } catch (e) {
-          console.warn('Error reading cloud snapshot:', e);
-        }
-      }
+      await fetch(this.masterEndpoint, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registry)
+      });
 
-      // Save back to cloud store
-      localStorage.setItem(cloudStorageKey, JSON.stringify(mergedPayload));
-
-      // Simulate a small delay for smooth visual feedback
-      await new Promise(r => setTimeout(r, 600));
-
-      this.user.lastSyncedAt = new Date().toISOString();
-      this.saveUser();
-
-      // Refresh app view if available
-      if (window.smobApp && typeof window.smobApp.renderDashboardMetrics === 'function') {
-        window.smobApp.renderDashboardMetrics();
-      }
+      this.lastSyncedAt = new Date().toISOString();
+      localStorage.setItem('smob_sync_last_time', this.lastSyncedAt);
+      this.refreshAppViews();
 
       if (!silent) {
-        this.showToast('✅ Đồng bộ dữ liệu thành công! Tiến độ học tập đã khớp 100%.');
+        this.showToast(`✅ Đã đồng bộ thành công! Mã [${this.pin}] đã cập nhật mới nhất.`);
       }
     } catch (err) {
       console.warn('Sync failed:', err);
       if (!silent) {
-        this.showToast(`⚠️ ${err.message || 'Lỗi đồng bộ. Đã bảo toàn dữ liệu offline.'}`);
+        this.showToast(`⚠️ Không thể kết nối đồng bộ: ${err.message}`);
       }
     } finally {
       this.isSyncing = false;
@@ -258,9 +191,34 @@ class CloudSyncEngine {
     }
   }
 
+  disconnectPin() {
+    if (confirm(`Bạn có chắc muốn ngắt liên kết mã [${this.pin}] trên thiết bị này?\n(Dữ liệu bài học trên máy này vẫn được bảo toàn nguyên vẹn)`)) {
+      const oldPin = this.pin;
+      this.savePin('');
+      this.lastSyncedAt = null;
+      localStorage.removeItem('smob_sync_last_time');
+      this.updateUI();
+      this.showToast(`Đã ngắt liên kết mã [${oldPin}]. Bạn có thể nhập mã khác.`);
+    }
+  }
+
   autoSyncIfEnabled() {
-    if (this.settings.autoSyncOnSubmit && this.user.isLoggedIn && navigator.onLine) {
+    if (this.pin && navigator.onLine) {
       this.syncNow(true);
+    }
+  }
+
+  refreshAppViews() {
+    if (window.smobApp) {
+      if (typeof window.smobApp.renderDashboardMetrics === 'function') {
+        window.smobApp.renderDashboardMetrics();
+      }
+      if (typeof window.smobApp.renderDashboard === 'function') {
+        window.smobApp.renderDashboard();
+      }
+      if (typeof window.smobApp.renderStudyPlanView === 'function') {
+        window.smobApp.renderStudyPlanView();
+      }
     }
   }
 
@@ -270,13 +228,13 @@ class CloudSyncEngine {
   exportToJsonFile() {
     if (!window.dataStore) return;
     const data = window.dataStore.getAllExportData();
-    data.user = this.user;
+    data.syncPin = this.pin || '120218';
 
     const jsonStr = JSON.stringify(data, null, 2);
     const timeStr = new Date().toISOString().slice(0, 10);
     const fileName = `SMOB_English_Lab_Backup_${timeStr}.json`;
 
-    // 1. Check if running inside PyWebView Desktop
+    // 1. PyWebView Desktop check
     if (window.pywebview && window.pywebview.api && typeof window.pywebview.api.save_backup_file === 'function') {
       window.pywebview.api.save_backup_file(jsonStr).then(res => {
         if (res && res.status === 'SUCCESS') {
@@ -308,7 +266,7 @@ class CloudSyncEngine {
   }
 
   importFromJsonFile() {
-    // 1. Check if running inside PyWebView Desktop
+    // 1. PyWebView Desktop check
     if (window.pywebview && window.pywebview.api && typeof window.pywebview.api.load_backup_file === 'function') {
       window.pywebview.api.load_backup_file().then(res => {
         if (res && res.status === 'SUCCESS' && res.data) {
@@ -346,66 +304,37 @@ class CloudSyncEngine {
     try {
       const data = JSON.parse(jsonString);
       if (!data || (!data.userProgress && !data.examHistory)) {
-        throw new Error('Định dạng file không hợp lệ hoặc thiếu dữ liệu SMOB English Lab.');
+        throw new Error('File không đúng định dạng dữ liệu SMOB English Lab.');
       }
 
       if (window.dataStore) {
         window.dataStore.mergeExternalData(data);
       }
 
-      if (data.user && data.user.name) {
-        this.user = {
-          ...this.user,
-          name: this.sanitizeText(data.user.name, 50),
-          email: this.sanitizeText(data.user.email || this.user.email, 100),
-          isLoggedIn: true
-        };
-        this.saveUser();
+      if (data.syncPin) {
+        this.savePin(data.syncPin);
       }
 
-      // Refresh view
-      if (window.smobApp) {
-        if (typeof window.smobApp.renderDashboardMetrics === 'function') {
-          window.smobApp.renderDashboardMetrics();
-        }
-        if (typeof window.smobApp.renderStudyPlanView === 'function') {
-          window.smobApp.renderStudyPlanView();
-        }
-      }
-
+      this.refreshAppViews();
       this.showToast('🎉 Khôi phục và gộp dữ liệu thành công 100%!');
       this.closeSyncModal();
     } catch (err) {
-      this.showToast(`❌ Không thể nhập file: ${err.message}`);
+      this.showToast(`❌ Không thể nạp file: ${err.message}`);
     }
   }
 
   // ==========================================
   // UI & MODAL MANAGEMENT
   // ==========================================
-  submitQuickLogin() {
-    const nameInput = document.getElementById('sync-quick-name');
-    const emailInput = document.getElementById('sync-quick-email');
-    const name = nameInput ? nameInput.value.trim() : '';
-    const email = emailInput ? emailInput.value.trim() : '';
-    if (!name) {
-      this.showToast('⚠️ Vui lòng nhập họ và tên của bạn để tiếp tục!');
-      if (nameInput) nameInput.focus();
-      return;
-    }
-    this.loginWithProfile(name, email);
-    this.closeSyncModal();
-  }
-
   updateUI() {
-    // 1. Header Cloud Sync & Login Badge
+    // 1. Topbar Header Badge
     const syncBtn = document.getElementById('cloud-sync-btn');
     const syncLabel = document.getElementById('cloud-sync-label');
     const syncDot = document.getElementById('cloud-sync-dot');
     const syncAvatar = document.getElementById('cloud-sync-avatar');
 
     if (syncBtn) {
-      if (this.user && this.user.isLoggedIn) {
+      if (this.pin) {
         syncBtn.classList.add('logged-in');
         syncBtn.classList.remove('logged-out');
       } else {
@@ -416,7 +345,7 @@ class CloudSyncEngine {
 
     if (syncDot) {
       syncDot.className = 'sync-status-indicator ' + (
-        this.isSyncing ? 'syncing' : (this.online ? (this.user.isLoggedIn ? 'online' : 'ready') : 'offline')
+        this.isSyncing ? 'syncing' : (this.online ? (this.pin ? 'online' : 'ready') : 'offline')
       );
     }
 
@@ -425,94 +354,91 @@ class CloudSyncEngine {
         syncLabel.textContent = 'Đang đồng bộ...';
       } else if (!this.online) {
         syncLabel.textContent = 'Ngoại tuyến';
-      } else if (this.user.isLoggedIn) {
-        syncLabel.textContent = this.user.name.split(' ')[0] || 'Tài Khoản';
+      } else if (this.pin) {
+        syncLabel.textContent = `Mã: ${this.pin}`;
       } else {
-        syncLabel.textContent = 'Đăng Nhập';
+        syncLabel.textContent = 'Đồng Bộ Mã 6 Số';
       }
     }
 
     if (syncAvatar) {
-      if (this.user.avatar && this.user.avatar.startsWith('http')) {
-        syncAvatar.innerHTML = `<img src="${this.user.avatar}" alt="Avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
-      } else {
-        syncAvatar.innerHTML = this.user.isLoggedIn ? '👤' : '🔑';
-      }
+      syncAvatar.innerHTML = this.pin ? '🔑' : '🔄';
     }
 
-    // 2. Sidebar Profile Footer & Nav Account Link
+    // 2. Sidebar Profile & Nav Account Link
     const sidebarAvatar = document.getElementById('sidebar-user-avatar');
     const sidebarName = document.getElementById('sidebar-user-name');
     const sidebarCloudStatus = document.getElementById('sidebar-cloud-status');
     const navAccount = document.getElementById('nav-account-sync');
 
     if (sidebarName) {
-      sidebarName.textContent = this.user.name;
+      sidebarName.textContent = this.pin ? `Học Viên [${this.pin}]` : 'Học Viên SMOB';
     }
 
     if (sidebarAvatar) {
-      if (this.user.avatar && this.user.avatar.startsWith('http')) {
-        sidebarAvatar.innerHTML = `<img src="${this.user.avatar}" alt="Avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
-      } else {
-        const initials = this.user.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-        sidebarAvatar.textContent = initials || 'AD';
-      }
+      sidebarAvatar.textContent = this.pin ? this.pin.slice(-2) : '48';
     }
 
     if (sidebarCloudStatus) {
       if (this.isSyncing) {
         sidebarCloudStatus.innerHTML = `<span class="dot-status syncing"></span> Đang đồng bộ...`;
       } else if (!this.online) {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status offline"></span> Chế độ Offline`;
-      } else if (this.user.isLoggedIn) {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status online"></span> Đã kết nối Cloud`;
+        sidebarCloudStatus.innerHTML = `<span class="dot-status offline"></span> Ngoại tuyến`;
+      } else if (this.pin) {
+        sidebarCloudStatus.innerHTML = `<span class="dot-status online"></span> Mã: ${this.pin} (Đang đồng bộ)`;
       } else {
-        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Chưa đăng nhập (Bấm để đăng nhập)`;
+        sidebarCloudStatus.innerHTML = `<span class="dot-status ready"></span> Bấm để nhập mã 6 số`;
       }
     }
 
     if (navAccount) {
-      if (this.user && this.user.isLoggedIn) {
+      if (this.pin) {
         navAccount.innerHTML = `
           <svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          ${this.user.name.split(' ')[0]} (Đã Đăng Nhập)
+          Mã: ${this.pin} (Đã Đồng Bộ)
         `;
       } else {
         navAccount.innerHTML = `
           <svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
           </svg>
-          Đăng Nhập & Tài Khoản
+          Đồng Bộ Mã 6 Số
         `;
       }
     }
 
     // 3. Modal details (if open)
-    const modalName = document.getElementById('sync-modal-user-name');
-    const modalEmail = document.getElementById('sync-modal-user-email');
+    const modalPinDisplay = document.getElementById('sync-modal-pin-display');
     const modalLastSync = document.getElementById('sync-modal-last-sync');
-    const loginSection = document.getElementById('sync-login-section');
-    const loggedSection = document.getElementById('sync-logged-section');
+    const connectSection = document.getElementById('sync-connect-section');
+    const connectedSection = document.getElementById('sync-connected-section');
+    const pinInput = document.getElementById('sync-pin-input');
 
-    if (modalName) modalName.textContent = this.user.name;
-    if (modalEmail) modalEmail.textContent = this.user.email || 'Lưu trữ cục bộ (Offline)';
-    if (modalLastSync) {
-      modalLastSync.textContent = this.user.lastSyncedAt
-        ? `Lần đồng bộ gần nhất: ${new Date(this.user.lastSyncedAt).toLocaleString('vi-VN')}`
-        : 'Chưa đồng bộ lên đám mây';
+    if (modalPinDisplay) {
+      modalPinDisplay.textContent = this.pin ? `Mã liên kết: ${this.pin}` : 'Chưa liên kết mã';
     }
 
-    if (loginSection && loggedSection) {
-      if (this.user.isLoggedIn) {
-        loginSection.style.display = 'none';
-        loggedSection.style.display = 'block';
+    if (modalLastSync) {
+      modalLastSync.textContent = this.lastSyncedAt
+        ? `Lần đồng bộ gần nhất: ${new Date(this.lastSyncedAt).toLocaleTimeString('vi-VN')} (${new Date(this.lastSyncedAt).toLocaleDateString('vi-VN')})`
+        : 'Chưa có lượt đồng bộ nào';
+    }
+
+    if (connectSection && connectedSection) {
+      if (this.pin) {
+        connectSection.style.display = 'none';
+        connectedSection.style.display = 'block';
       } else {
-        loginSection.style.display = 'block';
-        loggedSection.style.display = 'none';
+        connectSection.style.display = 'block';
+        connectedSection.style.display = 'none';
+        if (pinInput && !pinInput.value) {
+          pinInput.value = '120218'; // Pre-fill default suggested PIN for immediate ease of use!
+        }
       }
     }
   }
@@ -523,10 +449,10 @@ class CloudSyncEngine {
     modal.classList.add('active');
     this.updateUI();
 
-    // Re-render Google button if container empty
-    const btnContainer = document.getElementById('google-signin-btn-container');
-    if (btnContainer && !btnContainer.hasChildNodes()) {
-      this.setupGoogleButton();
+    const pinInput = document.getElementById('sync-pin-input');
+    if (pinInput && !this.pin) {
+      pinInput.focus();
+      pinInput.select();
     }
   }
 

@@ -28,7 +28,6 @@
   <meta property="twitter:image" content="assets/icon.png">
 
   <link rel="stylesheet" href="./css/app.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -162,10 +161,11 @@
       <div class="nav-category">Hệ Thống</div>
       <div class="nav-link" onclick="window.smobCloudSync.openSyncModal()" id="nav-account-sync" style="cursor: pointer;">
         <svg viewBox="0 0 24 24">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
         </svg>
-        Đăng Nhập & Tài Khoản
+        Đồng Bộ Mã 6 Số
       </div>
       <div class="nav-link" data-view="settings">
         <svg viewBox="0 0 24 24">
@@ -221,10 +221,10 @@
             <input type="text" id="global-search" placeholder="Tìm từ vựng, Unit, ngữ pháp...">
           </div>
           <button id="cloud-sync-btn" class="cloud-sync-btn logged-out" onclick="window.smobCloudSync.openSyncModal()"
-            title="Tài khoản & Đồng bộ Đám mây (Offline-First)">
+            title="Đồng bộ 2 chiều Nhà & Công ty (Mã 6 Số)">
             <span class="sync-status-indicator ready" id="cloud-sync-dot"></span>
-            <span class="sync-avatar" id="cloud-sync-avatar">👤</span>
-            <span class="sync-label" id="cloud-sync-label">Đăng Nhập</span>
+            <span class="sync-avatar" id="cloud-sync-avatar">🔄</span>
+            <span class="sync-label" id="cloud-sync-label">Đồng Bộ Mã 6 Số</span>
           </button>
           <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="window.smobApp.toggleTheme()"
             title="Chuyển đổi giao diện Sáng / Tối">
@@ -2265,97 +2265,90 @@
     <div class="sel-toolbar-arrow"></div>
   </div>
 
-  <!-- ACCOUNT & CLOUD SYNC MODAL -->
+  <!-- 6-DIGIT SYNC CODE MODAL -->
   <div class="modal-overlay" id="account-sync-modal" onclick="if(event.target===this) window.smobCloudSync.closeSyncModal()">
     <div class="modal-content glass-card sync-modal-content" onclick="event.stopPropagation();">
       <div class="sync-modal-header">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <div class="sync-modal-icon">☁️</div>
+          <div class="sync-modal-icon">🔑</div>
           <div>
-            <h2 style="margin: 0; font-size: 1.2rem; font-weight: 800; color: var(--text-primary);">Đồng Bộ Đám Mây & Tài Khoản</h2>
-            <p style="margin: 2px 0 0; font-size: 13px; color: var(--text-secondary);">Offline-First: Giữ toàn bộ điểm thi & bài làm xuyên suốt</p>
+            <h2 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-primary);">Đồng Bộ 2 Chiều (Mã 6 Số)</h2>
+            <p style="margin: 3px 0 0; font-size: 13px; color: var(--text-secondary);">Không cần đăng nhập, không mật khẩu • Dùng chung 1 mã giữa Nhà & Công Ty</p>
           </div>
         </div>
         <button class="modal-close-btn" onclick="window.smobCloudSync.closeSyncModal()">✕</button>
       </div>
 
       <div class="sync-modal-body">
-        <!-- Account Status Card -->
-        <div class="sync-profile-card">
-          <div class="sync-card-avatar" id="sync-modal-avatar">👤</div>
-          <div style="flex: 1; min-width: 0;">
-            <div class="sync-card-name" id="sync-modal-user-name">Học Viên SMOB</div>
-            <div class="sync-card-email" id="sync-modal-user-email">Lưu trữ cục bộ (Offline)</div>
-            <div class="sync-card-time" id="sync-modal-last-sync">Chưa đồng bộ lên đám mây</div>
-          </div>
-          <button class="apple-btn btn-primary sync-now-action-btn" onclick="window.smobCloudSync.syncNow()">
-            <span>🔄</span> Đồng Bộ
-          </button>
-        </div>
-
-        <!-- Section 1: Sign in options -->
-        <div id="sync-login-section" class="sync-section">
-          <div class="sync-section-title">1. Đăng Nhập Bằng Google</div>
-          <p style="font-size: 13px; color: var(--text-secondary); margin: 4px 0 12px; line-height: 1.5;">
-            Đồng bộ tiến độ học tự động giữa <strong>Trang Web</strong> và <strong>Phần Mềm PC (.exe)</strong> qua tài khoản Google:
-          </p>
-          <div style="display: flex; justify-content: center; margin-bottom: 16px;">
-            <div id="google-signin-btn-container"></div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 10px; margin: 12px 0;">
-            <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
-            <span style="font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase;">Hoặc</span>
-            <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
-          </div>
-
-          <!-- Quick Name & Email Login Box -->
-          <div class="quick-profile-box">
-            <div class="sync-section-title" style="font-size: 13px; margin-bottom: 6px;">2. Đăng Nhập Nhanh Bằng Tên / Email</div>
-            <p style="font-size: 12px; color: var(--text-secondary); margin: 0 0 10px; line-height: 1.4;">
-              Dành cho học viên học trên máy cá nhân, máy công ty (không cần mật khẩu):
+        <!-- Section 1: Connect with 6-digit PIN (When not connected) -->
+        <div id="sync-connect-section" class="sync-section">
+          <div class="sync-pin-box">
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">
+              Nhập mã 6 số để kết nối thiết bị này:
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 14px; line-height: 1.5;">
+              Nhập cùng một mã 6 số trên cả <strong>máy ở Nhà</strong> và <strong>máy ở Công Ty</strong> để bài làm tự động khớp nhau 100%:
             </p>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-              <input type="text" id="sync-quick-name" placeholder="Họ và tên học viên (VD: Huy Lê)..." class="sync-input"
-                onkeydown="if(event.key==='Enter') window.smobCloudSync.submitQuickLogin()">
-              <input type="email" id="sync-quick-email" placeholder="Email cá nhân (tùy chọn để đồng bộ)..." class="sync-input"
-                onkeydown="if(event.key==='Enter') window.smobCloudSync.submitQuickLogin()">
-              <button class="apple-btn btn-primary" style="padding: 10px 16px; font-weight: 700; font-size: 13px; width: 100%;"
-                onclick="window.smobCloudSync.submitQuickLogin()">
-                🚀 Đăng Nhập & Bắt Đầu Học
+            
+            <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+              <input type="text" id="sync-pin-input" maxlength="8" placeholder="120218" class="sync-pin-large-input"
+                onkeydown="if(event.key==='Enter') window.smobCloudSync.connectWithPin(this.value)">
+              
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+                <button type="button" class="pin-quick-chip" onclick="document.getElementById('sync-pin-input').value='120218';">
+                  ⚡ Chọn mã gợi ý: <strong>120218</strong>
+                </button>
+              </div>
+
+              <button class="apple-btn btn-primary sync-connect-btn" style="width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 800; margin-top: 4px;"
+                onclick="window.smobCloudSync.connectWithPin(document.getElementById('sync-pin-input').value)">
+                🚀 KẾT NỐI & ĐỒNG BỘ DỮ LIỆU
               </button>
+            </div>
+
+            <div style="margin-top: 14px; padding: 10px 12px; background: rgba(0, 113, 227, 0.06); border-radius: 10px; font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+              💡 <strong>Lưu ý:</strong> Bạn chỉ cần nhập mã đúng <strong>1 lần duy nhất</strong> trên máy này. Từ nay về sau hệ thống sẽ tự động lưu ngầm mỗi khi bạn làm bài thi / học từ vựng.
             </div>
           </div>
         </div>
 
-        <!-- Section 2: Logged In Controls -->
-        <div id="sync-logged-section" class="sync-section" style="display: none;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-size: 13px; font-weight: 700; color: var(--success); display: flex; align-items: center; gap: 6px;">
-              <span class="dot-status online"></span> Đã liên kết tài khoản đám mây
-            </span>
-            <button class="apple-btn btn-secondary" style="padding: 5px 12px; font-size: 12px;" onclick="window.smobCloudSync.logout()">Đăng Xuất</button>
+        <!-- Section 2: Connected Status Controls (When connected) -->
+        <div id="sync-connected-section" class="sync-section" style="display: none;">
+          <div class="sync-connected-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span class="pin-active-tag">🟢 ĐANG ĐỒNG BỘ ĐÁM MÂY</span>
+              <button class="apple-btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="window.smobCloudSync.disconnectPin()">Đổi / Ngắt Kết Nối</button>
+            </div>
+
+            <div style="text-align: center; padding: 8px 0 16px;">
+              <div style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Mã Đồng Bộ Của Bạn:</div>
+              <div class="pin-display-number" id="sync-modal-pin-display">120218</div>
+              <div style="font-size: 12px; color: var(--text-tertiary);" id="sync-modal-last-sync">Chưa đồng bộ</div>
+            </div>
+
+            <button class="apple-btn btn-primary" style="width: 100%; padding: 11px 18px; font-weight: 700; font-size: 13px;" onclick="window.smobCloudSync.syncNow()">
+              🔄 Cập Nhật & Đồng Bộ Ngay Bây Giờ
+            </button>
           </div>
-          <label class="sync-toggle-label">
-            <input type="checkbox" id="sync-auto-toggle" checked onchange="window.smobCloudSync.settings.autoSyncOnSubmit=this.checked; window.smobCloudSync.saveSettings();">
-            <span>Tự động đồng bộ ngầm sau khi hoàn thành bài thi / quiz</span>
-          </label>
+
+          <div style="margin-top: 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; padding: 8px 12px; background: var(--bg-tertiary); border-radius: 8px;">
+            ✅ Máy tính này đã liên kết mã trên. Bạn chỉ cần nhập đúng mã này trên máy khác để 2 máy dùng chung dữ liệu.
+          </div>
         </div>
 
         <div class="sync-divider"></div>
 
         <!-- Section 3: 100% Offline Backup & Restore -->
         <div class="sync-section">
-          <div class="sync-section-title">Sao Lưu & Khôi Phục Dự Phòng (100% Ngoại Tuyến)</div>
-          <p style="font-size: 13px; color: var(--text-secondary); margin: 4px 0 12px; line-height: 1.5;">
-            Xuất file dữ liệu <code>.json</code> để copy qua USB, sao lưu lên Google Drive cá nhân, hoặc chuyển sang máy tính khác mà không cần internet:
-          </p>
+          <div class="sync-section-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">
+            Dự Phòng Ngoại Tuyến (Sao lưu File .json không cần mạng)
+          </div>
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button class="apple-btn btn-secondary" style="flex: 1; min-width: 160px; padding: 10px 14px; font-weight: 700; font-size: 13px;" onclick="window.smobCloudSync.exportToJsonFile()">
-              💾 Xuất File Dữ Liệu (.json)
+            <button class="apple-btn btn-secondary" style="flex: 1; min-width: 150px; padding: 9px 12px; font-weight: 700; font-size: 12px;" onclick="window.smobCloudSync.exportToJsonFile()">
+              💾 Xuất File Dự Phòng (.json)
             </button>
-            <button class="apple-btn btn-secondary" style="flex: 1; min-width: 160px; padding: 10px 14px; font-weight: 700; font-size: 13px;" onclick="window.smobCloudSync.importFromJsonFile()">
-              📂 Khôi Phục Từ File (.json)
+            <button class="apple-btn btn-secondary" style="flex: 1; min-width: 150px; padding: 9px 12px; font-weight: 700; font-size: 12px;" onclick="window.smobCloudSync.importFromJsonFile()">
+              📂 Nạp File Dữ Liệu (.json)
             </button>
           </div>
         </div>
